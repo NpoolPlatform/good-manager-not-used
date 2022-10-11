@@ -124,23 +124,23 @@ func (diu *DeviceInfoUpdate) ClearManufacturer() *DeviceInfoUpdate {
 }
 
 // SetPowerComsuption sets the "power_comsuption" field.
-func (diu *DeviceInfoUpdate) SetPowerComsuption(i int32) *DeviceInfoUpdate {
+func (diu *DeviceInfoUpdate) SetPowerComsuption(u uint32) *DeviceInfoUpdate {
 	diu.mutation.ResetPowerComsuption()
-	diu.mutation.SetPowerComsuption(i)
+	diu.mutation.SetPowerComsuption(u)
 	return diu
 }
 
 // SetNillablePowerComsuption sets the "power_comsuption" field if the given value is not nil.
-func (diu *DeviceInfoUpdate) SetNillablePowerComsuption(i *int32) *DeviceInfoUpdate {
-	if i != nil {
-		diu.SetPowerComsuption(*i)
+func (diu *DeviceInfoUpdate) SetNillablePowerComsuption(u *uint32) *DeviceInfoUpdate {
+	if u != nil {
+		diu.SetPowerComsuption(*u)
 	}
 	return diu
 }
 
-// AddPowerComsuption adds i to the "power_comsuption" field.
-func (diu *DeviceInfoUpdate) AddPowerComsuption(i int32) *DeviceInfoUpdate {
-	diu.mutation.AddPowerComsuption(i)
+// AddPowerComsuption adds u to the "power_comsuption" field.
+func (diu *DeviceInfoUpdate) AddPowerComsuption(u int32) *DeviceInfoUpdate {
+	diu.mutation.AddPowerComsuption(u)
 	return diu
 }
 
@@ -151,23 +151,23 @@ func (diu *DeviceInfoUpdate) ClearPowerComsuption() *DeviceInfoUpdate {
 }
 
 // SetShipmentAt sets the "shipment_at" field.
-func (diu *DeviceInfoUpdate) SetShipmentAt(i int32) *DeviceInfoUpdate {
+func (diu *DeviceInfoUpdate) SetShipmentAt(u uint32) *DeviceInfoUpdate {
 	diu.mutation.ResetShipmentAt()
-	diu.mutation.SetShipmentAt(i)
+	diu.mutation.SetShipmentAt(u)
 	return diu
 }
 
 // SetNillableShipmentAt sets the "shipment_at" field if the given value is not nil.
-func (diu *DeviceInfoUpdate) SetNillableShipmentAt(i *int32) *DeviceInfoUpdate {
-	if i != nil {
-		diu.SetShipmentAt(*i)
+func (diu *DeviceInfoUpdate) SetNillableShipmentAt(u *uint32) *DeviceInfoUpdate {
+	if u != nil {
+		diu.SetShipmentAt(*u)
 	}
 	return diu
 }
 
-// AddShipmentAt adds i to the "shipment_at" field.
-func (diu *DeviceInfoUpdate) AddShipmentAt(i int32) *DeviceInfoUpdate {
-	diu.mutation.AddShipmentAt(i)
+// AddShipmentAt adds u to the "shipment_at" field.
+func (diu *DeviceInfoUpdate) AddShipmentAt(u int32) *DeviceInfoUpdate {
+	diu.mutation.AddShipmentAt(u)
 	return diu
 }
 
@@ -378,41 +378,41 @@ func (diu *DeviceInfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := diu.mutation.PowerComsuption(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
+			Type:   field.TypeUint32,
 			Value:  value,
 			Column: deviceinfo.FieldPowerComsuption,
 		})
 	}
 	if value, ok := diu.mutation.AddedPowerComsuption(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
+			Type:   field.TypeUint32,
 			Value:  value,
 			Column: deviceinfo.FieldPowerComsuption,
 		})
 	}
 	if diu.mutation.PowerComsuptionCleared() {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
+			Type:   field.TypeUint32,
 			Column: deviceinfo.FieldPowerComsuption,
 		})
 	}
 	if value, ok := diu.mutation.ShipmentAt(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
+			Type:   field.TypeUint32,
 			Value:  value,
 			Column: deviceinfo.FieldShipmentAt,
 		})
 	}
 	if value, ok := diu.mutation.AddedShipmentAt(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
+			Type:   field.TypeUint32,
 			Value:  value,
 			Column: deviceinfo.FieldShipmentAt,
 		})
 	}
 	if diu.mutation.ShipmentAtCleared() {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
+			Type:   field.TypeUint32,
 			Column: deviceinfo.FieldShipmentAt,
 		})
 	}
@@ -546,23 +546,23 @@ func (diuo *DeviceInfoUpdateOne) ClearManufacturer() *DeviceInfoUpdateOne {
 }
 
 // SetPowerComsuption sets the "power_comsuption" field.
-func (diuo *DeviceInfoUpdateOne) SetPowerComsuption(i int32) *DeviceInfoUpdateOne {
+func (diuo *DeviceInfoUpdateOne) SetPowerComsuption(u uint32) *DeviceInfoUpdateOne {
 	diuo.mutation.ResetPowerComsuption()
-	diuo.mutation.SetPowerComsuption(i)
+	diuo.mutation.SetPowerComsuption(u)
 	return diuo
 }
 
 // SetNillablePowerComsuption sets the "power_comsuption" field if the given value is not nil.
-func (diuo *DeviceInfoUpdateOne) SetNillablePowerComsuption(i *int32) *DeviceInfoUpdateOne {
-	if i != nil {
-		diuo.SetPowerComsuption(*i)
+func (diuo *DeviceInfoUpdateOne) SetNillablePowerComsuption(u *uint32) *DeviceInfoUpdateOne {
+	if u != nil {
+		diuo.SetPowerComsuption(*u)
 	}
 	return diuo
 }
 
-// AddPowerComsuption adds i to the "power_comsuption" field.
-func (diuo *DeviceInfoUpdateOne) AddPowerComsuption(i int32) *DeviceInfoUpdateOne {
-	diuo.mutation.AddPowerComsuption(i)
+// AddPowerComsuption adds u to the "power_comsuption" field.
+func (diuo *DeviceInfoUpdateOne) AddPowerComsuption(u int32) *DeviceInfoUpdateOne {
+	diuo.mutation.AddPowerComsuption(u)
 	return diuo
 }
 
@@ -573,23 +573,23 @@ func (diuo *DeviceInfoUpdateOne) ClearPowerComsuption() *DeviceInfoUpdateOne {
 }
 
 // SetShipmentAt sets the "shipment_at" field.
-func (diuo *DeviceInfoUpdateOne) SetShipmentAt(i int32) *DeviceInfoUpdateOne {
+func (diuo *DeviceInfoUpdateOne) SetShipmentAt(u uint32) *DeviceInfoUpdateOne {
 	diuo.mutation.ResetShipmentAt()
-	diuo.mutation.SetShipmentAt(i)
+	diuo.mutation.SetShipmentAt(u)
 	return diuo
 }
 
 // SetNillableShipmentAt sets the "shipment_at" field if the given value is not nil.
-func (diuo *DeviceInfoUpdateOne) SetNillableShipmentAt(i *int32) *DeviceInfoUpdateOne {
-	if i != nil {
-		diuo.SetShipmentAt(*i)
+func (diuo *DeviceInfoUpdateOne) SetNillableShipmentAt(u *uint32) *DeviceInfoUpdateOne {
+	if u != nil {
+		diuo.SetShipmentAt(*u)
 	}
 	return diuo
 }
 
-// AddShipmentAt adds i to the "shipment_at" field.
-func (diuo *DeviceInfoUpdateOne) AddShipmentAt(i int32) *DeviceInfoUpdateOne {
-	diuo.mutation.AddShipmentAt(i)
+// AddShipmentAt adds u to the "shipment_at" field.
+func (diuo *DeviceInfoUpdateOne) AddShipmentAt(u int32) *DeviceInfoUpdateOne {
+	diuo.mutation.AddShipmentAt(u)
 	return diuo
 }
 
@@ -830,41 +830,41 @@ func (diuo *DeviceInfoUpdateOne) sqlSave(ctx context.Context) (_node *DeviceInfo
 	}
 	if value, ok := diuo.mutation.PowerComsuption(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
+			Type:   field.TypeUint32,
 			Value:  value,
 			Column: deviceinfo.FieldPowerComsuption,
 		})
 	}
 	if value, ok := diuo.mutation.AddedPowerComsuption(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
+			Type:   field.TypeUint32,
 			Value:  value,
 			Column: deviceinfo.FieldPowerComsuption,
 		})
 	}
 	if diuo.mutation.PowerComsuptionCleared() {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
+			Type:   field.TypeUint32,
 			Column: deviceinfo.FieldPowerComsuption,
 		})
 	}
 	if value, ok := diuo.mutation.ShipmentAt(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
+			Type:   field.TypeUint32,
 			Value:  value,
 			Column: deviceinfo.FieldShipmentAt,
 		})
 	}
 	if value, ok := diuo.mutation.AddedShipmentAt(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
+			Type:   field.TypeUint32,
 			Value:  value,
 			Column: deviceinfo.FieldShipmentAt,
 		})
 	}
 	if diuo.mutation.ShipmentAtCleared() {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
+			Type:   field.TypeUint32,
 			Column: deviceinfo.FieldShipmentAt,
 		})
 	}

@@ -91,6 +91,37 @@ func (s *Server) CreateAppGoods(ctx context.Context, in *npool.CreateAppGoodsReq
 	}, nil
 }
 
+func (s *Server) UpdateAppGood(ctx context.Context, in *npool.UpdateAppGoodRequest) (*npool.UpdateAppGoodResponse, error) {
+	var err error
+
+	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "CreateAppGoods")
+	defer span.End()
+
+	defer func() {
+		if err != nil {
+			span.SetStatus(scodes.Error, err.Error())
+			span.RecordError(err)
+		}
+	}()
+
+	span = commontracer.TraceInvoker(span, "appgood", "crud", "CreateBulk")
+
+	if _, err := uuid.Parse(in.GetInfo().GetID()); err != nil {
+		logger.Sugar().Errorw("validate", "ID", in.GetInfo().GetID())
+		return &npool.UpdateAppGoodResponse{}, status.Error(codes.InvalidArgument, "ID is invalid")
+	}
+
+	rows, err := crud.Update(ctx, in.GetInfo())
+	if err != nil {
+		logger.Sugar().Errorf("fail create appgoods: %v", err)
+		return &npool.UpdateAppGoodResponse{}, status.Error(codes.Internal, err.Error())
+	}
+
+	return &npool.UpdateAppGoodResponse{
+		Info: converter.Ent2Grpc(rows),
+	}, nil
+}
+
 func (s *Server) GetAppGood(ctx context.Context, in *npool.GetAppGoodRequest) (*npool.GetAppGoodResponse, error) {
 	var err error
 
@@ -265,5 +296,36 @@ func (s *Server) CountAppGoods(ctx context.Context, in *npool.CountAppGoodsReque
 
 	return &npool.CountAppGoodsResponse{
 		Info: total,
+	}, nil
+}
+
+func (s *Server) DeleteAppGood(ctx context.Context, in *npool.DeleteAppGoodRequest) (*npool.DeleteAppGoodResponse, error) {
+	var err error
+
+	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "CreateAppGoods")
+	defer span.End()
+
+	defer func() {
+		if err != nil {
+			span.SetStatus(scodes.Error, err.Error())
+			span.RecordError(err)
+		}
+	}()
+
+	span = commontracer.TraceInvoker(span, "appgood", "crud", "CreateBulk")
+
+	if _, err := uuid.Parse(in.GetID()); err != nil {
+		logger.Sugar().Errorw("validate", "ID", in.GetID())
+		return &npool.DeleteAppGoodResponse{}, status.Error(codes.InvalidArgument, "ID is invalid")
+	}
+
+	rows, err := crud.Delete(ctx, in.GetID())
+	if err != nil {
+		logger.Sugar().Errorf("fail create appgoods: %v", err)
+		return &npool.DeleteAppGoodResponse{}, status.Error(codes.Internal, err.Error())
+	}
+
+	return &npool.DeleteAppGoodResponse{
+		Info: converter.Ent2Grpc(rows),
 	}, nil
 }

@@ -1,9 +1,5 @@
-//go:build linux
-// +build linux
-
 package appgood
 
-import "C"
 import (
 	"context"
 	"fmt"
@@ -434,7 +430,7 @@ func ExistConds(ctx context.Context, conds *npool.Conds) (bool, error) {
 	return exist, nil
 }
 
-func Delete(ctx context.Context, id uuid.UUID) (*ent.AppGood, error) {
+func Delete(ctx context.Context, id string) (*ent.AppGood, error) {
 	var info *ent.AppGood
 	var err error
 
@@ -448,10 +444,10 @@ func Delete(ctx context.Context, id uuid.UUID) (*ent.AppGood, error) {
 		}
 	}()
 
-	span = commontracer.TraceID(span, id.String())
+	span = commontracer.TraceID(span, id)
 
 	err = db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
-		info, err = cli.AppGood.UpdateOneID(id).
+		info, err = cli.AppGood.UpdateOneID(uuid.MustParse(id)).
 			SetDeletedAt(uint32(time.Now().Unix())).
 			Save(_ctx)
 		return err

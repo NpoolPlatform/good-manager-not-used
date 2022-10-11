@@ -26,8 +26,8 @@ const (
 	FieldRecommenderID = "recommender_id"
 	// FieldMessage holds the string denoting the message field in the database.
 	FieldMessage = "message"
-	// FieldRecommendIundex holds the string denoting the recommend_iundex field in the database.
-	FieldRecommendIundex = "recommend_iundex"
+	// FieldRecommendIndex holds the string denoting the recommend_index field in the database.
+	FieldRecommendIndex = "recommend_index"
 	// Table holds the table name of the recommend in the database.
 	Table = "recommends"
 )
@@ -42,7 +42,7 @@ var Columns = []string{
 	FieldGoodID,
 	FieldRecommenderID,
 	FieldMessage,
-	FieldRecommendIundex,
+	FieldRecommendIndex,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -74,8 +74,8 @@ var (
 	DefaultDeletedAt func() uint32
 	// DefaultMessage holds the default value on creation for the "message" field.
 	DefaultMessage string
-	// DefaultRecommendIundex holds the default value on creation for the "recommend_iundex" field.
-	DefaultRecommendIundex float64
+	// DefaultRecommendIndex holds the default value on creation for the "recommend_index" field.
+	DefaultRecommendIndex float64
 	// DefaultID holds the default value on creation for the "id" field.
 	DefaultID func() uuid.UUID
 )

@@ -30,8 +30,8 @@ type Recommend struct {
 	RecommenderID uuid.UUID `json:"recommender_id,omitempty"`
 	// Message holds the value of the "message" field.
 	Message string `json:"message,omitempty"`
-	// RecommendIundex holds the value of the "recommend_iundex" field.
-	RecommendIundex float64 `json:"recommend_iundex,omitempty"`
+	// RecommendIndex holds the value of the "recommend_index" field.
+	RecommendIndex float64 `json:"recommend_index,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -39,7 +39,7 @@ func (*Recommend) scanValues(columns []string) ([]interface{}, error) {
 	values := make([]interface{}, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case recommend.FieldRecommendIundex:
+		case recommend.FieldRecommendIndex:
 			values[i] = new(sql.NullFloat64)
 		case recommend.FieldCreatedAt, recommend.FieldUpdatedAt, recommend.FieldDeletedAt:
 			values[i] = new(sql.NullInt64)
@@ -110,11 +110,11 @@ func (r *Recommend) assignValues(columns []string, values []interface{}) error {
 			} else if value.Valid {
 				r.Message = value.String
 			}
-		case recommend.FieldRecommendIundex:
+		case recommend.FieldRecommendIndex:
 			if value, ok := values[i].(*sql.NullFloat64); !ok {
-				return fmt.Errorf("unexpected type %T for field recommend_iundex", values[i])
+				return fmt.Errorf("unexpected type %T for field recommend_index", values[i])
 			} else if value.Valid {
-				r.RecommendIundex = value.Float64
+				r.RecommendIndex = value.Float64
 			}
 		}
 	}
@@ -165,8 +165,8 @@ func (r *Recommend) String() string {
 	builder.WriteString("message=")
 	builder.WriteString(r.Message)
 	builder.WriteString(", ")
-	builder.WriteString("recommend_iundex=")
-	builder.WriteString(fmt.Sprintf("%v", r.RecommendIundex))
+	builder.WriteString("recommend_index=")
+	builder.WriteString(fmt.Sprintf("%v", r.RecommendIndex))
 	builder.WriteByte(')')
 	return builder.String()
 }

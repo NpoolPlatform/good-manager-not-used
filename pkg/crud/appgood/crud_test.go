@@ -1,6 +1,3 @@
-//go:build linux
-// +build linux
-
 package appgood
 
 import (
@@ -212,7 +209,7 @@ func existConds(t *testing.T) {
 }
 
 func deleteA(t *testing.T) {
-	info, err := Delete(context.Background(), appGood.ID)
+	info, err := Delete(context.Background(), appGood.ID.String())
 	if assert.Nil(t, err) {
 		appGood.DeletedAt = info.DeletedAt
 		assert.Equal(t, info.String(), appGood.String())

@@ -29,6 +29,11 @@ func validate(info *npool.AppGoodReq) error { //nolint
 		return status.Error(codes.InvalidArgument, "GoodID is empty")
 	}
 
+	if _, err := uuid.Parse(info.GetGoodID()); err != nil {
+		logger.Sugar().Errorw("validate", "GoodID", info.GetGoodID(), "error", err)
+		return status.Error(codes.InvalidArgument, fmt.Sprintf("GoodID is invalid: %v", err))
+	}
+
 	if info.GetGoodName() == "" {
 		logger.Sugar().Errorw("validate", "GoodName", info.GetGoodName())
 		return status.Error(codes.InvalidArgument, "GoodName is empty")

@@ -1,6 +1,3 @@
-//go:build linux
-// +build linux
-
 //nolint:nolintlint,dupl
 package appgood
 

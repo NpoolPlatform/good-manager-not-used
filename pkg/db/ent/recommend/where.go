@@ -128,10 +128,10 @@ func Message(v string) predicate.Recommend {
 	})
 }
 
-// RecommendIundex applies equality check predicate on the "recommend_iundex" field. It's identical to RecommendIundexEQ.
-func RecommendIundex(v float64) predicate.Recommend {
+// RecommendIndex applies equality check predicate on the "recommend_index" field. It's identical to RecommendIndexEQ.
+func RecommendIndex(v float64) predicate.Recommend {
 	return predicate.Recommend(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldRecommendIundex), v))
+		s.Where(sql.EQ(s.C(FieldRecommendIndex), v))
 	})
 }
 
@@ -632,81 +632,81 @@ func MessageContainsFold(v string) predicate.Recommend {
 	})
 }
 
-// RecommendIundexEQ applies the EQ predicate on the "recommend_iundex" field.
-func RecommendIundexEQ(v float64) predicate.Recommend {
+// RecommendIndexEQ applies the EQ predicate on the "recommend_index" field.
+func RecommendIndexEQ(v float64) predicate.Recommend {
 	return predicate.Recommend(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldRecommendIundex), v))
+		s.Where(sql.EQ(s.C(FieldRecommendIndex), v))
 	})
 }
 
-// RecommendIundexNEQ applies the NEQ predicate on the "recommend_iundex" field.
-func RecommendIundexNEQ(v float64) predicate.Recommend {
+// RecommendIndexNEQ applies the NEQ predicate on the "recommend_index" field.
+func RecommendIndexNEQ(v float64) predicate.Recommend {
 	return predicate.Recommend(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldRecommendIundex), v))
+		s.Where(sql.NEQ(s.C(FieldRecommendIndex), v))
 	})
 }
 
-// RecommendIundexIn applies the In predicate on the "recommend_iundex" field.
-func RecommendIundexIn(vs ...float64) predicate.Recommend {
+// RecommendIndexIn applies the In predicate on the "recommend_index" field.
+func RecommendIndexIn(vs ...float64) predicate.Recommend {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
 	}
 	return predicate.Recommend(func(s *sql.Selector) {
-		s.Where(sql.In(s.C(FieldRecommendIundex), v...))
+		s.Where(sql.In(s.C(FieldRecommendIndex), v...))
 	})
 }
 
-// RecommendIundexNotIn applies the NotIn predicate on the "recommend_iundex" field.
-func RecommendIundexNotIn(vs ...float64) predicate.Recommend {
+// RecommendIndexNotIn applies the NotIn predicate on the "recommend_index" field.
+func RecommendIndexNotIn(vs ...float64) predicate.Recommend {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
 	}
 	return predicate.Recommend(func(s *sql.Selector) {
-		s.Where(sql.NotIn(s.C(FieldRecommendIundex), v...))
+		s.Where(sql.NotIn(s.C(FieldRecommendIndex), v...))
 	})
 }
 
-// RecommendIundexGT applies the GT predicate on the "recommend_iundex" field.
-func RecommendIundexGT(v float64) predicate.Recommend {
+// RecommendIndexGT applies the GT predicate on the "recommend_index" field.
+func RecommendIndexGT(v float64) predicate.Recommend {
 	return predicate.Recommend(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldRecommendIundex), v))
+		s.Where(sql.GT(s.C(FieldRecommendIndex), v))
 	})
 }
 
-// RecommendIundexGTE applies the GTE predicate on the "recommend_iundex" field.
-func RecommendIundexGTE(v float64) predicate.Recommend {
+// RecommendIndexGTE applies the GTE predicate on the "recommend_index" field.
+func RecommendIndexGTE(v float64) predicate.Recommend {
 	return predicate.Recommend(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldRecommendIundex), v))
+		s.Where(sql.GTE(s.C(FieldRecommendIndex), v))
 	})
 }
 
-// RecommendIundexLT applies the LT predicate on the "recommend_iundex" field.
-func RecommendIundexLT(v float64) predicate.Recommend {
+// RecommendIndexLT applies the LT predicate on the "recommend_index" field.
+func RecommendIndexLT(v float64) predicate.Recommend {
 	return predicate.Recommend(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldRecommendIundex), v))
+		s.Where(sql.LT(s.C(FieldRecommendIndex), v))
 	})
 }
 
-// RecommendIundexLTE applies the LTE predicate on the "recommend_iundex" field.
-func RecommendIundexLTE(v float64) predicate.Recommend {
+// RecommendIndexLTE applies the LTE predicate on the "recommend_index" field.
+func RecommendIndexLTE(v float64) predicate.Recommend {
 	return predicate.Recommend(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldRecommendIundex), v))
+		s.Where(sql.LTE(s.C(FieldRecommendIndex), v))
 	})
 }
 
-// RecommendIundexIsNil applies the IsNil predicate on the "recommend_iundex" field.
-func RecommendIundexIsNil() predicate.Recommend {
+// RecommendIndexIsNil applies the IsNil predicate on the "recommend_index" field.
+func RecommendIndexIsNil() predicate.Recommend {
 	return predicate.Recommend(func(s *sql.Selector) {
-		s.Where(sql.IsNull(s.C(FieldRecommendIundex)))
+		s.Where(sql.IsNull(s.C(FieldRecommendIndex)))
 	})
 }
 
-// RecommendIundexNotNil applies the NotNil predicate on the "recommend_iundex" field.
-func RecommendIundexNotNil() predicate.Recommend {
+// RecommendIndexNotNil applies the NotNil predicate on the "recommend_index" field.
+func RecommendIndexNotNil() predicate.Recommend {
 	return predicate.Recommend(func(s *sql.Selector) {
-		s.Where(sql.NotNull(s.C(FieldRecommendIundex)))
+		s.Where(sql.NotNull(s.C(FieldRecommendIndex)))
 	})
 }
 

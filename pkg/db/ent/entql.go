@@ -86,8 +86,8 @@ var schemaGraph = func() *sqlgraph.Schema {
 			deviceinfo.FieldDeletedAt:       {Type: field.TypeUint32, Column: deviceinfo.FieldDeletedAt},
 			deviceinfo.FieldType:            {Type: field.TypeString, Column: deviceinfo.FieldType},
 			deviceinfo.FieldManufacturer:    {Type: field.TypeString, Column: deviceinfo.FieldManufacturer},
-			deviceinfo.FieldPowerComsuption: {Type: field.TypeInt32, Column: deviceinfo.FieldPowerComsuption},
-			deviceinfo.FieldShipmentAt:      {Type: field.TypeInt32, Column: deviceinfo.FieldShipmentAt},
+			deviceinfo.FieldPowerComsuption: {Type: field.TypeUint32, Column: deviceinfo.FieldPowerComsuption},
+			deviceinfo.FieldShipmentAt:      {Type: field.TypeUint32, Column: deviceinfo.FieldShipmentAt},
 			deviceinfo.FieldPosters:         {Type: field.TypeJSON, Column: deviceinfo.FieldPosters},
 		},
 	}
@@ -177,14 +177,14 @@ var schemaGraph = func() *sqlgraph.Schema {
 		},
 		Type: "Recommend",
 		Fields: map[string]*sqlgraph.FieldSpec{
-			recommend.FieldCreatedAt:       {Type: field.TypeUint32, Column: recommend.FieldCreatedAt},
-			recommend.FieldUpdatedAt:       {Type: field.TypeUint32, Column: recommend.FieldUpdatedAt},
-			recommend.FieldDeletedAt:       {Type: field.TypeUint32, Column: recommend.FieldDeletedAt},
-			recommend.FieldAppID:           {Type: field.TypeUUID, Column: recommend.FieldAppID},
-			recommend.FieldGoodID:          {Type: field.TypeUUID, Column: recommend.FieldGoodID},
-			recommend.FieldRecommenderID:   {Type: field.TypeUUID, Column: recommend.FieldRecommenderID},
-			recommend.FieldMessage:         {Type: field.TypeString, Column: recommend.FieldMessage},
-			recommend.FieldRecommendIundex: {Type: field.TypeFloat64, Column: recommend.FieldRecommendIundex},
+			recommend.FieldCreatedAt:      {Type: field.TypeUint32, Column: recommend.FieldCreatedAt},
+			recommend.FieldUpdatedAt:      {Type: field.TypeUint32, Column: recommend.FieldUpdatedAt},
+			recommend.FieldDeletedAt:      {Type: field.TypeUint32, Column: recommend.FieldDeletedAt},
+			recommend.FieldAppID:          {Type: field.TypeUUID, Column: recommend.FieldAppID},
+			recommend.FieldGoodID:         {Type: field.TypeUUID, Column: recommend.FieldGoodID},
+			recommend.FieldRecommenderID:  {Type: field.TypeUUID, Column: recommend.FieldRecommenderID},
+			recommend.FieldMessage:        {Type: field.TypeString, Column: recommend.FieldMessage},
+			recommend.FieldRecommendIndex: {Type: field.TypeFloat64, Column: recommend.FieldRecommendIndex},
 		},
 	}
 	graph.Nodes[7] = &sqlgraph.Node{
@@ -508,13 +508,13 @@ func (f *DeviceInfoFilter) WhereManufacturer(p entql.StringP) {
 	f.Where(p.Field(deviceinfo.FieldManufacturer))
 }
 
-// WherePowerComsuption applies the entql int32 predicate on the power_comsuption field.
-func (f *DeviceInfoFilter) WherePowerComsuption(p entql.Int32P) {
+// WherePowerComsuption applies the entql uint32 predicate on the power_comsuption field.
+func (f *DeviceInfoFilter) WherePowerComsuption(p entql.Uint32P) {
 	f.Where(p.Field(deviceinfo.FieldPowerComsuption))
 }
 
-// WhereShipmentAt applies the entql int32 predicate on the shipment_at field.
-func (f *DeviceInfoFilter) WhereShipmentAt(p entql.Int32P) {
+// WhereShipmentAt applies the entql uint32 predicate on the shipment_at field.
+func (f *DeviceInfoFilter) WhereShipmentAt(p entql.Uint32P) {
 	f.Where(p.Field(deviceinfo.FieldShipmentAt))
 }
 
@@ -898,9 +898,9 @@ func (f *RecommendFilter) WhereMessage(p entql.StringP) {
 	f.Where(p.Field(recommend.FieldMessage))
 }
 
-// WhereRecommendIundex applies the entql float64 predicate on the recommend_iundex field.
-func (f *RecommendFilter) WhereRecommendIundex(p entql.Float64P) {
-	f.Where(p.Field(recommend.FieldRecommendIundex))
+// WhereRecommendIndex applies the entql float64 predicate on the recommend_index field.
+func (f *RecommendFilter) WhereRecommendIndex(p entql.Float64P) {
+	f.Where(p.Field(recommend.FieldRecommendIndex))
 }
 
 // addPredicate implements the predicateAdder interface.

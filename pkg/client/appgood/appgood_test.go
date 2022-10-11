@@ -1,6 +1,3 @@
-//go:build unittest
-// +build unittest
-
 package appgood
 
 import (
@@ -45,13 +42,10 @@ var appDate = npool.AppGood{
 	Online:            true,
 	Visible:           true,
 	GoodName:          uuid.NewString(),
-	Price:             uuid.NewString(),
+	Price:             "999",
 	DisplayIndex:      100,
 	PurchaseLimit:     101,
 	CommissionPercent: 102,
-	CreatedAt:         103,
-	UpdatedAt:         104,
-	DeletedAt:         105,
 }
 
 var (
@@ -75,41 +69,38 @@ func createAppGood(t *testing.T) {
 	var err error
 	info, err = CreateAppGood(context.Background(), &appInfo)
 	if assert.Nil(t, err) {
+		appDate.CreatedAt = info.CreatedAt
+		appDate.UpdatedAt = info.UpdatedAt
 		assert.Equal(t, info, &appDate)
 	}
 }
 
 func createAppGoods(t *testing.T) {
+	appID := uuid.NewString()
 	appDates := []npool.AppGood{
 		{
 			ID:                uuid.NewString(),
-			AppID:             uuid.NewString(),
+			AppID:             appID,
 			GoodID:            uuid.NewString(),
 			Online:            true,
 			Visible:           true,
 			GoodName:          uuid.NewString(),
-			Price:             uuid.NewString(),
+			Price:             "999",
 			DisplayIndex:      100,
 			PurchaseLimit:     101,
 			CommissionPercent: 102,
-			CreatedAt:         103,
-			UpdatedAt:         104,
-			DeletedAt:         105,
 		},
 		{
 			ID:                uuid.NewString(),
-			AppID:             uuid.NewString(),
+			AppID:             appID,
 			GoodID:            uuid.NewString(),
 			Online:            true,
 			Visible:           true,
 			GoodName:          uuid.NewString(),
-			Price:             uuid.NewString(),
+			Price:             "999",
 			DisplayIndex:      100,
 			PurchaseLimit:     101,
 			CommissionPercent: 102,
-			CreatedAt:         103,
-			UpdatedAt:         104,
-			DeletedAt:         105,
 		},
 	}
 
@@ -203,6 +194,7 @@ func existAppGoodConds(t *testing.T) {
 func deleteAppGood(t *testing.T) {
 	info, err := DeleteAppGood(context.Background(), info.ID)
 	if assert.Nil(t, err) {
+		appDate.DeletedAt = info.DeletedAt
 		assert.Equal(t, info, &appDate)
 	}
 }

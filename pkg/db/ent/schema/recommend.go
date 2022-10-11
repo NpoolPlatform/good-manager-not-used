@@ -38,7 +38,7 @@ func (Recommend) Fields() []ent.Field {
 			Optional().
 			Default(""),
 		field.
-			Float("recommend_iundex").
+			Float("recommend_index").
 			Optional().
 			Default(0),
 	}

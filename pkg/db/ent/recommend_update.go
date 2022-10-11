@@ -122,30 +122,30 @@ func (ru *RecommendUpdate) ClearMessage() *RecommendUpdate {
 	return ru
 }
 
-// SetRecommendIundex sets the "recommend_iundex" field.
-func (ru *RecommendUpdate) SetRecommendIundex(f float64) *RecommendUpdate {
-	ru.mutation.ResetRecommendIundex()
-	ru.mutation.SetRecommendIundex(f)
+// SetRecommendIndex sets the "recommend_index" field.
+func (ru *RecommendUpdate) SetRecommendIndex(f float64) *RecommendUpdate {
+	ru.mutation.ResetRecommendIndex()
+	ru.mutation.SetRecommendIndex(f)
 	return ru
 }
 
-// SetNillableRecommendIundex sets the "recommend_iundex" field if the given value is not nil.
-func (ru *RecommendUpdate) SetNillableRecommendIundex(f *float64) *RecommendUpdate {
+// SetNillableRecommendIndex sets the "recommend_index" field if the given value is not nil.
+func (ru *RecommendUpdate) SetNillableRecommendIndex(f *float64) *RecommendUpdate {
 	if f != nil {
-		ru.SetRecommendIundex(*f)
+		ru.SetRecommendIndex(*f)
 	}
 	return ru
 }
 
-// AddRecommendIundex adds f to the "recommend_iundex" field.
-func (ru *RecommendUpdate) AddRecommendIundex(f float64) *RecommendUpdate {
-	ru.mutation.AddRecommendIundex(f)
+// AddRecommendIndex adds f to the "recommend_index" field.
+func (ru *RecommendUpdate) AddRecommendIndex(f float64) *RecommendUpdate {
+	ru.mutation.AddRecommendIndex(f)
 	return ru
 }
 
-// ClearRecommendIundex clears the value of the "recommend_iundex" field.
-func (ru *RecommendUpdate) ClearRecommendIundex() *RecommendUpdate {
-	ru.mutation.ClearRecommendIundex()
+// ClearRecommendIndex clears the value of the "recommend_index" field.
+func (ru *RecommendUpdate) ClearRecommendIndex() *RecommendUpdate {
+	ru.mutation.ClearRecommendIndex()
 	return ru
 }
 
@@ -323,24 +323,24 @@ func (ru *RecommendUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: recommend.FieldMessage,
 		})
 	}
-	if value, ok := ru.mutation.RecommendIundex(); ok {
+	if value, ok := ru.mutation.RecommendIndex(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeFloat64,
 			Value:  value,
-			Column: recommend.FieldRecommendIundex,
+			Column: recommend.FieldRecommendIndex,
 		})
 	}
-	if value, ok := ru.mutation.AddedRecommendIundex(); ok {
+	if value, ok := ru.mutation.AddedRecommendIndex(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
 			Type:   field.TypeFloat64,
 			Value:  value,
-			Column: recommend.FieldRecommendIundex,
+			Column: recommend.FieldRecommendIndex,
 		})
 	}
-	if ru.mutation.RecommendIundexCleared() {
+	if ru.mutation.RecommendIndexCleared() {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeFloat64,
-			Column: recommend.FieldRecommendIundex,
+			Column: recommend.FieldRecommendIndex,
 		})
 	}
 	_spec.Modifiers = ru.modifiers
@@ -457,30 +457,30 @@ func (ruo *RecommendUpdateOne) ClearMessage() *RecommendUpdateOne {
 	return ruo
 }
 
-// SetRecommendIundex sets the "recommend_iundex" field.
-func (ruo *RecommendUpdateOne) SetRecommendIundex(f float64) *RecommendUpdateOne {
-	ruo.mutation.ResetRecommendIundex()
-	ruo.mutation.SetRecommendIundex(f)
+// SetRecommendIndex sets the "recommend_index" field.
+func (ruo *RecommendUpdateOne) SetRecommendIndex(f float64) *RecommendUpdateOne {
+	ruo.mutation.ResetRecommendIndex()
+	ruo.mutation.SetRecommendIndex(f)
 	return ruo
 }
 
-// SetNillableRecommendIundex sets the "recommend_iundex" field if the given value is not nil.
-func (ruo *RecommendUpdateOne) SetNillableRecommendIundex(f *float64) *RecommendUpdateOne {
+// SetNillableRecommendIndex sets the "recommend_index" field if the given value is not nil.
+func (ruo *RecommendUpdateOne) SetNillableRecommendIndex(f *float64) *RecommendUpdateOne {
 	if f != nil {
-		ruo.SetRecommendIundex(*f)
+		ruo.SetRecommendIndex(*f)
 	}
 	return ruo
 }
 
-// AddRecommendIundex adds f to the "recommend_iundex" field.
-func (ruo *RecommendUpdateOne) AddRecommendIundex(f float64) *RecommendUpdateOne {
-	ruo.mutation.AddRecommendIundex(f)
+// AddRecommendIndex adds f to the "recommend_index" field.
+func (ruo *RecommendUpdateOne) AddRecommendIndex(f float64) *RecommendUpdateOne {
+	ruo.mutation.AddRecommendIndex(f)
 	return ruo
 }
 
-// ClearRecommendIundex clears the value of the "recommend_iundex" field.
-func (ruo *RecommendUpdateOne) ClearRecommendIundex() *RecommendUpdateOne {
-	ruo.mutation.ClearRecommendIundex()
+// ClearRecommendIndex clears the value of the "recommend_index" field.
+func (ruo *RecommendUpdateOne) ClearRecommendIndex() *RecommendUpdateOne {
+	ruo.mutation.ClearRecommendIndex()
 	return ruo
 }
 
@@ -688,24 +688,24 @@ func (ruo *RecommendUpdateOne) sqlSave(ctx context.Context) (_node *Recommend, e
 			Column: recommend.FieldMessage,
 		})
 	}
-	if value, ok := ruo.mutation.RecommendIundex(); ok {
+	if value, ok := ruo.mutation.RecommendIndex(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeFloat64,
 			Value:  value,
-			Column: recommend.FieldRecommendIundex,
+			Column: recommend.FieldRecommendIndex,
 		})
 	}
-	if value, ok := ruo.mutation.AddedRecommendIundex(); ok {
+	if value, ok := ruo.mutation.AddedRecommendIndex(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
 			Type:   field.TypeFloat64,
 			Value:  value,
-			Column: recommend.FieldRecommendIundex,
+			Column: recommend.FieldRecommendIndex,
 		})
 	}
-	if ruo.mutation.RecommendIundexCleared() {
+	if ruo.mutation.RecommendIndexCleared() {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeFloat64,
-			Column: recommend.FieldRecommendIundex,
+			Column: recommend.FieldRecommendIndex,
 		})
 	}
 	_spec.Modifiers = ruo.modifiers

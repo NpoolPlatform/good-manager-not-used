@@ -28,9 +28,9 @@ type DeviceInfo struct {
 	// Manufacturer holds the value of the "manufacturer" field.
 	Manufacturer string `json:"manufacturer,omitempty"`
 	// PowerComsuption holds the value of the "power_comsuption" field.
-	PowerComsuption int32 `json:"power_comsuption,omitempty"`
+	PowerComsuption uint32 `json:"power_comsuption,omitempty"`
 	// ShipmentAt holds the value of the "shipment_at" field.
-	ShipmentAt int32 `json:"shipment_at,omitempty"`
+	ShipmentAt uint32 `json:"shipment_at,omitempty"`
 	// Posters holds the value of the "posters" field.
 	Posters []string `json:"posters,omitempty"`
 }
@@ -103,13 +103,13 @@ func (di *DeviceInfo) assignValues(columns []string, values []interface{}) error
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field power_comsuption", values[i])
 			} else if value.Valid {
-				di.PowerComsuption = int32(value.Int64)
+				di.PowerComsuption = uint32(value.Int64)
 			}
 		case deviceinfo.FieldShipmentAt:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field shipment_at", values[i])
 			} else if value.Valid {
-				di.ShipmentAt = int32(value.Int64)
+				di.ShipmentAt = uint32(value.Int64)
 			}
 		case deviceinfo.FieldPosters:
 			if value, ok := values[i].(*[]byte); !ok {

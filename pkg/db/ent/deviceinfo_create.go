@@ -94,29 +94,29 @@ func (dic *DeviceInfoCreate) SetNillableManufacturer(s *string) *DeviceInfoCreat
 }
 
 // SetPowerComsuption sets the "power_comsuption" field.
-func (dic *DeviceInfoCreate) SetPowerComsuption(i int32) *DeviceInfoCreate {
-	dic.mutation.SetPowerComsuption(i)
+func (dic *DeviceInfoCreate) SetPowerComsuption(u uint32) *DeviceInfoCreate {
+	dic.mutation.SetPowerComsuption(u)
 	return dic
 }
 
 // SetNillablePowerComsuption sets the "power_comsuption" field if the given value is not nil.
-func (dic *DeviceInfoCreate) SetNillablePowerComsuption(i *int32) *DeviceInfoCreate {
-	if i != nil {
-		dic.SetPowerComsuption(*i)
+func (dic *DeviceInfoCreate) SetNillablePowerComsuption(u *uint32) *DeviceInfoCreate {
+	if u != nil {
+		dic.SetPowerComsuption(*u)
 	}
 	return dic
 }
 
 // SetShipmentAt sets the "shipment_at" field.
-func (dic *DeviceInfoCreate) SetShipmentAt(i int32) *DeviceInfoCreate {
-	dic.mutation.SetShipmentAt(i)
+func (dic *DeviceInfoCreate) SetShipmentAt(u uint32) *DeviceInfoCreate {
+	dic.mutation.SetShipmentAt(u)
 	return dic
 }
 
 // SetNillableShipmentAt sets the "shipment_at" field if the given value is not nil.
-func (dic *DeviceInfoCreate) SetNillableShipmentAt(i *int32) *DeviceInfoCreate {
-	if i != nil {
-		dic.SetShipmentAt(*i)
+func (dic *DeviceInfoCreate) SetNillableShipmentAt(u *uint32) *DeviceInfoCreate {
+	if u != nil {
+		dic.SetShipmentAt(*u)
 	}
 	return dic
 }
@@ -371,7 +371,7 @@ func (dic *DeviceInfoCreate) createSpec() (*DeviceInfo, *sqlgraph.CreateSpec) {
 	}
 	if value, ok := dic.mutation.PowerComsuption(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
+			Type:   field.TypeUint32,
 			Value:  value,
 			Column: deviceinfo.FieldPowerComsuption,
 		})
@@ -379,7 +379,7 @@ func (dic *DeviceInfoCreate) createSpec() (*DeviceInfo, *sqlgraph.CreateSpec) {
 	}
 	if value, ok := dic.mutation.ShipmentAt(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
+			Type:   field.TypeUint32,
 			Value:  value,
 			Column: deviceinfo.FieldShipmentAt,
 		})
@@ -538,7 +538,7 @@ func (u *DeviceInfoUpsert) ClearManufacturer() *DeviceInfoUpsert {
 }
 
 // SetPowerComsuption sets the "power_comsuption" field.
-func (u *DeviceInfoUpsert) SetPowerComsuption(v int32) *DeviceInfoUpsert {
+func (u *DeviceInfoUpsert) SetPowerComsuption(v uint32) *DeviceInfoUpsert {
 	u.Set(deviceinfo.FieldPowerComsuption, v)
 	return u
 }
@@ -550,7 +550,7 @@ func (u *DeviceInfoUpsert) UpdatePowerComsuption() *DeviceInfoUpsert {
 }
 
 // AddPowerComsuption adds v to the "power_comsuption" field.
-func (u *DeviceInfoUpsert) AddPowerComsuption(v int32) *DeviceInfoUpsert {
+func (u *DeviceInfoUpsert) AddPowerComsuption(v uint32) *DeviceInfoUpsert {
 	u.Add(deviceinfo.FieldPowerComsuption, v)
 	return u
 }
@@ -562,7 +562,7 @@ func (u *DeviceInfoUpsert) ClearPowerComsuption() *DeviceInfoUpsert {
 }
 
 // SetShipmentAt sets the "shipment_at" field.
-func (u *DeviceInfoUpsert) SetShipmentAt(v int32) *DeviceInfoUpsert {
+func (u *DeviceInfoUpsert) SetShipmentAt(v uint32) *DeviceInfoUpsert {
 	u.Set(deviceinfo.FieldShipmentAt, v)
 	return u
 }
@@ -574,7 +574,7 @@ func (u *DeviceInfoUpsert) UpdateShipmentAt() *DeviceInfoUpsert {
 }
 
 // AddShipmentAt adds v to the "shipment_at" field.
-func (u *DeviceInfoUpsert) AddShipmentAt(v int32) *DeviceInfoUpsert {
+func (u *DeviceInfoUpsert) AddShipmentAt(v uint32) *DeviceInfoUpsert {
 	u.Add(deviceinfo.FieldShipmentAt, v)
 	return u
 }
@@ -759,14 +759,14 @@ func (u *DeviceInfoUpsertOne) ClearManufacturer() *DeviceInfoUpsertOne {
 }
 
 // SetPowerComsuption sets the "power_comsuption" field.
-func (u *DeviceInfoUpsertOne) SetPowerComsuption(v int32) *DeviceInfoUpsertOne {
+func (u *DeviceInfoUpsertOne) SetPowerComsuption(v uint32) *DeviceInfoUpsertOne {
 	return u.Update(func(s *DeviceInfoUpsert) {
 		s.SetPowerComsuption(v)
 	})
 }
 
 // AddPowerComsuption adds v to the "power_comsuption" field.
-func (u *DeviceInfoUpsertOne) AddPowerComsuption(v int32) *DeviceInfoUpsertOne {
+func (u *DeviceInfoUpsertOne) AddPowerComsuption(v uint32) *DeviceInfoUpsertOne {
 	return u.Update(func(s *DeviceInfoUpsert) {
 		s.AddPowerComsuption(v)
 	})
@@ -787,14 +787,14 @@ func (u *DeviceInfoUpsertOne) ClearPowerComsuption() *DeviceInfoUpsertOne {
 }
 
 // SetShipmentAt sets the "shipment_at" field.
-func (u *DeviceInfoUpsertOne) SetShipmentAt(v int32) *DeviceInfoUpsertOne {
+func (u *DeviceInfoUpsertOne) SetShipmentAt(v uint32) *DeviceInfoUpsertOne {
 	return u.Update(func(s *DeviceInfoUpsert) {
 		s.SetShipmentAt(v)
 	})
 }
 
 // AddShipmentAt adds v to the "shipment_at" field.
-func (u *DeviceInfoUpsertOne) AddShipmentAt(v int32) *DeviceInfoUpsertOne {
+func (u *DeviceInfoUpsertOne) AddShipmentAt(v uint32) *DeviceInfoUpsertOne {
 	return u.Update(func(s *DeviceInfoUpsert) {
 		s.AddShipmentAt(v)
 	})
@@ -1157,14 +1157,14 @@ func (u *DeviceInfoUpsertBulk) ClearManufacturer() *DeviceInfoUpsertBulk {
 }
 
 // SetPowerComsuption sets the "power_comsuption" field.
-func (u *DeviceInfoUpsertBulk) SetPowerComsuption(v int32) *DeviceInfoUpsertBulk {
+func (u *DeviceInfoUpsertBulk) SetPowerComsuption(v uint32) *DeviceInfoUpsertBulk {
 	return u.Update(func(s *DeviceInfoUpsert) {
 		s.SetPowerComsuption(v)
 	})
 }
 
 // AddPowerComsuption adds v to the "power_comsuption" field.
-func (u *DeviceInfoUpsertBulk) AddPowerComsuption(v int32) *DeviceInfoUpsertBulk {
+func (u *DeviceInfoUpsertBulk) AddPowerComsuption(v uint32) *DeviceInfoUpsertBulk {
 	return u.Update(func(s *DeviceInfoUpsert) {
 		s.AddPowerComsuption(v)
 	})
@@ -1185,14 +1185,14 @@ func (u *DeviceInfoUpsertBulk) ClearPowerComsuption() *DeviceInfoUpsertBulk {
 }
 
 // SetShipmentAt sets the "shipment_at" field.
-func (u *DeviceInfoUpsertBulk) SetShipmentAt(v int32) *DeviceInfoUpsertBulk {
+func (u *DeviceInfoUpsertBulk) SetShipmentAt(v uint32) *DeviceInfoUpsertBulk {
 	return u.Update(func(s *DeviceInfoUpsert) {
 		s.SetShipmentAt(v)
 	})
 }
 
 // AddShipmentAt adds v to the "shipment_at" field.
-func (u *DeviceInfoUpsertBulk) AddShipmentAt(v int32) *DeviceInfoUpsertBulk {
+func (u *DeviceInfoUpsertBulk) AddShipmentAt(v uint32) *DeviceInfoUpsertBulk {
 	return u.Update(func(s *DeviceInfoUpsert) {
 		s.AddShipmentAt(v)
 	})

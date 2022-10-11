@@ -2203,9 +2203,9 @@ type DeviceInfoMutation struct {
 	adddeleted_at       *int32
 	_type               *string
 	manufacturer        *string
-	power_comsuption    *int32
+	power_comsuption    *uint32
 	addpower_comsuption *int32
-	shipment_at         *int32
+	shipment_at         *uint32
 	addshipment_at      *int32
 	posters             *[]string
 	clearedFields       map[string]struct{}
@@ -2585,13 +2585,13 @@ func (m *DeviceInfoMutation) ResetManufacturer() {
 }
 
 // SetPowerComsuption sets the "power_comsuption" field.
-func (m *DeviceInfoMutation) SetPowerComsuption(i int32) {
-	m.power_comsuption = &i
+func (m *DeviceInfoMutation) SetPowerComsuption(u uint32) {
+	m.power_comsuption = &u
 	m.addpower_comsuption = nil
 }
 
 // PowerComsuption returns the value of the "power_comsuption" field in the mutation.
-func (m *DeviceInfoMutation) PowerComsuption() (r int32, exists bool) {
+func (m *DeviceInfoMutation) PowerComsuption() (r uint32, exists bool) {
 	v := m.power_comsuption
 	if v == nil {
 		return
@@ -2602,7 +2602,7 @@ func (m *DeviceInfoMutation) PowerComsuption() (r int32, exists bool) {
 // OldPowerComsuption returns the old "power_comsuption" field's value of the DeviceInfo entity.
 // If the DeviceInfo object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *DeviceInfoMutation) OldPowerComsuption(ctx context.Context) (v int32, err error) {
+func (m *DeviceInfoMutation) OldPowerComsuption(ctx context.Context) (v uint32, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldPowerComsuption is only allowed on UpdateOne operations")
 	}
@@ -2616,12 +2616,12 @@ func (m *DeviceInfoMutation) OldPowerComsuption(ctx context.Context) (v int32, e
 	return oldValue.PowerComsuption, nil
 }
 
-// AddPowerComsuption adds i to the "power_comsuption" field.
-func (m *DeviceInfoMutation) AddPowerComsuption(i int32) {
+// AddPowerComsuption adds u to the "power_comsuption" field.
+func (m *DeviceInfoMutation) AddPowerComsuption(u int32) {
 	if m.addpower_comsuption != nil {
-		*m.addpower_comsuption += i
+		*m.addpower_comsuption += u
 	} else {
-		m.addpower_comsuption = &i
+		m.addpower_comsuption = &u
 	}
 }
 
@@ -2655,13 +2655,13 @@ func (m *DeviceInfoMutation) ResetPowerComsuption() {
 }
 
 // SetShipmentAt sets the "shipment_at" field.
-func (m *DeviceInfoMutation) SetShipmentAt(i int32) {
-	m.shipment_at = &i
+func (m *DeviceInfoMutation) SetShipmentAt(u uint32) {
+	m.shipment_at = &u
 	m.addshipment_at = nil
 }
 
 // ShipmentAt returns the value of the "shipment_at" field in the mutation.
-func (m *DeviceInfoMutation) ShipmentAt() (r int32, exists bool) {
+func (m *DeviceInfoMutation) ShipmentAt() (r uint32, exists bool) {
 	v := m.shipment_at
 	if v == nil {
 		return
@@ -2672,7 +2672,7 @@ func (m *DeviceInfoMutation) ShipmentAt() (r int32, exists bool) {
 // OldShipmentAt returns the old "shipment_at" field's value of the DeviceInfo entity.
 // If the DeviceInfo object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *DeviceInfoMutation) OldShipmentAt(ctx context.Context) (v int32, err error) {
+func (m *DeviceInfoMutation) OldShipmentAt(ctx context.Context) (v uint32, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldShipmentAt is only allowed on UpdateOne operations")
 	}
@@ -2686,12 +2686,12 @@ func (m *DeviceInfoMutation) OldShipmentAt(ctx context.Context) (v int32, err er
 	return oldValue.ShipmentAt, nil
 }
 
-// AddShipmentAt adds i to the "shipment_at" field.
-func (m *DeviceInfoMutation) AddShipmentAt(i int32) {
+// AddShipmentAt adds u to the "shipment_at" field.
+func (m *DeviceInfoMutation) AddShipmentAt(u int32) {
 	if m.addshipment_at != nil {
-		*m.addshipment_at += i
+		*m.addshipment_at += u
 	} else {
-		m.addshipment_at = &i
+		m.addshipment_at = &u
 	}
 }
 
@@ -2911,14 +2911,14 @@ func (m *DeviceInfoMutation) SetField(name string, value ent.Value) error {
 		m.SetManufacturer(v)
 		return nil
 	case deviceinfo.FieldPowerComsuption:
-		v, ok := value.(int32)
+		v, ok := value.(uint32)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetPowerComsuption(v)
 		return nil
 	case deviceinfo.FieldShipmentAt:
-		v, ok := value.(int32)
+		v, ok := value.(uint32)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -6855,25 +6855,25 @@ func (m *PromotionMutation) ResetEdge(name string) error {
 // RecommendMutation represents an operation that mutates the Recommend nodes in the graph.
 type RecommendMutation struct {
 	config
-	op                  Op
-	typ                 string
-	id                  *uuid.UUID
-	created_at          *uint32
-	addcreated_at       *int32
-	updated_at          *uint32
-	addupdated_at       *int32
-	deleted_at          *uint32
-	adddeleted_at       *int32
-	app_id              *uuid.UUID
-	good_id             *uuid.UUID
-	recommender_id      *uuid.UUID
-	message             *string
-	recommend_iundex    *float64
-	addrecommend_iundex *float64
-	clearedFields       map[string]struct{}
-	done                bool
-	oldValue            func(context.Context) (*Recommend, error)
-	predicates          []predicate.Recommend
+	op                 Op
+	typ                string
+	id                 *uuid.UUID
+	created_at         *uint32
+	addcreated_at      *int32
+	updated_at         *uint32
+	addupdated_at      *int32
+	deleted_at         *uint32
+	adddeleted_at      *int32
+	app_id             *uuid.UUID
+	good_id            *uuid.UUID
+	recommender_id     *uuid.UUID
+	message            *string
+	recommend_index    *float64
+	addrecommend_index *float64
+	clearedFields      map[string]struct{}
+	done               bool
+	oldValue           func(context.Context) (*Recommend, error)
+	predicates         []predicate.Recommend
 }
 
 var _ ent.Mutation = (*RecommendMutation)(nil)
@@ -7305,74 +7305,74 @@ func (m *RecommendMutation) ResetMessage() {
 	delete(m.clearedFields, recommend.FieldMessage)
 }
 
-// SetRecommendIundex sets the "recommend_iundex" field.
-func (m *RecommendMutation) SetRecommendIundex(f float64) {
-	m.recommend_iundex = &f
-	m.addrecommend_iundex = nil
+// SetRecommendIndex sets the "recommend_index" field.
+func (m *RecommendMutation) SetRecommendIndex(f float64) {
+	m.recommend_index = &f
+	m.addrecommend_index = nil
 }
 
-// RecommendIundex returns the value of the "recommend_iundex" field in the mutation.
-func (m *RecommendMutation) RecommendIundex() (r float64, exists bool) {
-	v := m.recommend_iundex
+// RecommendIndex returns the value of the "recommend_index" field in the mutation.
+func (m *RecommendMutation) RecommendIndex() (r float64, exists bool) {
+	v := m.recommend_index
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldRecommendIundex returns the old "recommend_iundex" field's value of the Recommend entity.
+// OldRecommendIndex returns the old "recommend_index" field's value of the Recommend entity.
 // If the Recommend object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *RecommendMutation) OldRecommendIundex(ctx context.Context) (v float64, err error) {
+func (m *RecommendMutation) OldRecommendIndex(ctx context.Context) (v float64, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldRecommendIundex is only allowed on UpdateOne operations")
+		return v, errors.New("OldRecommendIndex is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldRecommendIundex requires an ID field in the mutation")
+		return v, errors.New("OldRecommendIndex requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldRecommendIundex: %w", err)
+		return v, fmt.Errorf("querying old value for OldRecommendIndex: %w", err)
 	}
-	return oldValue.RecommendIundex, nil
+	return oldValue.RecommendIndex, nil
 }
 
-// AddRecommendIundex adds f to the "recommend_iundex" field.
-func (m *RecommendMutation) AddRecommendIundex(f float64) {
-	if m.addrecommend_iundex != nil {
-		*m.addrecommend_iundex += f
+// AddRecommendIndex adds f to the "recommend_index" field.
+func (m *RecommendMutation) AddRecommendIndex(f float64) {
+	if m.addrecommend_index != nil {
+		*m.addrecommend_index += f
 	} else {
-		m.addrecommend_iundex = &f
+		m.addrecommend_index = &f
 	}
 }
 
-// AddedRecommendIundex returns the value that was added to the "recommend_iundex" field in this mutation.
-func (m *RecommendMutation) AddedRecommendIundex() (r float64, exists bool) {
-	v := m.addrecommend_iundex
+// AddedRecommendIndex returns the value that was added to the "recommend_index" field in this mutation.
+func (m *RecommendMutation) AddedRecommendIndex() (r float64, exists bool) {
+	v := m.addrecommend_index
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// ClearRecommendIundex clears the value of the "recommend_iundex" field.
-func (m *RecommendMutation) ClearRecommendIundex() {
-	m.recommend_iundex = nil
-	m.addrecommend_iundex = nil
-	m.clearedFields[recommend.FieldRecommendIundex] = struct{}{}
+// ClearRecommendIndex clears the value of the "recommend_index" field.
+func (m *RecommendMutation) ClearRecommendIndex() {
+	m.recommend_index = nil
+	m.addrecommend_index = nil
+	m.clearedFields[recommend.FieldRecommendIndex] = struct{}{}
 }
 
-// RecommendIundexCleared returns if the "recommend_iundex" field was cleared in this mutation.
-func (m *RecommendMutation) RecommendIundexCleared() bool {
-	_, ok := m.clearedFields[recommend.FieldRecommendIundex]
+// RecommendIndexCleared returns if the "recommend_index" field was cleared in this mutation.
+func (m *RecommendMutation) RecommendIndexCleared() bool {
+	_, ok := m.clearedFields[recommend.FieldRecommendIndex]
 	return ok
 }
 
-// ResetRecommendIundex resets all changes to the "recommend_iundex" field.
-func (m *RecommendMutation) ResetRecommendIundex() {
-	m.recommend_iundex = nil
-	m.addrecommend_iundex = nil
-	delete(m.clearedFields, recommend.FieldRecommendIundex)
+// ResetRecommendIndex resets all changes to the "recommend_index" field.
+func (m *RecommendMutation) ResetRecommendIndex() {
+	m.recommend_index = nil
+	m.addrecommend_index = nil
+	delete(m.clearedFields, recommend.FieldRecommendIndex)
 }
 
 // Where appends a list predicates to the RecommendMutation builder.
@@ -7416,8 +7416,8 @@ func (m *RecommendMutation) Fields() []string {
 	if m.message != nil {
 		fields = append(fields, recommend.FieldMessage)
 	}
-	if m.recommend_iundex != nil {
-		fields = append(fields, recommend.FieldRecommendIundex)
+	if m.recommend_index != nil {
+		fields = append(fields, recommend.FieldRecommendIndex)
 	}
 	return fields
 }
@@ -7441,8 +7441,8 @@ func (m *RecommendMutation) Field(name string) (ent.Value, bool) {
 		return m.RecommenderID()
 	case recommend.FieldMessage:
 		return m.Message()
-	case recommend.FieldRecommendIundex:
-		return m.RecommendIundex()
+	case recommend.FieldRecommendIndex:
+		return m.RecommendIndex()
 	}
 	return nil, false
 }
@@ -7466,8 +7466,8 @@ func (m *RecommendMutation) OldField(ctx context.Context, name string) (ent.Valu
 		return m.OldRecommenderID(ctx)
 	case recommend.FieldMessage:
 		return m.OldMessage(ctx)
-	case recommend.FieldRecommendIundex:
-		return m.OldRecommendIundex(ctx)
+	case recommend.FieldRecommendIndex:
+		return m.OldRecommendIndex(ctx)
 	}
 	return nil, fmt.Errorf("unknown Recommend field %s", name)
 }
@@ -7526,12 +7526,12 @@ func (m *RecommendMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetMessage(v)
 		return nil
-	case recommend.FieldRecommendIundex:
+	case recommend.FieldRecommendIndex:
 		v, ok := value.(float64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetRecommendIundex(v)
+		m.SetRecommendIndex(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Recommend field %s", name)
@@ -7550,8 +7550,8 @@ func (m *RecommendMutation) AddedFields() []string {
 	if m.adddeleted_at != nil {
 		fields = append(fields, recommend.FieldDeletedAt)
 	}
-	if m.addrecommend_iundex != nil {
-		fields = append(fields, recommend.FieldRecommendIundex)
+	if m.addrecommend_index != nil {
+		fields = append(fields, recommend.FieldRecommendIndex)
 	}
 	return fields
 }
@@ -7567,8 +7567,8 @@ func (m *RecommendMutation) AddedField(name string) (ent.Value, bool) {
 		return m.AddedUpdatedAt()
 	case recommend.FieldDeletedAt:
 		return m.AddedDeletedAt()
-	case recommend.FieldRecommendIundex:
-		return m.AddedRecommendIundex()
+	case recommend.FieldRecommendIndex:
+		return m.AddedRecommendIndex()
 	}
 	return nil, false
 }
@@ -7599,12 +7599,12 @@ func (m *RecommendMutation) AddField(name string, value ent.Value) error {
 		}
 		m.AddDeletedAt(v)
 		return nil
-	case recommend.FieldRecommendIundex:
+	case recommend.FieldRecommendIndex:
 		v, ok := value.(float64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.AddRecommendIundex(v)
+		m.AddRecommendIndex(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Recommend numeric field %s", name)
@@ -7617,8 +7617,8 @@ func (m *RecommendMutation) ClearedFields() []string {
 	if m.FieldCleared(recommend.FieldMessage) {
 		fields = append(fields, recommend.FieldMessage)
 	}
-	if m.FieldCleared(recommend.FieldRecommendIundex) {
-		fields = append(fields, recommend.FieldRecommendIundex)
+	if m.FieldCleared(recommend.FieldRecommendIndex) {
+		fields = append(fields, recommend.FieldRecommendIndex)
 	}
 	return fields
 }
@@ -7637,8 +7637,8 @@ func (m *RecommendMutation) ClearField(name string) error {
 	case recommend.FieldMessage:
 		m.ClearMessage()
 		return nil
-	case recommend.FieldRecommendIundex:
-		m.ClearRecommendIundex()
+	case recommend.FieldRecommendIndex:
+		m.ClearRecommendIndex()
 		return nil
 	}
 	return fmt.Errorf("unknown Recommend nullable field %s", name)
@@ -7669,8 +7669,8 @@ func (m *RecommendMutation) ResetField(name string) error {
 	case recommend.FieldMessage:
 		m.ResetMessage()
 		return nil
-	case recommend.FieldRecommendIundex:
-		m.ResetRecommendIundex()
+	case recommend.FieldRecommendIndex:
+		m.ResetRecommendIndex()
 		return nil
 	}
 	return fmt.Errorf("unknown Recommend field %s", name)

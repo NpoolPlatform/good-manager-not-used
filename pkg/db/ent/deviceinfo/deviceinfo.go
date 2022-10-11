@@ -81,9 +81,9 @@ var (
 	// ManufacturerValidator is a validator for the "manufacturer" field. It is called by the builders before save.
 	ManufacturerValidator func(string) error
 	// DefaultPowerComsuption holds the default value on creation for the "power_comsuption" field.
-	DefaultPowerComsuption int32
+	DefaultPowerComsuption uint32
 	// DefaultShipmentAt holds the default value on creation for the "shipment_at" field.
-	DefaultShipmentAt int32
+	DefaultShipmentAt uint32
 	// DefaultPosters holds the default value on creation for the "posters" field.
 	DefaultPosters []string
 	// DefaultID holds the default value on creation for the "id" field.

@@ -71,8 +71,8 @@ var (
 		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "type", Type: field.TypeString, Nullable: true, Size: 64, Default: ""},
 		{Name: "manufacturer", Type: field.TypeString, Nullable: true, Size: 64, Default: ""},
-		{Name: "power_comsuption", Type: field.TypeInt32, Nullable: true, Default: 0},
-		{Name: "shipment_at", Type: field.TypeInt32, Nullable: true, Default: 0},
+		{Name: "power_comsuption", Type: field.TypeUint32, Nullable: true, Default: 0},
+		{Name: "shipment_at", Type: field.TypeUint32, Nullable: true, Default: 0},
 		{Name: "posters", Type: field.TypeJSON, Nullable: true},
 	}
 	// DeviceInfosTable holds the schema information for the "device_infos" table.
@@ -178,7 +178,7 @@ var (
 		{Name: "good_id", Type: field.TypeUUID},
 		{Name: "recommender_id", Type: field.TypeUUID},
 		{Name: "message", Type: field.TypeString, Nullable: true, Default: ""},
-		{Name: "recommend_iundex", Type: field.TypeFloat64, Nullable: true, Default: 0},
+		{Name: "recommend_index", Type: field.TypeFloat64, Nullable: true, Default: 0},
 	}
 	// RecommendsTable holds the schema information for the "recommends" table.
 	RecommendsTable = &schema.Table{

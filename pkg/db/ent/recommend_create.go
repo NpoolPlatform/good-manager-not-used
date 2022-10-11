@@ -97,16 +97,16 @@ func (rc *RecommendCreate) SetNillableMessage(s *string) *RecommendCreate {
 	return rc
 }
 
-// SetRecommendIundex sets the "recommend_iundex" field.
-func (rc *RecommendCreate) SetRecommendIundex(f float64) *RecommendCreate {
-	rc.mutation.SetRecommendIundex(f)
+// SetRecommendIndex sets the "recommend_index" field.
+func (rc *RecommendCreate) SetRecommendIndex(f float64) *RecommendCreate {
+	rc.mutation.SetRecommendIndex(f)
 	return rc
 }
 
-// SetNillableRecommendIundex sets the "recommend_iundex" field if the given value is not nil.
-func (rc *RecommendCreate) SetNillableRecommendIundex(f *float64) *RecommendCreate {
+// SetNillableRecommendIndex sets the "recommend_index" field if the given value is not nil.
+func (rc *RecommendCreate) SetNillableRecommendIndex(f *float64) *RecommendCreate {
 	if f != nil {
-		rc.SetRecommendIundex(*f)
+		rc.SetRecommendIndex(*f)
 	}
 	return rc
 }
@@ -229,9 +229,9 @@ func (rc *RecommendCreate) defaults() error {
 		v := recommend.DefaultMessage
 		rc.mutation.SetMessage(v)
 	}
-	if _, ok := rc.mutation.RecommendIundex(); !ok {
-		v := recommend.DefaultRecommendIundex
-		rc.mutation.SetRecommendIundex(v)
+	if _, ok := rc.mutation.RecommendIndex(); !ok {
+		v := recommend.DefaultRecommendIndex
+		rc.mutation.SetRecommendIndex(v)
 	}
 	if _, ok := rc.mutation.ID(); !ok {
 		if recommend.DefaultID == nil {
@@ -356,13 +356,13 @@ func (rc *RecommendCreate) createSpec() (*Recommend, *sqlgraph.CreateSpec) {
 		})
 		_node.Message = value
 	}
-	if value, ok := rc.mutation.RecommendIundex(); ok {
+	if value, ok := rc.mutation.RecommendIndex(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeFloat64,
 			Value:  value,
-			Column: recommend.FieldRecommendIundex,
+			Column: recommend.FieldRecommendIndex,
 		})
-		_node.RecommendIundex = value
+		_node.RecommendIndex = value
 	}
 	return _node, _spec
 }
@@ -526,27 +526,27 @@ func (u *RecommendUpsert) ClearMessage() *RecommendUpsert {
 	return u
 }
 
-// SetRecommendIundex sets the "recommend_iundex" field.
-func (u *RecommendUpsert) SetRecommendIundex(v float64) *RecommendUpsert {
-	u.Set(recommend.FieldRecommendIundex, v)
+// SetRecommendIndex sets the "recommend_index" field.
+func (u *RecommendUpsert) SetRecommendIndex(v float64) *RecommendUpsert {
+	u.Set(recommend.FieldRecommendIndex, v)
 	return u
 }
 
-// UpdateRecommendIundex sets the "recommend_iundex" field to the value that was provided on create.
-func (u *RecommendUpsert) UpdateRecommendIundex() *RecommendUpsert {
-	u.SetExcluded(recommend.FieldRecommendIundex)
+// UpdateRecommendIndex sets the "recommend_index" field to the value that was provided on create.
+func (u *RecommendUpsert) UpdateRecommendIndex() *RecommendUpsert {
+	u.SetExcluded(recommend.FieldRecommendIndex)
 	return u
 }
 
-// AddRecommendIundex adds v to the "recommend_iundex" field.
-func (u *RecommendUpsert) AddRecommendIundex(v float64) *RecommendUpsert {
-	u.Add(recommend.FieldRecommendIundex, v)
+// AddRecommendIndex adds v to the "recommend_index" field.
+func (u *RecommendUpsert) AddRecommendIndex(v float64) *RecommendUpsert {
+	u.Add(recommend.FieldRecommendIndex, v)
 	return u
 }
 
-// ClearRecommendIundex clears the value of the "recommend_iundex" field.
-func (u *RecommendUpsert) ClearRecommendIundex() *RecommendUpsert {
-	u.SetNull(recommend.FieldRecommendIundex)
+// ClearRecommendIndex clears the value of the "recommend_index" field.
+func (u *RecommendUpsert) ClearRecommendIndex() *RecommendUpsert {
+	u.SetNull(recommend.FieldRecommendIndex)
 	return u
 }
 
@@ -726,31 +726,31 @@ func (u *RecommendUpsertOne) ClearMessage() *RecommendUpsertOne {
 	})
 }
 
-// SetRecommendIundex sets the "recommend_iundex" field.
-func (u *RecommendUpsertOne) SetRecommendIundex(v float64) *RecommendUpsertOne {
+// SetRecommendIndex sets the "recommend_index" field.
+func (u *RecommendUpsertOne) SetRecommendIndex(v float64) *RecommendUpsertOne {
 	return u.Update(func(s *RecommendUpsert) {
-		s.SetRecommendIundex(v)
+		s.SetRecommendIndex(v)
 	})
 }
 
-// AddRecommendIundex adds v to the "recommend_iundex" field.
-func (u *RecommendUpsertOne) AddRecommendIundex(v float64) *RecommendUpsertOne {
+// AddRecommendIndex adds v to the "recommend_index" field.
+func (u *RecommendUpsertOne) AddRecommendIndex(v float64) *RecommendUpsertOne {
 	return u.Update(func(s *RecommendUpsert) {
-		s.AddRecommendIundex(v)
+		s.AddRecommendIndex(v)
 	})
 }
 
-// UpdateRecommendIundex sets the "recommend_iundex" field to the value that was provided on create.
-func (u *RecommendUpsertOne) UpdateRecommendIundex() *RecommendUpsertOne {
+// UpdateRecommendIndex sets the "recommend_index" field to the value that was provided on create.
+func (u *RecommendUpsertOne) UpdateRecommendIndex() *RecommendUpsertOne {
 	return u.Update(func(s *RecommendUpsert) {
-		s.UpdateRecommendIundex()
+		s.UpdateRecommendIndex()
 	})
 }
 
-// ClearRecommendIundex clears the value of the "recommend_iundex" field.
-func (u *RecommendUpsertOne) ClearRecommendIundex() *RecommendUpsertOne {
+// ClearRecommendIndex clears the value of the "recommend_index" field.
+func (u *RecommendUpsertOne) ClearRecommendIndex() *RecommendUpsertOne {
 	return u.Update(func(s *RecommendUpsert) {
-		s.ClearRecommendIundex()
+		s.ClearRecommendIndex()
 	})
 }
 
@@ -1096,31 +1096,31 @@ func (u *RecommendUpsertBulk) ClearMessage() *RecommendUpsertBulk {
 	})
 }
 
-// SetRecommendIundex sets the "recommend_iundex" field.
-func (u *RecommendUpsertBulk) SetRecommendIundex(v float64) *RecommendUpsertBulk {
+// SetRecommendIndex sets the "recommend_index" field.
+func (u *RecommendUpsertBulk) SetRecommendIndex(v float64) *RecommendUpsertBulk {
 	return u.Update(func(s *RecommendUpsert) {
-		s.SetRecommendIundex(v)
+		s.SetRecommendIndex(v)
 	})
 }
 
-// AddRecommendIundex adds v to the "recommend_iundex" field.
-func (u *RecommendUpsertBulk) AddRecommendIundex(v float64) *RecommendUpsertBulk {
+// AddRecommendIndex adds v to the "recommend_index" field.
+func (u *RecommendUpsertBulk) AddRecommendIndex(v float64) *RecommendUpsertBulk {
 	return u.Update(func(s *RecommendUpsert) {
-		s.AddRecommendIundex(v)
+		s.AddRecommendIndex(v)
 	})
 }
 
-// UpdateRecommendIundex sets the "recommend_iundex" field to the value that was provided on create.
-func (u *RecommendUpsertBulk) UpdateRecommendIundex() *RecommendUpsertBulk {
+// UpdateRecommendIndex sets the "recommend_index" field to the value that was provided on create.
+func (u *RecommendUpsertBulk) UpdateRecommendIndex() *RecommendUpsertBulk {
 	return u.Update(func(s *RecommendUpsert) {
-		s.UpdateRecommendIundex()
+		s.UpdateRecommendIndex()
 	})
 }
 
-// ClearRecommendIundex clears the value of the "recommend_iundex" field.
-func (u *RecommendUpsertBulk) ClearRecommendIundex() *RecommendUpsertBulk {
+// ClearRecommendIndex clears the value of the "recommend_index" field.
+func (u *RecommendUpsertBulk) ClearRecommendIndex() *RecommendUpsertBulk {
 	return u.Update(func(s *RecommendUpsert) {
-		s.ClearRecommendIundex()
+		s.ClearRecommendIndex()
 	})
 }
 

@@ -170,11 +170,11 @@ func init() {
 	// deviceinfoDescPowerComsuption is the schema descriptor for power_comsuption field.
 	deviceinfoDescPowerComsuption := deviceinfoFields[3].Descriptor()
 	// deviceinfo.DefaultPowerComsuption holds the default value on creation for the power_comsuption field.
-	deviceinfo.DefaultPowerComsuption = deviceinfoDescPowerComsuption.Default.(int32)
+	deviceinfo.DefaultPowerComsuption = deviceinfoDescPowerComsuption.Default.(uint32)
 	// deviceinfoDescShipmentAt is the schema descriptor for shipment_at field.
 	deviceinfoDescShipmentAt := deviceinfoFields[4].Descriptor()
 	// deviceinfo.DefaultShipmentAt holds the default value on creation for the shipment_at field.
-	deviceinfo.DefaultShipmentAt = deviceinfoDescShipmentAt.Default.(int32)
+	deviceinfo.DefaultShipmentAt = deviceinfoDescShipmentAt.Default.(uint32)
 	// deviceinfoDescPosters is the schema descriptor for posters field.
 	deviceinfoDescPosters := deviceinfoFields[5].Descriptor()
 	// deviceinfo.DefaultPosters holds the default value on creation for the posters field.
@@ -391,10 +391,10 @@ func init() {
 	recommendDescMessage := recommendFields[4].Descriptor()
 	// recommend.DefaultMessage holds the default value on creation for the message field.
 	recommend.DefaultMessage = recommendDescMessage.Default.(string)
-	// recommendDescRecommendIundex is the schema descriptor for recommend_iundex field.
-	recommendDescRecommendIundex := recommendFields[5].Descriptor()
-	// recommend.DefaultRecommendIundex holds the default value on creation for the recommend_iundex field.
-	recommend.DefaultRecommendIundex = recommendDescRecommendIundex.Default.(float64)
+	// recommendDescRecommendIndex is the schema descriptor for recommend_index field.
+	recommendDescRecommendIndex := recommendFields[5].Descriptor()
+	// recommend.DefaultRecommendIndex holds the default value on creation for the recommend_index field.
+	recommend.DefaultRecommendIndex = recommendDescRecommendIndex.Default.(float64)
 	// recommendDescID is the schema descriptor for id field.
 	recommendDescID := recommendFields[0].Descriptor()
 	// recommend.DefaultID holds the default value on creation for the id field.
@@ -530,6 +530,5 @@ func init() {
 }
 
 const (
-	Version = "v0.11.2"                                         // Version of ent codegen.
-	Sum     = "h1:UM2/BUhF2FfsxPHRxLjQbhqJNaDdVlOwNIAMLs2jyto=" // Sum of ent codegen.
+	Version = "v0.11.3" // Version of ent codegen.
 )
