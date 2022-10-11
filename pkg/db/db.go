@@ -2,6 +2,7 @@ package db
 
 import (
 	"context"
+	//"entgo.io/ent/dialect"
 	"fmt"
 
 	"github.com/NpoolPlatform/go-service-framework/pkg/logger"

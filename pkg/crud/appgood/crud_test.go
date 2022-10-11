@@ -1,3 +1,6 @@
+//go:build linux
+// +build linux
+
 package appgood
 
 import (
@@ -14,7 +17,8 @@ import (
 
 	valuedef "github.com/NpoolPlatform/message/npool"
 	npool "github.com/NpoolPlatform/message/npool/good/mgr/v1/appgood"
-	testinit "github.com/NpoolPlatform/service-template/pkg/testinit"
+
+	testinit "github.com/NpoolPlatform/good-manager/pkg/testinit"
 	"github.com/google/uuid"
 
 	"github.com/stretchr/testify/assert"
@@ -29,7 +33,7 @@ func init() {
 	}
 }
 
-var entity = ent.AppGood{
+var appGood = ent.AppGood{
 	ID:                uuid.New(),
 	AppID:             uuid.New(),
 	GoodID:            uuid.New(),
@@ -43,21 +47,21 @@ var entity = ent.AppGood{
 }
 
 var (
-	id     = entity.ID.String()
-	appID  = entity.AppID.String()
-	goodID = entity.GoodID.String()
-	price  = entity.Price.String()
+	id     = appGood.ID.String()
+	appID  = appGood.AppID.String()
+	goodID = appGood.GoodID.String()
+	price  = appGood.Price.String()
 	req    = npool.AppGoodReq{
 		ID:                &id,
 		AppID:             &appID,
 		GoodID:            &goodID,
-		Online:            &entity.Online,
-		Visible:           &entity.Visible,
-		GoodName:          &entity.GoodName,
+		Online:            &appGood.Online,
+		Visible:           &appGood.Visible,
+		GoodName:          &appGood.GoodName,
 		Price:             &price,
-		DisplayIndex:      &entity.DisplayIndex,
-		PurchaseLimit:     &entity.PurchaseLimit,
-		CommissionPercent: &entity.CommissionPercent,
+		DisplayIndex:      &appGood.DisplayIndex,
+		PurchaseLimit:     &appGood.PurchaseLimit,
+		CommissionPercent: &appGood.CommissionPercent,
 	}
 )
 
@@ -67,9 +71,9 @@ func create(t *testing.T) {
 	var err error
 	info, err = Create(context.Background(), &req)
 	if assert.Nil(t, err) {
-		entity.UpdatedAt = info.UpdatedAt
-		entity.CreatedAt = info.CreatedAt
-		assert.Equal(t, info.String(), entity.String())
+		appGood.UpdatedAt = info.UpdatedAt
+		appGood.CreatedAt = info.CreatedAt
+		assert.Equal(t, info.String(), appGood.String())
 	}
 }
 
@@ -102,22 +106,22 @@ func createBulk(t *testing.T) {
 	}
 
 	reqs := []*npool.AppGoodReq{}
-	for _, _entity := range entities {
-		_id := _entity.ID.String()
-		_appID := _entity.AppID.String()
-		_goodID := _entity.GoodID.String()
-		_price := _entity.Price.String()
+	for _, _appGood := range entities {
+		_id := _appGood.ID.String()
+		_appID := _appGood.AppID.String()
+		_goodID := _appGood.GoodID.String()
+		_price := _appGood.Price.String()
 		reqs = append(reqs, &npool.AppGoodReq{
 			ID:                &_id,
 			AppID:             &_appID,
 			GoodID:            &_goodID,
-			Online:            &_entity.Online,
-			Visible:           &_entity.Visible,
-			GoodName:          &_entity.GoodName,
+			Online:            &_appGood.Online,
+			Visible:           &_appGood.Visible,
+			GoodName:          &_appGood.GoodName,
 			Price:             &_price,
-			DisplayIndex:      &_entity.DisplayIndex,
-			PurchaseLimit:     &_entity.PurchaseLimit,
-			CommissionPercent: &_entity.CommissionPercent,
+			DisplayIndex:      &_appGood.DisplayIndex,
+			PurchaseLimit:     &_appGood.PurchaseLimit,
+			CommissionPercent: &_appGood.CommissionPercent,
 		})
 	}
 	infos, err := CreateBulk(context.Background(), reqs)
@@ -126,11 +130,20 @@ func createBulk(t *testing.T) {
 	}
 }
 
+func update(t *testing.T) {
+	var err error
+	info, err = Update(context.Background(), &req)
+	if assert.Nil(t, err) {
+		appGood.UpdatedAt = info.UpdatedAt
+		appGood.CreatedAt = info.CreatedAt
+		assert.Equal(t, info.String(), appGood.String())
+	}
+}
 func row(t *testing.T) {
 	var err error
-	info, err = Row(context.Background(), entity.ID)
+	info, err = Row(context.Background(), appGood.ID)
 	if assert.Nil(t, err) {
-		assert.Equal(t, info.String(), entity.String())
+		assert.Equal(t, info.String(), appGood.String())
 	}
 }
 
@@ -144,7 +157,7 @@ func rows(t *testing.T) {
 		}, 0, 0)
 	if assert.Nil(t, err) {
 		if assert.Equal(t, total, 1) {
-			assert.Equal(t, infos[0].String(), entity.String())
+			assert.Equal(t, infos[0].String(), appGood.String())
 		}
 	}
 }
@@ -159,7 +172,7 @@ func rowOnly(t *testing.T) {
 			},
 		})
 	if assert.Nil(t, err) {
-		assert.Equal(t, info.String(), entity.String())
+		assert.Equal(t, info.String(), appGood.String())
 	}
 }
 
@@ -178,7 +191,7 @@ func count(t *testing.T) {
 }
 
 func exist(t *testing.T) {
-	exist, err := Exist(context.Background(), entity.ID)
+	exist, err := Exist(context.Background(), appGood.ID)
 	if assert.Nil(t, err) {
 		assert.Equal(t, exist, true)
 	}
@@ -199,10 +212,10 @@ func existConds(t *testing.T) {
 }
 
 func deleteA(t *testing.T) {
-	info, err := Delete(context.Background(), entity.ID)
+	info, err := Delete(context.Background(), appGood.ID)
 	if assert.Nil(t, err) {
-		entity.DeletedAt = info.DeletedAt
-		assert.Equal(t, info.String(), entity.String())
+		appGood.DeletedAt = info.DeletedAt
+		assert.Equal(t, info.String(), appGood.String())
 	}
 }
 
@@ -212,6 +225,7 @@ func TestDetail(t *testing.T) {
 	}
 	t.Run("create", create)
 	t.Run("createBulk", createBulk)
+	t.Run("update", update)
 	t.Run("row", row)
 	t.Run("rows", rows)
 	t.Run("rowOnly", rowOnly)
