@@ -130,6 +130,7 @@ func updateAppGood(t *testing.T) {
 	var err error
 	info, err = UpdateAppGood(context.Background(), &appInfo)
 	if assert.Nil(t, err) {
+		appDate.UpdatedAt = info.UpdatedAt
 		assert.Equal(t, info, &appDate)
 	}
 }

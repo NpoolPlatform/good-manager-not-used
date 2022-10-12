@@ -6,6 +6,6 @@ COPY good-manager /app
 
 ENTRYPOINT ["/app/good-manager"]
 
-EXPOSE 50330 50331 50332 50333
+EXPOSE 50540 50541 50542 50543
 
 CMD ["run"]

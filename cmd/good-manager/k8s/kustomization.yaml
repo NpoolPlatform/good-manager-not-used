@@ -2,6 +2,4 @@ resources:
   - 01-good-manager.viper.yaml
   - 02-good-manager.yaml
   - 03-strip-prefix.yaml
-  - 04-traefik-ingress.yaml
-  - 05-traefik-vpn-ingress.yaml
-  - 06-service-monitor.yaml
+  - 04service-monitor.yaml

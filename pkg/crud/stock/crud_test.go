@@ -32,10 +32,10 @@ func init() {
 var deviceInfo = ent.Stock{
 	ID:        uuid.New(),
 	GoodID:    uuid.New(),
-	Total:     1001,
-	Locked:    1002,
-	InService: 1003,
-	Sold:      1004,
+	Total:     1005,
+	Locked:    12,
+	InService: 13,
+	Sold:      14,
 }
 
 var (
@@ -68,25 +68,25 @@ func createBulk(t *testing.T) {
 		{
 			ID:        uuid.New(),
 			GoodID:    uuid.New(),
-			Total:     1001,
-			Locked:    1002,
-			InService: 1003,
-			Sold:      1004,
+			Total:     1005,
+			Locked:    12,
+			InService: 13,
+			Sold:      14,
 		},
 		{
 			ID:        uuid.New(),
 			GoodID:    uuid.New(),
-			Total:     1001,
-			Locked:    1002,
-			InService: 1003,
-			Sold:      1004,
+			Total:     1005,
+			Locked:    12,
+			InService: 13,
+			Sold:      14,
 		},
 	}
 
 	reqs := []*npool.StockReq{}
 	for _, _deviceInfo := range entities {
-		_id := deviceInfo.ID.String()
-		_goodID := deviceInfo.GoodID.String()
+		_id := _deviceInfo.ID.String()
+		_goodID := _deviceInfo.GoodID.String()
 		reqs = append(reqs, &npool.StockReq{
 			ID:        &_id,
 			GoodID:    &_goodID,
@@ -187,6 +187,7 @@ func deleteA(t *testing.T) {
 	info, err := Delete(context.Background(), deviceInfo.ID.String())
 	if assert.Nil(t, err) {
 		deviceInfo.DeletedAt = info.DeletedAt
+		deviceInfo.UpdatedAt = info.UpdatedAt
 		assert.Equal(t, info.String(), deviceInfo.String())
 	}
 }

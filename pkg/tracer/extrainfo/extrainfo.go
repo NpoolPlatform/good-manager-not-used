@@ -29,10 +29,6 @@ func TraceConds(span trace1.Span, in *npool.Conds) trace1.Span {
 	span.SetAttributes(
 		attribute.String("ID.Op", in.GetID().GetOp()),
 		attribute.String("ID.Value", in.GetID().GetValue()),
-		attribute.String("AppID.Op", in.GetAppID().GetOp()),
-		attribute.String("AppID.Value", in.GetAppID().GetValue()),
-		attribute.String("UserID.Op", in.GetUserID().GetOp()),
-		attribute.String("UserID.Value", in.GetUserID().GetValue()),
 		attribute.String("GoodID.Op", in.GetGoodID().GetOp()),
 		attribute.String("GoodID.Value", in.GetGoodID().GetValue()),
 	)

@@ -80,7 +80,7 @@ func createBulk(t *testing.T) {
 
 	reqs := []*npool.VendorLocationReq{}
 	for _, _deviceInfo := range entities {
-		_id := deviceInfo.ID.String()
+		_id := _deviceInfo.ID.String()
 		reqs = append(reqs, &npool.VendorLocationReq{
 			ID:       &_id,
 			Country:  &_deviceInfo.Country,
@@ -180,6 +180,7 @@ func deleteA(t *testing.T) {
 	info, err := Delete(context.Background(), deviceInfo.ID.String())
 	if assert.Nil(t, err) {
 		deviceInfo.DeletedAt = info.DeletedAt
+		deviceInfo.UpdatedAt = info.UpdatedAt
 		assert.Equal(t, info.String(), deviceInfo.String())
 	}
 }

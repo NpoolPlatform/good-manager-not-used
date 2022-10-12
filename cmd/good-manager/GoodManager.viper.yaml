@@ -1,10 +1,10 @@
 ---
 config:
   hostname: "good-manager.npool.top"
-  http_port: 50330
-  grpc_port: 50331
-  healthz_port: 50332
-  prometheus_port: 50333
+  http_port: 50540
+  grpc_port: 50541
+  healthz_port: 50542
+  prometheus_port: 50543
   appid: "89089012783789789719823798127398"
   serviceid: "6b48cafc-487f-11ed-af55-0a7926caaded"
   logdir: "./"

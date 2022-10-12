@@ -187,6 +187,7 @@ func deleteA(t *testing.T) {
 	info, err := Delete(context.Background(), deviceInfo.ID.String())
 	if assert.Nil(t, err) {
 		deviceInfo.DeletedAt = info.DeletedAt
+		deviceInfo.UpdatedAt = info.UpdatedAt
 		assert.Equal(t, info.String(), deviceInfo.String())
 	}
 }

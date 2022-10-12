@@ -117,6 +117,37 @@ func (s *Server) UpdateStock(ctx context.Context, in *npool.UpdateStockRequest) 
 	}, nil
 }
 
+func (s *Server) AddStockFields(ctx context.Context, in *npool.AddStockFieldsRequest) (*npool.AddStockFieldsResponse, error) {
+	var err error
+
+	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "AddStockFields")
+	defer span.End()
+
+	defer func() {
+		if err != nil {
+			span.SetStatus(scodes.Error, err.Error())
+			span.RecordError(err)
+		}
+	}()
+
+	span = commontracer.TraceInvoker(span, "Stock", "crud", "AddStockFields")
+
+	if _, err := uuid.Parse(in.GetInfo().GetID()); err != nil {
+		logger.Sugar().Errorw("validate", "ID", in.GetInfo().GetID())
+		return &npool.AddStockFieldsResponse{}, status.Error(codes.InvalidArgument, "ID is invalid")
+	}
+
+	rows, err := crud.AddFields(ctx, in.GetInfo())
+	if err != nil {
+		logger.Sugar().Errorf("fail add fields Stocks: %v", err)
+		return &npool.AddStockFieldsResponse{}, status.Error(codes.Internal, err.Error())
+	}
+
+	return &npool.AddStockFieldsResponse{
+		Info: converter.Ent2Grpc(rows),
+	}, nil
+}
+
 func (s *Server) GetStock(ctx context.Context, in *npool.GetStockRequest) (*npool.GetStockResponse, error) {
 	var err error
 

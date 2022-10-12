@@ -109,18 +109,12 @@ func CreateBulk(ctx context.Context, in []*npool.StockReq) ([]*ent.Stock, error)
 }
 
 func UpdateSet(info *ent.Stock, in *npool.StockReq) (*ent.StockUpdateOne, error) {
+	if in.GetTotal() < info.Locked+info.InService {
+		return nil, fmt.Errorf("stock insufficient")
+	}
 	u := info.Update()
 	if in.Total != nil {
 		u.SetTotal(in.GetTotal())
-	}
-	if in.Locked != nil {
-		u.SetLocked(in.GetLocked())
-	}
-	if in.InService != nil {
-		u.SetInService(in.GetInService())
-	}
-	if in.Sold != nil {
-		u.SetSold(in.GetSold())
 	}
 	return u, nil
 }
@@ -157,6 +151,64 @@ func Update(ctx context.Context, in *npool.StockReq) (*ent.Stock, error) {
 	})
 	if err != nil {
 		return nil, err
+	}
+
+	return info, nil
+}
+
+func AddFieldSet(info *ent.Stock, in *npool.StockReq) (*ent.StockUpdateOne, error) {
+	locked := in.GetLocked() + info.Locked
+	inService := info.InService + in.GetInService()
+	if info.Total < locked+inService {
+		return nil, fmt.Errorf("stock exhausted")
+	}
+	u := info.Update()
+	if in.Locked != nil {
+		u.SetLocked(locked)
+	}
+	if in.InService != nil {
+		u.SetInService(inService)
+		u.AddSold(int32(inService))
+	}
+	return u, nil
+}
+
+func AddFields(ctx context.Context, in *npool.StockReq) (*ent.Stock, error) {
+	var info *ent.Stock
+	var err error
+
+	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "AddFields")
+	defer span.End()
+
+	defer func() {
+		if err != nil {
+			span.SetStatus(codes.Error, "db operation fail")
+			span.RecordError(err)
+		}
+	}()
+
+	span = tracer.Trace(span, in)
+
+	err = db.WithTx(ctx, func(_ctx context.Context, tx *ent.Tx) error {
+		info, err = tx.Stock.Query().Where(stock.ID(uuid.MustParse(in.GetID()))).ForUpdate().Only(_ctx)
+		if err != nil {
+			return fmt.Errorf("fail query stock: %v", err)
+		}
+
+		stm, err := AddFieldSet(info, in)
+		if err != nil {
+			return err
+		}
+
+		info, err = stm.Save(_ctx)
+		if err != nil {
+			return fmt.Errorf("fail update stock: %v", err)
+		}
+
+		return nil
+	})
+	if err != nil {
+		return nil, fmt.Errorf("fail update stock: %v", err)
 	}
 
 	return info, nil

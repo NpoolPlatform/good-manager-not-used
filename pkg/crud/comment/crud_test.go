@@ -29,7 +29,7 @@ func init() {
 	}
 }
 
-var comment = ent.Comment{
+var commentInfo = ent.Comment{
 	ID:        uuid.New(),
 	AppID:     uuid.New(),
 	UserID:    uuid.New(),
@@ -40,19 +40,19 @@ var comment = ent.Comment{
 }
 
 var (
-	id        = comment.ID.String()
-	appID     = comment.AppID.String()
-	goodID    = comment.GoodID.String()
-	userID    = comment.UserID.String()
-	orderID   = comment.OrderID.String()
-	replyToID = comment.ReplyToID.String()
+	id        = commentInfo.ID.String()
+	appID     = commentInfo.AppID.String()
+	goodID    = commentInfo.GoodID.String()
+	userID    = commentInfo.UserID.String()
+	orderID   = commentInfo.OrderID.String()
+	replyToID = commentInfo.ReplyToID.String()
 	req       = npool.CommentReq{
 		ID:        &id,
 		AppID:     &appID,
 		UserID:    &userID,
 		GoodID:    &goodID,
 		OrderID:   &orderID,
-		Content:   &comment.Content,
+		Content:   &commentInfo.Content,
 		ReplyToID: &replyToID,
 	}
 )
@@ -63,9 +63,9 @@ func create(t *testing.T) {
 	var err error
 	info, err = Create(context.Background(), &req)
 	if assert.Nil(t, err) {
-		comment.UpdatedAt = info.UpdatedAt
-		comment.CreatedAt = info.CreatedAt
-		assert.Equal(t, info.String(), comment.String())
+		commentInfo.UpdatedAt = info.UpdatedAt
+		commentInfo.CreatedAt = info.CreatedAt
+		assert.Equal(t, info.String(), commentInfo.String())
 	}
 }
 
@@ -92,20 +92,20 @@ func createBulk(t *testing.T) {
 	}
 
 	reqs := []*npool.CommentReq{}
-	for _, _comment := range entities {
-		_id := _comment.ID.String()
-		_appID := _comment.AppID.String()
-		_goodID := _comment.GoodID.String()
-		_userID := _comment.UserID.String()
-		_orderID := _comment.OrderID.String()
-		_replyToID := _comment.ReplyToID.String()
+	for _, _commentInfo := range entities {
+		_id := _commentInfo.ID.String()
+		_appID := _commentInfo.AppID.String()
+		_goodID := _commentInfo.GoodID.String()
+		_userID := _commentInfo.UserID.String()
+		_orderID := _commentInfo.OrderID.String()
+		_replyToID := _commentInfo.ReplyToID.String()
 		reqs = append(reqs, &npool.CommentReq{
 			ID:        &_id,
 			AppID:     &_appID,
 			UserID:    &_userID,
 			GoodID:    &_goodID,
 			OrderID:   &_orderID,
-			Content:   &_comment.Content,
+			Content:   &_commentInfo.Content,
 			ReplyToID: &_replyToID,
 		})
 	}
@@ -119,16 +119,16 @@ func update(t *testing.T) {
 	var err error
 	info, err = Update(context.Background(), &req)
 	if assert.Nil(t, err) {
-		comment.UpdatedAt = info.UpdatedAt
-		comment.CreatedAt = info.CreatedAt
-		assert.Equal(t, info.String(), comment.String())
+		commentInfo.UpdatedAt = info.UpdatedAt
+		commentInfo.CreatedAt = info.CreatedAt
+		assert.Equal(t, info.String(), commentInfo.String())
 	}
 }
 func row(t *testing.T) {
 	var err error
-	info, err = Row(context.Background(), comment.ID)
+	info, err = Row(context.Background(), commentInfo.ID)
 	if assert.Nil(t, err) {
-		assert.Equal(t, info.String(), comment.String())
+		assert.Equal(t, info.String(), commentInfo.String())
 	}
 }
 
@@ -142,7 +142,7 @@ func rows(t *testing.T) {
 		}, 0, 0)
 	if assert.Nil(t, err) {
 		if assert.Equal(t, total, 1) {
-			assert.Equal(t, infos[0].String(), comment.String())
+			assert.Equal(t, infos[0].String(), commentInfo.String())
 		}
 	}
 }
@@ -157,7 +157,7 @@ func rowOnly(t *testing.T) {
 			},
 		})
 	if assert.Nil(t, err) {
-		assert.Equal(t, info.String(), comment.String())
+		assert.Equal(t, info.String(), commentInfo.String())
 	}
 }
 
@@ -176,7 +176,7 @@ func count(t *testing.T) {
 }
 
 func exist(t *testing.T) {
-	exist, err := Exist(context.Background(), comment.ID)
+	exist, err := Exist(context.Background(), commentInfo.ID)
 	if assert.Nil(t, err) {
 		assert.Equal(t, exist, true)
 	}
@@ -197,10 +197,11 @@ func existConds(t *testing.T) {
 }
 
 func deleteA(t *testing.T) {
-	info, err := Delete(context.Background(), comment.ID.String())
+	info, err := Delete(context.Background(), commentInfo.ID.String())
 	if assert.Nil(t, err) {
-		comment.DeletedAt = info.DeletedAt
-		assert.Equal(t, info.String(), comment.String())
+		commentInfo.DeletedAt = info.DeletedAt
+		commentInfo.UpdatedAt = info.UpdatedAt
+		assert.Equal(t, info.String(), commentInfo.String())
 	}
 }
 

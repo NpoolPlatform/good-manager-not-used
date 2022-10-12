@@ -38,8 +38,8 @@ var deviceInfo = ent.Good{
 	InheritFromGoodID:  uuid.New(),
 	VendorLocationID:   uuid.New(),
 	Price:              decimal.RequireFromString("9999999999999999999.999999999999999999"),
-	BenefitType:        uuid.NewString(),
-	GoodType:           uuid.NewString(),
+	BenefitType:        npool.BenefitType_BenefitTypePlatform.String(),
+	GoodType:           npool.GoodType_GoodTypeClassicMining.String(),
 	Title:              uuid.NewString(),
 	Unit:               uuid.NewString(),
 	UnitAmount:         100,
@@ -58,7 +58,7 @@ var (
 	price              = deviceInfo.Price.String()
 	benefitType        = npool.BenefitType_BenefitTypePlatform
 	goodType           = npool.GoodType_GoodTypeClassicMining
-	supportCoinTypeIDs = []string{uuid.NewString()}
+	supportCoinTypeIDs = []string{deviceInfo.SupportCoinTypeIds[0].String()}
 	req                = npool.GoodReq{
 		ID:                 &id,
 		DeviceInfoID:       &deviceInfoID,
@@ -101,8 +101,8 @@ func createBulk(t *testing.T) {
 			InheritFromGoodID:  uuid.New(),
 			VendorLocationID:   uuid.New(),
 			Price:              decimal.RequireFromString("9999999999999999999.999999999999999999"),
-			BenefitType:        uuid.NewString(),
-			GoodType:           uuid.NewString(),
+			BenefitType:        npool.BenefitType_BenefitTypePlatform.String(),
+			GoodType:           npool.GoodType_GoodTypeClassicMining.String(),
 			Title:              uuid.NewString(),
 			Unit:               uuid.NewString(),
 			UnitAmount:         100,
@@ -119,8 +119,8 @@ func createBulk(t *testing.T) {
 			InheritFromGoodID:  uuid.New(),
 			VendorLocationID:   uuid.New(),
 			Price:              decimal.RequireFromString("9999999999999999999.999999999999999999"),
-			BenefitType:        uuid.NewString(),
-			GoodType:           uuid.NewString(),
+			BenefitType:        npool.BenefitType_BenefitTypePlatform.String(),
+			GoodType:           npool.GoodType_GoodTypeClassicMining.String(),
 			Title:              uuid.NewString(),
 			Unit:               uuid.NewString(),
 			UnitAmount:         100,
@@ -252,6 +252,7 @@ func deleteA(t *testing.T) {
 	info, err := Delete(context.Background(), deviceInfo.ID.String())
 	if assert.Nil(t, err) {
 		deviceInfo.DeletedAt = info.DeletedAt
+		deviceInfo.UpdatedAt = info.UpdatedAt
 		assert.Equal(t, info.String(), deviceInfo.String())
 	}
 }

@@ -96,10 +96,10 @@ func createBulk(t *testing.T) {
 
 	reqs := []*npool.PromotionReq{}
 	for _, _deviceInfo := range entities {
-		_id := deviceInfo.ID.String()
-		_appID := deviceInfo.AppID.String()
-		_goodID := deviceInfo.GoodID.String()
-		_price := deviceInfo.Price.String()
+		_id := _deviceInfo.ID.String()
+		_appID := _deviceInfo.AppID.String()
+		_goodID := _deviceInfo.GoodID.String()
+		_price := _deviceInfo.Price.String()
 		reqs = append(reqs, &npool.PromotionReq{
 			ID:      &_id,
 			AppID:   &_appID,
@@ -202,6 +202,7 @@ func deleteA(t *testing.T) {
 	info, err := Delete(context.Background(), deviceInfo.ID.String())
 	if assert.Nil(t, err) {
 		deviceInfo.DeletedAt = info.DeletedAt
+		deviceInfo.UpdatedAt = info.UpdatedAt
 		assert.Equal(t, info.String(), deviceInfo.String())
 	}
 }
