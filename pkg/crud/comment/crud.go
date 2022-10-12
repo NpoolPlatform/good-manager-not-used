@@ -45,7 +45,7 @@ func CreateSet(c *ent.CommentCreate, in *npool.CommentReq) (*ent.CommentCreate, 
 	return c, nil
 }
 
-func Create(ctx context.Context, in *npool.CommentReq) (*ent.Comment, error) { //nolint
+func Create(ctx context.Context, in *npool.CommentReq) (*ent.Comment, error) {
 	var info *ent.Comment
 	var err error
 
@@ -77,7 +77,7 @@ func Create(ctx context.Context, in *npool.CommentReq) (*ent.Comment, error) { /
 	return info, nil
 }
 
-func CreateBulk(ctx context.Context, in []*npool.CommentReq) ([]*ent.Comment, error) { //nolint
+func CreateBulk(ctx context.Context, in []*npool.CommentReq) ([]*ent.Comment, error) {
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "CreateBulk")
@@ -186,7 +186,7 @@ func Row(ctx context.Context, id uuid.UUID) (*ent.Comment, error) {
 	return info, nil
 }
 
-func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.CommentQuery, error) { //nolint
+func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.CommentQuery, error) {
 	stm := cli.Comment.Query()
 	if conds.ID != nil {
 		switch conds.GetID().GetOp() {

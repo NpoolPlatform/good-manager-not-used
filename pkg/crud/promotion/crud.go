@@ -3,8 +3,9 @@ package promotion
 import (
 	"context"
 	"fmt"
-	"github.com/shopspring/decimal"
 	"time"
+
+	"github.com/shopspring/decimal"
 
 	constant "github.com/NpoolPlatform/good-manager/pkg/message/const"
 	commontracer "github.com/NpoolPlatform/good-manager/pkg/tracer"
@@ -60,7 +61,7 @@ func CreateSet(c *ent.PromotionCreate, in *npool.PromotionReq) (*ent.PromotionCr
 	return c, nil
 }
 
-func Create(ctx context.Context, in *npool.PromotionReq) (*ent.Promotion, error) { //nolint
+func Create(ctx context.Context, in *npool.PromotionReq) (*ent.Promotion, error) {
 	var info *ent.Promotion
 	var err error
 
@@ -92,7 +93,7 @@ func Create(ctx context.Context, in *npool.PromotionReq) (*ent.Promotion, error)
 	return info, nil
 }
 
-func CreateBulk(ctx context.Context, in []*npool.PromotionReq) ([]*ent.Promotion, error) { //nolint
+func CreateBulk(ctx context.Context, in []*npool.PromotionReq) ([]*ent.Promotion, error) {
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "CreateBulk")
@@ -214,7 +215,7 @@ func Row(ctx context.Context, id uuid.UUID) (*ent.Promotion, error) {
 	return info, nil
 }
 
-func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.PromotionQuery, error) { //nolint
+func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.PromotionQuery, error) {
 	stm := cli.Promotion.Query()
 	if conds.ID != nil {
 		switch conds.GetID().GetOp() {

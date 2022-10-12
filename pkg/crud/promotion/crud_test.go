@@ -3,10 +3,11 @@ package promotion
 import (
 	"context"
 	"fmt"
-	"github.com/shopspring/decimal"
 	"os"
 	"strconv"
 	"testing"
+
+	"github.com/shopspring/decimal"
 
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent"
 

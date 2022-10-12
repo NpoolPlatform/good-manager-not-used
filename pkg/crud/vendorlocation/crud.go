@@ -39,7 +39,7 @@ func CreateSet(c *ent.VendorLocationCreate, in *npool.VendorLocationReq) (*ent.V
 	return c, nil
 }
 
-func Create(ctx context.Context, in *npool.VendorLocationReq) (*ent.VendorLocation, error) { //nolint
+func Create(ctx context.Context, in *npool.VendorLocationReq) (*ent.VendorLocation, error) {
 	var info *ent.VendorLocation
 	var err error
 
@@ -71,7 +71,7 @@ func Create(ctx context.Context, in *npool.VendorLocationReq) (*ent.VendorLocati
 	return info, nil
 }
 
-func CreateBulk(ctx context.Context, in []*npool.VendorLocationReq) ([]*ent.VendorLocation, error) { //nolint
+func CreateBulk(ctx context.Context, in []*npool.VendorLocationReq) ([]*ent.VendorLocation, error) {
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "CreateBulk")
@@ -186,7 +186,7 @@ func Row(ctx context.Context, id uuid.UUID) (*ent.VendorLocation, error) {
 	return info, nil
 }
 
-func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.VendorLocationQuery, error) { //nolint
+func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.VendorLocationQuery, error) {
 	stm := cli.VendorLocation.Query()
 	if conds.ID != nil {
 		switch conds.GetID().GetOp() {

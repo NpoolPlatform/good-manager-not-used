@@ -42,7 +42,7 @@ func CreateSet(c *ent.DeviceInfoCreate, in *npool.DeviceInfoReq) (*ent.DeviceInf
 	return c, nil
 }
 
-func Create(ctx context.Context, in *npool.DeviceInfoReq) (*ent.DeviceInfo, error) { //nolint
+func Create(ctx context.Context, in *npool.DeviceInfoReq) (*ent.DeviceInfo, error) {
 	var info *ent.DeviceInfo
 	var err error
 
@@ -74,7 +74,7 @@ func Create(ctx context.Context, in *npool.DeviceInfoReq) (*ent.DeviceInfo, erro
 	return info, nil
 }
 
-func CreateBulk(ctx context.Context, in []*npool.DeviceInfoReq) ([]*ent.DeviceInfo, error) { //nolint
+func CreateBulk(ctx context.Context, in []*npool.DeviceInfoReq) ([]*ent.DeviceInfo, error) {
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "CreateBulk")
@@ -180,7 +180,7 @@ func Row(ctx context.Context, id uuid.UUID) (*ent.DeviceInfo, error) {
 	return info, nil
 }
 
-func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.DeviceInfoQuery, error) { //nolint
+func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.DeviceInfoQuery, error) {
 	stm := cli.DeviceInfo.Query()
 	if conds.ID != nil {
 		switch conds.GetID().GetOp() {

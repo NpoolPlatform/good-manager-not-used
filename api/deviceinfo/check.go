@@ -8,7 +8,7 @@ import (
 	npool "github.com/NpoolPlatform/message/npool/good/mgr/v1/deviceinfo"
 )
 
-func validate(info *npool.DeviceInfoReq) error { //nolint
+func validate(info *npool.DeviceInfoReq) error {
 	if info.GetType() == "" {
 		logger.Sugar().Errorw("validate", "Type", info.GetType())
 		return status.Error(codes.InvalidArgument, "Type is empty")

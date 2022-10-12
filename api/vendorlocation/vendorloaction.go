@@ -22,7 +22,13 @@ import (
 	"github.com/google/uuid"
 )
 
-func (s *Server) CreateVendorLocation(ctx context.Context, in *npool.CreateVendorLocationRequest) (*npool.CreateVendorLocationResponse, error) {
+func (s *Server) CreateVendorLocation(
+	ctx context.Context,
+	in *npool.CreateVendorLocationRequest,
+) (
+	*npool.CreateVendorLocationResponse,
+	error,
+) {
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "CreateVendorLocation")
@@ -55,7 +61,13 @@ func (s *Server) CreateVendorLocation(ctx context.Context, in *npool.CreateVendo
 	}, nil
 }
 
-func (s *Server) CreateVendorLocations(ctx context.Context, in *npool.CreateVendorLocationsRequest) (*npool.CreateVendorLocationsResponse, error) {
+func (s *Server) CreateVendorLocations(
+	ctx context.Context,
+	in *npool.CreateVendorLocationsRequest,
+) (
+	*npool.CreateVendorLocationsResponse,
+	error,
+) {
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "CreateVendorLocations")
@@ -86,7 +98,13 @@ func (s *Server) CreateVendorLocations(ctx context.Context, in *npool.CreateVend
 	}, nil
 }
 
-func (s *Server) UpdateVendorLocation(ctx context.Context, in *npool.UpdateVendorLocationRequest) (*npool.UpdateVendorLocationResponse, error) {
+func (s *Server) UpdateVendorLocation(
+	ctx context.Context,
+	in *npool.UpdateVendorLocationRequest,
+) (
+	*npool.UpdateVendorLocationResponse,
+	error,
+) {
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "CreateVendorLocations")
@@ -117,7 +135,13 @@ func (s *Server) UpdateVendorLocation(ctx context.Context, in *npool.UpdateVendo
 	}, nil
 }
 
-func (s *Server) GetVendorLocation(ctx context.Context, in *npool.GetVendorLocationRequest) (*npool.GetVendorLocationResponse, error) {
+func (s *Server) GetVendorLocation(
+	ctx context.Context,
+	in *npool.GetVendorLocationRequest,
+) (
+	*npool.GetVendorLocationResponse,
+	error,
+) {
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "GetVendorLocation")
@@ -150,7 +174,13 @@ func (s *Server) GetVendorLocation(ctx context.Context, in *npool.GetVendorLocat
 	}, nil
 }
 
-func (s *Server) GetVendorLocationOnly(ctx context.Context, in *npool.GetVendorLocationOnlyRequest) (*npool.GetVendorLocationOnlyResponse, error) {
+func (s *Server) GetVendorLocationOnly(
+	ctx context.Context,
+	in *npool.GetVendorLocationOnlyRequest,
+) (
+	*npool.GetVendorLocationOnlyResponse,
+	error,
+) {
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "GetVendorLocationOnly")
@@ -177,7 +207,13 @@ func (s *Server) GetVendorLocationOnly(ctx context.Context, in *npool.GetVendorL
 	}, nil
 }
 
-func (s *Server) GetVendorLocations(ctx context.Context, in *npool.GetVendorLocationsRequest) (*npool.GetVendorLocationsResponse, error) {
+func (s *Server) GetVendorLocations(
+	ctx context.Context,
+	in *npool.GetVendorLocationsRequest,
+) (
+	*npool.GetVendorLocationsResponse,
+	error,
+) {
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "GetVendorLocations")
@@ -206,7 +242,13 @@ func (s *Server) GetVendorLocations(ctx context.Context, in *npool.GetVendorLoca
 	}, nil
 }
 
-func (s *Server) ExistVendorLocation(ctx context.Context, in *npool.ExistVendorLocationRequest) (*npool.ExistVendorLocationResponse, error) {
+func (s *Server) ExistVendorLocation(
+	ctx context.Context,
+	in *npool.ExistVendorLocationRequest,
+) (
+	*npool.ExistVendorLocationResponse,
+	error,
+) {
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "ExistVendorLocation")
@@ -239,8 +281,13 @@ func (s *Server) ExistVendorLocation(ctx context.Context, in *npool.ExistVendorL
 	}, nil
 }
 
-func (s *Server) ExistVendorLocationConds(ctx context.Context,
-	in *npool.ExistVendorLocationCondsRequest) (*npool.ExistVendorLocationCondsResponse, error) {
+func (s *Server) ExistVendorLocationConds(
+	ctx context.Context,
+	in *npool.ExistVendorLocationCondsRequest,
+) (
+	*npool.ExistVendorLocationCondsResponse,
+	error,
+) {
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "ExistVendorLocationConds")
@@ -267,7 +314,13 @@ func (s *Server) ExistVendorLocationConds(ctx context.Context,
 	}, nil
 }
 
-func (s *Server) CountVendorLocations(ctx context.Context, in *npool.CountVendorLocationsRequest) (*npool.CountVendorLocationsResponse, error) {
+func (s *Server) CountVendorLocations(
+	ctx context.Context,
+	in *npool.CountVendorLocationsRequest,
+) (
+	*npool.CountVendorLocationsResponse,
+	error,
+) {
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "CountVendorLocations")
@@ -294,7 +347,13 @@ func (s *Server) CountVendorLocations(ctx context.Context, in *npool.CountVendor
 	}, nil
 }
 
-func (s *Server) DeleteVendorLocation(ctx context.Context, in *npool.DeleteVendorLocationRequest) (*npool.DeleteVendorLocationResponse, error) {
+func (s *Server) DeleteVendorLocation(
+	ctx context.Context,
+	in *npool.DeleteVendorLocationRequest,
+) (
+	*npool.DeleteVendorLocationResponse,
+	error,
+) {
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "CreateVendorLocations")

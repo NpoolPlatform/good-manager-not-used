@@ -60,7 +60,7 @@ func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (*ent.AppGoodCreate, 
 	return c, nil
 }
 
-func Create(ctx context.Context, in *npool.AppGoodReq) (*ent.AppGood, error) { //nolint
+func Create(ctx context.Context, in *npool.AppGoodReq) (*ent.AppGood, error) {
 	var info *ent.AppGood
 	var err error
 
@@ -92,7 +92,7 @@ func Create(ctx context.Context, in *npool.AppGoodReq) (*ent.AppGood, error) { /
 	return info, nil
 }
 
-func CreateBulk(ctx context.Context, in []*npool.AppGoodReq) ([]*ent.AppGood, error) { //nolint
+func CreateBulk(ctx context.Context, in []*npool.AppGoodReq) ([]*ent.AppGood, error) {
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "CreateBulk")
@@ -221,7 +221,7 @@ func Row(ctx context.Context, id uuid.UUID) (*ent.AppGood, error) {
 	return info, nil
 }
 
-func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.AppGoodQuery, error) { //nolint
+func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.AppGoodQuery, error) {
 	stm := cli.AppGood.Query()
 	if conds.ID != nil {
 		switch conds.GetID().GetOp() {

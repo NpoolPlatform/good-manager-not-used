@@ -45,7 +45,7 @@ func CreateSet(c *ent.ExtraInfoCreate, in *npool.ExtraInfoReq) (*ent.ExtraInfoCr
 	return c, nil
 }
 
-func Create(ctx context.Context, in *npool.ExtraInfoReq) (*ent.ExtraInfo, error) { //nolint
+func Create(ctx context.Context, in *npool.ExtraInfoReq) (*ent.ExtraInfo, error) {
 	var info *ent.ExtraInfo
 	var err error
 
@@ -77,7 +77,7 @@ func Create(ctx context.Context, in *npool.ExtraInfoReq) (*ent.ExtraInfo, error)
 	return info, nil
 }
 
-func CreateBulk(ctx context.Context, in []*npool.ExtraInfoReq) ([]*ent.ExtraInfo, error) { //nolint
+func CreateBulk(ctx context.Context, in []*npool.ExtraInfoReq) ([]*ent.ExtraInfo, error) {
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "CreateBulk")
@@ -192,7 +192,7 @@ func Row(ctx context.Context, id uuid.UUID) (*ent.ExtraInfo, error) {
 	return info, nil
 }
 
-func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.ExtraInfoQuery, error) { //nolint
+func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.ExtraInfoQuery, error) {
 	stm := cli.ExtraInfo.Query()
 	if conds.ID != nil {
 		switch conds.GetID().GetOp() {

@@ -42,7 +42,7 @@ func CreateSet(c *ent.RecommendCreate, in *npool.RecommendReq) (*ent.RecommendCr
 	return c, nil
 }
 
-func Create(ctx context.Context, in *npool.RecommendReq) (*ent.Recommend, error) { //nolint
+func Create(ctx context.Context, in *npool.RecommendReq) (*ent.Recommend, error) {
 	var info *ent.Recommend
 	var err error
 
@@ -74,7 +74,7 @@ func Create(ctx context.Context, in *npool.RecommendReq) (*ent.Recommend, error)
 	return info, nil
 }
 
-func CreateBulk(ctx context.Context, in []*npool.RecommendReq) ([]*ent.Recommend, error) { //nolint
+func CreateBulk(ctx context.Context, in []*npool.RecommendReq) ([]*ent.Recommend, error) {
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "CreateBulk")
@@ -183,7 +183,7 @@ func Row(ctx context.Context, id uuid.UUID) (*ent.Recommend, error) {
 	return info, nil
 }
 
-func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.RecommendQuery, error) { //nolint
+func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.RecommendQuery, error) {
 	stm := cli.Recommend.Query()
 	if conds.ID != nil {
 		switch conds.GetID().GetOp() {

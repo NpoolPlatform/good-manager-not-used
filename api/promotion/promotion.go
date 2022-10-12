@@ -72,6 +72,11 @@ func (s *Server) CreatePromotions(ctx context.Context, in *npool.CreatePromotion
 		return &npool.CreatePromotionsResponse{}, status.Error(codes.InvalidArgument, "Infos is empty")
 	}
 
+	err = duplicate(in.GetInfos())
+	if err != nil {
+		return &npool.CreatePromotionsResponse{}, err
+	}
+
 	span = tracer.TraceMany(span, in.GetInfos())
 	span = commontracer.TraceInvoker(span, "Promotion", "crud", "CreateBulk")
 

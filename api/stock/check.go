@@ -12,7 +12,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func validate(info *npool.StockReq) error { //nolint
+func validate(info *npool.StockReq) error {
 	if info.GoodID == nil {
 		logger.Sugar().Errorw("validate", "GoodID", info.GoodID)
 		return status.Error(codes.InvalidArgument, "GoodID is empty")

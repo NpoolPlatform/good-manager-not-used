@@ -42,7 +42,7 @@ func CreateSet(c *ent.StockCreate, in *npool.StockReq) (*ent.StockCreate, error)
 	return c, nil
 }
 
-func Create(ctx context.Context, in *npool.StockReq) (*ent.Stock, error) { //nolint
+func Create(ctx context.Context, in *npool.StockReq) (*ent.Stock, error) {
 	var info *ent.Stock
 	var err error
 
@@ -74,7 +74,7 @@ func Create(ctx context.Context, in *npool.StockReq) (*ent.Stock, error) { //nol
 	return info, nil
 }
 
-func CreateBulk(ctx context.Context, in []*npool.StockReq) ([]*ent.Stock, error) { //nolint
+func CreateBulk(ctx context.Context, in []*npool.StockReq) ([]*ent.Stock, error) {
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "CreateBulk")
@@ -241,7 +241,7 @@ func Row(ctx context.Context, id uuid.UUID) (*ent.Stock, error) {
 	return info, nil
 }
 
-func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.StockQuery, error) { //nolint
+func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.StockQuery, error) {
 	stm := cli.Stock.Query()
 	if conds.ID != nil {
 		switch conds.GetID().GetOp() {

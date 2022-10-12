@@ -42,7 +42,7 @@ func CreateSet(c *ent.SubGoodCreate, in *npool.SubGoodReq) (*ent.SubGoodCreate, 
 	return c, nil
 }
 
-func Create(ctx context.Context, in *npool.SubGoodReq) (*ent.SubGood, error) { //nolint
+func Create(ctx context.Context, in *npool.SubGoodReq) (*ent.SubGood, error) {
 	var info *ent.SubGood
 	var err error
 
@@ -74,7 +74,7 @@ func Create(ctx context.Context, in *npool.SubGoodReq) (*ent.SubGood, error) { /
 	return info, nil
 }
 
-func CreateBulk(ctx context.Context, in []*npool.SubGoodReq) ([]*ent.SubGood, error) { //nolint
+func CreateBulk(ctx context.Context, in []*npool.SubGoodReq) ([]*ent.SubGood, error) {
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "CreateBulk")
@@ -186,7 +186,7 @@ func Row(ctx context.Context, id uuid.UUID) (*ent.SubGood, error) {
 	return info, nil
 }
 
-func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.SubGoodQuery, error) { //nolint
+func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.SubGoodQuery, error) {
 	stm := cli.SubGood.Query()
 	if conds.ID != nil {
 		switch conds.GetID().GetOp() {

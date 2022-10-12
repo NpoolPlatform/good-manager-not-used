@@ -2,6 +2,7 @@ package api
 
 import (
 	"context"
+
 	"github.com/NpoolPlatform/good-manager/api/appgood"
 	"github.com/NpoolPlatform/good-manager/api/comment"
 	"github.com/NpoolPlatform/good-manager/api/deviceinfo"
@@ -12,7 +13,7 @@ import (
 	"github.com/NpoolPlatform/good-manager/api/stock"
 	"github.com/NpoolPlatform/good-manager/api/subgood"
 	"github.com/NpoolPlatform/good-manager/api/vendorlocation"
-	"github.com/NpoolPlatform/message/npool/good/mgr/v1"
+	v1 "github.com/NpoolPlatform/message/npool/good/mgr/v1"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"

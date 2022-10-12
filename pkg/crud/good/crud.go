@@ -3,8 +3,9 @@ package good
 import (
 	"context"
 	"fmt"
-	"github.com/shopspring/decimal"
 	"time"
+
+	"github.com/shopspring/decimal"
 
 	constant "github.com/NpoolPlatform/good-manager/pkg/message/const"
 	commontracer "github.com/NpoolPlatform/good-manager/pkg/tracer"
@@ -21,6 +22,7 @@ import (
 	"github.com/google/uuid"
 )
 
+//nolint
 func CreateSet(c *ent.GoodCreate, in *npool.GoodReq) (*ent.GoodCreate, error) {
 	if in.ID != nil {
 		c.SetID(uuid.MustParse(in.GetID()))
@@ -81,7 +83,7 @@ func CreateSet(c *ent.GoodCreate, in *npool.GoodReq) (*ent.GoodCreate, error) {
 	return c, nil
 }
 
-func Create(ctx context.Context, in *npool.GoodReq) (*ent.Good, error) { //nolint
+func Create(ctx context.Context, in *npool.GoodReq) (*ent.Good, error) {
 	var info *ent.Good
 	var err error
 
@@ -113,7 +115,7 @@ func Create(ctx context.Context, in *npool.GoodReq) (*ent.Good, error) { //nolin
 	return info, nil
 }
 
-func CreateBulk(ctx context.Context, in []*npool.GoodReq) ([]*ent.Good, error) { //nolint
+func CreateBulk(ctx context.Context, in []*npool.GoodReq) ([]*ent.Good, error) {
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "CreateBulk")
@@ -254,7 +256,7 @@ func Row(ctx context.Context, id uuid.UUID) (*ent.Good, error) {
 	return info, nil
 }
 
-func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.GoodQuery, error) { //nolint
+func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.GoodQuery, error) {
 	stm := cli.Good.Query()
 	if conds.ID != nil {
 		switch conds.GetID().GetOp() {

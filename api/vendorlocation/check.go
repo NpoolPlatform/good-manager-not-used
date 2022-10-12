@@ -8,7 +8,7 @@ import (
 	npool "github.com/NpoolPlatform/message/npool/good/mgr/v1/vendorlocation"
 )
 
-func validate(info *npool.VendorLocationReq) error { //nolint
+func validate(info *npool.VendorLocationReq) error {
 	if info.GetCountry() == "" {
 		logger.Sugar().Errorw("validate", "Country", info.GetCountry())
 		return status.Error(codes.InvalidArgument, "Country is empty")

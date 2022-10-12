@@ -72,6 +72,11 @@ func (s *Server) CreateGoods(ctx context.Context, in *npool.CreateGoodsRequest) 
 		return &npool.CreateGoodsResponse{}, status.Error(codes.InvalidArgument, "Infos is empty")
 	}
 
+	err = duplicate(in.GetInfos())
+	if err != nil {
+		return &npool.CreateGoodsResponse{}, err
+	}
+
 	span = tracer.TraceMany(span, in.GetInfos())
 	span = commontracer.TraceInvoker(span, "Good", "crud", "CreateBulk")
 

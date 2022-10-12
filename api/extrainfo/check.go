@@ -2,6 +2,7 @@ package extrainfo
 
 import (
 	"fmt"
+
 	"github.com/google/uuid"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -10,7 +11,7 @@ import (
 	npool "github.com/NpoolPlatform/message/npool/good/mgr/v1/extrainfo"
 )
 
-func validate(info *npool.ExtraInfoReq) error { //nolint
+func validate(info *npool.ExtraInfoReq) error {
 	if info.GoodID == nil {
 		logger.Sugar().Errorw("validate", "GoodID", info.GoodID)
 		return status.Error(codes.InvalidArgument, "GoodID is empty")
