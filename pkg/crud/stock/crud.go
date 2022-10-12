@@ -30,15 +30,9 @@ func CreateSet(c *ent.StockCreate, in *npool.StockReq) (*ent.StockCreate, error)
 	if in.Total != nil {
 		c.SetTotal(in.GetTotal())
 	}
-	if in.Locked != nil {
-		c.SetLocked(in.GetLocked())
-	}
-	if in.InService != nil {
-		c.SetInService(in.GetInService())
-	}
-	if in.Sold != nil {
-		c.SetSold(in.GetSold())
-	}
+	c.SetLocked(0)
+	c.SetInService(0)
+	c.SetSold(0)
 	return c, nil
 }
 
