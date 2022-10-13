@@ -160,6 +160,12 @@ func UpdateSet(info *ent.Good, in *npool.GoodReq) (*ent.GoodUpdateOne, error) {
 	if in.CoinTypeID != nil {
 		u.SetCoinTypeID(uuid.MustParse(in.GetCoinTypeID()))
 	}
+	if in.InheritFromGoodID != nil {
+		u.SetInheritFromGoodID(uuid.MustParse(in.GetInheritFromGoodID()))
+	}
+	if in.VendorLocationID != nil {
+		u.SetVendorLocationID(uuid.MustParse(in.GetVendorLocationID()))
+	}
 	if in.Price != nil {
 		price, err := decimal.NewFromString(in.GetPrice())
 		if err != nil {
@@ -185,6 +191,9 @@ func UpdateSet(info *ent.Good, in *npool.GoodReq) (*ent.GoodUpdateOne, error) {
 	}
 	if in.DeliveryAt != nil {
 		u.SetDeliveryAt(in.GetDeliveryAt())
+	}
+	if in.StartAt != nil {
+		u.SetStartAt(in.GetStartAt())
 	}
 	if in.TestOnly != nil {
 		u.SetTestOnly(in.GetTestOnly())
