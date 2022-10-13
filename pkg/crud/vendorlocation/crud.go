@@ -105,8 +105,7 @@ func CreateBulk(ctx context.Context, in []*npool.VendorLocationReq) ([]*ent.Vend
 	return rows, nil
 }
 
-func UpdateSet(info *ent.VendorLocation, in *npool.VendorLocationReq) (*ent.VendorLocationUpdateOne, error) {
-	u := info.Update()
+func UpdateSet(u *ent.VendorLocationUpdateOne, in *npool.VendorLocationReq) (*ent.VendorLocationUpdateOne, error) {
 	if in.Country != nil {
 		u.SetCountry(in.GetCountry())
 	}
@@ -144,7 +143,7 @@ func Update(ctx context.Context, in *npool.VendorLocationReq) (*ent.VendorLocati
 			return err
 		}
 
-		stm, err := UpdateSet(info, in)
+		stm, err := UpdateSet(info.Update(), in)
 		if err != nil {
 			return err
 		}

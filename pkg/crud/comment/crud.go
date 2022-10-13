@@ -111,8 +111,7 @@ func CreateBulk(ctx context.Context, in []*npool.CommentReq) ([]*ent.Comment, er
 	return rows, nil
 }
 
-func UpdateSet(info *ent.Comment, in *npool.CommentReq) (*ent.CommentUpdateOne, error) {
-	u := info.Update()
+func UpdateSet(u *ent.CommentUpdateOne, in *npool.CommentReq) (*ent.CommentUpdateOne, error) {
 	if in.Content != nil {
 		u.SetContent(in.GetContent())
 	}
@@ -144,7 +143,7 @@ func Update(ctx context.Context, in *npool.CommentReq) (*ent.Comment, error) {
 			return err
 		}
 
-		stm, err := UpdateSet(info, in)
+		stm, err := UpdateSet(info.Update(), in)
 		if err != nil {
 			return err
 		}

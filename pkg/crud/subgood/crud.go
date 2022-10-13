@@ -108,8 +108,7 @@ func CreateBulk(ctx context.Context, in []*npool.SubGoodReq) ([]*ent.SubGood, er
 	return rows, nil
 }
 
-func UpdateSet(info *ent.SubGood, in *npool.SubGoodReq) (*ent.SubGoodUpdateOne, error) {
-	u := info.Update()
+func UpdateSet(u *ent.SubGoodUpdateOne, in *npool.SubGoodReq) (*ent.SubGoodUpdateOne, error) {
 	if in.SubGoodID != nil {
 		u.SetSubGoodID(uuid.MustParse(in.GetSubGoodID()))
 	}
@@ -144,7 +143,7 @@ func Update(ctx context.Context, in *npool.SubGoodReq) (*ent.SubGood, error) {
 			return err
 		}
 
-		stm, err := UpdateSet(info, in)
+		stm, err := UpdateSet(info.Update(), in)
 		if err != nil {
 			return err
 		}

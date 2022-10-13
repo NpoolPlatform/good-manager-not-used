@@ -102,11 +102,7 @@ func CreateBulk(ctx context.Context, in []*npool.StockReq) ([]*ent.Stock, error)
 	return rows, nil
 }
 
-func UpdateSet(info *ent.Stock, in *npool.StockReq) (*ent.StockUpdateOne, error) {
-	if in.GetTotal() < info.Locked+info.InService {
-		return nil, fmt.Errorf("stock insufficient")
-	}
-	u := info.Update()
+func UpdateSet(u *ent.StockUpdateOne, in *npool.StockReq) (*ent.StockUpdateOne, error) {
 	if in.Total != nil {
 		u.SetTotal(in.GetTotal())
 	}
@@ -135,7 +131,11 @@ func Update(ctx context.Context, in *npool.StockReq) (*ent.Stock, error) {
 			return err
 		}
 
-		stm, err := UpdateSet(info, in)
+		if in.GetTotal() < info.Locked+info.InService {
+			return fmt.Errorf("stock insufficient")
+		}
+
+		stm, err := UpdateSet(info.Update(), in)
 		if err != nil {
 			return err
 		}

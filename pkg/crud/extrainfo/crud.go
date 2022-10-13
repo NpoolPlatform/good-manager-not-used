@@ -111,8 +111,7 @@ func CreateBulk(ctx context.Context, in []*npool.ExtraInfoReq) ([]*ent.ExtraInfo
 	return rows, nil
 }
 
-func UpdateSet(info *ent.ExtraInfo, in *npool.ExtraInfoReq) (*ent.ExtraInfoUpdateOne, error) {
-	u := info.Update()
+func UpdateSet(u *ent.ExtraInfoUpdateOne, in *npool.ExtraInfoReq) (*ent.ExtraInfoUpdateOne, error) {
 	if in.Posters != nil {
 		u.SetPosters(in.GetPosters())
 	}
@@ -150,7 +149,7 @@ func Update(ctx context.Context, in *npool.ExtraInfoReq) (*ent.ExtraInfo, error)
 			return err
 		}
 
-		stm, err := UpdateSet(info, in)
+		stm, err := UpdateSet(info.Update(), in)
 		if err != nil {
 			return err
 		}

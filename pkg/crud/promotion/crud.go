@@ -127,8 +127,7 @@ func CreateBulk(ctx context.Context, in []*npool.PromotionReq) ([]*ent.Promotion
 	return rows, nil
 }
 
-func UpdateSet(info *ent.Promotion, in *npool.PromotionReq) (*ent.PromotionUpdateOne, error) {
-	u := info.Update()
+func UpdateSet(u *ent.PromotionUpdateOne, in *npool.PromotionReq) (*ent.PromotionUpdateOne, error) {
 	if in.Message != nil {
 		u.SetMessage(in.GetMessage())
 	}
@@ -173,7 +172,7 @@ func Update(ctx context.Context, in *npool.PromotionReq) (*ent.Promotion, error)
 			return err
 		}
 
-		stm, err := UpdateSet(info, in)
+		stm, err := UpdateSet(info.Update(), in)
 		if err != nil {
 			return err
 		}

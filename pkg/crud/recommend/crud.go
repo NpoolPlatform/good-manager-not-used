@@ -108,8 +108,7 @@ func CreateBulk(ctx context.Context, in []*npool.RecommendReq) ([]*ent.Recommend
 	return rows, nil
 }
 
-func UpdateSet(info *ent.Recommend, in *npool.RecommendReq) (*ent.RecommendUpdateOne, error) {
-	u := info.Update()
+func UpdateSet(u *ent.RecommendUpdateOne, in *npool.RecommendReq) (*ent.RecommendUpdateOne, error) {
 	if in.Message != nil {
 		u.SetMessage(in.GetMessage())
 	}
@@ -141,7 +140,7 @@ func Update(ctx context.Context, in *npool.RecommendReq) (*ent.Recommend, error)
 			return err
 		}
 
-		stm, err := UpdateSet(info, in)
+		stm, err := UpdateSet(info.Update(), in)
 		if err != nil {
 			return err
 		}

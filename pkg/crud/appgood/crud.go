@@ -126,9 +126,7 @@ func CreateBulk(ctx context.Context, in []*npool.AppGoodReq) ([]*ent.AppGood, er
 	return rows, nil
 }
 
-func UpdateSet(info *ent.AppGood, in *npool.AppGoodReq) (*ent.AppGoodUpdateOne, error) {
-	u := info.Update()
-
+func UpdateSet(u *ent.AppGoodUpdateOne, in *npool.AppGoodReq) (*ent.AppGoodUpdateOne, error) {
 	if in.Online != nil {
 		u.SetOnline(in.GetOnline())
 	}
@@ -179,7 +177,7 @@ func Update(ctx context.Context, in *npool.AppGoodReq) (*ent.AppGood, error) {
 			return err
 		}
 
-		stm, err := UpdateSet(info, in)
+		stm, err := UpdateSet(info.Update(), in)
 		if err != nil {
 			return err
 		}

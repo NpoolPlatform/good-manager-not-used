@@ -149,8 +149,7 @@ func CreateBulk(ctx context.Context, in []*npool.GoodReq) ([]*ent.Good, error) {
 	return rows, nil
 }
 
-func UpdateSet(info *ent.Good, in *npool.GoodReq) (*ent.GoodUpdateOne, error) {
-	u := info.Update()
+func UpdateSet(u *ent.GoodUpdateOne, in *npool.GoodReq) (*ent.GoodUpdateOne, error) {
 	if in.DeviceInfoID != nil {
 		u.SetDeviceInfoID(uuid.MustParse(in.GetDeviceInfoID()))
 	}
@@ -223,7 +222,7 @@ func Update(ctx context.Context, in *npool.GoodReq) (*ent.Good, error) {
 			return err
 		}
 
-		stm, err := UpdateSet(info, in)
+		stm, err := UpdateSet(info.Update(), in)
 		if err != nil {
 			return err
 		}

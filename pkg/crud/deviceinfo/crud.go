@@ -108,8 +108,7 @@ func CreateBulk(ctx context.Context, in []*npool.DeviceInfoReq) ([]*ent.DeviceIn
 	return rows, nil
 }
 
-func UpdateSet(info *ent.DeviceInfo, in *npool.DeviceInfoReq) (*ent.DeviceInfoUpdateOne, error) {
-	u := info.Update()
+func UpdateSet(u *ent.DeviceInfoUpdateOne, in *npool.DeviceInfoReq) (*ent.DeviceInfoUpdateOne, error) {
 	if in.Posters != nil {
 		u.SetPosters(in.GetPosters())
 	}
@@ -138,7 +137,7 @@ func Update(ctx context.Context, in *npool.DeviceInfoReq) (*ent.DeviceInfo, erro
 			return err
 		}
 
-		stm, err := UpdateSet(info, in)
+		stm, err := UpdateSet(info.Update(), in)
 		if err != nil {
 			return err
 		}
