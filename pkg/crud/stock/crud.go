@@ -152,17 +152,29 @@ func Update(ctx context.Context, in *npool.StockReq) (*ent.Stock, error) {
 
 func AddFieldSet(info *ent.Stock, in *npool.StockReq) (*ent.StockUpdateOne, error) {
 	locked := in.GetLocked() + info.Locked
+	if locked < 0 {
+		return nil, fmt.Errorf("locked stock exhausted")
+	}
+
 	inService := info.InService + in.GetInService()
+	if inService < 0 {
+		return nil, fmt.Errorf("in service stock exhausted")
+	}
+
 	if info.Total < locked+inService {
 		return nil, fmt.Errorf("stock exhausted")
 	}
+
 	u := info.Update()
 	if in.Locked != nil {
 		u.SetLocked(locked)
 	}
 	if in.InService != nil {
 		u.SetInService(inService)
-		u.AddSold(int32(inService))
+
+		if in.GetInService() > 0 {
+			u.AddSold(int32(inService))
+		}
 	}
 	return u, nil
 }
