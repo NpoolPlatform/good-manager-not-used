@@ -72,10 +72,12 @@ func createPromotion(t *testing.T) {
 }
 
 func createPromotions(t *testing.T) {
-	appDates := []npool.Promotion{
+	appID := uuid.NewString()
+
+	promotions := []npool.Promotion{
 		{
 			ID:      uuid.NewString(),
-			AppID:   uuid.NewString(),
+			AppID:   appID,
 			GoodID:  uuid.NewString(),
 			Message: uuid.NewString(),
 			StartAt: 1001,
@@ -85,7 +87,7 @@ func createPromotions(t *testing.T) {
 		},
 		{
 			ID:      uuid.NewString(),
-			AppID:   uuid.NewString(),
+			AppID:   appID,
 			GoodID:  uuid.NewString(),
 			Message: uuid.NewString(),
 			StartAt: 1001,
@@ -96,16 +98,16 @@ func createPromotions(t *testing.T) {
 	}
 
 	apps := []*npool.PromotionReq{}
-	for key := range appDates {
+	for key := range promotions {
 		apps = append(apps, &npool.PromotionReq{
-			ID:      &appDates[key].ID,
-			AppID:   &appDates[key].AppID,
-			GoodID:  &appDates[key].GoodID,
-			Message: &appDates[key].Message,
-			StartAt: &appDates[key].StartAt,
-			EndAt:   &appDates[key].EndAt,
-			Price:   &appDates[key].Price,
-			Posters: appDates[key].Posters,
+			ID:      &promotions[key].ID,
+			AppID:   &promotions[key].AppID,
+			GoodID:  &promotions[key].GoodID,
+			Message: &promotions[key].Message,
+			StartAt: &promotions[key].StartAt,
+			EndAt:   &promotions[key].EndAt,
+			Price:   &promotions[key].Price,
+			Posters: promotions[key].Posters,
 		})
 	}
 

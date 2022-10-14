@@ -57,17 +57,12 @@ func validate(info *npool.PromotionReq) error {
 
 	if info.GetStartAt() <= 0 {
 		logger.Sugar().Errorw("validate", "StartAt", info.GetStartAt())
-		return status.Error(codes.InvalidArgument, "GetPrice is Less than or equal to 0")
+		return status.Error(codes.InvalidArgument, "StartAt is invalid")
 	}
 
-	if info.GetEndAt() <= 0 {
+	if info.GetEndAt() <= info.GetStartAt() {
 		logger.Sugar().Errorw("validate", "EndAt", info.GetEndAt())
-		return status.Error(codes.InvalidArgument, "GetPrice is Less than or equal to 0")
-	}
-
-	if info.GetStartAt() <= 0 {
-		logger.Sugar().Errorw("validate", "StartAt", info.GetStartAt())
-		return status.Error(codes.InvalidArgument, "GetPrice is Less than or equal to 0")
+		return status.Error(codes.InvalidArgument, "EndAt is invalid")
 	}
 
 	return nil
@@ -75,24 +70,23 @@ func validate(info *npool.PromotionReq) error {
 
 func duplicate(infos []*npool.PromotionReq) error {
 	keys := map[string]struct{}{}
-	s := map[string]struct{}{}
+	apps := map[string]struct{}{}
 
 	for _, info := range infos {
 		if err := validate(info); err != nil {
 			return status.Error(codes.InvalidArgument, fmt.Sprintf("Infos has invalid element %v", err))
 		}
 
-		key := fmt.Sprintf("%v:%v", info.AppID, info.GoodID)
-		if _, ok := keys[key]; ok {
-			return status.Error(codes.InvalidArgument, "Infos has duplicate AppID:GoodID")
+		if _, ok := keys[info.GetGoodID()]; ok {
+			return status.Error(codes.InvalidArgument, "Infos has duplicate AppID")
 		}
 
-		keys[key] = struct{}{}
-		s[info.GetID()] = struct{}{}
+		keys[info.GetGoodID()] = struct{}{}
+		apps[info.GetAppID()] = struct{}{}
 	}
 
-	if len(s) > 1 {
-		return status.Error(codes.InvalidArgument, "Infos has different ID")
+	if len(apps) > 1 {
+		return status.Error(codes.InvalidArgument, "Infos has different AppID")
 	}
 
 	return nil

@@ -36,12 +36,9 @@ func init() {
 }
 
 var appDate = npool.Stock{
-	ID:        uuid.NewString(),
-	GoodID:    uuid.NewString(),
-	Total:     1005,
-	Locked:    12,
-	InService: 13,
-	Sold:      14,
+	ID:     uuid.NewString(),
+	GoodID: uuid.NewString(),
+	Total:  1005,
 }
 
 var (
@@ -70,20 +67,14 @@ func createStock(t *testing.T) {
 func createStocks(t *testing.T) {
 	appDates := []npool.Stock{
 		{
-			ID:        uuid.NewString(),
-			GoodID:    uuid.NewString(),
-			Total:     1005,
-			Locked:    12,
-			InService: 13,
-			Sold:      14,
+			ID:     uuid.NewString(),
+			GoodID: uuid.NewString(),
+			Total:  1005,
 		},
 		{
-			ID:        uuid.NewString(),
-			GoodID:    uuid.NewString(),
-			Total:     1005,
-			Locked:    12,
-			InService: 13,
-			Sold:      14,
+			ID:     uuid.NewString(),
+			GoodID: uuid.NewString(),
+			Total:  1005,
 		},
 	}
 

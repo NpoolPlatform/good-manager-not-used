@@ -114,7 +114,6 @@ func validate(info *npool.GoodReq) error {
 
 func duplicate(infos []*npool.GoodReq) error {
 	keys := map[string]struct{}{}
-	s := map[string]struct{}{}
 
 	for _, info := range infos {
 		if err := validate(info); err != nil {
@@ -127,11 +126,6 @@ func duplicate(infos []*npool.GoodReq) error {
 		}
 
 		keys[key] = struct{}{}
-		s[info.GetID()] = struct{}{}
-	}
-
-	if len(s) > 1 {
-		return status.Error(codes.InvalidArgument, "Infos has different ID")
 	}
 
 	return nil
