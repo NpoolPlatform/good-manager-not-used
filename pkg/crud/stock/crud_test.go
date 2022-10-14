@@ -39,14 +39,16 @@ var deviceInfo = ent.Stock{
 }
 
 var (
-	id     = deviceInfo.ID.String()
-	goodID = deviceInfo.GoodID.String()
-	req    = npool.StockReq{
+	id        = deviceInfo.ID.String()
+	goodID    = deviceInfo.GoodID.String()
+	locked    = int32(deviceInfo.Locked)
+	inService = int32(deviceInfo.InService)
+	req       = npool.StockReq{
 		ID:        &id,
 		GoodID:    &goodID,
 		Total:     &deviceInfo.Total,
-		Locked:    &deviceInfo.Locked,
-		InService: &deviceInfo.InService,
+		Locked:    &locked,
+		InService: &inService,
 		Sold:      &deviceInfo.Sold,
 	}
 )
@@ -87,12 +89,14 @@ func createBulk(t *testing.T) {
 	for _, _deviceInfo := range entities {
 		_id := _deviceInfo.ID.String()
 		_goodID := _deviceInfo.GoodID.String()
+		_locked := int32(_deviceInfo.Locked)
+		_inService := int32(_deviceInfo.InService)
 		reqs = append(reqs, &npool.StockReq{
 			ID:        &_id,
 			GoodID:    &_goodID,
 			Total:     &_deviceInfo.Total,
-			Locked:    &_deviceInfo.Locked,
-			InService: &_deviceInfo.InService,
+			Locked:    &_locked,
+			InService: &_inService,
 			Sold:      &_deviceInfo.Sold,
 		})
 	}

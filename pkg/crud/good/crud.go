@@ -149,6 +149,7 @@ func CreateBulk(ctx context.Context, in []*npool.GoodReq) ([]*ent.Good, error) {
 	return rows, nil
 }
 
+//nolint
 func UpdateSet(u *ent.GoodUpdateOne, in *npool.GoodReq) (*ent.GoodUpdateOne, error) {
 	if in.DeviceInfoID != nil {
 		u.SetDeviceInfoID(uuid.MustParse(in.GetDeviceInfoID()))
