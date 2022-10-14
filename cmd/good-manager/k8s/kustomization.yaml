@@ -2,4 +2,4 @@ resources:
   - 01-good-manager.viper.yaml
   - 02-good-manager.yaml
   - 03-strip-prefix.yaml
-  - 04service-monitor.yaml
+  - 04-service-monitor.yaml
