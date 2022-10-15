@@ -10,6 +10,7 @@ import (
 
 	"github.com/google/uuid"
 
+	timeconst "github.com/NpoolPlatform/go-service-framework/pkg/const/time"
 	"github.com/NpoolPlatform/message/npool/good/mgr/v1/good"
 )
 
@@ -36,11 +37,15 @@ func (Good) Fields() []ent.Field {
 		field.
 			Int32("duration_days").
 			Optional().
-			Default(0),
+			Default(timeconst.DaysPerYear),
 		field.
 			UUID("coin_type_id", uuid.UUID{}),
 		field.
-			UUID("inherit_from_good_id", uuid.UUID{}),
+			UUID("inherit_from_good_id", uuid.UUID{}).
+			Optional().
+			Default(func() uuid.UUID {
+				return uuid.UUID{}
+			}),
 		field.
 			UUID("vendor_location_id", uuid.UUID{}),
 		field.

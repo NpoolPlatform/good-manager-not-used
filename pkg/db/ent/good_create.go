@@ -98,6 +98,14 @@ func (gc *GoodCreate) SetInheritFromGoodID(u uuid.UUID) *GoodCreate {
 	return gc
 }
 
+// SetNillableInheritFromGoodID sets the "inherit_from_good_id" field if the given value is not nil.
+func (gc *GoodCreate) SetNillableInheritFromGoodID(u *uuid.UUID) *GoodCreate {
+	if u != nil {
+		gc.SetInheritFromGoodID(*u)
+	}
+	return gc
+}
+
 // SetVendorLocationID sets the "vendor_location_id" field.
 func (gc *GoodCreate) SetVendorLocationID(u uuid.UUID) *GoodCreate {
 	gc.mutation.SetVendorLocationID(u)
@@ -354,6 +362,13 @@ func (gc *GoodCreate) defaults() error {
 		v := good.DefaultDurationDays
 		gc.mutation.SetDurationDays(v)
 	}
+	if _, ok := gc.mutation.InheritFromGoodID(); !ok {
+		if good.DefaultInheritFromGoodID == nil {
+			return fmt.Errorf("ent: uninitialized good.DefaultInheritFromGoodID (forgotten import ent/runtime?)")
+		}
+		v := good.DefaultInheritFromGoodID()
+		gc.mutation.SetInheritFromGoodID(v)
+	}
 	if _, ok := gc.mutation.Price(); !ok {
 		v := good.DefaultPrice
 		gc.mutation.SetPrice(v)
@@ -420,9 +435,6 @@ func (gc *GoodCreate) check() error {
 	}
 	if _, ok := gc.mutation.CoinTypeID(); !ok {
 		return &ValidationError{Name: "coin_type_id", err: errors.New(`ent: missing required field "Good.coin_type_id"`)}
-	}
-	if _, ok := gc.mutation.InheritFromGoodID(); !ok {
-		return &ValidationError{Name: "inherit_from_good_id", err: errors.New(`ent: missing required field "Good.inherit_from_good_id"`)}
 	}
 	if _, ok := gc.mutation.VendorLocationID(); !ok {
 		return &ValidationError{Name: "vendor_location_id", err: errors.New(`ent: missing required field "Good.vendor_location_id"`)}
@@ -773,6 +785,12 @@ func (u *GoodUpsert) SetInheritFromGoodID(v uuid.UUID) *GoodUpsert {
 // UpdateInheritFromGoodID sets the "inherit_from_good_id" field to the value that was provided on create.
 func (u *GoodUpsert) UpdateInheritFromGoodID() *GoodUpsert {
 	u.SetExcluded(good.FieldInheritFromGoodID)
+	return u
+}
+
+// ClearInheritFromGoodID clears the value of the "inherit_from_good_id" field.
+func (u *GoodUpsert) ClearInheritFromGoodID() *GoodUpsert {
+	u.SetNull(good.FieldInheritFromGoodID)
 	return u
 }
 
@@ -1166,6 +1184,13 @@ func (u *GoodUpsertOne) SetInheritFromGoodID(v uuid.UUID) *GoodUpsertOne {
 func (u *GoodUpsertOne) UpdateInheritFromGoodID() *GoodUpsertOne {
 	return u.Update(func(s *GoodUpsert) {
 		s.UpdateInheritFromGoodID()
+	})
+}
+
+// ClearInheritFromGoodID clears the value of the "inherit_from_good_id" field.
+func (u *GoodUpsertOne) ClearInheritFromGoodID() *GoodUpsertOne {
+	return u.Update(func(s *GoodUpsert) {
+		s.ClearInheritFromGoodID()
 	})
 }
 
@@ -1760,6 +1785,13 @@ func (u *GoodUpsertBulk) SetInheritFromGoodID(v uuid.UUID) *GoodUpsertBulk {
 func (u *GoodUpsertBulk) UpdateInheritFromGoodID() *GoodUpsertBulk {
 	return u.Update(func(s *GoodUpsert) {
 		s.UpdateInheritFromGoodID()
+	})
+}
+
+// ClearInheritFromGoodID clears the value of the "inherit_from_good_id" field.
+func (u *GoodUpsertBulk) ClearInheritFromGoodID() *GoodUpsertBulk {
+	return u.Update(func(s *GoodUpsert) {
+		s.ClearInheritFromGoodID()
 	})
 }
 

@@ -263,6 +263,10 @@ func init() {
 	goodDescDurationDays := goodFields[2].Descriptor()
 	// good.DefaultDurationDays holds the default value on creation for the duration_days field.
 	good.DefaultDurationDays = goodDescDurationDays.Default.(int32)
+	// goodDescInheritFromGoodID is the schema descriptor for inherit_from_good_id field.
+	goodDescInheritFromGoodID := goodFields[4].Descriptor()
+	// good.DefaultInheritFromGoodID holds the default value on creation for the inherit_from_good_id field.
+	good.DefaultInheritFromGoodID = goodDescInheritFromGoodID.Default.(func() uuid.UUID)
 	// goodDescPrice is the schema descriptor for price field.
 	goodDescPrice := goodFields[6].Descriptor()
 	// good.DefaultPrice holds the default value on creation for the price field.

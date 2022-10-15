@@ -4578,9 +4578,22 @@ func (m *GoodMutation) OldInheritFromGoodID(ctx context.Context) (v uuid.UUID, e
 	return oldValue.InheritFromGoodID, nil
 }
 
+// ClearInheritFromGoodID clears the value of the "inherit_from_good_id" field.
+func (m *GoodMutation) ClearInheritFromGoodID() {
+	m.inherit_from_good_id = nil
+	m.clearedFields[good.FieldInheritFromGoodID] = struct{}{}
+}
+
+// InheritFromGoodIDCleared returns if the "inherit_from_good_id" field was cleared in this mutation.
+func (m *GoodMutation) InheritFromGoodIDCleared() bool {
+	_, ok := m.clearedFields[good.FieldInheritFromGoodID]
+	return ok
+}
+
 // ResetInheritFromGoodID resets all changes to the "inherit_from_good_id" field.
 func (m *GoodMutation) ResetInheritFromGoodID() {
 	m.inherit_from_good_id = nil
+	delete(m.clearedFields, good.FieldInheritFromGoodID)
 }
 
 // SetVendorLocationID sets the "vendor_location_id" field.
@@ -5590,6 +5603,9 @@ func (m *GoodMutation) ClearedFields() []string {
 	if m.FieldCleared(good.FieldDurationDays) {
 		fields = append(fields, good.FieldDurationDays)
 	}
+	if m.FieldCleared(good.FieldInheritFromGoodID) {
+		fields = append(fields, good.FieldInheritFromGoodID)
+	}
 	if m.FieldCleared(good.FieldPrice) {
 		fields = append(fields, good.FieldPrice)
 	}
@@ -5636,6 +5652,9 @@ func (m *GoodMutation) ClearField(name string) error {
 	switch name {
 	case good.FieldDurationDays:
 		m.ClearDurationDays()
+		return nil
+	case good.FieldInheritFromGoodID:
+		m.ClearInheritFromGoodID()
 		return nil
 	case good.FieldPrice:
 		m.ClearPrice()

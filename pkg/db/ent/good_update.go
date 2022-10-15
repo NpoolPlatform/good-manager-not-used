@@ -130,6 +130,20 @@ func (gu *GoodUpdate) SetInheritFromGoodID(u uuid.UUID) *GoodUpdate {
 	return gu
 }
 
+// SetNillableInheritFromGoodID sets the "inherit_from_good_id" field if the given value is not nil.
+func (gu *GoodUpdate) SetNillableInheritFromGoodID(u *uuid.UUID) *GoodUpdate {
+	if u != nil {
+		gu.SetInheritFromGoodID(*u)
+	}
+	return gu
+}
+
+// ClearInheritFromGoodID clears the value of the "inherit_from_good_id" field.
+func (gu *GoodUpdate) ClearInheritFromGoodID() *GoodUpdate {
+	gu.mutation.ClearInheritFromGoodID()
+	return gu
+}
+
 // SetVendorLocationID sets the "vendor_location_id" field.
 func (gu *GoodUpdate) SetVendorLocationID(u uuid.UUID) *GoodUpdate {
 	gu.mutation.SetVendorLocationID(u)
@@ -530,6 +544,12 @@ func (gu *GoodUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: good.FieldInheritFromGoodID,
 		})
 	}
+	if gu.mutation.InheritFromGoodIDCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeUUID,
+			Column: good.FieldInheritFromGoodID,
+		})
+	}
 	if value, ok := gu.mutation.VendorLocationID(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeUUID,
@@ -806,6 +826,20 @@ func (guo *GoodUpdateOne) SetCoinTypeID(u uuid.UUID) *GoodUpdateOne {
 // SetInheritFromGoodID sets the "inherit_from_good_id" field.
 func (guo *GoodUpdateOne) SetInheritFromGoodID(u uuid.UUID) *GoodUpdateOne {
 	guo.mutation.SetInheritFromGoodID(u)
+	return guo
+}
+
+// SetNillableInheritFromGoodID sets the "inherit_from_good_id" field if the given value is not nil.
+func (guo *GoodUpdateOne) SetNillableInheritFromGoodID(u *uuid.UUID) *GoodUpdateOne {
+	if u != nil {
+		guo.SetInheritFromGoodID(*u)
+	}
+	return guo
+}
+
+// ClearInheritFromGoodID clears the value of the "inherit_from_good_id" field.
+func (guo *GoodUpdateOne) ClearInheritFromGoodID() *GoodUpdateOne {
+	guo.mutation.ClearInheritFromGoodID()
 	return guo
 }
 
@@ -1236,6 +1270,12 @@ func (guo *GoodUpdateOne) sqlSave(ctx context.Context) (_node *Good, err error) 
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeUUID,
 			Value:  value,
+			Column: good.FieldInheritFromGoodID,
+		})
+	}
+	if guo.mutation.InheritFromGoodIDCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeUUID,
 			Column: good.FieldInheritFromGoodID,
 		})
 	}

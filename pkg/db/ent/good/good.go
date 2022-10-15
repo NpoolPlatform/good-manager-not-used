@@ -105,6 +105,8 @@ var (
 	DefaultDeletedAt func() uint32
 	// DefaultDurationDays holds the default value on creation for the "duration_days" field.
 	DefaultDurationDays int32
+	// DefaultInheritFromGoodID holds the default value on creation for the "inherit_from_good_id" field.
+	DefaultInheritFromGoodID func() uuid.UUID
 	// DefaultPrice holds the default value on creation for the "price" field.
 	DefaultPrice decimal.Decimal
 	// DefaultBenefitType holds the default value on creation for the "benefit_type" field.

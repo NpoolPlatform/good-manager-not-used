@@ -661,6 +661,20 @@ func InheritFromGoodIDLTE(v uuid.UUID) predicate.Good {
 	})
 }
 
+// InheritFromGoodIDIsNil applies the IsNil predicate on the "inherit_from_good_id" field.
+func InheritFromGoodIDIsNil() predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldInheritFromGoodID)))
+	})
+}
+
+// InheritFromGoodIDNotNil applies the NotNil predicate on the "inherit_from_good_id" field.
+func InheritFromGoodIDNotNil() predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldInheritFromGoodID)))
+	})
+}
+
 // VendorLocationIDEQ applies the EQ predicate on the "vendor_location_id" field.
 func VendorLocationIDEQ(v uuid.UUID) predicate.Good {
 	return predicate.Good(func(s *sql.Selector) {
