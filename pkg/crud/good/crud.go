@@ -315,6 +315,23 @@ func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.GoodQuery, error) 
 			return nil, fmt.Errorf("invalid good field")
 		}
 	}
+	if conds.IDs != nil {
+		switch conds.GetIDs().GetOp() {
+		case cruder.IN:
+			ids := []uuid.UUID{}
+			for _, val := range conds.GetIDs().GetValue() {
+				id, err := uuid.Parse(val)
+				if err != nil {
+					return nil, err
+				}
+				ids = append(ids, id)
+			}
+
+			stm.Where(good.IDIn(ids...))
+		default:
+			return nil, fmt.Errorf("invalid good field")
+		}
+	}
 	return stm, nil
 }
 
