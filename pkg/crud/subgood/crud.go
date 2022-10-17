@@ -198,7 +198,23 @@ func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.SubGoodQuery, erro
 	if conds.MainGoodID != nil {
 		switch conds.GetMainGoodID().GetOp() {
 		case cruder.EQ:
-			stm.Where(subgood.AppID(uuid.MustParse(conds.GetMainGoodID().GetValue())))
+			stm.Where(subgood.MainGoodID(uuid.MustParse(conds.GetMainGoodID().GetValue())))
+		default:
+			return nil, fmt.Errorf("invalid subgood field")
+		}
+	}
+	if conds.MainGoodIDs != nil {
+		switch conds.GetMainGoodIDs().GetOp() {
+		case cruder.IN:
+			mainGoods := []uuid.UUID{}
+			for _, val := range conds.GetMainGoodIDs().GetValue() {
+				uMainGoods, err := uuid.Parse(val)
+				if err != nil {
+					return nil, err
+				}
+				mainGoods = append(mainGoods, uMainGoods)
+			}
+			stm.Where(subgood.MainGoodIDIn(mainGoods...))
 		default:
 			return nil, fmt.Errorf("invalid subgood field")
 		}
