@@ -265,6 +265,7 @@ func Row(ctx context.Context, id uuid.UUID) (*ent.Good, error) {
 	return info, nil
 }
 
+//nolint
 func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.GoodQuery, error) {
 	stm := cli.Good.Query()
 	if conds.ID != nil {
