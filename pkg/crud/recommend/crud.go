@@ -184,6 +184,9 @@ func Row(ctx context.Context, id uuid.UUID) (*ent.Recommend, error) {
 
 func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.RecommendQuery, error) {
 	stm := cli.Recommend.Query()
+	if conds == nil {
+		return stm, nil
+	}
 	if conds.ID != nil {
 		switch conds.GetID().GetOp() {
 		case cruder.EQ:

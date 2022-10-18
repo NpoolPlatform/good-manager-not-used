@@ -249,6 +249,9 @@ func Row(ctx context.Context, id uuid.UUID) (*ent.Stock, error) {
 
 func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.StockQuery, error) {
 	stm := cli.Stock.Query()
+	if conds == nil {
+		return stm, nil
+	}
 	if conds.ID != nil {
 		switch conds.GetID().GetOp() {
 		case cruder.EQ:

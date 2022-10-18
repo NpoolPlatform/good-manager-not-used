@@ -187,6 +187,9 @@ func Row(ctx context.Context, id uuid.UUID) (*ent.SubGood, error) {
 
 func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.SubGoodQuery, error) {
 	stm := cli.SubGood.Query()
+	if conds == nil {
+		return stm, nil
+	}
 	if conds.ID != nil {
 		switch conds.GetID().GetOp() {
 		case cruder.EQ:

@@ -216,6 +216,9 @@ func Row(ctx context.Context, id uuid.UUID) (*ent.Promotion, error) {
 
 func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.PromotionQuery, error) {
 	stm := cli.Promotion.Query()
+	if conds == nil {
+		return stm, nil
+	}
 	if conds.ID != nil {
 		switch conds.GetID().GetOp() {
 		case cruder.EQ:
