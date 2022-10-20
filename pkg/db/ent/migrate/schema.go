@@ -176,7 +176,7 @@ var (
 		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "app_id", Type: field.TypeUUID},
 		{Name: "good_id", Type: field.TypeUUID},
-		{Name: "recommender_id", Type: field.TypeUUID},
+		{Name: "recommender_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "message", Type: field.TypeString, Nullable: true, Default: ""},
 		{Name: "recommend_index", Type: field.TypeFloat64, Nullable: true, Default: 0},
 	}

@@ -83,6 +83,14 @@ func (rc *RecommendCreate) SetRecommenderID(u uuid.UUID) *RecommendCreate {
 	return rc
 }
 
+// SetNillableRecommenderID sets the "recommender_id" field if the given value is not nil.
+func (rc *RecommendCreate) SetNillableRecommenderID(u *uuid.UUID) *RecommendCreate {
+	if u != nil {
+		rc.SetRecommenderID(*u)
+	}
+	return rc
+}
+
 // SetMessage sets the "message" field.
 func (rc *RecommendCreate) SetMessage(s string) *RecommendCreate {
 	rc.mutation.SetMessage(s)
@@ -225,6 +233,13 @@ func (rc *RecommendCreate) defaults() error {
 		v := recommend.DefaultDeletedAt()
 		rc.mutation.SetDeletedAt(v)
 	}
+	if _, ok := rc.mutation.RecommenderID(); !ok {
+		if recommend.DefaultRecommenderID == nil {
+			return fmt.Errorf("ent: uninitialized recommend.DefaultRecommenderID (forgotten import ent/runtime?)")
+		}
+		v := recommend.DefaultRecommenderID()
+		rc.mutation.SetRecommenderID(v)
+	}
 	if _, ok := rc.mutation.Message(); !ok {
 		v := recommend.DefaultMessage
 		rc.mutation.SetMessage(v)
@@ -259,9 +274,6 @@ func (rc *RecommendCreate) check() error {
 	}
 	if _, ok := rc.mutation.GoodID(); !ok {
 		return &ValidationError{Name: "good_id", err: errors.New(`ent: missing required field "Recommend.good_id"`)}
-	}
-	if _, ok := rc.mutation.RecommenderID(); !ok {
-		return &ValidationError{Name: "recommender_id", err: errors.New(`ent: missing required field "Recommend.recommender_id"`)}
 	}
 	return nil
 }
@@ -508,6 +520,12 @@ func (u *RecommendUpsert) UpdateRecommenderID() *RecommendUpsert {
 	return u
 }
 
+// ClearRecommenderID clears the value of the "recommender_id" field.
+func (u *RecommendUpsert) ClearRecommenderID() *RecommendUpsert {
+	u.SetNull(recommend.FieldRecommenderID)
+	return u
+}
+
 // SetMessage sets the "message" field.
 func (u *RecommendUpsert) SetMessage(v string) *RecommendUpsert {
 	u.Set(recommend.FieldMessage, v)
@@ -702,6 +720,13 @@ func (u *RecommendUpsertOne) SetRecommenderID(v uuid.UUID) *RecommendUpsertOne {
 func (u *RecommendUpsertOne) UpdateRecommenderID() *RecommendUpsertOne {
 	return u.Update(func(s *RecommendUpsert) {
 		s.UpdateRecommenderID()
+	})
+}
+
+// ClearRecommenderID clears the value of the "recommender_id" field.
+func (u *RecommendUpsertOne) ClearRecommenderID() *RecommendUpsertOne {
+	return u.Update(func(s *RecommendUpsert) {
+		s.ClearRecommenderID()
 	})
 }
 
@@ -1072,6 +1097,13 @@ func (u *RecommendUpsertBulk) SetRecommenderID(v uuid.UUID) *RecommendUpsertBulk
 func (u *RecommendUpsertBulk) UpdateRecommenderID() *RecommendUpsertBulk {
 	return u.Update(func(s *RecommendUpsert) {
 		s.UpdateRecommenderID()
+	})
+}
+
+// ClearRecommenderID clears the value of the "recommender_id" field.
+func (u *RecommendUpsertBulk) ClearRecommenderID() *RecommendUpsertBulk {
+	return u.Update(func(s *RecommendUpsert) {
+		s.ClearRecommenderID()
 	})
 }
 

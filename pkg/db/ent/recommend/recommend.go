@@ -72,6 +72,8 @@ var (
 	UpdateDefaultUpdatedAt func() uint32
 	// DefaultDeletedAt holds the default value on creation for the "deleted_at" field.
 	DefaultDeletedAt func() uint32
+	// DefaultRecommenderID holds the default value on creation for the "recommender_id" field.
+	DefaultRecommenderID func() uuid.UUID
 	// DefaultMessage holds the default value on creation for the "message" field.
 	DefaultMessage string
 	// DefaultRecommendIndex holds the default value on creation for the "recommend_index" field.

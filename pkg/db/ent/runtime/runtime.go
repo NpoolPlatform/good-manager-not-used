@@ -391,6 +391,10 @@ func init() {
 	recommendDescDeletedAt := recommendMixinFields0[2].Descriptor()
 	// recommend.DefaultDeletedAt holds the default value on creation for the deleted_at field.
 	recommend.DefaultDeletedAt = recommendDescDeletedAt.Default.(func() uint32)
+	// recommendDescRecommenderID is the schema descriptor for recommender_id field.
+	recommendDescRecommenderID := recommendFields[3].Descriptor()
+	// recommend.DefaultRecommenderID holds the default value on creation for the recommender_id field.
+	recommend.DefaultRecommenderID = recommendDescRecommenderID.Default.(func() uuid.UUID)
 	// recommendDescMessage is the schema descriptor for message field.
 	recommendDescMessage := recommendFields[4].Descriptor()
 	// recommend.DefaultMessage holds the default value on creation for the message field.

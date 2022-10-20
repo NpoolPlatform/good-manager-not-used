@@ -102,6 +102,20 @@ func (ru *RecommendUpdate) SetRecommenderID(u uuid.UUID) *RecommendUpdate {
 	return ru
 }
 
+// SetNillableRecommenderID sets the "recommender_id" field if the given value is not nil.
+func (ru *RecommendUpdate) SetNillableRecommenderID(u *uuid.UUID) *RecommendUpdate {
+	if u != nil {
+		ru.SetRecommenderID(*u)
+	}
+	return ru
+}
+
+// ClearRecommenderID clears the value of the "recommender_id" field.
+func (ru *RecommendUpdate) ClearRecommenderID() *RecommendUpdate {
+	ru.mutation.ClearRecommenderID()
+	return ru
+}
+
 // SetMessage sets the "message" field.
 func (ru *RecommendUpdate) SetMessage(s string) *RecommendUpdate {
 	ru.mutation.SetMessage(s)
@@ -310,6 +324,12 @@ func (ru *RecommendUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: recommend.FieldRecommenderID,
 		})
 	}
+	if ru.mutation.RecommenderIDCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeUUID,
+			Column: recommend.FieldRecommenderID,
+		})
+	}
 	if value, ok := ru.mutation.Message(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -434,6 +454,20 @@ func (ruo *RecommendUpdateOne) SetGoodID(u uuid.UUID) *RecommendUpdateOne {
 // SetRecommenderID sets the "recommender_id" field.
 func (ruo *RecommendUpdateOne) SetRecommenderID(u uuid.UUID) *RecommendUpdateOne {
 	ruo.mutation.SetRecommenderID(u)
+	return ruo
+}
+
+// SetNillableRecommenderID sets the "recommender_id" field if the given value is not nil.
+func (ruo *RecommendUpdateOne) SetNillableRecommenderID(u *uuid.UUID) *RecommendUpdateOne {
+	if u != nil {
+		ruo.SetRecommenderID(*u)
+	}
+	return ruo
+}
+
+// ClearRecommenderID clears the value of the "recommender_id" field.
+func (ruo *RecommendUpdateOne) ClearRecommenderID() *RecommendUpdateOne {
+	ruo.mutation.ClearRecommenderID()
 	return ruo
 }
 
@@ -672,6 +706,12 @@ func (ruo *RecommendUpdateOne) sqlSave(ctx context.Context) (_node *Recommend, e
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeUUID,
 			Value:  value,
+			Column: recommend.FieldRecommenderID,
+		})
+	}
+	if ruo.mutation.RecommenderIDCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeUUID,
 			Column: recommend.FieldRecommenderID,
 		})
 	}

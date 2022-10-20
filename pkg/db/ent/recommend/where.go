@@ -519,6 +519,20 @@ func RecommenderIDLTE(v uuid.UUID) predicate.Recommend {
 	})
 }
 
+// RecommenderIDIsNil applies the IsNil predicate on the "recommender_id" field.
+func RecommenderIDIsNil() predicate.Recommend {
+	return predicate.Recommend(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldRecommenderID)))
+	})
+}
+
+// RecommenderIDNotNil applies the NotNil predicate on the "recommender_id" field.
+func RecommenderIDNotNil() predicate.Recommend {
+	return predicate.Recommend(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldRecommenderID)))
+	})
+}
+
 // MessageEQ applies the EQ predicate on the "message" field.
 func MessageEQ(v string) predicate.Recommend {
 	return predicate.Recommend(func(s *sql.Selector) {

@@ -7270,9 +7270,22 @@ func (m *RecommendMutation) OldRecommenderID(ctx context.Context) (v uuid.UUID, 
 	return oldValue.RecommenderID, nil
 }
 
+// ClearRecommenderID clears the value of the "recommender_id" field.
+func (m *RecommendMutation) ClearRecommenderID() {
+	m.recommender_id = nil
+	m.clearedFields[recommend.FieldRecommenderID] = struct{}{}
+}
+
+// RecommenderIDCleared returns if the "recommender_id" field was cleared in this mutation.
+func (m *RecommendMutation) RecommenderIDCleared() bool {
+	_, ok := m.clearedFields[recommend.FieldRecommenderID]
+	return ok
+}
+
 // ResetRecommenderID resets all changes to the "recommender_id" field.
 func (m *RecommendMutation) ResetRecommenderID() {
 	m.recommender_id = nil
+	delete(m.clearedFields, recommend.FieldRecommenderID)
 }
 
 // SetMessage sets the "message" field.
@@ -7633,6 +7646,9 @@ func (m *RecommendMutation) AddField(name string, value ent.Value) error {
 // mutation.
 func (m *RecommendMutation) ClearedFields() []string {
 	var fields []string
+	if m.FieldCleared(recommend.FieldRecommenderID) {
+		fields = append(fields, recommend.FieldRecommenderID)
+	}
 	if m.FieldCleared(recommend.FieldMessage) {
 		fields = append(fields, recommend.FieldMessage)
 	}
@@ -7653,6 +7669,9 @@ func (m *RecommendMutation) FieldCleared(name string) bool {
 // error if the field is not defined in the schema.
 func (m *RecommendMutation) ClearField(name string) error {
 	switch name {
+	case recommend.FieldRecommenderID:
+		m.ClearRecommenderID()
+		return nil
 	case recommend.FieldMessage:
 		m.ClearMessage()
 		return nil

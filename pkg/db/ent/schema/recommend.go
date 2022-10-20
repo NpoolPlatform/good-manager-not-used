@@ -32,7 +32,12 @@ func (Recommend) Fields() []ent.Field {
 		field.
 			UUID("good_id", uuid.UUID{}),
 		field.
-			UUID("recommender_id", uuid.UUID{}),
+			UUID("recommender_id", uuid.UUID{}).
+			Optional().
+			Default(
+				func() uuid.UUID {
+					return uuid.UUID{}
+				}),
 		field.
 			String("message").
 			Optional().
