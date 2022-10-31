@@ -254,7 +254,7 @@ func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.PromotionQuery, er
 		}
 	}
 	if conds.EndAt != nil {
-		switch conds.GetStartAt().GetOp() {
+		switch conds.GetEndAt().GetOp() {
 		case cruder.LT:
 			stm.Where(promotion.EndAtLT(conds.GetEndAt().GetValue()))
 		case cruder.GT:
