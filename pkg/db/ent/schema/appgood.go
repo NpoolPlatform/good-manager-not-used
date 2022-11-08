@@ -24,6 +24,7 @@ func (AppGood) Mixin() []ent.Mixin {
 
 // Fields of the AppGood.
 func (AppGood) Fields() []ent.Field {
+	lDef := 3000
 	return []ent.Field{
 		field.
 			UUID("id", uuid.UUID{}).
@@ -59,7 +60,7 @@ func (AppGood) Fields() []ent.Field {
 		field.
 			Int32("purchase_limit").
 			Optional().
-			Default(3000),
+			Default(int32(lDef)),
 		field.
 			Int32("commission_percent").
 			Optional().
