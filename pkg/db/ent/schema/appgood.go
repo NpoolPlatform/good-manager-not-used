@@ -59,7 +59,7 @@ func (AppGood) Fields() []ent.Field {
 		field.
 			Int32("purchase_limit").
 			Optional().
-			Default(0),
+			Default(3000),
 		field.
 			Int32("commission_percent").
 			Optional().
