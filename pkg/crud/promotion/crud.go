@@ -243,6 +243,26 @@ func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.PromotionQuery, er
 			return nil, fmt.Errorf("invalid promotion field")
 		}
 	}
+	if conds.StartAt != nil {
+		switch conds.GetStartAt().GetOp() {
+		case cruder.LTE:
+			stm.Where(promotion.StartAtLTE(conds.GetStartAt().GetValue()))
+		case cruder.GTE:
+			stm.Where(promotion.StartAtGTE(conds.GetStartAt().GetValue()))
+		default:
+			return nil, fmt.Errorf("invalid promotion field")
+		}
+	}
+	if conds.EndAt != nil {
+		switch conds.GetEndAt().GetOp() {
+		case cruder.LTE:
+			stm.Where(promotion.EndAtLTE(conds.GetEndAt().GetValue()))
+		case cruder.GTE:
+			stm.Where(promotion.EndAtGTE(conds.GetEndAt().GetValue()))
+		default:
+			return nil, fmt.Errorf("invalid promotion field")
+		}
+	}
 	return stm, nil
 }
 

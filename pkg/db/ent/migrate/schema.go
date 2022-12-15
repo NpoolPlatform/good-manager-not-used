@@ -21,7 +21,7 @@ var (
 		{Name: "good_name", Type: field.TypeString, Nullable: true, Default: ""},
 		{Name: "price", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
 		{Name: "display_index", Type: field.TypeInt32, Nullable: true, Default: 0},
-		{Name: "purchase_limit", Type: field.TypeInt32, Nullable: true, Default: 0},
+		{Name: "purchase_limit", Type: field.TypeInt32, Nullable: true, Default: 3000},
 		{Name: "commission_percent", Type: field.TypeInt32, Nullable: true, Default: 0},
 		{Name: "sale_start_at", Type: field.TypeUint32, Nullable: true, Default: 0},
 		{Name: "sale_end_at", Type: field.TypeUint32, Nullable: true, Default: 0},

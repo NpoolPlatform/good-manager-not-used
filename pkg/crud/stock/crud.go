@@ -173,7 +173,7 @@ func AddFieldSet(info *ent.Stock, in *npool.StockReq) (*ent.StockUpdateOne, erro
 		u.SetInService(uint32(inService))
 
 		if in.GetInService() > 0 {
-			u.AddSold(inService)
+			u.AddSold(in.GetInService())
 		}
 	}
 	return u, nil
