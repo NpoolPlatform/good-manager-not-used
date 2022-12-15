@@ -34,18 +34,23 @@ var schemaGraph = func() *sqlgraph.Schema {
 		},
 		Type: "AppGood",
 		Fields: map[string]*sqlgraph.FieldSpec{
-			appgood.FieldCreatedAt:         {Type: field.TypeUint32, Column: appgood.FieldCreatedAt},
-			appgood.FieldUpdatedAt:         {Type: field.TypeUint32, Column: appgood.FieldUpdatedAt},
-			appgood.FieldDeletedAt:         {Type: field.TypeUint32, Column: appgood.FieldDeletedAt},
-			appgood.FieldAppID:             {Type: field.TypeUUID, Column: appgood.FieldAppID},
-			appgood.FieldGoodID:            {Type: field.TypeUUID, Column: appgood.FieldGoodID},
-			appgood.FieldOnline:            {Type: field.TypeBool, Column: appgood.FieldOnline},
-			appgood.FieldVisible:           {Type: field.TypeBool, Column: appgood.FieldVisible},
-			appgood.FieldGoodName:          {Type: field.TypeString, Column: appgood.FieldGoodName},
-			appgood.FieldPrice:             {Type: field.TypeOther, Column: appgood.FieldPrice},
-			appgood.FieldDisplayIndex:      {Type: field.TypeInt32, Column: appgood.FieldDisplayIndex},
-			appgood.FieldPurchaseLimit:     {Type: field.TypeInt32, Column: appgood.FieldPurchaseLimit},
-			appgood.FieldCommissionPercent: {Type: field.TypeInt32, Column: appgood.FieldCommissionPercent},
+			appgood.FieldCreatedAt:           {Type: field.TypeUint32, Column: appgood.FieldCreatedAt},
+			appgood.FieldUpdatedAt:           {Type: field.TypeUint32, Column: appgood.FieldUpdatedAt},
+			appgood.FieldDeletedAt:           {Type: field.TypeUint32, Column: appgood.FieldDeletedAt},
+			appgood.FieldAppID:               {Type: field.TypeUUID, Column: appgood.FieldAppID},
+			appgood.FieldGoodID:              {Type: field.TypeUUID, Column: appgood.FieldGoodID},
+			appgood.FieldOnline:              {Type: field.TypeBool, Column: appgood.FieldOnline},
+			appgood.FieldVisible:             {Type: field.TypeBool, Column: appgood.FieldVisible},
+			appgood.FieldGoodName:            {Type: field.TypeString, Column: appgood.FieldGoodName},
+			appgood.FieldPrice:               {Type: field.TypeOther, Column: appgood.FieldPrice},
+			appgood.FieldDisplayIndex:        {Type: field.TypeInt32, Column: appgood.FieldDisplayIndex},
+			appgood.FieldPurchaseLimit:       {Type: field.TypeInt32, Column: appgood.FieldPurchaseLimit},
+			appgood.FieldCommissionPercent:   {Type: field.TypeInt32, Column: appgood.FieldCommissionPercent},
+			appgood.FieldSaleStartAt:         {Type: field.TypeUint32, Column: appgood.FieldSaleStartAt},
+			appgood.FieldSaleEndAt:           {Type: field.TypeUint32, Column: appgood.FieldSaleEndAt},
+			appgood.FieldServiceStartAt:      {Type: field.TypeUint32, Column: appgood.FieldServiceStartAt},
+			appgood.FieldTechnicalFeeRatio:   {Type: field.TypeUint32, Column: appgood.FieldTechnicalFeeRatio},
+			appgood.FieldElectricityFeeRatio: {Type: field.TypeUint32, Column: appgood.FieldElectricityFeeRatio},
 		},
 	}
 	graph.Nodes[1] = &sqlgraph.Node{
@@ -356,6 +361,31 @@ func (f *AppGoodFilter) WherePurchaseLimit(p entql.Int32P) {
 // WhereCommissionPercent applies the entql int32 predicate on the commission_percent field.
 func (f *AppGoodFilter) WhereCommissionPercent(p entql.Int32P) {
 	f.Where(p.Field(appgood.FieldCommissionPercent))
+}
+
+// WhereSaleStartAt applies the entql uint32 predicate on the sale_start_at field.
+func (f *AppGoodFilter) WhereSaleStartAt(p entql.Uint32P) {
+	f.Where(p.Field(appgood.FieldSaleStartAt))
+}
+
+// WhereSaleEndAt applies the entql uint32 predicate on the sale_end_at field.
+func (f *AppGoodFilter) WhereSaleEndAt(p entql.Uint32P) {
+	f.Where(p.Field(appgood.FieldSaleEndAt))
+}
+
+// WhereServiceStartAt applies the entql uint32 predicate on the service_start_at field.
+func (f *AppGoodFilter) WhereServiceStartAt(p entql.Uint32P) {
+	f.Where(p.Field(appgood.FieldServiceStartAt))
+}
+
+// WhereTechnicalFeeRatio applies the entql uint32 predicate on the technical_fee_ratio field.
+func (f *AppGoodFilter) WhereTechnicalFeeRatio(p entql.Uint32P) {
+	f.Where(p.Field(appgood.FieldTechnicalFeeRatio))
+}
+
+// WhereElectricityFeeRatio applies the entql uint32 predicate on the electricity_fee_ratio field.
+func (f *AppGoodFilter) WhereElectricityFeeRatio(p entql.Uint32P) {
+	f.Where(p.Field(appgood.FieldElectricityFeeRatio))
 }
 
 // addPredicate implements the predicateAdder interface.

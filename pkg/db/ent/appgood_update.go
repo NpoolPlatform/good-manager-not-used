@@ -258,6 +258,141 @@ func (agu *AppGoodUpdate) ClearCommissionPercent() *AppGoodUpdate {
 	return agu
 }
 
+// SetSaleStartAt sets the "sale_start_at" field.
+func (agu *AppGoodUpdate) SetSaleStartAt(u uint32) *AppGoodUpdate {
+	agu.mutation.ResetSaleStartAt()
+	agu.mutation.SetSaleStartAt(u)
+	return agu
+}
+
+// SetNillableSaleStartAt sets the "sale_start_at" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableSaleStartAt(u *uint32) *AppGoodUpdate {
+	if u != nil {
+		agu.SetSaleStartAt(*u)
+	}
+	return agu
+}
+
+// AddSaleStartAt adds u to the "sale_start_at" field.
+func (agu *AppGoodUpdate) AddSaleStartAt(u int32) *AppGoodUpdate {
+	agu.mutation.AddSaleStartAt(u)
+	return agu
+}
+
+// ClearSaleStartAt clears the value of the "sale_start_at" field.
+func (agu *AppGoodUpdate) ClearSaleStartAt() *AppGoodUpdate {
+	agu.mutation.ClearSaleStartAt()
+	return agu
+}
+
+// SetSaleEndAt sets the "sale_end_at" field.
+func (agu *AppGoodUpdate) SetSaleEndAt(u uint32) *AppGoodUpdate {
+	agu.mutation.ResetSaleEndAt()
+	agu.mutation.SetSaleEndAt(u)
+	return agu
+}
+
+// SetNillableSaleEndAt sets the "sale_end_at" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableSaleEndAt(u *uint32) *AppGoodUpdate {
+	if u != nil {
+		agu.SetSaleEndAt(*u)
+	}
+	return agu
+}
+
+// AddSaleEndAt adds u to the "sale_end_at" field.
+func (agu *AppGoodUpdate) AddSaleEndAt(u int32) *AppGoodUpdate {
+	agu.mutation.AddSaleEndAt(u)
+	return agu
+}
+
+// ClearSaleEndAt clears the value of the "sale_end_at" field.
+func (agu *AppGoodUpdate) ClearSaleEndAt() *AppGoodUpdate {
+	agu.mutation.ClearSaleEndAt()
+	return agu
+}
+
+// SetServiceStartAt sets the "service_start_at" field.
+func (agu *AppGoodUpdate) SetServiceStartAt(u uint32) *AppGoodUpdate {
+	agu.mutation.ResetServiceStartAt()
+	agu.mutation.SetServiceStartAt(u)
+	return agu
+}
+
+// SetNillableServiceStartAt sets the "service_start_at" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableServiceStartAt(u *uint32) *AppGoodUpdate {
+	if u != nil {
+		agu.SetServiceStartAt(*u)
+	}
+	return agu
+}
+
+// AddServiceStartAt adds u to the "service_start_at" field.
+func (agu *AppGoodUpdate) AddServiceStartAt(u int32) *AppGoodUpdate {
+	agu.mutation.AddServiceStartAt(u)
+	return agu
+}
+
+// ClearServiceStartAt clears the value of the "service_start_at" field.
+func (agu *AppGoodUpdate) ClearServiceStartAt() *AppGoodUpdate {
+	agu.mutation.ClearServiceStartAt()
+	return agu
+}
+
+// SetTechnicalFeeRatio sets the "technical_fee_ratio" field.
+func (agu *AppGoodUpdate) SetTechnicalFeeRatio(u uint32) *AppGoodUpdate {
+	agu.mutation.ResetTechnicalFeeRatio()
+	agu.mutation.SetTechnicalFeeRatio(u)
+	return agu
+}
+
+// SetNillableTechnicalFeeRatio sets the "technical_fee_ratio" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableTechnicalFeeRatio(u *uint32) *AppGoodUpdate {
+	if u != nil {
+		agu.SetTechnicalFeeRatio(*u)
+	}
+	return agu
+}
+
+// AddTechnicalFeeRatio adds u to the "technical_fee_ratio" field.
+func (agu *AppGoodUpdate) AddTechnicalFeeRatio(u int32) *AppGoodUpdate {
+	agu.mutation.AddTechnicalFeeRatio(u)
+	return agu
+}
+
+// ClearTechnicalFeeRatio clears the value of the "technical_fee_ratio" field.
+func (agu *AppGoodUpdate) ClearTechnicalFeeRatio() *AppGoodUpdate {
+	agu.mutation.ClearTechnicalFeeRatio()
+	return agu
+}
+
+// SetElectricityFeeRatio sets the "electricity_fee_ratio" field.
+func (agu *AppGoodUpdate) SetElectricityFeeRatio(u uint32) *AppGoodUpdate {
+	agu.mutation.ResetElectricityFeeRatio()
+	agu.mutation.SetElectricityFeeRatio(u)
+	return agu
+}
+
+// SetNillableElectricityFeeRatio sets the "electricity_fee_ratio" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableElectricityFeeRatio(u *uint32) *AppGoodUpdate {
+	if u != nil {
+		agu.SetElectricityFeeRatio(*u)
+	}
+	return agu
+}
+
+// AddElectricityFeeRatio adds u to the "electricity_fee_ratio" field.
+func (agu *AppGoodUpdate) AddElectricityFeeRatio(u int32) *AppGoodUpdate {
+	agu.mutation.AddElectricityFeeRatio(u)
+	return agu
+}
+
+// ClearElectricityFeeRatio clears the value of the "electricity_fee_ratio" field.
+func (agu *AppGoodUpdate) ClearElectricityFeeRatio() *AppGoodUpdate {
+	agu.mutation.ClearElectricityFeeRatio()
+	return agu
+}
+
 // Mutation returns the AppGoodMutation object of the builder.
 func (agu *AppGoodUpdate) Mutation() *AppGoodMutation {
 	return agu.mutation
@@ -524,6 +659,106 @@ func (agu *AppGoodUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: appgood.FieldCommissionPercent,
 		})
 	}
+	if value, ok := agu.mutation.SaleStartAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldSaleStartAt,
+		})
+	}
+	if value, ok := agu.mutation.AddedSaleStartAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldSaleStartAt,
+		})
+	}
+	if agu.mutation.SaleStartAtCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Column: appgood.FieldSaleStartAt,
+		})
+	}
+	if value, ok := agu.mutation.SaleEndAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldSaleEndAt,
+		})
+	}
+	if value, ok := agu.mutation.AddedSaleEndAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldSaleEndAt,
+		})
+	}
+	if agu.mutation.SaleEndAtCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Column: appgood.FieldSaleEndAt,
+		})
+	}
+	if value, ok := agu.mutation.ServiceStartAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldServiceStartAt,
+		})
+	}
+	if value, ok := agu.mutation.AddedServiceStartAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldServiceStartAt,
+		})
+	}
+	if agu.mutation.ServiceStartAtCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Column: appgood.FieldServiceStartAt,
+		})
+	}
+	if value, ok := agu.mutation.TechnicalFeeRatio(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldTechnicalFeeRatio,
+		})
+	}
+	if value, ok := agu.mutation.AddedTechnicalFeeRatio(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldTechnicalFeeRatio,
+		})
+	}
+	if agu.mutation.TechnicalFeeRatioCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Column: appgood.FieldTechnicalFeeRatio,
+		})
+	}
+	if value, ok := agu.mutation.ElectricityFeeRatio(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldElectricityFeeRatio,
+		})
+	}
+	if value, ok := agu.mutation.AddedElectricityFeeRatio(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldElectricityFeeRatio,
+		})
+	}
+	if agu.mutation.ElectricityFeeRatioCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Column: appgood.FieldElectricityFeeRatio,
+		})
+	}
 	_spec.Modifiers = agu.modifiers
 	if n, err = sqlgraph.UpdateNodes(ctx, agu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
@@ -770,6 +1005,141 @@ func (aguo *AppGoodUpdateOne) AddCommissionPercent(i int32) *AppGoodUpdateOne {
 // ClearCommissionPercent clears the value of the "commission_percent" field.
 func (aguo *AppGoodUpdateOne) ClearCommissionPercent() *AppGoodUpdateOne {
 	aguo.mutation.ClearCommissionPercent()
+	return aguo
+}
+
+// SetSaleStartAt sets the "sale_start_at" field.
+func (aguo *AppGoodUpdateOne) SetSaleStartAt(u uint32) *AppGoodUpdateOne {
+	aguo.mutation.ResetSaleStartAt()
+	aguo.mutation.SetSaleStartAt(u)
+	return aguo
+}
+
+// SetNillableSaleStartAt sets the "sale_start_at" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableSaleStartAt(u *uint32) *AppGoodUpdateOne {
+	if u != nil {
+		aguo.SetSaleStartAt(*u)
+	}
+	return aguo
+}
+
+// AddSaleStartAt adds u to the "sale_start_at" field.
+func (aguo *AppGoodUpdateOne) AddSaleStartAt(u int32) *AppGoodUpdateOne {
+	aguo.mutation.AddSaleStartAt(u)
+	return aguo
+}
+
+// ClearSaleStartAt clears the value of the "sale_start_at" field.
+func (aguo *AppGoodUpdateOne) ClearSaleStartAt() *AppGoodUpdateOne {
+	aguo.mutation.ClearSaleStartAt()
+	return aguo
+}
+
+// SetSaleEndAt sets the "sale_end_at" field.
+func (aguo *AppGoodUpdateOne) SetSaleEndAt(u uint32) *AppGoodUpdateOne {
+	aguo.mutation.ResetSaleEndAt()
+	aguo.mutation.SetSaleEndAt(u)
+	return aguo
+}
+
+// SetNillableSaleEndAt sets the "sale_end_at" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableSaleEndAt(u *uint32) *AppGoodUpdateOne {
+	if u != nil {
+		aguo.SetSaleEndAt(*u)
+	}
+	return aguo
+}
+
+// AddSaleEndAt adds u to the "sale_end_at" field.
+func (aguo *AppGoodUpdateOne) AddSaleEndAt(u int32) *AppGoodUpdateOne {
+	aguo.mutation.AddSaleEndAt(u)
+	return aguo
+}
+
+// ClearSaleEndAt clears the value of the "sale_end_at" field.
+func (aguo *AppGoodUpdateOne) ClearSaleEndAt() *AppGoodUpdateOne {
+	aguo.mutation.ClearSaleEndAt()
+	return aguo
+}
+
+// SetServiceStartAt sets the "service_start_at" field.
+func (aguo *AppGoodUpdateOne) SetServiceStartAt(u uint32) *AppGoodUpdateOne {
+	aguo.mutation.ResetServiceStartAt()
+	aguo.mutation.SetServiceStartAt(u)
+	return aguo
+}
+
+// SetNillableServiceStartAt sets the "service_start_at" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableServiceStartAt(u *uint32) *AppGoodUpdateOne {
+	if u != nil {
+		aguo.SetServiceStartAt(*u)
+	}
+	return aguo
+}
+
+// AddServiceStartAt adds u to the "service_start_at" field.
+func (aguo *AppGoodUpdateOne) AddServiceStartAt(u int32) *AppGoodUpdateOne {
+	aguo.mutation.AddServiceStartAt(u)
+	return aguo
+}
+
+// ClearServiceStartAt clears the value of the "service_start_at" field.
+func (aguo *AppGoodUpdateOne) ClearServiceStartAt() *AppGoodUpdateOne {
+	aguo.mutation.ClearServiceStartAt()
+	return aguo
+}
+
+// SetTechnicalFeeRatio sets the "technical_fee_ratio" field.
+func (aguo *AppGoodUpdateOne) SetTechnicalFeeRatio(u uint32) *AppGoodUpdateOne {
+	aguo.mutation.ResetTechnicalFeeRatio()
+	aguo.mutation.SetTechnicalFeeRatio(u)
+	return aguo
+}
+
+// SetNillableTechnicalFeeRatio sets the "technical_fee_ratio" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableTechnicalFeeRatio(u *uint32) *AppGoodUpdateOne {
+	if u != nil {
+		aguo.SetTechnicalFeeRatio(*u)
+	}
+	return aguo
+}
+
+// AddTechnicalFeeRatio adds u to the "technical_fee_ratio" field.
+func (aguo *AppGoodUpdateOne) AddTechnicalFeeRatio(u int32) *AppGoodUpdateOne {
+	aguo.mutation.AddTechnicalFeeRatio(u)
+	return aguo
+}
+
+// ClearTechnicalFeeRatio clears the value of the "technical_fee_ratio" field.
+func (aguo *AppGoodUpdateOne) ClearTechnicalFeeRatio() *AppGoodUpdateOne {
+	aguo.mutation.ClearTechnicalFeeRatio()
+	return aguo
+}
+
+// SetElectricityFeeRatio sets the "electricity_fee_ratio" field.
+func (aguo *AppGoodUpdateOne) SetElectricityFeeRatio(u uint32) *AppGoodUpdateOne {
+	aguo.mutation.ResetElectricityFeeRatio()
+	aguo.mutation.SetElectricityFeeRatio(u)
+	return aguo
+}
+
+// SetNillableElectricityFeeRatio sets the "electricity_fee_ratio" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableElectricityFeeRatio(u *uint32) *AppGoodUpdateOne {
+	if u != nil {
+		aguo.SetElectricityFeeRatio(*u)
+	}
+	return aguo
+}
+
+// AddElectricityFeeRatio adds u to the "electricity_fee_ratio" field.
+func (aguo *AppGoodUpdateOne) AddElectricityFeeRatio(u int32) *AppGoodUpdateOne {
+	aguo.mutation.AddElectricityFeeRatio(u)
+	return aguo
+}
+
+// ClearElectricityFeeRatio clears the value of the "electricity_fee_ratio" field.
+func (aguo *AppGoodUpdateOne) ClearElectricityFeeRatio() *AppGoodUpdateOne {
+	aguo.mutation.ClearElectricityFeeRatio()
 	return aguo
 }
 
@@ -1067,6 +1437,106 @@ func (aguo *AppGoodUpdateOne) sqlSave(ctx context.Context) (_node *AppGood, err 
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt32,
 			Column: appgood.FieldCommissionPercent,
+		})
+	}
+	if value, ok := aguo.mutation.SaleStartAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldSaleStartAt,
+		})
+	}
+	if value, ok := aguo.mutation.AddedSaleStartAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldSaleStartAt,
+		})
+	}
+	if aguo.mutation.SaleStartAtCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Column: appgood.FieldSaleStartAt,
+		})
+	}
+	if value, ok := aguo.mutation.SaleEndAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldSaleEndAt,
+		})
+	}
+	if value, ok := aguo.mutation.AddedSaleEndAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldSaleEndAt,
+		})
+	}
+	if aguo.mutation.SaleEndAtCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Column: appgood.FieldSaleEndAt,
+		})
+	}
+	if value, ok := aguo.mutation.ServiceStartAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldServiceStartAt,
+		})
+	}
+	if value, ok := aguo.mutation.AddedServiceStartAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldServiceStartAt,
+		})
+	}
+	if aguo.mutation.ServiceStartAtCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Column: appgood.FieldServiceStartAt,
+		})
+	}
+	if value, ok := aguo.mutation.TechnicalFeeRatio(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldTechnicalFeeRatio,
+		})
+	}
+	if value, ok := aguo.mutation.AddedTechnicalFeeRatio(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldTechnicalFeeRatio,
+		})
+	}
+	if aguo.mutation.TechnicalFeeRatioCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Column: appgood.FieldTechnicalFeeRatio,
+		})
+	}
+	if value, ok := aguo.mutation.ElectricityFeeRatio(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldElectricityFeeRatio,
+		})
+	}
+	if value, ok := aguo.mutation.AddedElectricityFeeRatio(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldElectricityFeeRatio,
+		})
+	}
+	if aguo.mutation.ElectricityFeeRatioCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Column: appgood.FieldElectricityFeeRatio,
 		})
 	}
 	_spec.Modifiers = aguo.modifiers

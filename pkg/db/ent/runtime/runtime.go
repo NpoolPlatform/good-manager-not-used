@@ -83,6 +83,26 @@ func init() {
 	appgoodDescCommissionPercent := appgoodFields[9].Descriptor()
 	// appgood.DefaultCommissionPercent holds the default value on creation for the commission_percent field.
 	appgood.DefaultCommissionPercent = appgoodDescCommissionPercent.Default.(int32)
+	// appgoodDescSaleStartAt is the schema descriptor for sale_start_at field.
+	appgoodDescSaleStartAt := appgoodFields[10].Descriptor()
+	// appgood.DefaultSaleStartAt holds the default value on creation for the sale_start_at field.
+	appgood.DefaultSaleStartAt = appgoodDescSaleStartAt.Default.(uint32)
+	// appgoodDescSaleEndAt is the schema descriptor for sale_end_at field.
+	appgoodDescSaleEndAt := appgoodFields[11].Descriptor()
+	// appgood.DefaultSaleEndAt holds the default value on creation for the sale_end_at field.
+	appgood.DefaultSaleEndAt = appgoodDescSaleEndAt.Default.(uint32)
+	// appgoodDescServiceStartAt is the schema descriptor for service_start_at field.
+	appgoodDescServiceStartAt := appgoodFields[12].Descriptor()
+	// appgood.DefaultServiceStartAt holds the default value on creation for the service_start_at field.
+	appgood.DefaultServiceStartAt = appgoodDescServiceStartAt.Default.(uint32)
+	// appgoodDescTechnicalFeeRatio is the schema descriptor for technical_fee_ratio field.
+	appgoodDescTechnicalFeeRatio := appgoodFields[13].Descriptor()
+	// appgood.DefaultTechnicalFeeRatio holds the default value on creation for the technical_fee_ratio field.
+	appgood.DefaultTechnicalFeeRatio = appgoodDescTechnicalFeeRatio.Default.(uint32)
+	// appgoodDescElectricityFeeRatio is the schema descriptor for electricity_fee_ratio field.
+	appgoodDescElectricityFeeRatio := appgoodFields[14].Descriptor()
+	// appgood.DefaultElectricityFeeRatio holds the default value on creation for the electricity_fee_ratio field.
+	appgood.DefaultElectricityFeeRatio = appgoodDescElectricityFeeRatio.Default.(uint32)
 	// appgoodDescID is the schema descriptor for id field.
 	appgoodDescID := appgoodFields[0].Descriptor()
 	// appgood.DefaultID holds the default value on creation for the id field.

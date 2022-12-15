@@ -49,31 +49,41 @@ const (
 // AppGoodMutation represents an operation that mutates the AppGood nodes in the graph.
 type AppGoodMutation struct {
 	config
-	op                    Op
-	typ                   string
-	id                    *uuid.UUID
-	created_at            *uint32
-	addcreated_at         *int32
-	updated_at            *uint32
-	addupdated_at         *int32
-	deleted_at            *uint32
-	adddeleted_at         *int32
-	app_id                *uuid.UUID
-	good_id               *uuid.UUID
-	online                *bool
-	visible               *bool
-	good_name             *string
-	price                 *decimal.Decimal
-	display_index         *int32
-	adddisplay_index      *int32
-	purchase_limit        *int32
-	addpurchase_limit     *int32
-	commission_percent    *int32
-	addcommission_percent *int32
-	clearedFields         map[string]struct{}
-	done                  bool
-	oldValue              func(context.Context) (*AppGood, error)
-	predicates            []predicate.AppGood
+	op                       Op
+	typ                      string
+	id                       *uuid.UUID
+	created_at               *uint32
+	addcreated_at            *int32
+	updated_at               *uint32
+	addupdated_at            *int32
+	deleted_at               *uint32
+	adddeleted_at            *int32
+	app_id                   *uuid.UUID
+	good_id                  *uuid.UUID
+	online                   *bool
+	visible                  *bool
+	good_name                *string
+	price                    *decimal.Decimal
+	display_index            *int32
+	adddisplay_index         *int32
+	purchase_limit           *int32
+	addpurchase_limit        *int32
+	commission_percent       *int32
+	addcommission_percent    *int32
+	sale_start_at            *uint32
+	addsale_start_at         *int32
+	sale_end_at              *uint32
+	addsale_end_at           *int32
+	service_start_at         *uint32
+	addservice_start_at      *int32
+	technical_fee_ratio      *uint32
+	addtechnical_fee_ratio   *int32
+	electricity_fee_ratio    *uint32
+	addelectricity_fee_ratio *int32
+	clearedFields            map[string]struct{}
+	done                     bool
+	oldValue                 func(context.Context) (*AppGood, error)
+	predicates               []predicate.AppGood
 }
 
 var _ ent.Mutation = (*AppGoodMutation)(nil)
@@ -826,6 +836,356 @@ func (m *AppGoodMutation) ResetCommissionPercent() {
 	delete(m.clearedFields, appgood.FieldCommissionPercent)
 }
 
+// SetSaleStartAt sets the "sale_start_at" field.
+func (m *AppGoodMutation) SetSaleStartAt(u uint32) {
+	m.sale_start_at = &u
+	m.addsale_start_at = nil
+}
+
+// SaleStartAt returns the value of the "sale_start_at" field in the mutation.
+func (m *AppGoodMutation) SaleStartAt() (r uint32, exists bool) {
+	v := m.sale_start_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldSaleStartAt returns the old "sale_start_at" field's value of the AppGood entity.
+// If the AppGood object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodMutation) OldSaleStartAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldSaleStartAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldSaleStartAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldSaleStartAt: %w", err)
+	}
+	return oldValue.SaleStartAt, nil
+}
+
+// AddSaleStartAt adds u to the "sale_start_at" field.
+func (m *AppGoodMutation) AddSaleStartAt(u int32) {
+	if m.addsale_start_at != nil {
+		*m.addsale_start_at += u
+	} else {
+		m.addsale_start_at = &u
+	}
+}
+
+// AddedSaleStartAt returns the value that was added to the "sale_start_at" field in this mutation.
+func (m *AppGoodMutation) AddedSaleStartAt() (r int32, exists bool) {
+	v := m.addsale_start_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearSaleStartAt clears the value of the "sale_start_at" field.
+func (m *AppGoodMutation) ClearSaleStartAt() {
+	m.sale_start_at = nil
+	m.addsale_start_at = nil
+	m.clearedFields[appgood.FieldSaleStartAt] = struct{}{}
+}
+
+// SaleStartAtCleared returns if the "sale_start_at" field was cleared in this mutation.
+func (m *AppGoodMutation) SaleStartAtCleared() bool {
+	_, ok := m.clearedFields[appgood.FieldSaleStartAt]
+	return ok
+}
+
+// ResetSaleStartAt resets all changes to the "sale_start_at" field.
+func (m *AppGoodMutation) ResetSaleStartAt() {
+	m.sale_start_at = nil
+	m.addsale_start_at = nil
+	delete(m.clearedFields, appgood.FieldSaleStartAt)
+}
+
+// SetSaleEndAt sets the "sale_end_at" field.
+func (m *AppGoodMutation) SetSaleEndAt(u uint32) {
+	m.sale_end_at = &u
+	m.addsale_end_at = nil
+}
+
+// SaleEndAt returns the value of the "sale_end_at" field in the mutation.
+func (m *AppGoodMutation) SaleEndAt() (r uint32, exists bool) {
+	v := m.sale_end_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldSaleEndAt returns the old "sale_end_at" field's value of the AppGood entity.
+// If the AppGood object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodMutation) OldSaleEndAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldSaleEndAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldSaleEndAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldSaleEndAt: %w", err)
+	}
+	return oldValue.SaleEndAt, nil
+}
+
+// AddSaleEndAt adds u to the "sale_end_at" field.
+func (m *AppGoodMutation) AddSaleEndAt(u int32) {
+	if m.addsale_end_at != nil {
+		*m.addsale_end_at += u
+	} else {
+		m.addsale_end_at = &u
+	}
+}
+
+// AddedSaleEndAt returns the value that was added to the "sale_end_at" field in this mutation.
+func (m *AppGoodMutation) AddedSaleEndAt() (r int32, exists bool) {
+	v := m.addsale_end_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearSaleEndAt clears the value of the "sale_end_at" field.
+func (m *AppGoodMutation) ClearSaleEndAt() {
+	m.sale_end_at = nil
+	m.addsale_end_at = nil
+	m.clearedFields[appgood.FieldSaleEndAt] = struct{}{}
+}
+
+// SaleEndAtCleared returns if the "sale_end_at" field was cleared in this mutation.
+func (m *AppGoodMutation) SaleEndAtCleared() bool {
+	_, ok := m.clearedFields[appgood.FieldSaleEndAt]
+	return ok
+}
+
+// ResetSaleEndAt resets all changes to the "sale_end_at" field.
+func (m *AppGoodMutation) ResetSaleEndAt() {
+	m.sale_end_at = nil
+	m.addsale_end_at = nil
+	delete(m.clearedFields, appgood.FieldSaleEndAt)
+}
+
+// SetServiceStartAt sets the "service_start_at" field.
+func (m *AppGoodMutation) SetServiceStartAt(u uint32) {
+	m.service_start_at = &u
+	m.addservice_start_at = nil
+}
+
+// ServiceStartAt returns the value of the "service_start_at" field in the mutation.
+func (m *AppGoodMutation) ServiceStartAt() (r uint32, exists bool) {
+	v := m.service_start_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldServiceStartAt returns the old "service_start_at" field's value of the AppGood entity.
+// If the AppGood object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodMutation) OldServiceStartAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldServiceStartAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldServiceStartAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldServiceStartAt: %w", err)
+	}
+	return oldValue.ServiceStartAt, nil
+}
+
+// AddServiceStartAt adds u to the "service_start_at" field.
+func (m *AppGoodMutation) AddServiceStartAt(u int32) {
+	if m.addservice_start_at != nil {
+		*m.addservice_start_at += u
+	} else {
+		m.addservice_start_at = &u
+	}
+}
+
+// AddedServiceStartAt returns the value that was added to the "service_start_at" field in this mutation.
+func (m *AppGoodMutation) AddedServiceStartAt() (r int32, exists bool) {
+	v := m.addservice_start_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearServiceStartAt clears the value of the "service_start_at" field.
+func (m *AppGoodMutation) ClearServiceStartAt() {
+	m.service_start_at = nil
+	m.addservice_start_at = nil
+	m.clearedFields[appgood.FieldServiceStartAt] = struct{}{}
+}
+
+// ServiceStartAtCleared returns if the "service_start_at" field was cleared in this mutation.
+func (m *AppGoodMutation) ServiceStartAtCleared() bool {
+	_, ok := m.clearedFields[appgood.FieldServiceStartAt]
+	return ok
+}
+
+// ResetServiceStartAt resets all changes to the "service_start_at" field.
+func (m *AppGoodMutation) ResetServiceStartAt() {
+	m.service_start_at = nil
+	m.addservice_start_at = nil
+	delete(m.clearedFields, appgood.FieldServiceStartAt)
+}
+
+// SetTechnicalFeeRatio sets the "technical_fee_ratio" field.
+func (m *AppGoodMutation) SetTechnicalFeeRatio(u uint32) {
+	m.technical_fee_ratio = &u
+	m.addtechnical_fee_ratio = nil
+}
+
+// TechnicalFeeRatio returns the value of the "technical_fee_ratio" field in the mutation.
+func (m *AppGoodMutation) TechnicalFeeRatio() (r uint32, exists bool) {
+	v := m.technical_fee_ratio
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTechnicalFeeRatio returns the old "technical_fee_ratio" field's value of the AppGood entity.
+// If the AppGood object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodMutation) OldTechnicalFeeRatio(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldTechnicalFeeRatio is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldTechnicalFeeRatio requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTechnicalFeeRatio: %w", err)
+	}
+	return oldValue.TechnicalFeeRatio, nil
+}
+
+// AddTechnicalFeeRatio adds u to the "technical_fee_ratio" field.
+func (m *AppGoodMutation) AddTechnicalFeeRatio(u int32) {
+	if m.addtechnical_fee_ratio != nil {
+		*m.addtechnical_fee_ratio += u
+	} else {
+		m.addtechnical_fee_ratio = &u
+	}
+}
+
+// AddedTechnicalFeeRatio returns the value that was added to the "technical_fee_ratio" field in this mutation.
+func (m *AppGoodMutation) AddedTechnicalFeeRatio() (r int32, exists bool) {
+	v := m.addtechnical_fee_ratio
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearTechnicalFeeRatio clears the value of the "technical_fee_ratio" field.
+func (m *AppGoodMutation) ClearTechnicalFeeRatio() {
+	m.technical_fee_ratio = nil
+	m.addtechnical_fee_ratio = nil
+	m.clearedFields[appgood.FieldTechnicalFeeRatio] = struct{}{}
+}
+
+// TechnicalFeeRatioCleared returns if the "technical_fee_ratio" field was cleared in this mutation.
+func (m *AppGoodMutation) TechnicalFeeRatioCleared() bool {
+	_, ok := m.clearedFields[appgood.FieldTechnicalFeeRatio]
+	return ok
+}
+
+// ResetTechnicalFeeRatio resets all changes to the "technical_fee_ratio" field.
+func (m *AppGoodMutation) ResetTechnicalFeeRatio() {
+	m.technical_fee_ratio = nil
+	m.addtechnical_fee_ratio = nil
+	delete(m.clearedFields, appgood.FieldTechnicalFeeRatio)
+}
+
+// SetElectricityFeeRatio sets the "electricity_fee_ratio" field.
+func (m *AppGoodMutation) SetElectricityFeeRatio(u uint32) {
+	m.electricity_fee_ratio = &u
+	m.addelectricity_fee_ratio = nil
+}
+
+// ElectricityFeeRatio returns the value of the "electricity_fee_ratio" field in the mutation.
+func (m *AppGoodMutation) ElectricityFeeRatio() (r uint32, exists bool) {
+	v := m.electricity_fee_ratio
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldElectricityFeeRatio returns the old "electricity_fee_ratio" field's value of the AppGood entity.
+// If the AppGood object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodMutation) OldElectricityFeeRatio(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldElectricityFeeRatio is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldElectricityFeeRatio requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldElectricityFeeRatio: %w", err)
+	}
+	return oldValue.ElectricityFeeRatio, nil
+}
+
+// AddElectricityFeeRatio adds u to the "electricity_fee_ratio" field.
+func (m *AppGoodMutation) AddElectricityFeeRatio(u int32) {
+	if m.addelectricity_fee_ratio != nil {
+		*m.addelectricity_fee_ratio += u
+	} else {
+		m.addelectricity_fee_ratio = &u
+	}
+}
+
+// AddedElectricityFeeRatio returns the value that was added to the "electricity_fee_ratio" field in this mutation.
+func (m *AppGoodMutation) AddedElectricityFeeRatio() (r int32, exists bool) {
+	v := m.addelectricity_fee_ratio
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearElectricityFeeRatio clears the value of the "electricity_fee_ratio" field.
+func (m *AppGoodMutation) ClearElectricityFeeRatio() {
+	m.electricity_fee_ratio = nil
+	m.addelectricity_fee_ratio = nil
+	m.clearedFields[appgood.FieldElectricityFeeRatio] = struct{}{}
+}
+
+// ElectricityFeeRatioCleared returns if the "electricity_fee_ratio" field was cleared in this mutation.
+func (m *AppGoodMutation) ElectricityFeeRatioCleared() bool {
+	_, ok := m.clearedFields[appgood.FieldElectricityFeeRatio]
+	return ok
+}
+
+// ResetElectricityFeeRatio resets all changes to the "electricity_fee_ratio" field.
+func (m *AppGoodMutation) ResetElectricityFeeRatio() {
+	m.electricity_fee_ratio = nil
+	m.addelectricity_fee_ratio = nil
+	delete(m.clearedFields, appgood.FieldElectricityFeeRatio)
+}
+
 // Where appends a list predicates to the AppGoodMutation builder.
 func (m *AppGoodMutation) Where(ps ...predicate.AppGood) {
 	m.predicates = append(m.predicates, ps...)
@@ -845,7 +1205,7 @@ func (m *AppGoodMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppGoodMutation) Fields() []string {
-	fields := make([]string, 0, 12)
+	fields := make([]string, 0, 17)
 	if m.created_at != nil {
 		fields = append(fields, appgood.FieldCreatedAt)
 	}
@@ -882,6 +1242,21 @@ func (m *AppGoodMutation) Fields() []string {
 	if m.commission_percent != nil {
 		fields = append(fields, appgood.FieldCommissionPercent)
 	}
+	if m.sale_start_at != nil {
+		fields = append(fields, appgood.FieldSaleStartAt)
+	}
+	if m.sale_end_at != nil {
+		fields = append(fields, appgood.FieldSaleEndAt)
+	}
+	if m.service_start_at != nil {
+		fields = append(fields, appgood.FieldServiceStartAt)
+	}
+	if m.technical_fee_ratio != nil {
+		fields = append(fields, appgood.FieldTechnicalFeeRatio)
+	}
+	if m.electricity_fee_ratio != nil {
+		fields = append(fields, appgood.FieldElectricityFeeRatio)
+	}
 	return fields
 }
 
@@ -914,6 +1289,16 @@ func (m *AppGoodMutation) Field(name string) (ent.Value, bool) {
 		return m.PurchaseLimit()
 	case appgood.FieldCommissionPercent:
 		return m.CommissionPercent()
+	case appgood.FieldSaleStartAt:
+		return m.SaleStartAt()
+	case appgood.FieldSaleEndAt:
+		return m.SaleEndAt()
+	case appgood.FieldServiceStartAt:
+		return m.ServiceStartAt()
+	case appgood.FieldTechnicalFeeRatio:
+		return m.TechnicalFeeRatio()
+	case appgood.FieldElectricityFeeRatio:
+		return m.ElectricityFeeRatio()
 	}
 	return nil, false
 }
@@ -947,6 +1332,16 @@ func (m *AppGoodMutation) OldField(ctx context.Context, name string) (ent.Value,
 		return m.OldPurchaseLimit(ctx)
 	case appgood.FieldCommissionPercent:
 		return m.OldCommissionPercent(ctx)
+	case appgood.FieldSaleStartAt:
+		return m.OldSaleStartAt(ctx)
+	case appgood.FieldSaleEndAt:
+		return m.OldSaleEndAt(ctx)
+	case appgood.FieldServiceStartAt:
+		return m.OldServiceStartAt(ctx)
+	case appgood.FieldTechnicalFeeRatio:
+		return m.OldTechnicalFeeRatio(ctx)
+	case appgood.FieldElectricityFeeRatio:
+		return m.OldElectricityFeeRatio(ctx)
 	}
 	return nil, fmt.Errorf("unknown AppGood field %s", name)
 }
@@ -1040,6 +1435,41 @@ func (m *AppGoodMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetCommissionPercent(v)
 		return nil
+	case appgood.FieldSaleStartAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetSaleStartAt(v)
+		return nil
+	case appgood.FieldSaleEndAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetSaleEndAt(v)
+		return nil
+	case appgood.FieldServiceStartAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetServiceStartAt(v)
+		return nil
+	case appgood.FieldTechnicalFeeRatio:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTechnicalFeeRatio(v)
+		return nil
+	case appgood.FieldElectricityFeeRatio:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetElectricityFeeRatio(v)
+		return nil
 	}
 	return fmt.Errorf("unknown AppGood field %s", name)
 }
@@ -1066,6 +1496,21 @@ func (m *AppGoodMutation) AddedFields() []string {
 	if m.addcommission_percent != nil {
 		fields = append(fields, appgood.FieldCommissionPercent)
 	}
+	if m.addsale_start_at != nil {
+		fields = append(fields, appgood.FieldSaleStartAt)
+	}
+	if m.addsale_end_at != nil {
+		fields = append(fields, appgood.FieldSaleEndAt)
+	}
+	if m.addservice_start_at != nil {
+		fields = append(fields, appgood.FieldServiceStartAt)
+	}
+	if m.addtechnical_fee_ratio != nil {
+		fields = append(fields, appgood.FieldTechnicalFeeRatio)
+	}
+	if m.addelectricity_fee_ratio != nil {
+		fields = append(fields, appgood.FieldElectricityFeeRatio)
+	}
 	return fields
 }
 
@@ -1086,6 +1531,16 @@ func (m *AppGoodMutation) AddedField(name string) (ent.Value, bool) {
 		return m.AddedPurchaseLimit()
 	case appgood.FieldCommissionPercent:
 		return m.AddedCommissionPercent()
+	case appgood.FieldSaleStartAt:
+		return m.AddedSaleStartAt()
+	case appgood.FieldSaleEndAt:
+		return m.AddedSaleEndAt()
+	case appgood.FieldServiceStartAt:
+		return m.AddedServiceStartAt()
+	case appgood.FieldTechnicalFeeRatio:
+		return m.AddedTechnicalFeeRatio()
+	case appgood.FieldElectricityFeeRatio:
+		return m.AddedElectricityFeeRatio()
 	}
 	return nil, false
 }
@@ -1137,6 +1592,41 @@ func (m *AppGoodMutation) AddField(name string, value ent.Value) error {
 		}
 		m.AddCommissionPercent(v)
 		return nil
+	case appgood.FieldSaleStartAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddSaleStartAt(v)
+		return nil
+	case appgood.FieldSaleEndAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddSaleEndAt(v)
+		return nil
+	case appgood.FieldServiceStartAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddServiceStartAt(v)
+		return nil
+	case appgood.FieldTechnicalFeeRatio:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddTechnicalFeeRatio(v)
+		return nil
+	case appgood.FieldElectricityFeeRatio:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddElectricityFeeRatio(v)
+		return nil
 	}
 	return fmt.Errorf("unknown AppGood numeric field %s", name)
 }
@@ -1165,6 +1655,21 @@ func (m *AppGoodMutation) ClearedFields() []string {
 	}
 	if m.FieldCleared(appgood.FieldCommissionPercent) {
 		fields = append(fields, appgood.FieldCommissionPercent)
+	}
+	if m.FieldCleared(appgood.FieldSaleStartAt) {
+		fields = append(fields, appgood.FieldSaleStartAt)
+	}
+	if m.FieldCleared(appgood.FieldSaleEndAt) {
+		fields = append(fields, appgood.FieldSaleEndAt)
+	}
+	if m.FieldCleared(appgood.FieldServiceStartAt) {
+		fields = append(fields, appgood.FieldServiceStartAt)
+	}
+	if m.FieldCleared(appgood.FieldTechnicalFeeRatio) {
+		fields = append(fields, appgood.FieldTechnicalFeeRatio)
+	}
+	if m.FieldCleared(appgood.FieldElectricityFeeRatio) {
+		fields = append(fields, appgood.FieldElectricityFeeRatio)
 	}
 	return fields
 }
@@ -1200,6 +1705,21 @@ func (m *AppGoodMutation) ClearField(name string) error {
 		return nil
 	case appgood.FieldCommissionPercent:
 		m.ClearCommissionPercent()
+		return nil
+	case appgood.FieldSaleStartAt:
+		m.ClearSaleStartAt()
+		return nil
+	case appgood.FieldSaleEndAt:
+		m.ClearSaleEndAt()
+		return nil
+	case appgood.FieldServiceStartAt:
+		m.ClearServiceStartAt()
+		return nil
+	case appgood.FieldTechnicalFeeRatio:
+		m.ClearTechnicalFeeRatio()
+		return nil
+	case appgood.FieldElectricityFeeRatio:
+		m.ClearElectricityFeeRatio()
 		return nil
 	}
 	return fmt.Errorf("unknown AppGood nullable field %s", name)
@@ -1244,6 +1764,21 @@ func (m *AppGoodMutation) ResetField(name string) error {
 		return nil
 	case appgood.FieldCommissionPercent:
 		m.ResetCommissionPercent()
+		return nil
+	case appgood.FieldSaleStartAt:
+		m.ResetSaleStartAt()
+		return nil
+	case appgood.FieldSaleEndAt:
+		m.ResetSaleEndAt()
+		return nil
+	case appgood.FieldServiceStartAt:
+		m.ResetServiceStartAt()
+		return nil
+	case appgood.FieldTechnicalFeeRatio:
+		m.ResetTechnicalFeeRatio()
+		return nil
+	case appgood.FieldElectricityFeeRatio:
+		m.ResetElectricityFeeRatio()
 		return nil
 	}
 	return fmt.Errorf("unknown AppGood field %s", name)

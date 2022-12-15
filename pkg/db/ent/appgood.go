@@ -41,6 +41,16 @@ type AppGood struct {
 	PurchaseLimit int32 `json:"purchase_limit,omitempty"`
 	// CommissionPercent holds the value of the "commission_percent" field.
 	CommissionPercent int32 `json:"commission_percent,omitempty"`
+	// SaleStartAt holds the value of the "sale_start_at" field.
+	SaleStartAt uint32 `json:"sale_start_at,omitempty"`
+	// SaleEndAt holds the value of the "sale_end_at" field.
+	SaleEndAt uint32 `json:"sale_end_at,omitempty"`
+	// ServiceStartAt holds the value of the "service_start_at" field.
+	ServiceStartAt uint32 `json:"service_start_at,omitempty"`
+	// TechnicalFeeRatio holds the value of the "technical_fee_ratio" field.
+	TechnicalFeeRatio uint32 `json:"technical_fee_ratio,omitempty"`
+	// ElectricityFeeRatio holds the value of the "electricity_fee_ratio" field.
+	ElectricityFeeRatio uint32 `json:"electricity_fee_ratio,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -52,7 +62,7 @@ func (*AppGood) scanValues(columns []string) ([]interface{}, error) {
 			values[i] = new(decimal.Decimal)
 		case appgood.FieldOnline, appgood.FieldVisible:
 			values[i] = new(sql.NullBool)
-		case appgood.FieldCreatedAt, appgood.FieldUpdatedAt, appgood.FieldDeletedAt, appgood.FieldDisplayIndex, appgood.FieldPurchaseLimit, appgood.FieldCommissionPercent:
+		case appgood.FieldCreatedAt, appgood.FieldUpdatedAt, appgood.FieldDeletedAt, appgood.FieldDisplayIndex, appgood.FieldPurchaseLimit, appgood.FieldCommissionPercent, appgood.FieldSaleStartAt, appgood.FieldSaleEndAt, appgood.FieldServiceStartAt, appgood.FieldTechnicalFeeRatio, appgood.FieldElectricityFeeRatio:
 			values[i] = new(sql.NullInt64)
 		case appgood.FieldGoodName:
 			values[i] = new(sql.NullString)
@@ -151,6 +161,36 @@ func (ag *AppGood) assignValues(columns []string, values []interface{}) error {
 			} else if value.Valid {
 				ag.CommissionPercent = int32(value.Int64)
 			}
+		case appgood.FieldSaleStartAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field sale_start_at", values[i])
+			} else if value.Valid {
+				ag.SaleStartAt = uint32(value.Int64)
+			}
+		case appgood.FieldSaleEndAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field sale_end_at", values[i])
+			} else if value.Valid {
+				ag.SaleEndAt = uint32(value.Int64)
+			}
+		case appgood.FieldServiceStartAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field service_start_at", values[i])
+			} else if value.Valid {
+				ag.ServiceStartAt = uint32(value.Int64)
+			}
+		case appgood.FieldTechnicalFeeRatio:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field technical_fee_ratio", values[i])
+			} else if value.Valid {
+				ag.TechnicalFeeRatio = uint32(value.Int64)
+			}
+		case appgood.FieldElectricityFeeRatio:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field electricity_fee_ratio", values[i])
+			} else if value.Valid {
+				ag.ElectricityFeeRatio = uint32(value.Int64)
+			}
 		}
 	}
 	return nil
@@ -214,6 +254,21 @@ func (ag *AppGood) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("commission_percent=")
 	builder.WriteString(fmt.Sprintf("%v", ag.CommissionPercent))
+	builder.WriteString(", ")
+	builder.WriteString("sale_start_at=")
+	builder.WriteString(fmt.Sprintf("%v", ag.SaleStartAt))
+	builder.WriteString(", ")
+	builder.WriteString("sale_end_at=")
+	builder.WriteString(fmt.Sprintf("%v", ag.SaleEndAt))
+	builder.WriteString(", ")
+	builder.WriteString("service_start_at=")
+	builder.WriteString(fmt.Sprintf("%v", ag.ServiceStartAt))
+	builder.WriteString(", ")
+	builder.WriteString("technical_fee_ratio=")
+	builder.WriteString(fmt.Sprintf("%v", ag.TechnicalFeeRatio))
+	builder.WriteString(", ")
+	builder.WriteString("electricity_fee_ratio=")
+	builder.WriteString(fmt.Sprintf("%v", ag.ElectricityFeeRatio))
 	builder.WriteByte(')')
 	return builder.String()
 }

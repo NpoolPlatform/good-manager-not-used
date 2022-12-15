@@ -12,19 +12,24 @@ func Ent2Grpc(row *ent.AppGood) *npool.AppGood {
 	}
 
 	return &npool.AppGood{
-		ID:                row.ID.String(),
-		AppID:             row.AppID.String(),
-		GoodID:            row.GoodID.String(),
-		Online:            row.Online,
-		Visible:           row.Visible,
-		GoodName:          row.GoodName,
-		Price:             row.Price.String(),
-		DisplayIndex:      row.DisplayIndex,
-		PurchaseLimit:     row.PurchaseLimit,
-		CommissionPercent: row.CommissionPercent,
-		CreatedAt:         row.CreatedAt,
-		UpdatedAt:         row.UpdatedAt,
-		DeletedAt:         row.DeletedAt,
+		ID:                  row.ID.String(),
+		AppID:               row.AppID.String(),
+		GoodID:              row.GoodID.String(),
+		Online:              row.Online,
+		Visible:             row.Visible,
+		GoodName:            row.GoodName,
+		Price:               row.Price.String(),
+		DisplayIndex:        row.DisplayIndex,
+		PurchaseLimit:       row.PurchaseLimit,
+		CommissionPercent:   row.CommissionPercent,
+		CreatedAt:           row.CreatedAt,
+		UpdatedAt:           row.UpdatedAt,
+		DeletedAt:           row.DeletedAt,
+		SaleStartAt:         row.SaleStartAt,
+		SaleEndAt:           row.SaleEndAt,
+		ServiceStartAt:      row.ServiceStartAt,
+		TechnicalFeeRatio:   row.TechnicalFeeRatio,
+		ElectricityFeeRatio: row.ElectricityFeeRatio,
 	}
 }
 

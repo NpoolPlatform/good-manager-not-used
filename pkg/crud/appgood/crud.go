@@ -56,6 +56,21 @@ func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (*ent.AppGoodCreate, 
 	if in.CommissionPercent != nil {
 		c.SetCommissionPercent(in.GetCommissionPercent())
 	}
+	if in.SaleStartAt != nil {
+		c.SetSaleStartAt(in.GetSaleStartAt())
+	}
+	if in.SaleEndAt != nil {
+		c.SetSaleEndAt(in.GetSaleEndAt())
+	}
+	if in.ServiceStartAt != nil {
+		c.SetServiceStartAt(in.GetServiceStartAt())
+	}
+	if in.TechnicalFeeRatio != nil {
+		c.SetTechnicalFeeRatio(in.GetTechnicalFeeRatio())
+	}
+	if in.ElectricityFeeRatio != nil {
+		c.SetElectricityFeeRatio(in.GetElectricityFeeRatio())
+	}
 
 	return c, nil
 }
@@ -151,6 +166,21 @@ func UpdateSet(u *ent.AppGoodUpdateOne, in *npool.AppGoodReq) (*ent.AppGoodUpdat
 	}
 	if in.CommissionPercent != nil {
 		u.SetCommissionPercent(in.GetCommissionPercent())
+	}
+	if in.SaleStartAt != nil {
+		u.SetSaleStartAt(in.GetSaleStartAt())
+	}
+	if in.SaleEndAt != nil {
+		u.SetSaleEndAt(in.GetSaleEndAt())
+	}
+	if in.ServiceStartAt != nil {
+		u.SetServiceStartAt(in.GetServiceStartAt())
+	}
+	if in.TechnicalFeeRatio != nil {
+		u.SetTechnicalFeeRatio(in.GetTechnicalFeeRatio())
+	}
+	if in.ElectricityFeeRatio != nil {
+		u.SetElectricityFeeRatio(in.GetElectricityFeeRatio())
 	}
 	return u, nil
 }

@@ -23,6 +23,11 @@ var (
 		{Name: "display_index", Type: field.TypeInt32, Nullable: true, Default: 0},
 		{Name: "purchase_limit", Type: field.TypeInt32, Nullable: true, Default: 0},
 		{Name: "commission_percent", Type: field.TypeInt32, Nullable: true, Default: 0},
+		{Name: "sale_start_at", Type: field.TypeUint32, Nullable: true, Default: 0},
+		{Name: "sale_end_at", Type: field.TypeUint32, Nullable: true, Default: 0},
+		{Name: "service_start_at", Type: field.TypeUint32, Nullable: true, Default: 0},
+		{Name: "technical_fee_ratio", Type: field.TypeUint32, Nullable: true, Default: 0},
+		{Name: "electricity_fee_ratio", Type: field.TypeUint32, Nullable: true, Default: 0},
 	}
 	// AppGoodsTable holds the schema information for the "app_goods" table.
 	AppGoodsTable = &schema.Table{

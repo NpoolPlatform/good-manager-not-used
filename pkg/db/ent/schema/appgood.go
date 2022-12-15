@@ -64,6 +64,26 @@ func (AppGood) Fields() []ent.Field {
 			Int32("commission_percent").
 			Optional().
 			Default(0),
+		field.
+			Uint32("sale_start_at").
+			Optional().
+			Default(0),
+		field.
+			Uint32("sale_end_at").
+			Optional().
+			Default(0),
+		field.
+			Uint32("service_start_at").
+			Optional().
+			Default(0),
+		field.
+			Uint32("technical_fee_ratio").
+			Optional().
+			Default(0),
+		field.
+			Uint32("electricity_fee_ratio").
+			Optional().
+			Default(0),
 	}
 }
 
