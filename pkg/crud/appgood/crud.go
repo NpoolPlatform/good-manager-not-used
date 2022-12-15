@@ -21,7 +21,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (*ent.AppGoodCreate, error) {
+func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (*ent.AppGoodCreate, error) { //nolint:gocyclo
 	if in.ID != nil {
 		c.SetID(uuid.MustParse(in.GetID()))
 	}
