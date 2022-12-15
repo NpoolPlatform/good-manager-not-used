@@ -223,6 +223,8 @@ func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.PromotionQuery, er
 		switch conds.GetID().GetOp() {
 		case cruder.EQ:
 			stm.Where(promotion.ID(uuid.MustParse(conds.GetID().GetValue())))
+		case cruder.NEQ:
+			stm.Where(promotion.IDNEQ(uuid.MustParse(conds.GetID().GetValue())))
 		default:
 			return nil, fmt.Errorf("invalid promotion field")
 		}
