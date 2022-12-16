@@ -51,6 +51,7 @@ var schemaGraph = func() *sqlgraph.Schema {
 			appgood.FieldServiceStartAt:      {Type: field.TypeUint32, Column: appgood.FieldServiceStartAt},
 			appgood.FieldTechnicalFeeRatio:   {Type: field.TypeUint32, Column: appgood.FieldTechnicalFeeRatio},
 			appgood.FieldElectricityFeeRatio: {Type: field.TypeUint32, Column: appgood.FieldElectricityFeeRatio},
+			appgood.FieldDailyRewardAmount:   {Type: field.TypeOther, Column: appgood.FieldDailyRewardAmount},
 		},
 	}
 	graph.Nodes[1] = &sqlgraph.Node{
@@ -386,6 +387,11 @@ func (f *AppGoodFilter) WhereTechnicalFeeRatio(p entql.Uint32P) {
 // WhereElectricityFeeRatio applies the entql uint32 predicate on the electricity_fee_ratio field.
 func (f *AppGoodFilter) WhereElectricityFeeRatio(p entql.Uint32P) {
 	f.Where(p.Field(appgood.FieldElectricityFeeRatio))
+}
+
+// WhereDailyRewardAmount applies the entql other predicate on the daily_reward_amount field.
+func (f *AppGoodFilter) WhereDailyRewardAmount(p entql.OtherP) {
+	f.Where(p.Field(appgood.FieldDailyRewardAmount))
 }
 
 // addPredicate implements the predicateAdder interface.

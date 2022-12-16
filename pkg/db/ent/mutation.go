@@ -80,6 +80,7 @@ type AppGoodMutation struct {
 	addtechnical_fee_ratio   *int32
 	electricity_fee_ratio    *uint32
 	addelectricity_fee_ratio *int32
+	daily_reward_amount      *decimal.Decimal
 	clearedFields            map[string]struct{}
 	done                     bool
 	oldValue                 func(context.Context) (*AppGood, error)
@@ -1186,6 +1187,55 @@ func (m *AppGoodMutation) ResetElectricityFeeRatio() {
 	delete(m.clearedFields, appgood.FieldElectricityFeeRatio)
 }
 
+// SetDailyRewardAmount sets the "daily_reward_amount" field.
+func (m *AppGoodMutation) SetDailyRewardAmount(d decimal.Decimal) {
+	m.daily_reward_amount = &d
+}
+
+// DailyRewardAmount returns the value of the "daily_reward_amount" field in the mutation.
+func (m *AppGoodMutation) DailyRewardAmount() (r decimal.Decimal, exists bool) {
+	v := m.daily_reward_amount
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDailyRewardAmount returns the old "daily_reward_amount" field's value of the AppGood entity.
+// If the AppGood object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodMutation) OldDailyRewardAmount(ctx context.Context) (v decimal.Decimal, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDailyRewardAmount is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDailyRewardAmount requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDailyRewardAmount: %w", err)
+	}
+	return oldValue.DailyRewardAmount, nil
+}
+
+// ClearDailyRewardAmount clears the value of the "daily_reward_amount" field.
+func (m *AppGoodMutation) ClearDailyRewardAmount() {
+	m.daily_reward_amount = nil
+	m.clearedFields[appgood.FieldDailyRewardAmount] = struct{}{}
+}
+
+// DailyRewardAmountCleared returns if the "daily_reward_amount" field was cleared in this mutation.
+func (m *AppGoodMutation) DailyRewardAmountCleared() bool {
+	_, ok := m.clearedFields[appgood.FieldDailyRewardAmount]
+	return ok
+}
+
+// ResetDailyRewardAmount resets all changes to the "daily_reward_amount" field.
+func (m *AppGoodMutation) ResetDailyRewardAmount() {
+	m.daily_reward_amount = nil
+	delete(m.clearedFields, appgood.FieldDailyRewardAmount)
+}
+
 // Where appends a list predicates to the AppGoodMutation builder.
 func (m *AppGoodMutation) Where(ps ...predicate.AppGood) {
 	m.predicates = append(m.predicates, ps...)
@@ -1205,7 +1255,7 @@ func (m *AppGoodMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppGoodMutation) Fields() []string {
-	fields := make([]string, 0, 17)
+	fields := make([]string, 0, 18)
 	if m.created_at != nil {
 		fields = append(fields, appgood.FieldCreatedAt)
 	}
@@ -1257,6 +1307,9 @@ func (m *AppGoodMutation) Fields() []string {
 	if m.electricity_fee_ratio != nil {
 		fields = append(fields, appgood.FieldElectricityFeeRatio)
 	}
+	if m.daily_reward_amount != nil {
+		fields = append(fields, appgood.FieldDailyRewardAmount)
+	}
 	return fields
 }
 
@@ -1299,6 +1352,8 @@ func (m *AppGoodMutation) Field(name string) (ent.Value, bool) {
 		return m.TechnicalFeeRatio()
 	case appgood.FieldElectricityFeeRatio:
 		return m.ElectricityFeeRatio()
+	case appgood.FieldDailyRewardAmount:
+		return m.DailyRewardAmount()
 	}
 	return nil, false
 }
@@ -1342,6 +1397,8 @@ func (m *AppGoodMutation) OldField(ctx context.Context, name string) (ent.Value,
 		return m.OldTechnicalFeeRatio(ctx)
 	case appgood.FieldElectricityFeeRatio:
 		return m.OldElectricityFeeRatio(ctx)
+	case appgood.FieldDailyRewardAmount:
+		return m.OldDailyRewardAmount(ctx)
 	}
 	return nil, fmt.Errorf("unknown AppGood field %s", name)
 }
@@ -1469,6 +1526,13 @@ func (m *AppGoodMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetElectricityFeeRatio(v)
+		return nil
+	case appgood.FieldDailyRewardAmount:
+		v, ok := value.(decimal.Decimal)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDailyRewardAmount(v)
 		return nil
 	}
 	return fmt.Errorf("unknown AppGood field %s", name)
@@ -1671,6 +1735,9 @@ func (m *AppGoodMutation) ClearedFields() []string {
 	if m.FieldCleared(appgood.FieldElectricityFeeRatio) {
 		fields = append(fields, appgood.FieldElectricityFeeRatio)
 	}
+	if m.FieldCleared(appgood.FieldDailyRewardAmount) {
+		fields = append(fields, appgood.FieldDailyRewardAmount)
+	}
 	return fields
 }
 
@@ -1720,6 +1787,9 @@ func (m *AppGoodMutation) ClearField(name string) error {
 		return nil
 	case appgood.FieldElectricityFeeRatio:
 		m.ClearElectricityFeeRatio()
+		return nil
+	case appgood.FieldDailyRewardAmount:
+		m.ClearDailyRewardAmount()
 		return nil
 	}
 	return fmt.Errorf("unknown AppGood nullable field %s", name)
@@ -1779,6 +1849,9 @@ func (m *AppGoodMutation) ResetField(name string) error {
 		return nil
 	case appgood.FieldElectricityFeeRatio:
 		m.ResetElectricityFeeRatio()
+		return nil
+	case appgood.FieldDailyRewardAmount:
+		m.ResetDailyRewardAmount()
 		return nil
 	}
 	return fmt.Errorf("unknown AppGood field %s", name)

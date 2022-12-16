@@ -199,6 +199,13 @@ func ElectricityFeeRatio(v uint32) predicate.AppGood {
 	})
 }
 
+// DailyRewardAmount applies equality check predicate on the "daily_reward_amount" field. It's identical to DailyRewardAmountEQ.
+func DailyRewardAmount(v decimal.Decimal) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldDailyRewardAmount), v))
+	})
+}
+
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
 func CreatedAtEQ(v uint32) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
@@ -1387,6 +1394,84 @@ func ElectricityFeeRatioIsNil() predicate.AppGood {
 func ElectricityFeeRatioNotNil() predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
 		s.Where(sql.NotNull(s.C(FieldElectricityFeeRatio)))
+	})
+}
+
+// DailyRewardAmountEQ applies the EQ predicate on the "daily_reward_amount" field.
+func DailyRewardAmountEQ(v decimal.Decimal) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldDailyRewardAmount), v))
+	})
+}
+
+// DailyRewardAmountNEQ applies the NEQ predicate on the "daily_reward_amount" field.
+func DailyRewardAmountNEQ(v decimal.Decimal) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldDailyRewardAmount), v))
+	})
+}
+
+// DailyRewardAmountIn applies the In predicate on the "daily_reward_amount" field.
+func DailyRewardAmountIn(vs ...decimal.Decimal) predicate.AppGood {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.In(s.C(FieldDailyRewardAmount), v...))
+	})
+}
+
+// DailyRewardAmountNotIn applies the NotIn predicate on the "daily_reward_amount" field.
+func DailyRewardAmountNotIn(vs ...decimal.Decimal) predicate.AppGood {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotIn(s.C(FieldDailyRewardAmount), v...))
+	})
+}
+
+// DailyRewardAmountGT applies the GT predicate on the "daily_reward_amount" field.
+func DailyRewardAmountGT(v decimal.Decimal) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldDailyRewardAmount), v))
+	})
+}
+
+// DailyRewardAmountGTE applies the GTE predicate on the "daily_reward_amount" field.
+func DailyRewardAmountGTE(v decimal.Decimal) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldDailyRewardAmount), v))
+	})
+}
+
+// DailyRewardAmountLT applies the LT predicate on the "daily_reward_amount" field.
+func DailyRewardAmountLT(v decimal.Decimal) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldDailyRewardAmount), v))
+	})
+}
+
+// DailyRewardAmountLTE applies the LTE predicate on the "daily_reward_amount" field.
+func DailyRewardAmountLTE(v decimal.Decimal) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldDailyRewardAmount), v))
+	})
+}
+
+// DailyRewardAmountIsNil applies the IsNil predicate on the "daily_reward_amount" field.
+func DailyRewardAmountIsNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldDailyRewardAmount)))
+	})
+}
+
+// DailyRewardAmountNotNil applies the NotNil predicate on the "daily_reward_amount" field.
+func DailyRewardAmountNotNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldDailyRewardAmount)))
 	})
 }
 

@@ -51,6 +51,8 @@ type AppGood struct {
 	TechnicalFeeRatio uint32 `json:"technical_fee_ratio,omitempty"`
 	// ElectricityFeeRatio holds the value of the "electricity_fee_ratio" field.
 	ElectricityFeeRatio uint32 `json:"electricity_fee_ratio,omitempty"`
+	// DailyRewardAmount holds the value of the "daily_reward_amount" field.
+	DailyRewardAmount decimal.Decimal `json:"daily_reward_amount,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -58,7 +60,7 @@ func (*AppGood) scanValues(columns []string) ([]interface{}, error) {
 	values := make([]interface{}, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case appgood.FieldPrice:
+		case appgood.FieldPrice, appgood.FieldDailyRewardAmount:
 			values[i] = new(decimal.Decimal)
 		case appgood.FieldOnline, appgood.FieldVisible:
 			values[i] = new(sql.NullBool)
@@ -191,6 +193,12 @@ func (ag *AppGood) assignValues(columns []string, values []interface{}) error {
 			} else if value.Valid {
 				ag.ElectricityFeeRatio = uint32(value.Int64)
 			}
+		case appgood.FieldDailyRewardAmount:
+			if value, ok := values[i].(*decimal.Decimal); !ok {
+				return fmt.Errorf("unexpected type %T for field daily_reward_amount", values[i])
+			} else if value != nil {
+				ag.DailyRewardAmount = *value
+			}
 		}
 	}
 	return nil
@@ -269,6 +277,9 @@ func (ag *AppGood) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("electricity_fee_ratio=")
 	builder.WriteString(fmt.Sprintf("%v", ag.ElectricityFeeRatio))
+	builder.WriteString(", ")
+	builder.WriteString("daily_reward_amount=")
+	builder.WriteString(fmt.Sprintf("%v", ag.DailyRewardAmount))
 	builder.WriteByte(')')
 	return builder.String()
 }

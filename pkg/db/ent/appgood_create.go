@@ -246,6 +246,20 @@ func (agc *AppGoodCreate) SetNillableElectricityFeeRatio(u *uint32) *AppGoodCrea
 	return agc
 }
 
+// SetDailyRewardAmount sets the "daily_reward_amount" field.
+func (agc *AppGoodCreate) SetDailyRewardAmount(d decimal.Decimal) *AppGoodCreate {
+	agc.mutation.SetDailyRewardAmount(d)
+	return agc
+}
+
+// SetNillableDailyRewardAmount sets the "daily_reward_amount" field if the given value is not nil.
+func (agc *AppGoodCreate) SetNillableDailyRewardAmount(d *decimal.Decimal) *AppGoodCreate {
+	if d != nil {
+		agc.SetDailyRewardAmount(*d)
+	}
+	return agc
+}
+
 // SetID sets the "id" field.
 func (agc *AppGoodCreate) SetID(u uuid.UUID) *AppGoodCreate {
 	agc.mutation.SetID(u)
@@ -407,6 +421,10 @@ func (agc *AppGoodCreate) defaults() error {
 	if _, ok := agc.mutation.ElectricityFeeRatio(); !ok {
 		v := appgood.DefaultElectricityFeeRatio
 		agc.mutation.SetElectricityFeeRatio(v)
+	}
+	if _, ok := agc.mutation.DailyRewardAmount(); !ok {
+		v := appgood.DefaultDailyRewardAmount
+		agc.mutation.SetDailyRewardAmount(v)
 	}
 	if _, ok := agc.mutation.ID(); !ok {
 		if appgood.DefaultID == nil {
@@ -607,6 +625,14 @@ func (agc *AppGoodCreate) createSpec() (*AppGood, *sqlgraph.CreateSpec) {
 			Column: appgood.FieldElectricityFeeRatio,
 		})
 		_node.ElectricityFeeRatio = value
+	}
+	if value, ok := agc.mutation.DailyRewardAmount(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
+			Value:  value,
+			Column: appgood.FieldDailyRewardAmount,
+		})
+		_node.DailyRewardAmount = value
 	}
 	return _node, _spec
 }
@@ -1001,6 +1027,24 @@ func (u *AppGoodUpsert) AddElectricityFeeRatio(v uint32) *AppGoodUpsert {
 // ClearElectricityFeeRatio clears the value of the "electricity_fee_ratio" field.
 func (u *AppGoodUpsert) ClearElectricityFeeRatio() *AppGoodUpsert {
 	u.SetNull(appgood.FieldElectricityFeeRatio)
+	return u
+}
+
+// SetDailyRewardAmount sets the "daily_reward_amount" field.
+func (u *AppGoodUpsert) SetDailyRewardAmount(v decimal.Decimal) *AppGoodUpsert {
+	u.Set(appgood.FieldDailyRewardAmount, v)
+	return u
+}
+
+// UpdateDailyRewardAmount sets the "daily_reward_amount" field to the value that was provided on create.
+func (u *AppGoodUpsert) UpdateDailyRewardAmount() *AppGoodUpsert {
+	u.SetExcluded(appgood.FieldDailyRewardAmount)
+	return u
+}
+
+// ClearDailyRewardAmount clears the value of the "daily_reward_amount" field.
+func (u *AppGoodUpsert) ClearDailyRewardAmount() *AppGoodUpsert {
+	u.SetNull(appgood.FieldDailyRewardAmount)
 	return u
 }
 
@@ -1450,6 +1494,27 @@ func (u *AppGoodUpsertOne) UpdateElectricityFeeRatio() *AppGoodUpsertOne {
 func (u *AppGoodUpsertOne) ClearElectricityFeeRatio() *AppGoodUpsertOne {
 	return u.Update(func(s *AppGoodUpsert) {
 		s.ClearElectricityFeeRatio()
+	})
+}
+
+// SetDailyRewardAmount sets the "daily_reward_amount" field.
+func (u *AppGoodUpsertOne) SetDailyRewardAmount(v decimal.Decimal) *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetDailyRewardAmount(v)
+	})
+}
+
+// UpdateDailyRewardAmount sets the "daily_reward_amount" field to the value that was provided on create.
+func (u *AppGoodUpsertOne) UpdateDailyRewardAmount() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateDailyRewardAmount()
+	})
+}
+
+// ClearDailyRewardAmount clears the value of the "daily_reward_amount" field.
+func (u *AppGoodUpsertOne) ClearDailyRewardAmount() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearDailyRewardAmount()
 	})
 }
 
@@ -2065,6 +2130,27 @@ func (u *AppGoodUpsertBulk) UpdateElectricityFeeRatio() *AppGoodUpsertBulk {
 func (u *AppGoodUpsertBulk) ClearElectricityFeeRatio() *AppGoodUpsertBulk {
 	return u.Update(func(s *AppGoodUpsert) {
 		s.ClearElectricityFeeRatio()
+	})
+}
+
+// SetDailyRewardAmount sets the "daily_reward_amount" field.
+func (u *AppGoodUpsertBulk) SetDailyRewardAmount(v decimal.Decimal) *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetDailyRewardAmount(v)
+	})
+}
+
+// UpdateDailyRewardAmount sets the "daily_reward_amount" field to the value that was provided on create.
+func (u *AppGoodUpsertBulk) UpdateDailyRewardAmount() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateDailyRewardAmount()
+	})
+}
+
+// ClearDailyRewardAmount clears the value of the "daily_reward_amount" field.
+func (u *AppGoodUpsertBulk) ClearDailyRewardAmount() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearDailyRewardAmount()
 	})
 }
 

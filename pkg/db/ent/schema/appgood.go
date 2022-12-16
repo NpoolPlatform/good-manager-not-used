@@ -85,6 +85,13 @@ func (AppGood) Fields() []ent.Field {
 			Uint32("electricity_fee_ratio").
 			Optional().
 			Default(0),
+		field.
+			Other("daily_reward_amount", decimal.Decimal{}).
+			SchemaType(map[string]string{
+				dialect.MySQL: "decimal(37,18)",
+			}).
+			Optional().
+			Default(decimal.Decimal{}),
 	}
 }
 

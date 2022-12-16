@@ -103,6 +103,10 @@ func init() {
 	appgoodDescElectricityFeeRatio := appgoodFields[14].Descriptor()
 	// appgood.DefaultElectricityFeeRatio holds the default value on creation for the electricity_fee_ratio field.
 	appgood.DefaultElectricityFeeRatio = appgoodDescElectricityFeeRatio.Default.(uint32)
+	// appgoodDescDailyRewardAmount is the schema descriptor for daily_reward_amount field.
+	appgoodDescDailyRewardAmount := appgoodFields[15].Descriptor()
+	// appgood.DefaultDailyRewardAmount holds the default value on creation for the daily_reward_amount field.
+	appgood.DefaultDailyRewardAmount = appgoodDescDailyRewardAmount.Default.(decimal.Decimal)
 	// appgoodDescID is the schema descriptor for id field.
 	appgoodDescID := appgoodFields[0].Descriptor()
 	// appgood.DefaultID holds the default value on creation for the id field.
