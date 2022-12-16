@@ -47,6 +47,8 @@ const (
 	FieldTechnicalFeeRatio = "technical_fee_ratio"
 	// FieldElectricityFeeRatio holds the string denoting the electricity_fee_ratio field in the database.
 	FieldElectricityFeeRatio = "electricity_fee_ratio"
+	// FieldDailyRewardAmount holds the string denoting the daily_reward_amount field in the database.
+	FieldDailyRewardAmount = "daily_reward_amount"
 	// Table holds the table name of the appgood in the database.
 	Table = "app_goods"
 )
@@ -71,6 +73,7 @@ var Columns = []string{
 	FieldServiceStartAt,
 	FieldTechnicalFeeRatio,
 	FieldElectricityFeeRatio,
+	FieldDailyRewardAmount,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -124,6 +127,8 @@ var (
 	DefaultTechnicalFeeRatio uint32
 	// DefaultElectricityFeeRatio holds the default value on creation for the "electricity_fee_ratio" field.
 	DefaultElectricityFeeRatio uint32
+	// DefaultDailyRewardAmount holds the default value on creation for the "daily_reward_amount" field.
+	DefaultDailyRewardAmount decimal.Decimal
 	// DefaultID holds the default value on creation for the "id" field.
 	DefaultID func() uuid.UUID
 )

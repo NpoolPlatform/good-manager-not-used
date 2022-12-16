@@ -41,6 +41,7 @@ var appGood = ent.AppGood{
 	DisplayIndex:      100,
 	PurchaseLimit:     100,
 	CommissionPercent: 100,
+	DailyRewardAmount: decimal.RequireFromString("9999999999999999999.999999999999999999"),
 }
 
 var (
@@ -48,6 +49,7 @@ var (
 	appID  = appGood.AppID.String()
 	goodID = appGood.GoodID.String()
 	price  = appGood.Price.String()
+	amount = appGood.DailyRewardAmount.String()
 	req    = npool.AppGoodReq{
 		ID:                &id,
 		AppID:             &appID,
@@ -59,6 +61,7 @@ var (
 		DisplayIndex:      &appGood.DisplayIndex,
 		PurchaseLimit:     &appGood.PurchaseLimit,
 		CommissionPercent: &appGood.CommissionPercent,
+		DailyRewardAmount: &amount,
 	}
 )
 
@@ -87,6 +90,7 @@ func createBulk(t *testing.T) {
 			DisplayIndex:      100,
 			PurchaseLimit:     100,
 			CommissionPercent: 100,
+			DailyRewardAmount: decimal.RequireFromString("9999999999999999999.999999999999999999"),
 		},
 		{
 			ID:                uuid.New(),
@@ -99,6 +103,7 @@ func createBulk(t *testing.T) {
 			DisplayIndex:      100,
 			PurchaseLimit:     100,
 			CommissionPercent: 100,
+			DailyRewardAmount: decimal.RequireFromString("9999999999999999999.999999999999999999"),
 		},
 	}
 
@@ -108,6 +113,7 @@ func createBulk(t *testing.T) {
 		_appID := _appGood.AppID.String()
 		_goodID := _appGood.GoodID.String()
 		_price := _appGood.Price.String()
+		_amount := _appGood.DailyRewardAmount.String()
 		reqs = append(reqs, &npool.AppGoodReq{
 			ID:                &_id,
 			AppID:             &_appID,
@@ -119,6 +125,7 @@ func createBulk(t *testing.T) {
 			DisplayIndex:      &_appGood.DisplayIndex,
 			PurchaseLimit:     &_appGood.PurchaseLimit,
 			CommissionPercent: &_appGood.CommissionPercent,
+			DailyRewardAmount: &_amount,
 		})
 	}
 	infos, err := CreateBulk(context.Background(), reqs)

@@ -21,7 +21,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (*ent.AppGoodCreate, error) {
+func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (*ent.AppGoodCreate, error) { //nolint:gocyclo
 	if in.ID != nil {
 		c.SetID(uuid.MustParse(in.GetID()))
 	}
@@ -70,6 +70,13 @@ func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (*ent.AppGoodCreate, 
 	}
 	if in.ElectricityFeeRatio != nil {
 		c.SetElectricityFeeRatio(in.GetElectricityFeeRatio())
+	}
+	if in.DailyRewardAmount != nil {
+		amount, err := decimal.NewFromString(in.GetDailyRewardAmount())
+		if err != nil {
+			return nil, err
+		}
+		c.SetDailyRewardAmount(amount)
 	}
 
 	return c, nil
@@ -141,7 +148,7 @@ func CreateBulk(ctx context.Context, in []*npool.AppGoodReq) ([]*ent.AppGood, er
 	return rows, nil
 }
 
-func UpdateSet(u *ent.AppGoodUpdateOne, in *npool.AppGoodReq) (*ent.AppGoodUpdateOne, error) {
+func UpdateSet(u *ent.AppGoodUpdateOne, in *npool.AppGoodReq) (*ent.AppGoodUpdateOne, error) { //nolint
 	if in.Online != nil {
 		u.SetOnline(in.GetOnline())
 	}
@@ -181,6 +188,13 @@ func UpdateSet(u *ent.AppGoodUpdateOne, in *npool.AppGoodReq) (*ent.AppGoodUpdat
 	}
 	if in.ElectricityFeeRatio != nil {
 		u.SetElectricityFeeRatio(in.GetElectricityFeeRatio())
+	}
+	if in.DailyRewardAmount != nil {
+		amount, err := decimal.NewFromString(in.GetDailyRewardAmount())
+		if err != nil {
+			return nil, err
+		}
+		u.SetDailyRewardAmount(amount)
 	}
 	return u, nil
 }

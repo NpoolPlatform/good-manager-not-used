@@ -30,6 +30,7 @@ func Ent2Grpc(row *ent.AppGood) *npool.AppGood {
 		ServiceStartAt:      row.ServiceStartAt,
 		TechnicalFeeRatio:   row.TechnicalFeeRatio,
 		ElectricityFeeRatio: row.ElectricityFeeRatio,
+		DailyRewardAmount:   row.DailyRewardAmount.String(),
 	}
 }
 

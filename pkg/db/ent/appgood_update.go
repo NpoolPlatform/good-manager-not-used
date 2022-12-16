@@ -393,6 +393,26 @@ func (agu *AppGoodUpdate) ClearElectricityFeeRatio() *AppGoodUpdate {
 	return agu
 }
 
+// SetDailyRewardAmount sets the "daily_reward_amount" field.
+func (agu *AppGoodUpdate) SetDailyRewardAmount(d decimal.Decimal) *AppGoodUpdate {
+	agu.mutation.SetDailyRewardAmount(d)
+	return agu
+}
+
+// SetNillableDailyRewardAmount sets the "daily_reward_amount" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableDailyRewardAmount(d *decimal.Decimal) *AppGoodUpdate {
+	if d != nil {
+		agu.SetDailyRewardAmount(*d)
+	}
+	return agu
+}
+
+// ClearDailyRewardAmount clears the value of the "daily_reward_amount" field.
+func (agu *AppGoodUpdate) ClearDailyRewardAmount() *AppGoodUpdate {
+	agu.mutation.ClearDailyRewardAmount()
+	return agu
+}
+
 // Mutation returns the AppGoodMutation object of the builder.
 func (agu *AppGoodUpdate) Mutation() *AppGoodMutation {
 	return agu.mutation
@@ -757,6 +777,19 @@ func (agu *AppGoodUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeUint32,
 			Column: appgood.FieldElectricityFeeRatio,
+		})
+	}
+	if value, ok := agu.mutation.DailyRewardAmount(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
+			Value:  value,
+			Column: appgood.FieldDailyRewardAmount,
+		})
+	}
+	if agu.mutation.DailyRewardAmountCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
+			Column: appgood.FieldDailyRewardAmount,
 		})
 	}
 	_spec.Modifiers = agu.modifiers
@@ -1140,6 +1173,26 @@ func (aguo *AppGoodUpdateOne) AddElectricityFeeRatio(u int32) *AppGoodUpdateOne 
 // ClearElectricityFeeRatio clears the value of the "electricity_fee_ratio" field.
 func (aguo *AppGoodUpdateOne) ClearElectricityFeeRatio() *AppGoodUpdateOne {
 	aguo.mutation.ClearElectricityFeeRatio()
+	return aguo
+}
+
+// SetDailyRewardAmount sets the "daily_reward_amount" field.
+func (aguo *AppGoodUpdateOne) SetDailyRewardAmount(d decimal.Decimal) *AppGoodUpdateOne {
+	aguo.mutation.SetDailyRewardAmount(d)
+	return aguo
+}
+
+// SetNillableDailyRewardAmount sets the "daily_reward_amount" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableDailyRewardAmount(d *decimal.Decimal) *AppGoodUpdateOne {
+	if d != nil {
+		aguo.SetDailyRewardAmount(*d)
+	}
+	return aguo
+}
+
+// ClearDailyRewardAmount clears the value of the "daily_reward_amount" field.
+func (aguo *AppGoodUpdateOne) ClearDailyRewardAmount() *AppGoodUpdateOne {
+	aguo.mutation.ClearDailyRewardAmount()
 	return aguo
 }
 
@@ -1537,6 +1590,19 @@ func (aguo *AppGoodUpdateOne) sqlSave(ctx context.Context) (_node *AppGood, err 
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeUint32,
 			Column: appgood.FieldElectricityFeeRatio,
+		})
+	}
+	if value, ok := aguo.mutation.DailyRewardAmount(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
+			Value:  value,
+			Column: appgood.FieldDailyRewardAmount,
+		})
+	}
+	if aguo.mutation.DailyRewardAmountCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
+			Column: appgood.FieldDailyRewardAmount,
 		})
 	}
 	_spec.Modifiers = aguo.modifiers

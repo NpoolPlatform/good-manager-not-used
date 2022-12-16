@@ -46,6 +46,7 @@ var appDate = npool.AppGood{
 	DisplayIndex:      100,
 	PurchaseLimit:     101,
 	CommissionPercent: 102,
+	DailyRewardAmount: "999",
 }
 
 var (
@@ -60,6 +61,7 @@ var (
 		DisplayIndex:      &appDate.DisplayIndex,
 		PurchaseLimit:     &appDate.PurchaseLimit,
 		CommissionPercent: &appDate.CommissionPercent,
+		DailyRewardAmount: &appDate.DailyRewardAmount,
 	}
 )
 
@@ -89,6 +91,7 @@ func createAppGoods(t *testing.T) {
 			DisplayIndex:      100,
 			PurchaseLimit:     101,
 			CommissionPercent: 102,
+			DailyRewardAmount: "999",
 		},
 		{
 			ID:                uuid.NewString(),
@@ -101,6 +104,7 @@ func createAppGoods(t *testing.T) {
 			DisplayIndex:      100,
 			PurchaseLimit:     101,
 			CommissionPercent: 102,
+			DailyRewardAmount: "999",
 		},
 	}
 
@@ -117,6 +121,7 @@ func createAppGoods(t *testing.T) {
 			DisplayIndex:      &appDates[key].DisplayIndex,
 			PurchaseLimit:     &appDates[key].PurchaseLimit,
 			CommissionPercent: &appDates[key].CommissionPercent,
+			DailyRewardAmount: &appDates[key].DailyRewardAmount,
 		})
 	}
 
