@@ -49,6 +49,8 @@ const (
 	FieldStartAt = "start_at"
 	// FieldTestOnly holds the string denoting the test_only field in the database.
 	FieldTestOnly = "test_only"
+	// FieldBenefitIntervalHours holds the string denoting the benefit_interval_hours field in the database.
+	FieldBenefitIntervalHours = "benefit_interval_hours"
 	// Table holds the table name of the good in the database.
 	Table = "goods"
 )
@@ -74,6 +76,7 @@ var Columns = []string{
 	FieldDeliveryAt,
 	FieldStartAt,
 	FieldTestOnly,
+	FieldBenefitIntervalHours,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -127,6 +130,8 @@ var (
 	DefaultStartAt uint32
 	// DefaultTestOnly holds the default value on creation for the "test_only" field.
 	DefaultTestOnly bool
+	// DefaultBenefitIntervalHours holds the default value on creation for the "benefit_interval_hours" field.
+	DefaultBenefitIntervalHours uint32
 	// DefaultID holds the default value on creation for the "id" field.
 	DefaultID func() uuid.UUID
 )

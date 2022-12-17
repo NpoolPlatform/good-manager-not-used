@@ -133,6 +133,7 @@ var (
 		{Name: "delivery_at", Type: field.TypeUint32, Nullable: true, Default: 0},
 		{Name: "start_at", Type: field.TypeUint32, Nullable: true, Default: 0},
 		{Name: "test_only", Type: field.TypeBool, Nullable: true, Default: false},
+		{Name: "benefit_interval_hours", Type: field.TypeUint32, Nullable: true, Default: 24},
 	}
 	// GoodsTable holds the schema information for the "goods" table.
 	GoodsTable = &schema.Table{

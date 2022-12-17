@@ -331,6 +331,10 @@ func init() {
 	goodDescTestOnly := goodFields[15].Descriptor()
 	// good.DefaultTestOnly holds the default value on creation for the test_only field.
 	good.DefaultTestOnly = goodDescTestOnly.Default.(bool)
+	// goodDescBenefitIntervalHours is the schema descriptor for benefit_interval_hours field.
+	goodDescBenefitIntervalHours := goodFields[16].Descriptor()
+	// good.DefaultBenefitIntervalHours holds the default value on creation for the benefit_interval_hours field.
+	good.DefaultBenefitIntervalHours = goodDescBenefitIntervalHours.Default.(uint32)
 	// goodDescID is the schema descriptor for id field.
 	goodDescID := goodFields[0].Descriptor()
 	// good.DefaultID holds the default value on creation for the id field.
