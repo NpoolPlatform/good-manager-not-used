@@ -80,6 +80,9 @@ func CreateSet(c *ent.GoodCreate, in *npool.GoodReq) (*ent.GoodCreate, error) {
 	if in.TestOnly != nil {
 		c.SetTestOnly(in.GetTestOnly())
 	}
+	if in.BenefitIntervalHours != nil {
+		c.SetBenefitIntervalHours(in.GetBenefitIntervalHours())
+	}
 	return c, nil
 }
 
@@ -197,6 +200,9 @@ func UpdateSet(u *ent.GoodUpdateOne, in *npool.GoodReq) (*ent.GoodUpdateOne, err
 	}
 	if in.TestOnly != nil {
 		u.SetTestOnly(in.GetTestOnly())
+	}
+	if in.BenefitIntervalHours != nil {
+		u.SetBenefitIntervalHours(in.GetBenefitIntervalHours())
 	}
 	return u, nil
 }

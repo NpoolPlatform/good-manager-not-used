@@ -35,43 +35,44 @@ func init() {
 	}
 }
 
-var appDate = npool.Good{
-	ID:                 uuid.NewString(),
-	DeviceInfoID:       uuid.NewString(),
-	DurationDays:       1001,
-	CoinTypeID:         uuid.NewString(),
-	InheritFromGoodID:  uuid.NewString(),
-	VendorLocationID:   uuid.NewString(),
-	Price:              "9999999999999999999.999999999999999999",
-	BenefitType:        npool.BenefitType_BenefitTypePlatform,
-	GoodType:           npool.GoodType_GoodTypeElectricityFee,
-	Title:              uuid.NewString(),
-	Unit:               uuid.NewString(),
-	UnitAmount:         1004,
-	SupportCoinTypeIDs: []string{uuid.NewString()},
-	DeliveryAt:         1005,
-	StartAt:            1006,
-	TestOnly:           true,
+var ret = npool.Good{
+	ID:                   uuid.NewString(),
+	DeviceInfoID:         uuid.NewString(),
+	DurationDays:         1001,
+	CoinTypeID:           uuid.NewString(),
+	InheritFromGoodID:    uuid.NewString(),
+	VendorLocationID:     uuid.NewString(),
+	Price:                "9999999999999999999.999999999999999999",
+	BenefitType:          npool.BenefitType_BenefitTypePlatform,
+	GoodType:             npool.GoodType_GoodTypeElectricityFee,
+	Title:                uuid.NewString(),
+	Unit:                 uuid.NewString(),
+	UnitAmount:           1004,
+	SupportCoinTypeIDs:   []string{uuid.NewString()},
+	DeliveryAt:           1005,
+	StartAt:              1006,
+	TestOnly:             true,
+	BenefitIntervalHours: 24,
 }
 
 var (
-	appInfo = npool.GoodReq{
-		ID:                 &appDate.ID,
-		DeviceInfoID:       &appDate.DeviceInfoID,
-		DurationDays:       &appDate.DurationDays,
-		CoinTypeID:         &appDate.CoinTypeID,
-		InheritFromGoodID:  &appDate.InheritFromGoodID,
-		VendorLocationID:   &appDate.VendorLocationID,
-		Price:              &appDate.Price,
-		BenefitType:        &appDate.BenefitType,
-		GoodType:           &appDate.GoodType,
-		Title:              &appDate.Title,
-		Unit:               &appDate.Unit,
-		UnitAmount:         &appDate.UnitAmount,
-		SupportCoinTypeIDs: appDate.SupportCoinTypeIDs,
-		DeliveryAt:         &appDate.DeliveryAt,
-		StartAt:            &appDate.StartAt,
-		TestOnly:           &appDate.TestOnly,
+	req = npool.GoodReq{
+		ID:                 &ret.ID,
+		DeviceInfoID:       &ret.DeviceInfoID,
+		DurationDays:       &ret.DurationDays,
+		CoinTypeID:         &ret.CoinTypeID,
+		InheritFromGoodID:  &ret.InheritFromGoodID,
+		VendorLocationID:   &ret.VendorLocationID,
+		Price:              &ret.Price,
+		BenefitType:        &ret.BenefitType,
+		GoodType:           &ret.GoodType,
+		Title:              &ret.Title,
+		Unit:               &ret.Unit,
+		UnitAmount:         &ret.UnitAmount,
+		SupportCoinTypeIDs: ret.SupportCoinTypeIDs,
+		DeliveryAt:         &ret.DeliveryAt,
+		StartAt:            &ret.StartAt,
+		TestOnly:           &ret.TestOnly,
 	}
 )
 
@@ -79,73 +80,75 @@ var info *npool.Good
 
 func createGood(t *testing.T) {
 	var err error
-	info, err = CreateGood(context.Background(), &appInfo)
+	info, err = CreateGood(context.Background(), &req)
 	if assert.Nil(t, err) {
-		appDate.CreatedAt = info.CreatedAt
-		appDate.UpdatedAt = info.UpdatedAt
-		assert.Equal(t, info, &appDate)
+		ret.CreatedAt = info.CreatedAt
+		ret.UpdatedAt = info.UpdatedAt
+		assert.Equal(t, info, &ret)
 	}
 }
 
 func createGoods(t *testing.T) {
-	appDates := []npool.Good{
+	rets := []npool.Good{
 		{
-			ID:                 uuid.NewString(),
-			DeviceInfoID:       uuid.NewString(),
-			DurationDays:       1001,
-			CoinTypeID:         uuid.NewString(),
-			InheritFromGoodID:  uuid.NewString(),
-			VendorLocationID:   uuid.NewString(),
-			Price:              "9999999999999999999.999999999999999999",
-			BenefitType:        npool.BenefitType_BenefitTypePlatform,
-			GoodType:           npool.GoodType_GoodTypeElectricityFee,
-			Title:              uuid.NewString(),
-			Unit:               uuid.NewString(),
-			UnitAmount:         1004,
-			SupportCoinTypeIDs: []string{uuid.NewString()},
-			DeliveryAt:         1005,
-			StartAt:            1006,
-			TestOnly:           true,
+			ID:                   uuid.NewString(),
+			DeviceInfoID:         uuid.NewString(),
+			DurationDays:         1001,
+			CoinTypeID:           uuid.NewString(),
+			InheritFromGoodID:    uuid.NewString(),
+			VendorLocationID:     uuid.NewString(),
+			Price:                "9999999999999999999.999999999999999999",
+			BenefitType:          npool.BenefitType_BenefitTypePlatform,
+			GoodType:             npool.GoodType_GoodTypeElectricityFee,
+			Title:                uuid.NewString(),
+			Unit:                 uuid.NewString(),
+			UnitAmount:           1004,
+			SupportCoinTypeIDs:   []string{uuid.NewString()},
+			DeliveryAt:           1005,
+			StartAt:              1006,
+			TestOnly:             true,
+			BenefitIntervalHours: 24,
 		},
 		{
-			ID:                 uuid.NewString(),
-			DeviceInfoID:       uuid.NewString(),
-			DurationDays:       1001,
-			CoinTypeID:         uuid.NewString(),
-			InheritFromGoodID:  uuid.NewString(),
-			VendorLocationID:   uuid.NewString(),
-			Price:              "9999999999999999999.999999999999999999",
-			BenefitType:        npool.BenefitType_BenefitTypePlatform,
-			GoodType:           npool.GoodType_GoodTypeElectricityFee,
-			Title:              uuid.NewString(),
-			Unit:               uuid.NewString(),
-			UnitAmount:         1004,
-			SupportCoinTypeIDs: []string{uuid.NewString()},
-			DeliveryAt:         1005,
-			StartAt:            1006,
-			TestOnly:           true,
+			ID:                   uuid.NewString(),
+			DeviceInfoID:         uuid.NewString(),
+			DurationDays:         1001,
+			CoinTypeID:           uuid.NewString(),
+			InheritFromGoodID:    uuid.NewString(),
+			VendorLocationID:     uuid.NewString(),
+			Price:                "9999999999999999999.999999999999999999",
+			BenefitType:          npool.BenefitType_BenefitTypePlatform,
+			GoodType:             npool.GoodType_GoodTypeElectricityFee,
+			Title:                uuid.NewString(),
+			Unit:                 uuid.NewString(),
+			UnitAmount:           1004,
+			SupportCoinTypeIDs:   []string{uuid.NewString()},
+			DeliveryAt:           1005,
+			StartAt:              1006,
+			TestOnly:             true,
+			BenefitIntervalHours: 24,
 		},
 	}
 
 	apps := []*npool.GoodReq{}
-	for key := range appDates {
+	for key := range rets {
 		apps = append(apps, &npool.GoodReq{
-			ID:                 &appDates[key].ID,
-			DeviceInfoID:       &appDates[key].DeviceInfoID,
-			DurationDays:       &appDates[key].DurationDays,
-			CoinTypeID:         &appDates[key].CoinTypeID,
-			InheritFromGoodID:  &appDates[key].InheritFromGoodID,
-			VendorLocationID:   &appDates[key].VendorLocationID,
-			Price:              &appDates[key].Price,
-			BenefitType:        &appDates[key].BenefitType,
-			GoodType:           &appDates[key].GoodType,
-			Title:              &appDates[key].Title,
-			Unit:               &appDates[key].Unit,
-			UnitAmount:         &appDates[key].UnitAmount,
-			SupportCoinTypeIDs: appDates[key].SupportCoinTypeIDs,
-			DeliveryAt:         &appDates[key].DeliveryAt,
-			StartAt:            &appDates[key].StartAt,
-			TestOnly:           &appDates[key].TestOnly,
+			ID:                 &rets[key].ID,
+			DeviceInfoID:       &rets[key].DeviceInfoID,
+			DurationDays:       &rets[key].DurationDays,
+			CoinTypeID:         &rets[key].CoinTypeID,
+			InheritFromGoodID:  &rets[key].InheritFromGoodID,
+			VendorLocationID:   &rets[key].VendorLocationID,
+			Price:              &rets[key].Price,
+			BenefitType:        &rets[key].BenefitType,
+			GoodType:           &rets[key].GoodType,
+			Title:              &rets[key].Title,
+			Unit:               &rets[key].Unit,
+			UnitAmount:         &rets[key].UnitAmount,
+			SupportCoinTypeIDs: rets[key].SupportCoinTypeIDs,
+			DeliveryAt:         &rets[key].DeliveryAt,
+			StartAt:            &rets[key].StartAt,
+			TestOnly:           &rets[key].TestOnly,
 		})
 	}
 
@@ -157,10 +160,15 @@ func createGoods(t *testing.T) {
 
 func updateGood(t *testing.T) {
 	var err error
-	info, err = UpdateGood(context.Background(), &appInfo)
+	hours := uint32(23)
+
+	req.BenefitIntervalHours = &hours
+	ret.BenefitIntervalHours = hours
+
+	info, err = UpdateGood(context.Background(), &req)
 	if assert.Nil(t, err) {
-		appDate.UpdatedAt = info.UpdatedAt
-		assert.Equal(t, info, &appDate)
+		ret.UpdatedAt = info.UpdatedAt
+		assert.Equal(t, info, &ret)
 	}
 }
 
@@ -168,7 +176,7 @@ func getGood(t *testing.T) {
 	var err error
 	info, err = GetGood(context.Background(), info.ID)
 	if assert.Nil(t, err) {
-		assert.Equal(t, info, &appDate)
+		assert.Equal(t, info, &ret)
 	}
 }
 
@@ -182,7 +190,7 @@ func getGoods(t *testing.T) {
 		}, 0, 1)
 	if assert.Nil(t, err) {
 		assert.Equal(t, total, uint32(1))
-		assert.Equal(t, infos[0], &appDate)
+		assert.Equal(t, infos[0], &ret)
 	}
 }
 
@@ -196,7 +204,7 @@ func getGoodOnly(t *testing.T) {
 			},
 		})
 	if assert.Nil(t, err) {
-		assert.Equal(t, info, &appDate)
+		assert.Equal(t, info, &ret)
 	}
 }
 
@@ -224,8 +232,8 @@ func existGoodConds(t *testing.T) {
 func deleteGood(t *testing.T) {
 	info, err := DeleteGood(context.Background(), info.ID)
 	if assert.Nil(t, err) {
-		appDate.DeletedAt = info.DeletedAt
-		assert.Equal(t, info, &appDate)
+		ret.DeletedAt = info.DeletedAt
+		assert.Equal(t, info, &ret)
 	}
 }
 

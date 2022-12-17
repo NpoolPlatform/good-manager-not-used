@@ -31,52 +31,53 @@ func init() {
 	}
 }
 
-var deviceInfo = ent.Good{
-	ID:                 uuid.New(),
-	DeviceInfoID:       uuid.New(),
-	DurationDays:       100,
-	CoinTypeID:         uuid.New(),
-	InheritFromGoodID:  uuid.New(),
-	VendorLocationID:   uuid.New(),
-	Price:              decimal.RequireFromString("9999999999999999999.999999999999999999"),
-	BenefitType:        npool.BenefitType_BenefitTypePlatform.String(),
-	GoodType:           npool.GoodType_GoodTypeClassicMining.String(),
-	Title:              uuid.NewString(),
-	Unit:               uuid.NewString(),
-	UnitAmount:         100,
-	SupportCoinTypeIds: []uuid.UUID{uuid.New()},
-	DeliveryAt:         100,
-	StartAt:            100,
-	TestOnly:           true,
+var ret = ent.Good{
+	ID:                   uuid.New(),
+	DeviceInfoID:         uuid.New(),
+	DurationDays:         100,
+	CoinTypeID:           uuid.New(),
+	InheritFromGoodID:    uuid.New(),
+	VendorLocationID:     uuid.New(),
+	Price:                decimal.RequireFromString("9999999999999999999.999999999999999999"),
+	BenefitType:          npool.BenefitType_BenefitTypePlatform.String(),
+	GoodType:             npool.GoodType_GoodTypeClassicMining.String(),
+	Title:                uuid.NewString(),
+	Unit:                 uuid.NewString(),
+	UnitAmount:           100,
+	SupportCoinTypeIds:   []uuid.UUID{uuid.New()},
+	DeliveryAt:           100,
+	StartAt:              100,
+	TestOnly:             true,
+	BenefitIntervalHours: 24,
 }
 
 var (
-	id                 = deviceInfo.ID.String()
-	deviceInfoID       = deviceInfo.DeviceInfoID.String()
-	coinTypeID         = deviceInfo.CoinTypeID.String()
-	inheritFromGoodID  = deviceInfo.InheritFromGoodID.String()
-	vendorLocationID   = deviceInfo.VendorLocationID.String()
-	price              = deviceInfo.Price.String()
+	id                 = ret.ID.String()
+	retID              = ret.DeviceInfoID.String()
+	coinTypeID         = ret.CoinTypeID.String()
+	inheritFromGoodID  = ret.InheritFromGoodID.String()
+	vendorLocationID   = ret.VendorLocationID.String()
+	price              = ret.Price.String()
 	benefitType        = npool.BenefitType_BenefitTypePlatform
 	goodType           = npool.GoodType_GoodTypeClassicMining
-	supportCoinTypeIDs = []string{deviceInfo.SupportCoinTypeIds[0].String()}
+	supportCoinTypeIDs = []string{ret.SupportCoinTypeIds[0].String()}
 	req                = npool.GoodReq{
 		ID:                 &id,
-		DeviceInfoID:       &deviceInfoID,
-		DurationDays:       &deviceInfo.DurationDays,
+		DeviceInfoID:       &retID,
+		DurationDays:       &ret.DurationDays,
 		CoinTypeID:         &coinTypeID,
 		InheritFromGoodID:  &inheritFromGoodID,
 		VendorLocationID:   &vendorLocationID,
 		Price:              &price,
 		BenefitType:        &benefitType,
 		GoodType:           &goodType,
-		Title:              &deviceInfo.Title,
-		Unit:               &deviceInfo.Unit,
-		UnitAmount:         &deviceInfo.UnitAmount,
+		Title:              &ret.Title,
+		Unit:               &ret.Unit,
+		UnitAmount:         &ret.UnitAmount,
 		SupportCoinTypeIDs: supportCoinTypeIDs,
-		DeliveryAt:         &deviceInfo.DeliveryAt,
-		StartAt:            &deviceInfo.StartAt,
-		TestOnly:           &deviceInfo.TestOnly,
+		DeliveryAt:         &ret.DeliveryAt,
+		StartAt:            &ret.StartAt,
+		TestOnly:           &ret.TestOnly,
 	}
 )
 
@@ -86,80 +87,82 @@ func create(t *testing.T) {
 	var err error
 	info, err = Create(context.Background(), &req)
 	if assert.Nil(t, err) {
-		deviceInfo.UpdatedAt = info.UpdatedAt
-		deviceInfo.CreatedAt = info.CreatedAt
-		assert.Equal(t, info.String(), deviceInfo.String())
+		ret.UpdatedAt = info.UpdatedAt
+		ret.CreatedAt = info.CreatedAt
+		assert.Equal(t, info.String(), ret.String())
 	}
 }
 
 func createBulk(t *testing.T) {
 	entities := []*ent.Good{
 		{
-			ID:                 uuid.New(),
-			DeviceInfoID:       uuid.New(),
-			DurationDays:       100,
-			CoinTypeID:         uuid.New(),
-			InheritFromGoodID:  uuid.New(),
-			VendorLocationID:   uuid.New(),
-			Price:              decimal.RequireFromString("9999999999999999999.999999999999999999"),
-			BenefitType:        npool.BenefitType_BenefitTypePlatform.String(),
-			GoodType:           npool.GoodType_GoodTypeClassicMining.String(),
-			Title:              uuid.NewString(),
-			Unit:               uuid.NewString(),
-			UnitAmount:         100,
-			SupportCoinTypeIds: []uuid.UUID{uuid.New()},
-			DeliveryAt:         100,
-			StartAt:            100,
-			TestOnly:           true,
+			ID:                   uuid.New(),
+			DeviceInfoID:         uuid.New(),
+			DurationDays:         100,
+			CoinTypeID:           uuid.New(),
+			InheritFromGoodID:    uuid.New(),
+			VendorLocationID:     uuid.New(),
+			Price:                decimal.RequireFromString("9999999999999999999.999999999999999999"),
+			BenefitType:          npool.BenefitType_BenefitTypePlatform.String(),
+			GoodType:             npool.GoodType_GoodTypeClassicMining.String(),
+			Title:                uuid.NewString(),
+			Unit:                 uuid.NewString(),
+			UnitAmount:           100,
+			SupportCoinTypeIds:   []uuid.UUID{uuid.New()},
+			DeliveryAt:           100,
+			StartAt:              100,
+			TestOnly:             true,
+			BenefitIntervalHours: 24,
 		},
 		{
-			ID:                 uuid.New(),
-			DeviceInfoID:       uuid.New(),
-			DurationDays:       100,
-			CoinTypeID:         uuid.New(),
-			InheritFromGoodID:  uuid.New(),
-			VendorLocationID:   uuid.New(),
-			Price:              decimal.RequireFromString("9999999999999999999.999999999999999999"),
-			BenefitType:        npool.BenefitType_BenefitTypePlatform.String(),
-			GoodType:           npool.GoodType_GoodTypeClassicMining.String(),
-			Title:              uuid.NewString(),
-			Unit:               uuid.NewString(),
-			UnitAmount:         100,
-			SupportCoinTypeIds: []uuid.UUID{uuid.New()},
-			DeliveryAt:         100,
-			StartAt:            100,
-			TestOnly:           true,
+			ID:                   uuid.New(),
+			DeviceInfoID:         uuid.New(),
+			DurationDays:         100,
+			CoinTypeID:           uuid.New(),
+			InheritFromGoodID:    uuid.New(),
+			VendorLocationID:     uuid.New(),
+			Price:                decimal.RequireFromString("9999999999999999999.999999999999999999"),
+			BenefitType:          npool.BenefitType_BenefitTypePlatform.String(),
+			GoodType:             npool.GoodType_GoodTypeClassicMining.String(),
+			Title:                uuid.NewString(),
+			Unit:                 uuid.NewString(),
+			UnitAmount:           100,
+			SupportCoinTypeIds:   []uuid.UUID{uuid.New()},
+			DeliveryAt:           100,
+			StartAt:              100,
+			TestOnly:             true,
+			BenefitIntervalHours: 24,
 		},
 	}
 
 	reqs := []*npool.GoodReq{}
-	for _, _deviceInfo := range entities {
-		_id := _deviceInfo.ID.String()
-		_deviceInfoID := _deviceInfo.DeviceInfoID.String()
-		_coinTypeID := _deviceInfo.CoinTypeID.String()
-		_inheritFromGoodID := _deviceInfo.InheritFromGoodID.String()
-		_vendorLocationID := _deviceInfo.VendorLocationID.String()
-		_price := _deviceInfo.Price.String()
+	for _, _ret := range entities {
+		_id := _ret.ID.String()
+		_retID := _ret.DeviceInfoID.String()
+		_coinTypeID := _ret.CoinTypeID.String()
+		_inheritFromGoodID := _ret.InheritFromGoodID.String()
+		_vendorLocationID := _ret.VendorLocationID.String()
+		_price := _ret.Price.String()
 		_benefitType := npool.BenefitType_BenefitTypePlatform
 		_goodType := npool.GoodType_GoodTypeClassicMining
 		_supportCoinTypeIDs := []string{uuid.NewString()}
 		reqs = append(reqs, &npool.GoodReq{
 			ID:                 &_id,
-			DeviceInfoID:       &_deviceInfoID,
-			DurationDays:       &deviceInfo.DurationDays,
+			DeviceInfoID:       &_retID,
+			DurationDays:       &ret.DurationDays,
 			CoinTypeID:         &_coinTypeID,
 			InheritFromGoodID:  &_inheritFromGoodID,
 			VendorLocationID:   &_vendorLocationID,
 			Price:              &_price,
 			BenefitType:        &_benefitType,
 			GoodType:           &_goodType,
-			Title:              &deviceInfo.Title,
-			Unit:               &deviceInfo.Unit,
-			UnitAmount:         &deviceInfo.UnitAmount,
+			Title:              &ret.Title,
+			Unit:               &ret.Unit,
+			UnitAmount:         &ret.UnitAmount,
 			SupportCoinTypeIDs: _supportCoinTypeIDs,
-			DeliveryAt:         &deviceInfo.DeliveryAt,
-			StartAt:            &deviceInfo.StartAt,
-			TestOnly:           &deviceInfo.TestOnly,
+			DeliveryAt:         &ret.DeliveryAt,
+			StartAt:            &ret.StartAt,
+			TestOnly:           &ret.TestOnly,
 		})
 	}
 	infos, err := CreateBulk(context.Background(), reqs)
@@ -170,18 +173,23 @@ func createBulk(t *testing.T) {
 
 func update(t *testing.T) {
 	var err error
+	hours := uint32(2)
+
+	req.BenefitIntervalHours = &hours
+	ret.BenefitIntervalHours = hours
+
 	info, err = Update(context.Background(), &req)
 	if assert.Nil(t, err) {
-		deviceInfo.UpdatedAt = info.UpdatedAt
-		deviceInfo.CreatedAt = info.CreatedAt
-		assert.Equal(t, info.String(), deviceInfo.String())
+		ret.UpdatedAt = info.UpdatedAt
+		ret.CreatedAt = info.CreatedAt
+		assert.Equal(t, info.String(), ret.String())
 	}
 }
 func row(t *testing.T) {
 	var err error
-	info, err = Row(context.Background(), deviceInfo.ID)
+	info, err = Row(context.Background(), ret.ID)
 	if assert.Nil(t, err) {
-		assert.Equal(t, info.String(), deviceInfo.String())
+		assert.Equal(t, info.String(), ret.String())
 	}
 }
 
@@ -195,7 +203,7 @@ func rows(t *testing.T) {
 		}, 0, 0)
 	if assert.Nil(t, err) {
 		if assert.Equal(t, total, 1) {
-			assert.Equal(t, infos[0].String(), deviceInfo.String())
+			assert.Equal(t, infos[0].String(), ret.String())
 		}
 	}
 }
@@ -210,7 +218,7 @@ func rowOnly(t *testing.T) {
 			},
 		})
 	if assert.Nil(t, err) {
-		assert.Equal(t, info.String(), deviceInfo.String())
+		assert.Equal(t, info.String(), ret.String())
 	}
 }
 
@@ -229,7 +237,7 @@ func count(t *testing.T) {
 }
 
 func exist(t *testing.T) {
-	exist, err := Exist(context.Background(), deviceInfo.ID)
+	exist, err := Exist(context.Background(), ret.ID)
 	if assert.Nil(t, err) {
 		assert.Equal(t, exist, true)
 	}
@@ -250,11 +258,11 @@ func existConds(t *testing.T) {
 }
 
 func deleteA(t *testing.T) {
-	info, err := Delete(context.Background(), deviceInfo.ID.String())
+	info, err := Delete(context.Background(), ret.ID.String())
 	if assert.Nil(t, err) {
-		deviceInfo.DeletedAt = info.DeletedAt
-		deviceInfo.UpdatedAt = info.UpdatedAt
-		assert.Equal(t, info.String(), deviceInfo.String())
+		ret.DeletedAt = info.DeletedAt
+		ret.UpdatedAt = info.UpdatedAt
+		assert.Equal(t, info.String(), ret.String())
 	}
 }
 

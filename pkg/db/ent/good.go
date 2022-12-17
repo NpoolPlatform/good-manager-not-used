@@ -54,6 +54,8 @@ type Good struct {
 	StartAt uint32 `json:"start_at,omitempty"`
 	// TestOnly holds the value of the "test_only" field.
 	TestOnly bool `json:"test_only,omitempty"`
+	// BenefitIntervalHours holds the value of the "benefit_interval_hours" field.
+	BenefitIntervalHours uint32 `json:"benefit_interval_hours,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -67,7 +69,7 @@ func (*Good) scanValues(columns []string) ([]interface{}, error) {
 			values[i] = new(decimal.Decimal)
 		case good.FieldTestOnly:
 			values[i] = new(sql.NullBool)
-		case good.FieldCreatedAt, good.FieldUpdatedAt, good.FieldDeletedAt, good.FieldDurationDays, good.FieldUnitAmount, good.FieldDeliveryAt, good.FieldStartAt:
+		case good.FieldCreatedAt, good.FieldUpdatedAt, good.FieldDeletedAt, good.FieldDurationDays, good.FieldUnitAmount, good.FieldDeliveryAt, good.FieldStartAt, good.FieldBenefitIntervalHours:
 			values[i] = new(sql.NullInt64)
 		case good.FieldBenefitType, good.FieldGoodType, good.FieldTitle, good.FieldUnit:
 			values[i] = new(sql.NullString)
@@ -204,6 +206,12 @@ func (_go *Good) assignValues(columns []string, values []interface{}) error {
 			} else if value.Valid {
 				_go.TestOnly = value.Bool
 			}
+		case good.FieldBenefitIntervalHours:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field benefit_interval_hours", values[i])
+			} else if value.Valid {
+				_go.BenefitIntervalHours = uint32(value.Int64)
+			}
 		}
 	}
 	return nil
@@ -285,6 +293,9 @@ func (_go *Good) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("test_only=")
 	builder.WriteString(fmt.Sprintf("%v", _go.TestOnly))
+	builder.WriteString(", ")
+	builder.WriteString("benefit_interval_hours=")
+	builder.WriteString(fmt.Sprintf("%v", _go.BenefitIntervalHours))
 	builder.WriteByte(')')
 	return builder.String()
 }

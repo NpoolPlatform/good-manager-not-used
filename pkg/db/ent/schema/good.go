@@ -27,6 +27,8 @@ func (Good) Mixin() []ent.Mixin {
 
 // Fields of the Good.
 func (Good) Fields() []ent.Field {
+	const benefitHours = 24
+
 	return []ent.Field{
 		field.
 			UUID("id", uuid.UUID{}).
@@ -87,9 +89,14 @@ func (Good) Fields() []ent.Field {
 			Uint32("start_at").
 			Optional().
 			Default(0),
-		field.Bool("test_only").
+		field.
+			Bool("test_only").
 			Optional().
 			Default(false),
+		field.
+			Uint32("benefit_interval_hours").
+			Optional().
+			Default(benefitHours),
 	}
 }
 
