@@ -19,6 +19,7 @@ import (
 	val "github.com/NpoolPlatform/message/npool"
 
 	npool "github.com/NpoolPlatform/message/npool/good/mgr/v1/appgood"
+	commmgrpb "github.com/NpoolPlatform/message/npool/inspire/mgr/v1/commission"
 
 	testinit "github.com/NpoolPlatform/good-manager/pkg/testinit"
 	"github.com/google/uuid"
@@ -36,32 +37,34 @@ func init() {
 }
 
 var appDate = npool.AppGood{
-	ID:                uuid.NewString(),
-	AppID:             uuid.NewString(),
-	GoodID:            uuid.NewString(),
-	Online:            true,
-	Visible:           true,
-	GoodName:          uuid.NewString(),
-	Price:             "999",
-	DisplayIndex:      100,
-	PurchaseLimit:     101,
-	CommissionPercent: 102,
-	DailyRewardAmount: "999",
+	ID:                   uuid.NewString(),
+	AppID:                uuid.NewString(),
+	GoodID:               uuid.NewString(),
+	Online:               true,
+	Visible:              true,
+	GoodName:             uuid.NewString(),
+	Price:                "999",
+	DisplayIndex:         100,
+	PurchaseLimit:        101,
+	CommissionPercent:    102,
+	DailyRewardAmount:    "999",
+	CommissionSettleType: commmgrpb.SettleType_GoodOrderPercent,
 }
 
 var (
 	appInfo = npool.AppGoodReq{
-		ID:                &appDate.ID,
-		AppID:             &appDate.AppID,
-		GoodID:            &appDate.GoodID,
-		Online:            &appDate.Online,
-		Visible:           &appDate.Visible,
-		GoodName:          &appDate.GoodName,
-		Price:             &appDate.Price,
-		DisplayIndex:      &appDate.DisplayIndex,
-		PurchaseLimit:     &appDate.PurchaseLimit,
-		CommissionPercent: &appDate.CommissionPercent,
-		DailyRewardAmount: &appDate.DailyRewardAmount,
+		ID:                   &appDate.ID,
+		AppID:                &appDate.AppID,
+		GoodID:               &appDate.GoodID,
+		Online:               &appDate.Online,
+		Visible:              &appDate.Visible,
+		GoodName:             &appDate.GoodName,
+		Price:                &appDate.Price,
+		DisplayIndex:         &appDate.DisplayIndex,
+		PurchaseLimit:        &appDate.PurchaseLimit,
+		CommissionPercent:    &appDate.CommissionPercent,
+		DailyRewardAmount:    &appDate.DailyRewardAmount,
+		CommissionSettleType: &appDate.CommissionSettleType,
 	}
 )
 
@@ -81,30 +84,32 @@ func createAppGoods(t *testing.T) {
 	appID := uuid.NewString()
 	appDates := []npool.AppGood{
 		{
-			ID:                uuid.NewString(),
-			AppID:             appID,
-			GoodID:            uuid.NewString(),
-			Online:            true,
-			Visible:           true,
-			GoodName:          uuid.NewString(),
-			Price:             "999",
-			DisplayIndex:      100,
-			PurchaseLimit:     101,
-			CommissionPercent: 102,
-			DailyRewardAmount: "999",
+			ID:                   uuid.NewString(),
+			AppID:                appID,
+			GoodID:               uuid.NewString(),
+			Online:               true,
+			Visible:              true,
+			GoodName:             uuid.NewString(),
+			Price:                "999",
+			DisplayIndex:         100,
+			PurchaseLimit:        101,
+			CommissionPercent:    102,
+			DailyRewardAmount:    "999",
+			CommissionSettleType: commmgrpb.SettleType_NoCommission,
 		},
 		{
-			ID:                uuid.NewString(),
-			AppID:             appID,
-			GoodID:            uuid.NewString(),
-			Online:            true,
-			Visible:           true,
-			GoodName:          uuid.NewString(),
-			Price:             "999",
-			DisplayIndex:      100,
-			PurchaseLimit:     101,
-			CommissionPercent: 102,
-			DailyRewardAmount: "999",
+			ID:                   uuid.NewString(),
+			AppID:                appID,
+			GoodID:               uuid.NewString(),
+			Online:               true,
+			Visible:              true,
+			GoodName:             uuid.NewString(),
+			Price:                "999",
+			DisplayIndex:         100,
+			PurchaseLimit:        101,
+			CommissionPercent:    102,
+			DailyRewardAmount:    "999",
+			CommissionSettleType: commmgrpb.SettleType_NoCommission,
 		},
 	}
 

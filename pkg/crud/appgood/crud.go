@@ -78,6 +78,9 @@ func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (*ent.AppGoodCreate, 
 		}
 		c.SetDailyRewardAmount(amount)
 	}
+	if in.CommissionSettleType != nil {
+		c.SetCommissionSettleType(in.GetCommissionSettleType().String())
+	}
 
 	return c, nil
 }
@@ -195,6 +198,9 @@ func UpdateSet(u *ent.AppGoodUpdateOne, in *npool.AppGoodReq) (*ent.AppGoodUpdat
 			return nil, err
 		}
 		u.SetDailyRewardAmount(amount)
+	}
+	if in.CommissionSettleType != nil {
+		u.SetCommissionSettleType(in.GetCommissionSettleType().String())
 	}
 	return u, nil
 }

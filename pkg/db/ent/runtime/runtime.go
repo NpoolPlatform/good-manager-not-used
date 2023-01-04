@@ -107,6 +107,10 @@ func init() {
 	appgoodDescDailyRewardAmount := appgoodFields[15].Descriptor()
 	// appgood.DefaultDailyRewardAmount holds the default value on creation for the daily_reward_amount field.
 	appgood.DefaultDailyRewardAmount = appgoodDescDailyRewardAmount.Default.(decimal.Decimal)
+	// appgoodDescCommissionSettleType is the schema descriptor for commission_settle_type field.
+	appgoodDescCommissionSettleType := appgoodFields[16].Descriptor()
+	// appgood.DefaultCommissionSettleType holds the default value on creation for the commission_settle_type field.
+	appgood.DefaultCommissionSettleType = appgoodDescCommissionSettleType.Default.(string)
 	// appgoodDescID is the schema descriptor for id field.
 	appgoodDescID := appgoodFields[0].Descriptor()
 	// appgood.DefaultID holds the default value on creation for the id field.

@@ -34,24 +34,25 @@ var schemaGraph = func() *sqlgraph.Schema {
 		},
 		Type: "AppGood",
 		Fields: map[string]*sqlgraph.FieldSpec{
-			appgood.FieldCreatedAt:           {Type: field.TypeUint32, Column: appgood.FieldCreatedAt},
-			appgood.FieldUpdatedAt:           {Type: field.TypeUint32, Column: appgood.FieldUpdatedAt},
-			appgood.FieldDeletedAt:           {Type: field.TypeUint32, Column: appgood.FieldDeletedAt},
-			appgood.FieldAppID:               {Type: field.TypeUUID, Column: appgood.FieldAppID},
-			appgood.FieldGoodID:              {Type: field.TypeUUID, Column: appgood.FieldGoodID},
-			appgood.FieldOnline:              {Type: field.TypeBool, Column: appgood.FieldOnline},
-			appgood.FieldVisible:             {Type: field.TypeBool, Column: appgood.FieldVisible},
-			appgood.FieldGoodName:            {Type: field.TypeString, Column: appgood.FieldGoodName},
-			appgood.FieldPrice:               {Type: field.TypeOther, Column: appgood.FieldPrice},
-			appgood.FieldDisplayIndex:        {Type: field.TypeInt32, Column: appgood.FieldDisplayIndex},
-			appgood.FieldPurchaseLimit:       {Type: field.TypeInt32, Column: appgood.FieldPurchaseLimit},
-			appgood.FieldCommissionPercent:   {Type: field.TypeInt32, Column: appgood.FieldCommissionPercent},
-			appgood.FieldSaleStartAt:         {Type: field.TypeUint32, Column: appgood.FieldSaleStartAt},
-			appgood.FieldSaleEndAt:           {Type: field.TypeUint32, Column: appgood.FieldSaleEndAt},
-			appgood.FieldServiceStartAt:      {Type: field.TypeUint32, Column: appgood.FieldServiceStartAt},
-			appgood.FieldTechnicalFeeRatio:   {Type: field.TypeUint32, Column: appgood.FieldTechnicalFeeRatio},
-			appgood.FieldElectricityFeeRatio: {Type: field.TypeUint32, Column: appgood.FieldElectricityFeeRatio},
-			appgood.FieldDailyRewardAmount:   {Type: field.TypeOther, Column: appgood.FieldDailyRewardAmount},
+			appgood.FieldCreatedAt:            {Type: field.TypeUint32, Column: appgood.FieldCreatedAt},
+			appgood.FieldUpdatedAt:            {Type: field.TypeUint32, Column: appgood.FieldUpdatedAt},
+			appgood.FieldDeletedAt:            {Type: field.TypeUint32, Column: appgood.FieldDeletedAt},
+			appgood.FieldAppID:                {Type: field.TypeUUID, Column: appgood.FieldAppID},
+			appgood.FieldGoodID:               {Type: field.TypeUUID, Column: appgood.FieldGoodID},
+			appgood.FieldOnline:               {Type: field.TypeBool, Column: appgood.FieldOnline},
+			appgood.FieldVisible:              {Type: field.TypeBool, Column: appgood.FieldVisible},
+			appgood.FieldGoodName:             {Type: field.TypeString, Column: appgood.FieldGoodName},
+			appgood.FieldPrice:                {Type: field.TypeOther, Column: appgood.FieldPrice},
+			appgood.FieldDisplayIndex:         {Type: field.TypeInt32, Column: appgood.FieldDisplayIndex},
+			appgood.FieldPurchaseLimit:        {Type: field.TypeInt32, Column: appgood.FieldPurchaseLimit},
+			appgood.FieldCommissionPercent:    {Type: field.TypeInt32, Column: appgood.FieldCommissionPercent},
+			appgood.FieldSaleStartAt:          {Type: field.TypeUint32, Column: appgood.FieldSaleStartAt},
+			appgood.FieldSaleEndAt:            {Type: field.TypeUint32, Column: appgood.FieldSaleEndAt},
+			appgood.FieldServiceStartAt:       {Type: field.TypeUint32, Column: appgood.FieldServiceStartAt},
+			appgood.FieldTechnicalFeeRatio:    {Type: field.TypeUint32, Column: appgood.FieldTechnicalFeeRatio},
+			appgood.FieldElectricityFeeRatio:  {Type: field.TypeUint32, Column: appgood.FieldElectricityFeeRatio},
+			appgood.FieldDailyRewardAmount:    {Type: field.TypeOther, Column: appgood.FieldDailyRewardAmount},
+			appgood.FieldCommissionSettleType: {Type: field.TypeString, Column: appgood.FieldCommissionSettleType},
 		},
 	}
 	graph.Nodes[1] = &sqlgraph.Node{
@@ -393,6 +394,11 @@ func (f *AppGoodFilter) WhereElectricityFeeRatio(p entql.Uint32P) {
 // WhereDailyRewardAmount applies the entql other predicate on the daily_reward_amount field.
 func (f *AppGoodFilter) WhereDailyRewardAmount(p entql.OtherP) {
 	f.Where(p.Field(appgood.FieldDailyRewardAmount))
+}
+
+// WhereCommissionSettleType applies the entql string predicate on the commission_settle_type field.
+func (f *AppGoodFilter) WhereCommissionSettleType(p entql.StringP) {
+	f.Where(p.Field(appgood.FieldCommissionSettleType))
 }
 
 // addPredicate implements the predicateAdder interface.

@@ -53,6 +53,8 @@ type AppGood struct {
 	ElectricityFeeRatio uint32 `json:"electricity_fee_ratio,omitempty"`
 	// DailyRewardAmount holds the value of the "daily_reward_amount" field.
 	DailyRewardAmount decimal.Decimal `json:"daily_reward_amount,omitempty"`
+	// CommissionSettleType holds the value of the "commission_settle_type" field.
+	CommissionSettleType string `json:"commission_settle_type,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -66,7 +68,7 @@ func (*AppGood) scanValues(columns []string) ([]interface{}, error) {
 			values[i] = new(sql.NullBool)
 		case appgood.FieldCreatedAt, appgood.FieldUpdatedAt, appgood.FieldDeletedAt, appgood.FieldDisplayIndex, appgood.FieldPurchaseLimit, appgood.FieldCommissionPercent, appgood.FieldSaleStartAt, appgood.FieldSaleEndAt, appgood.FieldServiceStartAt, appgood.FieldTechnicalFeeRatio, appgood.FieldElectricityFeeRatio:
 			values[i] = new(sql.NullInt64)
-		case appgood.FieldGoodName:
+		case appgood.FieldGoodName, appgood.FieldCommissionSettleType:
 			values[i] = new(sql.NullString)
 		case appgood.FieldID, appgood.FieldAppID, appgood.FieldGoodID:
 			values[i] = new(uuid.UUID)
@@ -199,6 +201,12 @@ func (ag *AppGood) assignValues(columns []string, values []interface{}) error {
 			} else if value != nil {
 				ag.DailyRewardAmount = *value
 			}
+		case appgood.FieldCommissionSettleType:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field commission_settle_type", values[i])
+			} else if value.Valid {
+				ag.CommissionSettleType = value.String
+			}
 		}
 	}
 	return nil
@@ -280,6 +288,9 @@ func (ag *AppGood) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("daily_reward_amount=")
 	builder.WriteString(fmt.Sprintf("%v", ag.DailyRewardAmount))
+	builder.WriteString(", ")
+	builder.WriteString("commission_settle_type=")
+	builder.WriteString(ag.CommissionSettleType)
 	builder.WriteByte(')')
 	return builder.String()
 }

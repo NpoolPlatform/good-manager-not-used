@@ -413,6 +413,26 @@ func (agu *AppGoodUpdate) ClearDailyRewardAmount() *AppGoodUpdate {
 	return agu
 }
 
+// SetCommissionSettleType sets the "commission_settle_type" field.
+func (agu *AppGoodUpdate) SetCommissionSettleType(s string) *AppGoodUpdate {
+	agu.mutation.SetCommissionSettleType(s)
+	return agu
+}
+
+// SetNillableCommissionSettleType sets the "commission_settle_type" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableCommissionSettleType(s *string) *AppGoodUpdate {
+	if s != nil {
+		agu.SetCommissionSettleType(*s)
+	}
+	return agu
+}
+
+// ClearCommissionSettleType clears the value of the "commission_settle_type" field.
+func (agu *AppGoodUpdate) ClearCommissionSettleType() *AppGoodUpdate {
+	agu.mutation.ClearCommissionSettleType()
+	return agu
+}
+
 // Mutation returns the AppGoodMutation object of the builder.
 func (agu *AppGoodUpdate) Mutation() *AppGoodMutation {
 	return agu.mutation
@@ -790,6 +810,19 @@ func (agu *AppGoodUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeOther,
 			Column: appgood.FieldDailyRewardAmount,
+		})
+	}
+	if value, ok := agu.mutation.CommissionSettleType(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: appgood.FieldCommissionSettleType,
+		})
+	}
+	if agu.mutation.CommissionSettleTypeCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: appgood.FieldCommissionSettleType,
 		})
 	}
 	_spec.Modifiers = agu.modifiers
@@ -1193,6 +1226,26 @@ func (aguo *AppGoodUpdateOne) SetNillableDailyRewardAmount(d *decimal.Decimal) *
 // ClearDailyRewardAmount clears the value of the "daily_reward_amount" field.
 func (aguo *AppGoodUpdateOne) ClearDailyRewardAmount() *AppGoodUpdateOne {
 	aguo.mutation.ClearDailyRewardAmount()
+	return aguo
+}
+
+// SetCommissionSettleType sets the "commission_settle_type" field.
+func (aguo *AppGoodUpdateOne) SetCommissionSettleType(s string) *AppGoodUpdateOne {
+	aguo.mutation.SetCommissionSettleType(s)
+	return aguo
+}
+
+// SetNillableCommissionSettleType sets the "commission_settle_type" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableCommissionSettleType(s *string) *AppGoodUpdateOne {
+	if s != nil {
+		aguo.SetCommissionSettleType(*s)
+	}
+	return aguo
+}
+
+// ClearCommissionSettleType clears the value of the "commission_settle_type" field.
+func (aguo *AppGoodUpdateOne) ClearCommissionSettleType() *AppGoodUpdateOne {
+	aguo.mutation.ClearCommissionSettleType()
 	return aguo
 }
 
@@ -1603,6 +1656,19 @@ func (aguo *AppGoodUpdateOne) sqlSave(ctx context.Context) (_node *AppGood, err 
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeOther,
 			Column: appgood.FieldDailyRewardAmount,
+		})
+	}
+	if value, ok := aguo.mutation.CommissionSettleType(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: appgood.FieldCommissionSettleType,
+		})
+	}
+	if aguo.mutation.CommissionSettleTypeCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: appgood.FieldCommissionSettleType,
 		})
 	}
 	_spec.Modifiers = aguo.modifiers

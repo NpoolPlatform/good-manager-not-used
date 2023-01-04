@@ -260,6 +260,20 @@ func (agc *AppGoodCreate) SetNillableDailyRewardAmount(d *decimal.Decimal) *AppG
 	return agc
 }
 
+// SetCommissionSettleType sets the "commission_settle_type" field.
+func (agc *AppGoodCreate) SetCommissionSettleType(s string) *AppGoodCreate {
+	agc.mutation.SetCommissionSettleType(s)
+	return agc
+}
+
+// SetNillableCommissionSettleType sets the "commission_settle_type" field if the given value is not nil.
+func (agc *AppGoodCreate) SetNillableCommissionSettleType(s *string) *AppGoodCreate {
+	if s != nil {
+		agc.SetCommissionSettleType(*s)
+	}
+	return agc
+}
+
 // SetID sets the "id" field.
 func (agc *AppGoodCreate) SetID(u uuid.UUID) *AppGoodCreate {
 	agc.mutation.SetID(u)
@@ -425,6 +439,10 @@ func (agc *AppGoodCreate) defaults() error {
 	if _, ok := agc.mutation.DailyRewardAmount(); !ok {
 		v := appgood.DefaultDailyRewardAmount
 		agc.mutation.SetDailyRewardAmount(v)
+	}
+	if _, ok := agc.mutation.CommissionSettleType(); !ok {
+		v := appgood.DefaultCommissionSettleType
+		agc.mutation.SetCommissionSettleType(v)
 	}
 	if _, ok := agc.mutation.ID(); !ok {
 		if appgood.DefaultID == nil {
@@ -633,6 +651,14 @@ func (agc *AppGoodCreate) createSpec() (*AppGood, *sqlgraph.CreateSpec) {
 			Column: appgood.FieldDailyRewardAmount,
 		})
 		_node.DailyRewardAmount = value
+	}
+	if value, ok := agc.mutation.CommissionSettleType(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: appgood.FieldCommissionSettleType,
+		})
+		_node.CommissionSettleType = value
 	}
 	return _node, _spec
 }
@@ -1045,6 +1071,24 @@ func (u *AppGoodUpsert) UpdateDailyRewardAmount() *AppGoodUpsert {
 // ClearDailyRewardAmount clears the value of the "daily_reward_amount" field.
 func (u *AppGoodUpsert) ClearDailyRewardAmount() *AppGoodUpsert {
 	u.SetNull(appgood.FieldDailyRewardAmount)
+	return u
+}
+
+// SetCommissionSettleType sets the "commission_settle_type" field.
+func (u *AppGoodUpsert) SetCommissionSettleType(v string) *AppGoodUpsert {
+	u.Set(appgood.FieldCommissionSettleType, v)
+	return u
+}
+
+// UpdateCommissionSettleType sets the "commission_settle_type" field to the value that was provided on create.
+func (u *AppGoodUpsert) UpdateCommissionSettleType() *AppGoodUpsert {
+	u.SetExcluded(appgood.FieldCommissionSettleType)
+	return u
+}
+
+// ClearCommissionSettleType clears the value of the "commission_settle_type" field.
+func (u *AppGoodUpsert) ClearCommissionSettleType() *AppGoodUpsert {
+	u.SetNull(appgood.FieldCommissionSettleType)
 	return u
 }
 
@@ -1515,6 +1559,27 @@ func (u *AppGoodUpsertOne) UpdateDailyRewardAmount() *AppGoodUpsertOne {
 func (u *AppGoodUpsertOne) ClearDailyRewardAmount() *AppGoodUpsertOne {
 	return u.Update(func(s *AppGoodUpsert) {
 		s.ClearDailyRewardAmount()
+	})
+}
+
+// SetCommissionSettleType sets the "commission_settle_type" field.
+func (u *AppGoodUpsertOne) SetCommissionSettleType(v string) *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetCommissionSettleType(v)
+	})
+}
+
+// UpdateCommissionSettleType sets the "commission_settle_type" field to the value that was provided on create.
+func (u *AppGoodUpsertOne) UpdateCommissionSettleType() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateCommissionSettleType()
+	})
+}
+
+// ClearCommissionSettleType clears the value of the "commission_settle_type" field.
+func (u *AppGoodUpsertOne) ClearCommissionSettleType() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearCommissionSettleType()
 	})
 }
 
@@ -2151,6 +2216,27 @@ func (u *AppGoodUpsertBulk) UpdateDailyRewardAmount() *AppGoodUpsertBulk {
 func (u *AppGoodUpsertBulk) ClearDailyRewardAmount() *AppGoodUpsertBulk {
 	return u.Update(func(s *AppGoodUpsert) {
 		s.ClearDailyRewardAmount()
+	})
+}
+
+// SetCommissionSettleType sets the "commission_settle_type" field.
+func (u *AppGoodUpsertBulk) SetCommissionSettleType(v string) *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetCommissionSettleType(v)
+	})
+}
+
+// UpdateCommissionSettleType sets the "commission_settle_type" field to the value that was provided on create.
+func (u *AppGoodUpsertBulk) UpdateCommissionSettleType() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateCommissionSettleType()
+	})
+}
+
+// ClearCommissionSettleType clears the value of the "commission_settle_type" field.
+func (u *AppGoodUpsertBulk) ClearCommissionSettleType() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearCommissionSettleType()
 	})
 }
 

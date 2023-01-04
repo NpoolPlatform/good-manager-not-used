@@ -29,6 +29,7 @@ var (
 		{Name: "technical_fee_ratio", Type: field.TypeUint32, Nullable: true, Default: 0},
 		{Name: "electricity_fee_ratio", Type: field.TypeUint32, Nullable: true, Default: 0},
 		{Name: "daily_reward_amount", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
+		{Name: "commission_settle_type", Type: field.TypeString, Nullable: true, Default: "NoCommission"},
 	}
 	// AppGoodsTable holds the schema information for the "app_goods" table.
 	AppGoodsTable = &schema.Table{

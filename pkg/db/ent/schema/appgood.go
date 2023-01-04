@@ -9,6 +9,8 @@ import (
 	"github.com/shopspring/decimal"
 
 	"github.com/google/uuid"
+
+	commmgrpb "github.com/NpoolPlatform/message/npool/inspire/mgr/v1/commission"
 )
 
 // AppGood holds the schema definition for the AppGood entity.
@@ -92,6 +94,10 @@ func (AppGood) Fields() []ent.Field {
 			}).
 			Optional().
 			Default(decimal.Decimal{}),
+		field.
+			String("commission_settle_type").
+			Optional().
+			Default(commmgrpb.SettleType_NoCommission.String()),
 	}
 }
 

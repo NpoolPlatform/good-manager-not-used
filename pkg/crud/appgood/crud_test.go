@@ -14,6 +14,7 @@ import (
 
 	valuedef "github.com/NpoolPlatform/message/npool"
 	npool "github.com/NpoolPlatform/message/npool/good/mgr/v1/appgood"
+	commmgrpb "github.com/NpoolPlatform/message/npool/inspire/mgr/v1/commission"
 
 	testinit "github.com/NpoolPlatform/good-manager/pkg/testinit"
 	"github.com/google/uuid"
@@ -31,17 +32,18 @@ func init() {
 }
 
 var appGood = ent.AppGood{
-	ID:                uuid.New(),
-	AppID:             uuid.New(),
-	GoodID:            uuid.New(),
-	Online:            true,
-	Visible:           true,
-	GoodName:          uuid.NewString(),
-	Price:             decimal.RequireFromString("9999999999999999999.999999999999999999"),
-	DisplayIndex:      100,
-	PurchaseLimit:     100,
-	CommissionPercent: 100,
-	DailyRewardAmount: decimal.RequireFromString("9999999999999999999.999999999999999999"),
+	ID:                   uuid.New(),
+	AppID:                uuid.New(),
+	GoodID:               uuid.New(),
+	Online:               true,
+	Visible:              true,
+	GoodName:             uuid.NewString(),
+	Price:                decimal.RequireFromString("9999999999999999999.999999999999999999"),
+	DisplayIndex:         100,
+	PurchaseLimit:        100,
+	CommissionPercent:    100,
+	DailyRewardAmount:    decimal.RequireFromString("9999999999999999999.999999999999999999"),
+	CommissionSettleType: commmgrpb.SettleType_NoCommission.String(),
 }
 
 var (

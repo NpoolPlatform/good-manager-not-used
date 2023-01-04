@@ -206,6 +206,13 @@ func DailyRewardAmount(v decimal.Decimal) predicate.AppGood {
 	})
 }
 
+// CommissionSettleType applies equality check predicate on the "commission_settle_type" field. It's identical to CommissionSettleTypeEQ.
+func CommissionSettleType(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCommissionSettleType), v))
+	})
+}
+
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
 func CreatedAtEQ(v uint32) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
@@ -1472,6 +1479,119 @@ func DailyRewardAmountIsNil() predicate.AppGood {
 func DailyRewardAmountNotNil() predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
 		s.Where(sql.NotNull(s.C(FieldDailyRewardAmount)))
+	})
+}
+
+// CommissionSettleTypeEQ applies the EQ predicate on the "commission_settle_type" field.
+func CommissionSettleTypeEQ(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCommissionSettleType), v))
+	})
+}
+
+// CommissionSettleTypeNEQ applies the NEQ predicate on the "commission_settle_type" field.
+func CommissionSettleTypeNEQ(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldCommissionSettleType), v))
+	})
+}
+
+// CommissionSettleTypeIn applies the In predicate on the "commission_settle_type" field.
+func CommissionSettleTypeIn(vs ...string) predicate.AppGood {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.In(s.C(FieldCommissionSettleType), v...))
+	})
+}
+
+// CommissionSettleTypeNotIn applies the NotIn predicate on the "commission_settle_type" field.
+func CommissionSettleTypeNotIn(vs ...string) predicate.AppGood {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotIn(s.C(FieldCommissionSettleType), v...))
+	})
+}
+
+// CommissionSettleTypeGT applies the GT predicate on the "commission_settle_type" field.
+func CommissionSettleTypeGT(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldCommissionSettleType), v))
+	})
+}
+
+// CommissionSettleTypeGTE applies the GTE predicate on the "commission_settle_type" field.
+func CommissionSettleTypeGTE(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldCommissionSettleType), v))
+	})
+}
+
+// CommissionSettleTypeLT applies the LT predicate on the "commission_settle_type" field.
+func CommissionSettleTypeLT(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldCommissionSettleType), v))
+	})
+}
+
+// CommissionSettleTypeLTE applies the LTE predicate on the "commission_settle_type" field.
+func CommissionSettleTypeLTE(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldCommissionSettleType), v))
+	})
+}
+
+// CommissionSettleTypeContains applies the Contains predicate on the "commission_settle_type" field.
+func CommissionSettleTypeContains(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldCommissionSettleType), v))
+	})
+}
+
+// CommissionSettleTypeHasPrefix applies the HasPrefix predicate on the "commission_settle_type" field.
+func CommissionSettleTypeHasPrefix(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldCommissionSettleType), v))
+	})
+}
+
+// CommissionSettleTypeHasSuffix applies the HasSuffix predicate on the "commission_settle_type" field.
+func CommissionSettleTypeHasSuffix(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldCommissionSettleType), v))
+	})
+}
+
+// CommissionSettleTypeIsNil applies the IsNil predicate on the "commission_settle_type" field.
+func CommissionSettleTypeIsNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldCommissionSettleType)))
+	})
+}
+
+// CommissionSettleTypeNotNil applies the NotNil predicate on the "commission_settle_type" field.
+func CommissionSettleTypeNotNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldCommissionSettleType)))
+	})
+}
+
+// CommissionSettleTypeEqualFold applies the EqualFold predicate on the "commission_settle_type" field.
+func CommissionSettleTypeEqualFold(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldCommissionSettleType), v))
+	})
+}
+
+// CommissionSettleTypeContainsFold applies the ContainsFold predicate on the "commission_settle_type" field.
+func CommissionSettleTypeContainsFold(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldCommissionSettleType), v))
 	})
 }
 
