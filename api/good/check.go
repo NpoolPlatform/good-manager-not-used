@@ -109,6 +109,13 @@ func validate(info *npool.GoodReq) error {
 		return status.Error(codes.InvalidArgument, "GetPrice is Less than or equal to 0")
 	}
 
+	for _, id := range info.GetBenefitTIDs() {
+		if _, err := uuid.Parse(id); err != nil {
+			logger.Sugar().Errorw("validate", "Error", err)
+			return status.Error(codes.InvalidArgument, err.Error())
+		}
+	}
+
 	return nil
 }
 

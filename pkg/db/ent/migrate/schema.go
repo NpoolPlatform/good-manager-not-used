@@ -135,6 +135,9 @@ var (
 		{Name: "start_at", Type: field.TypeUint32, Nullable: true, Default: 0},
 		{Name: "test_only", Type: field.TypeBool, Nullable: true, Default: false},
 		{Name: "benefit_interval_hours", Type: field.TypeUint32, Nullable: true, Default: 24},
+		{Name: "benefit_state", Type: field.TypeString, Nullable: true, Default: "BenefitWait"},
+		{Name: "last_benefit_at", Type: field.TypeUint32, Nullable: true, Default: 0},
+		{Name: "benefit_tids", Type: field.TypeJSON, Nullable: true},
 	}
 	// GoodsTable holds the schema information for the "goods" table.
 	GoodsTable = &schema.Table{

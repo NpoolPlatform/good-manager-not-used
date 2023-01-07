@@ -97,6 +97,18 @@ func (Good) Fields() []ent.Field {
 			Uint32("benefit_interval_hours").
 			Optional().
 			Default(benefitHours),
+		field.
+			String("benefit_state").
+			Optional().
+			Default(good.BenefitState_BenefitWait.String()),
+		field.
+			Uint32("last_benefit_at").
+			Optional().
+			Default(0),
+		field.
+			JSON("benefit_tids", []uuid.UUID{}).
+			Optional().
+			Default([]uuid.UUID{}),
 	}
 }
 

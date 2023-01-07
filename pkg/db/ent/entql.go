@@ -149,6 +149,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 			good.FieldStartAt:              {Type: field.TypeUint32, Column: good.FieldStartAt},
 			good.FieldTestOnly:             {Type: field.TypeBool, Column: good.FieldTestOnly},
 			good.FieldBenefitIntervalHours: {Type: field.TypeUint32, Column: good.FieldBenefitIntervalHours},
+			good.FieldBenefitState:         {Type: field.TypeString, Column: good.FieldBenefitState},
+			good.FieldLastBenefitAt:        {Type: field.TypeUint32, Column: good.FieldLastBenefitAt},
+			good.FieldBenefitTids:          {Type: field.TypeJSON, Column: good.FieldBenefitTids},
 		},
 	}
 	graph.Nodes[5] = &sqlgraph.Node{
@@ -779,6 +782,21 @@ func (f *GoodFilter) WhereTestOnly(p entql.BoolP) {
 // WhereBenefitIntervalHours applies the entql uint32 predicate on the benefit_interval_hours field.
 func (f *GoodFilter) WhereBenefitIntervalHours(p entql.Uint32P) {
 	f.Where(p.Field(good.FieldBenefitIntervalHours))
+}
+
+// WhereBenefitState applies the entql string predicate on the benefit_state field.
+func (f *GoodFilter) WhereBenefitState(p entql.StringP) {
+	f.Where(p.Field(good.FieldBenefitState))
+}
+
+// WhereLastBenefitAt applies the entql uint32 predicate on the last_benefit_at field.
+func (f *GoodFilter) WhereLastBenefitAt(p entql.Uint32P) {
+	f.Where(p.Field(good.FieldLastBenefitAt))
+}
+
+// WhereBenefitTids applies the entql json.RawMessage predicate on the benefit_tids field.
+func (f *GoodFilter) WhereBenefitTids(p entql.BytesP) {
+	f.Where(p.Field(good.FieldBenefitTids))
 }
 
 // addPredicate implements the predicateAdder interface.

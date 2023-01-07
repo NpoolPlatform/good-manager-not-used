@@ -390,6 +390,65 @@ func (gu *GoodUpdate) ClearBenefitIntervalHours() *GoodUpdate {
 	return gu
 }
 
+// SetBenefitState sets the "benefit_state" field.
+func (gu *GoodUpdate) SetBenefitState(s string) *GoodUpdate {
+	gu.mutation.SetBenefitState(s)
+	return gu
+}
+
+// SetNillableBenefitState sets the "benefit_state" field if the given value is not nil.
+func (gu *GoodUpdate) SetNillableBenefitState(s *string) *GoodUpdate {
+	if s != nil {
+		gu.SetBenefitState(*s)
+	}
+	return gu
+}
+
+// ClearBenefitState clears the value of the "benefit_state" field.
+func (gu *GoodUpdate) ClearBenefitState() *GoodUpdate {
+	gu.mutation.ClearBenefitState()
+	return gu
+}
+
+// SetLastBenefitAt sets the "last_benefit_at" field.
+func (gu *GoodUpdate) SetLastBenefitAt(u uint32) *GoodUpdate {
+	gu.mutation.ResetLastBenefitAt()
+	gu.mutation.SetLastBenefitAt(u)
+	return gu
+}
+
+// SetNillableLastBenefitAt sets the "last_benefit_at" field if the given value is not nil.
+func (gu *GoodUpdate) SetNillableLastBenefitAt(u *uint32) *GoodUpdate {
+	if u != nil {
+		gu.SetLastBenefitAt(*u)
+	}
+	return gu
+}
+
+// AddLastBenefitAt adds u to the "last_benefit_at" field.
+func (gu *GoodUpdate) AddLastBenefitAt(u int32) *GoodUpdate {
+	gu.mutation.AddLastBenefitAt(u)
+	return gu
+}
+
+// ClearLastBenefitAt clears the value of the "last_benefit_at" field.
+func (gu *GoodUpdate) ClearLastBenefitAt() *GoodUpdate {
+	gu.mutation.ClearLastBenefitAt()
+	return gu
+}
+
+// SetBenefitTids sets the "benefit_tids" field.
+func (gu *GoodUpdate) SetBenefitTids(u []uuid.UUID) *GoodUpdate {
+	gu.mutation.SetBenefitTids(u)
+	return gu
+}
+
+// ClearBenefitTids clears the value of the "benefit_tids" field.
+func (gu *GoodUpdate) ClearBenefitTids() *GoodUpdate {
+	gu.mutation.ClearBenefitTids()
+	return gu
+}
+
 // Mutation returns the GoodMutation object of the builder.
 func (gu *GoodUpdate) Mutation() *GoodMutation {
 	return gu.mutation
@@ -753,6 +812,52 @@ func (gu *GoodUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeUint32,
 			Column: good.FieldBenefitIntervalHours,
+		})
+	}
+	if value, ok := gu.mutation.BenefitState(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: good.FieldBenefitState,
+		})
+	}
+	if gu.mutation.BenefitStateCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: good.FieldBenefitState,
+		})
+	}
+	if value, ok := gu.mutation.LastBenefitAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: good.FieldLastBenefitAt,
+		})
+	}
+	if value, ok := gu.mutation.AddedLastBenefitAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: good.FieldLastBenefitAt,
+		})
+	}
+	if gu.mutation.LastBenefitAtCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Column: good.FieldLastBenefitAt,
+		})
+	}
+	if value, ok := gu.mutation.BenefitTids(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeJSON,
+			Value:  value,
+			Column: good.FieldBenefitTids,
+		})
+	}
+	if gu.mutation.BenefitTidsCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeJSON,
+			Column: good.FieldBenefitTids,
 		})
 	}
 	_spec.Modifiers = gu.modifiers
@@ -1133,6 +1238,65 @@ func (guo *GoodUpdateOne) AddBenefitIntervalHours(u int32) *GoodUpdateOne {
 // ClearBenefitIntervalHours clears the value of the "benefit_interval_hours" field.
 func (guo *GoodUpdateOne) ClearBenefitIntervalHours() *GoodUpdateOne {
 	guo.mutation.ClearBenefitIntervalHours()
+	return guo
+}
+
+// SetBenefitState sets the "benefit_state" field.
+func (guo *GoodUpdateOne) SetBenefitState(s string) *GoodUpdateOne {
+	guo.mutation.SetBenefitState(s)
+	return guo
+}
+
+// SetNillableBenefitState sets the "benefit_state" field if the given value is not nil.
+func (guo *GoodUpdateOne) SetNillableBenefitState(s *string) *GoodUpdateOne {
+	if s != nil {
+		guo.SetBenefitState(*s)
+	}
+	return guo
+}
+
+// ClearBenefitState clears the value of the "benefit_state" field.
+func (guo *GoodUpdateOne) ClearBenefitState() *GoodUpdateOne {
+	guo.mutation.ClearBenefitState()
+	return guo
+}
+
+// SetLastBenefitAt sets the "last_benefit_at" field.
+func (guo *GoodUpdateOne) SetLastBenefitAt(u uint32) *GoodUpdateOne {
+	guo.mutation.ResetLastBenefitAt()
+	guo.mutation.SetLastBenefitAt(u)
+	return guo
+}
+
+// SetNillableLastBenefitAt sets the "last_benefit_at" field if the given value is not nil.
+func (guo *GoodUpdateOne) SetNillableLastBenefitAt(u *uint32) *GoodUpdateOne {
+	if u != nil {
+		guo.SetLastBenefitAt(*u)
+	}
+	return guo
+}
+
+// AddLastBenefitAt adds u to the "last_benefit_at" field.
+func (guo *GoodUpdateOne) AddLastBenefitAt(u int32) *GoodUpdateOne {
+	guo.mutation.AddLastBenefitAt(u)
+	return guo
+}
+
+// ClearLastBenefitAt clears the value of the "last_benefit_at" field.
+func (guo *GoodUpdateOne) ClearLastBenefitAt() *GoodUpdateOne {
+	guo.mutation.ClearLastBenefitAt()
+	return guo
+}
+
+// SetBenefitTids sets the "benefit_tids" field.
+func (guo *GoodUpdateOne) SetBenefitTids(u []uuid.UUID) *GoodUpdateOne {
+	guo.mutation.SetBenefitTids(u)
+	return guo
+}
+
+// ClearBenefitTids clears the value of the "benefit_tids" field.
+func (guo *GoodUpdateOne) ClearBenefitTids() *GoodUpdateOne {
+	guo.mutation.ClearBenefitTids()
 	return guo
 }
 
@@ -1529,6 +1693,52 @@ func (guo *GoodUpdateOne) sqlSave(ctx context.Context) (_node *Good, err error) 
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeUint32,
 			Column: good.FieldBenefitIntervalHours,
+		})
+	}
+	if value, ok := guo.mutation.BenefitState(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: good.FieldBenefitState,
+		})
+	}
+	if guo.mutation.BenefitStateCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: good.FieldBenefitState,
+		})
+	}
+	if value, ok := guo.mutation.LastBenefitAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: good.FieldLastBenefitAt,
+		})
+	}
+	if value, ok := guo.mutation.AddedLastBenefitAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: good.FieldLastBenefitAt,
+		})
+	}
+	if guo.mutation.LastBenefitAtCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Column: good.FieldLastBenefitAt,
+		})
+	}
+	if value, ok := guo.mutation.BenefitTids(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeJSON,
+			Value:  value,
+			Column: good.FieldBenefitTids,
+		})
+	}
+	if guo.mutation.BenefitTidsCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeJSON,
+			Column: good.FieldBenefitTids,
 		})
 	}
 	_spec.Modifiers = guo.modifiers

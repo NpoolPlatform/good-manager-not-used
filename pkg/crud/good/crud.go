@@ -83,6 +83,9 @@ func CreateSet(c *ent.GoodCreate, in *npool.GoodReq) (*ent.GoodCreate, error) {
 	if in.BenefitIntervalHours != nil {
 		c.SetBenefitIntervalHours(in.GetBenefitIntervalHours())
 	}
+	c.SetBenefitState(npool.BenefitState_BenefitWait.String())
+	c.SetLastBenefitAt(0)
+	c.SetBenefitTids([]uuid.UUID{})
 	return c, nil
 }
 
@@ -153,7 +156,9 @@ func CreateBulk(ctx context.Context, in []*npool.GoodReq) ([]*ent.Good, error) {
 }
 
 //nolint
-func UpdateSet(u *ent.GoodUpdateOne, in *npool.GoodReq) (*ent.GoodUpdateOne, error) {
+func UpdateSet(info *ent.Good, in *npool.GoodReq) (*ent.GoodUpdateOne, error) {
+	u := info.Update()
+
 	if in.DeviceInfoID != nil {
 		u.SetDeviceInfoID(uuid.MustParse(in.GetDeviceInfoID()))
 	}
@@ -204,6 +209,21 @@ func UpdateSet(u *ent.GoodUpdateOne, in *npool.GoodReq) (*ent.GoodUpdateOne, err
 	if in.BenefitIntervalHours != nil {
 		u.SetBenefitIntervalHours(in.GetBenefitIntervalHours())
 	}
+	if in.BenefitState != nil {
+		u.SetBenefitState(in.GetBenefitState().String())
+		if info.BenefitState != npool.BenefitState_BenefitWait.String() {
+			if in.GetBenefitState() == npool.BenefitState_BenefitWait {
+				u.SetLastBenefitAt(uint32(time.Now().Unix()))
+			}
+		}
+	}
+	if len(in.GetBenefitTIDs()) > 0 {
+		ids := []uuid.UUID{}
+		for _, id := range in.GetBenefitTIDs() {
+			ids = append(ids, uuid.MustParse(id))
+		}
+		u.SetBenefitTids(ids)
+	}
 	return u, nil
 }
 
@@ -229,7 +249,7 @@ func Update(ctx context.Context, in *npool.GoodReq) (*ent.Good, error) {
 			return err
 		}
 
-		stm, err := UpdateSet(info.Update(), in)
+		stm, err := UpdateSet(info, in)
 		if err != nil {
 			return err
 		}
@@ -272,7 +292,7 @@ func Row(ctx context.Context, id uuid.UUID) (*ent.Good, error) {
 }
 
 //nolint
-func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.GoodQuery, error) {
+func SetQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.GoodQuery, error) {
 	stm := cli.Good.Query()
 	if conds == nil {
 		return stm, nil
@@ -318,7 +338,7 @@ func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.GoodQuery, error) 
 		}
 	}
 	if conds.GoodType != nil {
-		switch conds.GetBenefitType().GetOp() {
+		switch conds.GetGoodType().GetOp() {
 		case cruder.EQ:
 			stm.Where(good.GoodType(npool.GoodType(conds.GetGoodType().GetValue()).String()))
 		default:
@@ -338,6 +358,16 @@ func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.GoodQuery, error) 
 			}
 
 			stm.Where(good.IDIn(ids...))
+		default:
+			return nil, fmt.Errorf("invalid good field")
+		}
+	}
+	if conds.BenefitState != nil {
+		switch conds.GetBenefitState().GetOp() {
+		case cruder.EQ:
+			stm.Where(good.BenefitState(npool.BenefitState(conds.GetBenefitState().GetValue()).String()))
+		case cruder.NEQ:
+			stm.Where(good.BenefitState(npool.BenefitState(conds.GetBenefitState().GetValue()).String()))
 		default:
 			return nil, fmt.Errorf("invalid good field")
 		}
@@ -364,7 +394,7 @@ func Rows(ctx context.Context, conds *npool.Conds, offset, limit int) ([]*ent.Go
 	rows := []*ent.Good{}
 	var total int
 	err = db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
-		stm, err := setQueryConds(conds, cli)
+		stm, err := SetQueryConds(conds, cli)
 		if err != nil {
 			return err
 		}
@@ -408,7 +438,7 @@ func RowOnly(ctx context.Context, conds *npool.Conds) (*ent.Good, error) {
 	span = tracer.TraceConds(span, conds)
 
 	err = db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
-		stm, err := setQueryConds(conds, cli)
+		stm, err := SetQueryConds(conds, cli)
 		if err != nil {
 			return err
 		}
@@ -444,7 +474,7 @@ func Count(ctx context.Context, conds *npool.Conds) (uint32, error) {
 	span = tracer.TraceConds(span, conds)
 
 	err = db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
-		stm, err := setQueryConds(conds, cli)
+		stm, err := SetQueryConds(conds, cli)
 		if err != nil {
 			return err
 		}
@@ -506,7 +536,7 @@ func ExistConds(ctx context.Context, conds *npool.Conds) (bool, error) {
 	span = tracer.TraceConds(span, conds)
 
 	err = db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
-		stm, err := setQueryConds(conds, cli)
+		stm, err := SetQueryConds(conds, cli)
 		if err != nil {
 			return err
 		}

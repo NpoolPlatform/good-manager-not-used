@@ -16,6 +16,11 @@ func Ent2Grpc(row *ent.Good) *npool.Good {
 		supportCoinTypeIDs = append(supportCoinTypeIDs, val.String())
 	}
 
+	benefitTIDs := []string{}
+	for _, val := range row.BenefitTids {
+		benefitTIDs = append(benefitTIDs, val.String())
+	}
+
 	return &npool.Good{
 		ID:                   row.ID.String(),
 		DeviceInfoID:         row.DeviceInfoID.String(),
@@ -34,6 +39,9 @@ func Ent2Grpc(row *ent.Good) *npool.Good {
 		StartAt:              row.StartAt,
 		TestOnly:             row.TestOnly,
 		BenefitIntervalHours: row.BenefitIntervalHours,
+		BenefitState:         npool.BenefitState(npool.BenefitState_value[row.BenefitState]),
+		LastBenefitAt:        row.LastBenefitAt,
+		BenefitTIDs:          benefitTIDs,
 		CreatedAt:            row.CreatedAt,
 		UpdatedAt:            row.UpdatedAt,
 		DeletedAt:            row.DeletedAt,

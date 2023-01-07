@@ -56,6 +56,12 @@ type Good struct {
 	TestOnly bool `json:"test_only,omitempty"`
 	// BenefitIntervalHours holds the value of the "benefit_interval_hours" field.
 	BenefitIntervalHours uint32 `json:"benefit_interval_hours,omitempty"`
+	// BenefitState holds the value of the "benefit_state" field.
+	BenefitState string `json:"benefit_state,omitempty"`
+	// LastBenefitAt holds the value of the "last_benefit_at" field.
+	LastBenefitAt uint32 `json:"last_benefit_at,omitempty"`
+	// BenefitTids holds the value of the "benefit_tids" field.
+	BenefitTids []uuid.UUID `json:"benefit_tids,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -63,15 +69,15 @@ func (*Good) scanValues(columns []string) ([]interface{}, error) {
 	values := make([]interface{}, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case good.FieldSupportCoinTypeIds:
+		case good.FieldSupportCoinTypeIds, good.FieldBenefitTids:
 			values[i] = new([]byte)
 		case good.FieldPrice:
 			values[i] = new(decimal.Decimal)
 		case good.FieldTestOnly:
 			values[i] = new(sql.NullBool)
-		case good.FieldCreatedAt, good.FieldUpdatedAt, good.FieldDeletedAt, good.FieldDurationDays, good.FieldUnitAmount, good.FieldDeliveryAt, good.FieldStartAt, good.FieldBenefitIntervalHours:
+		case good.FieldCreatedAt, good.FieldUpdatedAt, good.FieldDeletedAt, good.FieldDurationDays, good.FieldUnitAmount, good.FieldDeliveryAt, good.FieldStartAt, good.FieldBenefitIntervalHours, good.FieldLastBenefitAt:
 			values[i] = new(sql.NullInt64)
-		case good.FieldBenefitType, good.FieldGoodType, good.FieldTitle, good.FieldUnit:
+		case good.FieldBenefitType, good.FieldGoodType, good.FieldTitle, good.FieldUnit, good.FieldBenefitState:
 			values[i] = new(sql.NullString)
 		case good.FieldID, good.FieldDeviceInfoID, good.FieldCoinTypeID, good.FieldInheritFromGoodID, good.FieldVendorLocationID:
 			values[i] = new(uuid.UUID)
@@ -212,6 +218,26 @@ func (_go *Good) assignValues(columns []string, values []interface{}) error {
 			} else if value.Valid {
 				_go.BenefitIntervalHours = uint32(value.Int64)
 			}
+		case good.FieldBenefitState:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field benefit_state", values[i])
+			} else if value.Valid {
+				_go.BenefitState = value.String
+			}
+		case good.FieldLastBenefitAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field last_benefit_at", values[i])
+			} else if value.Valid {
+				_go.LastBenefitAt = uint32(value.Int64)
+			}
+		case good.FieldBenefitTids:
+			if value, ok := values[i].(*[]byte); !ok {
+				return fmt.Errorf("unexpected type %T for field benefit_tids", values[i])
+			} else if value != nil && len(*value) > 0 {
+				if err := json.Unmarshal(*value, &_go.BenefitTids); err != nil {
+					return fmt.Errorf("unmarshal field benefit_tids: %w", err)
+				}
+			}
 		}
 	}
 	return nil
@@ -296,6 +322,15 @@ func (_go *Good) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("benefit_interval_hours=")
 	builder.WriteString(fmt.Sprintf("%v", _go.BenefitIntervalHours))
+	builder.WriteString(", ")
+	builder.WriteString("benefit_state=")
+	builder.WriteString(_go.BenefitState)
+	builder.WriteString(", ")
+	builder.WriteString("last_benefit_at=")
+	builder.WriteString(fmt.Sprintf("%v", _go.LastBenefitAt))
+	builder.WriteString(", ")
+	builder.WriteString("benefit_tids=")
+	builder.WriteString(fmt.Sprintf("%v", _go.BenefitTids))
 	builder.WriteByte(')')
 	return builder.String()
 }
