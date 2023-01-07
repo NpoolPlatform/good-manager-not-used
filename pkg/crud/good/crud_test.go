@@ -49,6 +49,7 @@ var ret = ent.Good{
 	StartAt:              100,
 	TestOnly:             true,
 	BenefitIntervalHours: 24,
+	BenefitState:         npool.BenefitState_BenefitWait.String(),
 }
 
 var (
@@ -61,6 +62,7 @@ var (
 	benefitType        = npool.BenefitType_BenefitTypePlatform
 	goodType           = npool.GoodType_GoodTypeClassicMining
 	supportCoinTypeIDs = []string{ret.SupportCoinTypeIds[0].String()}
+	benefitState       = npool.BenefitState_BenefitWait
 	req                = npool.GoodReq{
 		ID:                 &id,
 		DeviceInfoID:       &retID,
@@ -78,6 +80,7 @@ var (
 		DeliveryAt:         &ret.DeliveryAt,
 		StartAt:            &ret.StartAt,
 		TestOnly:           &ret.TestOnly,
+		BenefitState:       &benefitState,
 	}
 )
 
@@ -113,6 +116,7 @@ func createBulk(t *testing.T) {
 			StartAt:              100,
 			TestOnly:             true,
 			BenefitIntervalHours: 24,
+			BenefitState:         npool.BenefitState_BenefitWait.String(),
 		},
 		{
 			ID:                   uuid.New(),
@@ -132,6 +136,7 @@ func createBulk(t *testing.T) {
 			StartAt:              100,
 			TestOnly:             true,
 			BenefitIntervalHours: 24,
+			BenefitState:         npool.BenefitState_BenefitWait.String(),
 		},
 	}
 

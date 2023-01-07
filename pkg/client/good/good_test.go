@@ -53,6 +53,7 @@ var ret = npool.Good{
 	StartAt:              1006,
 	TestOnly:             true,
 	BenefitIntervalHours: 24,
+	BenefitState:         npool.BenefitState_BenefitWait,
 }
 
 var (
@@ -108,6 +109,7 @@ func createGoods(t *testing.T) {
 			StartAt:              1006,
 			TestOnly:             true,
 			BenefitIntervalHours: 24,
+			BenefitState:         npool.BenefitState_BenefitWait,
 		},
 		{
 			ID:                   uuid.NewString(),
@@ -127,6 +129,7 @@ func createGoods(t *testing.T) {
 			StartAt:              1006,
 			TestOnly:             true,
 			BenefitIntervalHours: 24,
+			BenefitState:         npool.BenefitState_BenefitWait,
 		},
 	}
 
