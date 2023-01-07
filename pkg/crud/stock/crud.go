@@ -32,6 +32,7 @@ func CreateSet(c *ent.StockCreate, in *npool.StockReq) (*ent.StockCreate, error)
 	}
 	c.SetLocked(0)
 	c.SetInService(0)
+	c.SetWaitStart(0)
 	c.SetSold(0)
 	return c, nil
 }
@@ -131,7 +132,7 @@ func Update(ctx context.Context, in *npool.StockReq) (*ent.Stock, error) {
 			return err
 		}
 
-		if in.GetTotal() < info.Locked+info.InService {
+		if in.GetTotal() < info.Locked+info.InService+info.WaitStart {
 			return fmt.Errorf("stock insufficient")
 		}
 
@@ -161,7 +162,12 @@ func AddFieldSet(info *ent.Stock, in *npool.StockReq) (*ent.StockUpdateOne, erro
 		return nil, fmt.Errorf("in service stock exhausted")
 	}
 
-	if int32(info.Total) < locked+inService {
+	waitStart := in.GetWaitStart() + int32(info.WaitStart)
+	if waitStart < 0 {
+		return nil, fmt.Errorf("wait start stock exhausted")
+	}
+
+	if int32(info.Total) < locked+inService+waitStart {
 		return nil, fmt.Errorf("stock exhausted")
 	}
 
@@ -171,9 +177,11 @@ func AddFieldSet(info *ent.Stock, in *npool.StockReq) (*ent.StockUpdateOne, erro
 	}
 	if in.InService != nil {
 		u.SetInService(uint32(inService))
-
-		if in.GetInService() > 0 {
-			u.AddSold(in.GetInService())
+	}
+	if in.WaitStart != nil {
+		u.SetWaitStart(uint32(waitStart))
+		if in.GetWaitStart() > 0 {
+			u.AddSold(in.GetWaitStart())
 		}
 	}
 	return u, nil

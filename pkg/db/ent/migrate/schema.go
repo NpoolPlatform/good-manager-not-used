@@ -214,6 +214,7 @@ var (
 		{Name: "total", Type: field.TypeUint32},
 		{Name: "locked", Type: field.TypeUint32},
 		{Name: "in_service", Type: field.TypeUint32},
+		{Name: "wait_start", Type: field.TypeUint32},
 		{Name: "sold", Type: field.TypeUint32},
 	}
 	// StocksTable holds the schema information for the "stocks" table.

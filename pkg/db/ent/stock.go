@@ -30,6 +30,8 @@ type Stock struct {
 	Locked uint32 `json:"locked,omitempty"`
 	// InService holds the value of the "in_service" field.
 	InService uint32 `json:"in_service,omitempty"`
+	// WaitStart holds the value of the "wait_start" field.
+	WaitStart uint32 `json:"wait_start,omitempty"`
 	// Sold holds the value of the "sold" field.
 	Sold uint32 `json:"sold,omitempty"`
 }
@@ -39,7 +41,7 @@ func (*Stock) scanValues(columns []string) ([]interface{}, error) {
 	values := make([]interface{}, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case stock.FieldCreatedAt, stock.FieldUpdatedAt, stock.FieldDeletedAt, stock.FieldTotal, stock.FieldLocked, stock.FieldInService, stock.FieldSold:
+		case stock.FieldCreatedAt, stock.FieldUpdatedAt, stock.FieldDeletedAt, stock.FieldTotal, stock.FieldLocked, stock.FieldInService, stock.FieldWaitStart, stock.FieldSold:
 			values[i] = new(sql.NullInt64)
 		case stock.FieldID, stock.FieldGoodID:
 			values[i] = new(uuid.UUID)
@@ -106,6 +108,12 @@ func (s *Stock) assignValues(columns []string, values []interface{}) error {
 			} else if value.Valid {
 				s.InService = uint32(value.Int64)
 			}
+		case stock.FieldWaitStart:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field wait_start", values[i])
+			} else if value.Valid {
+				s.WaitStart = uint32(value.Int64)
+			}
 		case stock.FieldSold:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field sold", values[i])
@@ -160,6 +168,9 @@ func (s *Stock) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("in_service=")
 	builder.WriteString(fmt.Sprintf("%v", s.InService))
+	builder.WriteString(", ")
+	builder.WriteString("wait_start=")
+	builder.WriteString(fmt.Sprintf("%v", s.WaitStart))
 	builder.WriteString(", ")
 	builder.WriteString("sold=")
 	builder.WriteString(fmt.Sprintf("%v", s.Sold))

@@ -8822,6 +8822,8 @@ type StockMutation struct {
 	addlocked     *int32
 	in_service    *uint32
 	addin_service *int32
+	wait_start    *uint32
+	addwait_start *int32
 	sold          *uint32
 	addsold       *int32
 	clearedFields map[string]struct{}
@@ -9306,6 +9308,62 @@ func (m *StockMutation) ResetInService() {
 	m.addin_service = nil
 }
 
+// SetWaitStart sets the "wait_start" field.
+func (m *StockMutation) SetWaitStart(u uint32) {
+	m.wait_start = &u
+	m.addwait_start = nil
+}
+
+// WaitStart returns the value of the "wait_start" field in the mutation.
+func (m *StockMutation) WaitStart() (r uint32, exists bool) {
+	v := m.wait_start
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldWaitStart returns the old "wait_start" field's value of the Stock entity.
+// If the Stock object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *StockMutation) OldWaitStart(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldWaitStart is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldWaitStart requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldWaitStart: %w", err)
+	}
+	return oldValue.WaitStart, nil
+}
+
+// AddWaitStart adds u to the "wait_start" field.
+func (m *StockMutation) AddWaitStart(u int32) {
+	if m.addwait_start != nil {
+		*m.addwait_start += u
+	} else {
+		m.addwait_start = &u
+	}
+}
+
+// AddedWaitStart returns the value that was added to the "wait_start" field in this mutation.
+func (m *StockMutation) AddedWaitStart() (r int32, exists bool) {
+	v := m.addwait_start
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetWaitStart resets all changes to the "wait_start" field.
+func (m *StockMutation) ResetWaitStart() {
+	m.wait_start = nil
+	m.addwait_start = nil
+}
+
 // SetSold sets the "sold" field.
 func (m *StockMutation) SetSold(u uint32) {
 	m.sold = &u
@@ -9381,7 +9439,7 @@ func (m *StockMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *StockMutation) Fields() []string {
-	fields := make([]string, 0, 8)
+	fields := make([]string, 0, 9)
 	if m.created_at != nil {
 		fields = append(fields, stock.FieldCreatedAt)
 	}
@@ -9402,6 +9460,9 @@ func (m *StockMutation) Fields() []string {
 	}
 	if m.in_service != nil {
 		fields = append(fields, stock.FieldInService)
+	}
+	if m.wait_start != nil {
+		fields = append(fields, stock.FieldWaitStart)
 	}
 	if m.sold != nil {
 		fields = append(fields, stock.FieldSold)
@@ -9428,6 +9489,8 @@ func (m *StockMutation) Field(name string) (ent.Value, bool) {
 		return m.Locked()
 	case stock.FieldInService:
 		return m.InService()
+	case stock.FieldWaitStart:
+		return m.WaitStart()
 	case stock.FieldSold:
 		return m.Sold()
 	}
@@ -9453,6 +9516,8 @@ func (m *StockMutation) OldField(ctx context.Context, name string) (ent.Value, e
 		return m.OldLocked(ctx)
 	case stock.FieldInService:
 		return m.OldInService(ctx)
+	case stock.FieldWaitStart:
+		return m.OldWaitStart(ctx)
 	case stock.FieldSold:
 		return m.OldSold(ctx)
 	}
@@ -9513,6 +9578,13 @@ func (m *StockMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetInService(v)
 		return nil
+	case stock.FieldWaitStart:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetWaitStart(v)
+		return nil
 	case stock.FieldSold:
 		v, ok := value.(uint32)
 		if !ok {
@@ -9546,6 +9618,9 @@ func (m *StockMutation) AddedFields() []string {
 	if m.addin_service != nil {
 		fields = append(fields, stock.FieldInService)
 	}
+	if m.addwait_start != nil {
+		fields = append(fields, stock.FieldWaitStart)
+	}
 	if m.addsold != nil {
 		fields = append(fields, stock.FieldSold)
 	}
@@ -9569,6 +9644,8 @@ func (m *StockMutation) AddedField(name string) (ent.Value, bool) {
 		return m.AddedLocked()
 	case stock.FieldInService:
 		return m.AddedInService()
+	case stock.FieldWaitStart:
+		return m.AddedWaitStart()
 	case stock.FieldSold:
 		return m.AddedSold()
 	}
@@ -9621,6 +9698,13 @@ func (m *StockMutation) AddField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.AddInService(v)
+		return nil
+	case stock.FieldWaitStart:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddWaitStart(v)
 		return nil
 	case stock.FieldSold:
 		v, ok := value.(int32)
@@ -9676,6 +9760,9 @@ func (m *StockMutation) ResetField(name string) error {
 		return nil
 	case stock.FieldInService:
 		m.ResetInService()
+		return nil
+	case stock.FieldWaitStart:
+		m.ResetWaitStart()
 		return nil
 	case stock.FieldSold:
 		m.ResetSold()

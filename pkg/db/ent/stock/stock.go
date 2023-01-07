@@ -26,6 +26,8 @@ const (
 	FieldLocked = "locked"
 	// FieldInService holds the string denoting the in_service field in the database.
 	FieldInService = "in_service"
+	// FieldWaitStart holds the string denoting the wait_start field in the database.
+	FieldWaitStart = "wait_start"
 	// FieldSold holds the string denoting the sold field in the database.
 	FieldSold = "sold"
 	// Table holds the table name of the stock in the database.
@@ -42,6 +44,7 @@ var Columns = []string{
 	FieldTotal,
 	FieldLocked,
 	FieldInService,
+	FieldWaitStart,
 	FieldSold,
 }
 

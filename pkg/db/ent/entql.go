@@ -216,6 +216,7 @@ var schemaGraph = func() *sqlgraph.Schema {
 			stock.FieldTotal:     {Type: field.TypeUint32, Column: stock.FieldTotal},
 			stock.FieldLocked:    {Type: field.TypeUint32, Column: stock.FieldLocked},
 			stock.FieldInService: {Type: field.TypeUint32, Column: stock.FieldInService},
+			stock.FieldWaitStart: {Type: field.TypeUint32, Column: stock.FieldWaitStart},
 			stock.FieldSold:      {Type: field.TypeUint32, Column: stock.FieldSold},
 		},
 	}
@@ -1042,6 +1043,11 @@ func (f *StockFilter) WhereLocked(p entql.Uint32P) {
 // WhereInService applies the entql uint32 predicate on the in_service field.
 func (f *StockFilter) WhereInService(p entql.Uint32P) {
 	f.Where(p.Field(stock.FieldInService))
+}
+
+// WhereWaitStart applies the entql uint32 predicate on the wait_start field.
+func (f *StockFilter) WhereWaitStart(p entql.Uint32P) {
+	f.Where(p.Field(stock.FieldWaitStart))
 }
 
 // WhereSold applies the entql uint32 predicate on the sold field.

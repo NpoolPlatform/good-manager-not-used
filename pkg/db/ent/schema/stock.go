@@ -35,6 +35,8 @@ func (Stock) Fields() []ent.Field {
 		field.
 			Uint32("in_service"),
 		field.
+			Uint32("wait_start"),
+		field.
 			Uint32("sold"),
 	}
 }
