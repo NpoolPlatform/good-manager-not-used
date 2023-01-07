@@ -216,8 +216,6 @@ func UpdateSet(info *ent.Good, in *npool.GoodReq) (*ent.GoodUpdateOne, error) {
 			case npool.BenefitState_BenefitWait:
 				return nil, fmt.Errorf("permission denied")
 			case npool.BenefitState_BenefitTransferring:
-			case npool.BenefitState_BenefitCalculating:
-				return nil, fmt.Errorf("permission denied")
 			case npool.BenefitState_BenefitBookKeeping:
 				return nil, fmt.Errorf("permission denied")
 			default:
@@ -229,20 +227,6 @@ func UpdateSet(info *ent.Good, in *npool.GoodReq) (*ent.GoodUpdateOne, error) {
 				return nil, fmt.Errorf("permission denied")
 			case npool.BenefitState_BenefitTransferring:
 				return nil, fmt.Errorf("permission denied")
-			case npool.BenefitState_BenefitCalculating:
-			case npool.BenefitState_BenefitBookKeeping:
-				return nil, fmt.Errorf("permission denied")
-			default:
-				return nil, fmt.Errorf("unknown state")
-			}
-		case npool.BenefitState_BenefitCalculating.String():
-			switch in.GetBenefitState() {
-			case npool.BenefitState_BenefitWait:
-				return nil, fmt.Errorf("permission denied")
-			case npool.BenefitState_BenefitTransferring:
-				return nil, fmt.Errorf("permission denied")
-			case npool.BenefitState_BenefitCalculating:
-				return nil, fmt.Errorf("permission denied")
 			case npool.BenefitState_BenefitBookKeeping:
 			default:
 				return nil, fmt.Errorf("unknown state")
@@ -251,8 +235,6 @@ func UpdateSet(info *ent.Good, in *npool.GoodReq) (*ent.GoodUpdateOne, error) {
 			switch in.GetBenefitState() {
 			case npool.BenefitState_BenefitWait:
 			case npool.BenefitState_BenefitTransferring:
-				return nil, fmt.Errorf("permission denied")
-			case npool.BenefitState_BenefitCalculating:
 				return nil, fmt.Errorf("permission denied")
 			case npool.BenefitState_BenefitBookKeeping:
 				return nil, fmt.Errorf("permission denied")
