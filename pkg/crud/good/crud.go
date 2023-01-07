@@ -210,6 +210,59 @@ func UpdateSet(info *ent.Good, in *npool.GoodReq) (*ent.GoodUpdateOne, error) {
 		u.SetBenefitIntervalHours(in.GetBenefitIntervalHours())
 	}
 	if in.BenefitState != nil {
+		switch info.BenefitState {
+		case npool.BenefitState_BenefitWait.String():
+			switch in.GetBenefitState() {
+			case npool.BenefitState_BenefitWait:
+				return nil, fmt.Errorf("permission denied")
+			case npool.BenefitState_BenefitTransferring:
+			case npool.BenefitState_BenefitCalculating:
+				return nil, fmt.Errorf("permission denied")
+			case npool.BenefitState_BenefitBookKeeping:
+				return nil, fmt.Errorf("permission denied")
+			default:
+				return nil, fmt.Errorf("unknown state")
+			}
+		case npool.BenefitState_BenefitTransferring.String():
+			switch in.GetBenefitState() {
+			case npool.BenefitState_BenefitWait:
+				return nil, fmt.Errorf("permission denied")
+			case npool.BenefitState_BenefitTransferring:
+				return nil, fmt.Errorf("permission denied")
+			case npool.BenefitState_BenefitCalculating:
+			case npool.BenefitState_BenefitBookKeeping:
+				return nil, fmt.Errorf("permission denied")
+			default:
+				return nil, fmt.Errorf("unknown state")
+			}
+		case npool.BenefitState_BenefitCalculating.String():
+			switch in.GetBenefitState() {
+			case npool.BenefitState_BenefitWait:
+				return nil, fmt.Errorf("permission denied")
+			case npool.BenefitState_BenefitTransferring:
+				return nil, fmt.Errorf("permission denied")
+			case npool.BenefitState_BenefitCalculating:
+				return nil, fmt.Errorf("permission denied")
+			case npool.BenefitState_BenefitBookKeeping:
+			default:
+				return nil, fmt.Errorf("unknown state")
+			}
+		case npool.BenefitState_BenefitBookKeeping.String():
+			switch in.GetBenefitState() {
+			case npool.BenefitState_BenefitWait:
+			case npool.BenefitState_BenefitTransferring:
+				return nil, fmt.Errorf("permission denied")
+			case npool.BenefitState_BenefitCalculating:
+				return nil, fmt.Errorf("permission denied")
+			case npool.BenefitState_BenefitBookKeeping:
+				return nil, fmt.Errorf("permission denied")
+			default:
+				return nil, fmt.Errorf("unknown state")
+			}
+		default:
+			return nil, fmt.Errorf("unknown state")
+		}
+
 		u.SetBenefitState(in.GetBenefitState().String())
 		if info.BenefitState != npool.BenefitState_BenefitWait.String() {
 			if in.GetBenefitState() == npool.BenefitState_BenefitWait {

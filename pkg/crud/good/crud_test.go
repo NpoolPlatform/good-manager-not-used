@@ -62,7 +62,6 @@ var (
 	benefitType        = npool.BenefitType_BenefitTypePlatform
 	goodType           = npool.GoodType_GoodTypeClassicMining
 	supportCoinTypeIDs = []string{ret.SupportCoinTypeIds[0].String()}
-	benefitState       = npool.BenefitState_BenefitWait
 	req                = npool.GoodReq{
 		ID:                 &id,
 		DeviceInfoID:       &retID,
@@ -80,7 +79,6 @@ var (
 		DeliveryAt:         &ret.DeliveryAt,
 		StartAt:            &ret.StartAt,
 		TestOnly:           &ret.TestOnly,
-		BenefitState:       &benefitState,
 	}
 )
 
@@ -186,10 +184,32 @@ func update(t *testing.T) {
 	info, err = Update(context.Background(), &req)
 	if assert.Nil(t, err) {
 		ret.UpdatedAt = info.UpdatedAt
-		ret.CreatedAt = info.CreatedAt
 		assert.Equal(t, info.String(), ret.String())
 	}
+
+	state := npool.BenefitState_BenefitWait
+	req.BenefitState = &state
+
+	info, err = Update(context.Background(), &req)
+	assert.NotNil(t, err)
+
+	state = npool.BenefitState_BenefitTransferring
+	req.BenefitState = &state
+	ret.BenefitState = state.String()
+
+	info, err = Update(context.Background(), &req)
+	if assert.Nil(t, err) {
+		ret.UpdatedAt = info.UpdatedAt
+		assert.Equal(t, info.String(), ret.String())
+	}
+
+	state = npool.BenefitState_BenefitBookKeeping
+	req.BenefitState = &state
+
+	info, err = Update(context.Background(), &req)
+	assert.NotNil(t, err)
 }
+
 func row(t *testing.T) {
 	var err error
 	info, err = Row(context.Background(), ret.ID)
