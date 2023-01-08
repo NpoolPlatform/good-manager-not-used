@@ -246,8 +246,8 @@ func UpdateSet(info *ent.Good, in *npool.GoodReq) (*ent.GoodUpdateOne, error) {
 		}
 
 		u.SetBenefitState(in.GetBenefitState().String())
-		if info.BenefitState != npool.BenefitState_BenefitWait.String() {
-			if in.GetBenefitState() == npool.BenefitState_BenefitWait {
+		if info.BenefitState == npool.BenefitState_BenefitWait.String() {
+			if in.GetBenefitState() == npool.BenefitState_BenefitTransferring {
 				u.SetLastBenefitAt(uint32(time.Now().Unix()))
 			}
 		}

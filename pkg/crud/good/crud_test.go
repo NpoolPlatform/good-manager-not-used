@@ -201,13 +201,14 @@ func update(t *testing.T) {
 	info, err = Update(context.Background(), &req)
 	if assert.Nil(t, err) {
 		ret.UpdatedAt = info.UpdatedAt
+		ret.LastBenefitAt = info.LastBenefitAt
 		assert.Equal(t, info.String(), ret.String())
 	}
 
-	state = npool.BenefitState_BenefitBookKeeping
+	state = npool.BenefitState_BenefitWait
 	req.BenefitState = &state
 
-	info, err = Update(context.Background(), &req)
+	_, err = Update(context.Background(), &req)
 	assert.NotNil(t, err)
 }
 

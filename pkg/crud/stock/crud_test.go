@@ -119,16 +119,19 @@ func update(t *testing.T) {
 
 func addFields(t *testing.T) {
 	locked := int32(10)
+	waitStart := int32(10)
 	inService := int32(20)
 	sold := uint32(20)
 
 	req.Locked = &locked
+	req.WaitStart = &waitStart
 	req.InService = &inService
 	req.Sold = &sold
 
 	_stock.Locked = uint32(int32(_stock.Locked) + locked)
+	_stock.WaitStart = uint32(int32(_stock.WaitStart) + waitStart)
 	_stock.InService = uint32(int32(_stock.InService) + inService)
-	_stock.Sold += sold
+	_stock.Sold += uint32(waitStart)
 
 	info, err := AddFields(context.Background(), &req)
 	if assert.Nil(t, err) {
@@ -144,6 +147,7 @@ func addFields(t *testing.T) {
 
 	req.Locked = &locked
 	req.InService = &inService
+	req.WaitStart = nil
 
 	info, err = AddFields(context.Background(), &req)
 	if assert.Nil(t, err) {
