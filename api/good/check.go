@@ -116,6 +116,13 @@ func validate(info *npool.GoodReq) error {
 		}
 	}
 
+	if info.NextBenefitStartAmount != nil {
+		if _, err := decimal.NewFromString(info.GetNextBenefitStartAmount()); err != nil {
+			logger.Sugar().Errorw("validate", "NextBenefitStartAmount", info.GetNextBenefitStartAmount(), "error", err)
+			return status.Error(codes.InvalidArgument, fmt.Sprintf("NextBenefitStartAmount is invalid: %v", err))
+		}
+	}
+
 	return nil
 }
 

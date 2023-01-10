@@ -449,6 +449,26 @@ func (gu *GoodUpdate) ClearBenefitTids() *GoodUpdate {
 	return gu
 }
 
+// SetNextBenefitStartAmount sets the "next_benefit_start_amount" field.
+func (gu *GoodUpdate) SetNextBenefitStartAmount(d decimal.Decimal) *GoodUpdate {
+	gu.mutation.SetNextBenefitStartAmount(d)
+	return gu
+}
+
+// SetNillableNextBenefitStartAmount sets the "next_benefit_start_amount" field if the given value is not nil.
+func (gu *GoodUpdate) SetNillableNextBenefitStartAmount(d *decimal.Decimal) *GoodUpdate {
+	if d != nil {
+		gu.SetNextBenefitStartAmount(*d)
+	}
+	return gu
+}
+
+// ClearNextBenefitStartAmount clears the value of the "next_benefit_start_amount" field.
+func (gu *GoodUpdate) ClearNextBenefitStartAmount() *GoodUpdate {
+	gu.mutation.ClearNextBenefitStartAmount()
+	return gu
+}
+
 // Mutation returns the GoodMutation object of the builder.
 func (gu *GoodUpdate) Mutation() *GoodMutation {
 	return gu.mutation
@@ -858,6 +878,19 @@ func (gu *GoodUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeJSON,
 			Column: good.FieldBenefitTids,
+		})
+	}
+	if value, ok := gu.mutation.NextBenefitStartAmount(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
+			Value:  value,
+			Column: good.FieldNextBenefitStartAmount,
+		})
+	}
+	if gu.mutation.NextBenefitStartAmountCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
+			Column: good.FieldNextBenefitStartAmount,
 		})
 	}
 	_spec.Modifiers = gu.modifiers
@@ -1300,6 +1333,26 @@ func (guo *GoodUpdateOne) ClearBenefitTids() *GoodUpdateOne {
 	return guo
 }
 
+// SetNextBenefitStartAmount sets the "next_benefit_start_amount" field.
+func (guo *GoodUpdateOne) SetNextBenefitStartAmount(d decimal.Decimal) *GoodUpdateOne {
+	guo.mutation.SetNextBenefitStartAmount(d)
+	return guo
+}
+
+// SetNillableNextBenefitStartAmount sets the "next_benefit_start_amount" field if the given value is not nil.
+func (guo *GoodUpdateOne) SetNillableNextBenefitStartAmount(d *decimal.Decimal) *GoodUpdateOne {
+	if d != nil {
+		guo.SetNextBenefitStartAmount(*d)
+	}
+	return guo
+}
+
+// ClearNextBenefitStartAmount clears the value of the "next_benefit_start_amount" field.
+func (guo *GoodUpdateOne) ClearNextBenefitStartAmount() *GoodUpdateOne {
+	guo.mutation.ClearNextBenefitStartAmount()
+	return guo
+}
+
 // Mutation returns the GoodMutation object of the builder.
 func (guo *GoodUpdateOne) Mutation() *GoodMutation {
 	return guo.mutation
@@ -1739,6 +1792,19 @@ func (guo *GoodUpdateOne) sqlSave(ctx context.Context) (_node *Good, err error) 
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeJSON,
 			Column: good.FieldBenefitTids,
+		})
+	}
+	if value, ok := guo.mutation.NextBenefitStartAmount(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
+			Value:  value,
+			Column: good.FieldNextBenefitStartAmount,
+		})
+	}
+	if guo.mutation.NextBenefitStartAmountCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
+			Column: good.FieldNextBenefitStartAmount,
 		})
 	}
 	_spec.Modifiers = guo.modifiers

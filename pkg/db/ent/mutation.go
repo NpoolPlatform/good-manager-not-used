@@ -4814,6 +4814,7 @@ type GoodMutation struct {
 	last_benefit_at           *uint32
 	addlast_benefit_at        *int32
 	benefit_tids              *[]uuid.UUID
+	next_benefit_start_amount *decimal.Decimal
 	clearedFields             map[string]struct{}
 	done                      bool
 	oldValue                  func(context.Context) (*Good, error)
@@ -6110,6 +6111,55 @@ func (m *GoodMutation) ResetBenefitTids() {
 	delete(m.clearedFields, good.FieldBenefitTids)
 }
 
+// SetNextBenefitStartAmount sets the "next_benefit_start_amount" field.
+func (m *GoodMutation) SetNextBenefitStartAmount(d decimal.Decimal) {
+	m.next_benefit_start_amount = &d
+}
+
+// NextBenefitStartAmount returns the value of the "next_benefit_start_amount" field in the mutation.
+func (m *GoodMutation) NextBenefitStartAmount() (r decimal.Decimal, exists bool) {
+	v := m.next_benefit_start_amount
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldNextBenefitStartAmount returns the old "next_benefit_start_amount" field's value of the Good entity.
+// If the Good object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GoodMutation) OldNextBenefitStartAmount(ctx context.Context) (v decimal.Decimal, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldNextBenefitStartAmount is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldNextBenefitStartAmount requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldNextBenefitStartAmount: %w", err)
+	}
+	return oldValue.NextBenefitStartAmount, nil
+}
+
+// ClearNextBenefitStartAmount clears the value of the "next_benefit_start_amount" field.
+func (m *GoodMutation) ClearNextBenefitStartAmount() {
+	m.next_benefit_start_amount = nil
+	m.clearedFields[good.FieldNextBenefitStartAmount] = struct{}{}
+}
+
+// NextBenefitStartAmountCleared returns if the "next_benefit_start_amount" field was cleared in this mutation.
+func (m *GoodMutation) NextBenefitStartAmountCleared() bool {
+	_, ok := m.clearedFields[good.FieldNextBenefitStartAmount]
+	return ok
+}
+
+// ResetNextBenefitStartAmount resets all changes to the "next_benefit_start_amount" field.
+func (m *GoodMutation) ResetNextBenefitStartAmount() {
+	m.next_benefit_start_amount = nil
+	delete(m.clearedFields, good.FieldNextBenefitStartAmount)
+}
+
 // Where appends a list predicates to the GoodMutation builder.
 func (m *GoodMutation) Where(ps ...predicate.Good) {
 	m.predicates = append(m.predicates, ps...)
@@ -6129,7 +6179,7 @@ func (m *GoodMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *GoodMutation) Fields() []string {
-	fields := make([]string, 0, 22)
+	fields := make([]string, 0, 23)
 	if m.created_at != nil {
 		fields = append(fields, good.FieldCreatedAt)
 	}
@@ -6196,6 +6246,9 @@ func (m *GoodMutation) Fields() []string {
 	if m.benefit_tids != nil {
 		fields = append(fields, good.FieldBenefitTids)
 	}
+	if m.next_benefit_start_amount != nil {
+		fields = append(fields, good.FieldNextBenefitStartAmount)
+	}
 	return fields
 }
 
@@ -6248,6 +6301,8 @@ func (m *GoodMutation) Field(name string) (ent.Value, bool) {
 		return m.LastBenefitAt()
 	case good.FieldBenefitTids:
 		return m.BenefitTids()
+	case good.FieldNextBenefitStartAmount:
+		return m.NextBenefitStartAmount()
 	}
 	return nil, false
 }
@@ -6301,6 +6356,8 @@ func (m *GoodMutation) OldField(ctx context.Context, name string) (ent.Value, er
 		return m.OldLastBenefitAt(ctx)
 	case good.FieldBenefitTids:
 		return m.OldBenefitTids(ctx)
+	case good.FieldNextBenefitStartAmount:
+		return m.OldNextBenefitStartAmount(ctx)
 	}
 	return nil, fmt.Errorf("unknown Good field %s", name)
 }
@@ -6463,6 +6520,13 @@ func (m *GoodMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetBenefitTids(v)
+		return nil
+	case good.FieldNextBenefitStartAmount:
+		v, ok := value.(decimal.Decimal)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetNextBenefitStartAmount(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Good field %s", name)
@@ -6653,6 +6717,9 @@ func (m *GoodMutation) ClearedFields() []string {
 	if m.FieldCleared(good.FieldBenefitTids) {
 		fields = append(fields, good.FieldBenefitTids)
 	}
+	if m.FieldCleared(good.FieldNextBenefitStartAmount) {
+		fields = append(fields, good.FieldNextBenefitStartAmount)
+	}
 	return fields
 }
 
@@ -6714,6 +6781,9 @@ func (m *GoodMutation) ClearField(name string) error {
 		return nil
 	case good.FieldBenefitTids:
 		m.ClearBenefitTids()
+		return nil
+	case good.FieldNextBenefitStartAmount:
+		m.ClearNextBenefitStartAmount()
 		return nil
 	}
 	return fmt.Errorf("unknown Good nullable field %s", name)
@@ -6788,6 +6858,9 @@ func (m *GoodMutation) ResetField(name string) error {
 		return nil
 	case good.FieldBenefitTids:
 		m.ResetBenefitTids()
+		return nil
+	case good.FieldNextBenefitStartAmount:
+		m.ResetNextBenefitStartAmount()
 		return nil
 	}
 	return fmt.Errorf("unknown Good field %s", name)

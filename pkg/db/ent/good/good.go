@@ -57,6 +57,8 @@ const (
 	FieldLastBenefitAt = "last_benefit_at"
 	// FieldBenefitTids holds the string denoting the benefit_tids field in the database.
 	FieldBenefitTids = "benefit_tids"
+	// FieldNextBenefitStartAmount holds the string denoting the next_benefit_start_amount field in the database.
+	FieldNextBenefitStartAmount = "next_benefit_start_amount"
 	// Table holds the table name of the good in the database.
 	Table = "goods"
 )
@@ -86,6 +88,7 @@ var Columns = []string{
 	FieldBenefitState,
 	FieldLastBenefitAt,
 	FieldBenefitTids,
+	FieldNextBenefitStartAmount,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -147,6 +150,8 @@ var (
 	DefaultLastBenefitAt uint32
 	// DefaultBenefitTids holds the default value on creation for the "benefit_tids" field.
 	DefaultBenefitTids []uuid.UUID
+	// DefaultNextBenefitStartAmount holds the default value on creation for the "next_benefit_start_amount" field.
+	DefaultNextBenefitStartAmount decimal.Decimal
 	// DefaultID holds the default value on creation for the "id" field.
 	DefaultID func() uuid.UUID
 )

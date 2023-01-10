@@ -109,6 +109,13 @@ func (Good) Fields() []ent.Field {
 			JSON("benefit_tids", []uuid.UUID{}).
 			Optional().
 			Default([]uuid.UUID{}),
+		field.
+			Other("next_benefit_start_amount", decimal.Decimal{}).
+			SchemaType(map[string]string{
+				dialect.MySQL: "decimal(37,18)",
+			}).
+			Optional().
+			Default(decimal.Decimal{}),
 	}
 }
 

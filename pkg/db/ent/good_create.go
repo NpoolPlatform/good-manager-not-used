@@ -292,6 +292,20 @@ func (gc *GoodCreate) SetBenefitTids(u []uuid.UUID) *GoodCreate {
 	return gc
 }
 
+// SetNextBenefitStartAmount sets the "next_benefit_start_amount" field.
+func (gc *GoodCreate) SetNextBenefitStartAmount(d decimal.Decimal) *GoodCreate {
+	gc.mutation.SetNextBenefitStartAmount(d)
+	return gc
+}
+
+// SetNillableNextBenefitStartAmount sets the "next_benefit_start_amount" field if the given value is not nil.
+func (gc *GoodCreate) SetNillableNextBenefitStartAmount(d *decimal.Decimal) *GoodCreate {
+	if d != nil {
+		gc.SetNextBenefitStartAmount(*d)
+	}
+	return gc
+}
+
 // SetID sets the "id" field.
 func (gc *GoodCreate) SetID(u uuid.UUID) *GoodCreate {
 	gc.mutation.SetID(u)
@@ -472,6 +486,10 @@ func (gc *GoodCreate) defaults() error {
 	if _, ok := gc.mutation.BenefitTids(); !ok {
 		v := good.DefaultBenefitTids
 		gc.mutation.SetBenefitTids(v)
+	}
+	if _, ok := gc.mutation.NextBenefitStartAmount(); !ok {
+		v := good.DefaultNextBenefitStartAmount
+		gc.mutation.SetNextBenefitStartAmount(v)
 	}
 	if _, ok := gc.mutation.ID(); !ok {
 		if good.DefaultID == nil {
@@ -715,6 +733,14 @@ func (gc *GoodCreate) createSpec() (*Good, *sqlgraph.CreateSpec) {
 			Column: good.FieldBenefitTids,
 		})
 		_node.BenefitTids = value
+	}
+	if value, ok := gc.mutation.NextBenefitStartAmount(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
+			Value:  value,
+			Column: good.FieldNextBenefitStartAmount,
+		})
+		_node.NextBenefitStartAmount = value
 	}
 	return _node, _spec
 }
@@ -1181,6 +1207,24 @@ func (u *GoodUpsert) UpdateBenefitTids() *GoodUpsert {
 // ClearBenefitTids clears the value of the "benefit_tids" field.
 func (u *GoodUpsert) ClearBenefitTids() *GoodUpsert {
 	u.SetNull(good.FieldBenefitTids)
+	return u
+}
+
+// SetNextBenefitStartAmount sets the "next_benefit_start_amount" field.
+func (u *GoodUpsert) SetNextBenefitStartAmount(v decimal.Decimal) *GoodUpsert {
+	u.Set(good.FieldNextBenefitStartAmount, v)
+	return u
+}
+
+// UpdateNextBenefitStartAmount sets the "next_benefit_start_amount" field to the value that was provided on create.
+func (u *GoodUpsert) UpdateNextBenefitStartAmount() *GoodUpsert {
+	u.SetExcluded(good.FieldNextBenefitStartAmount)
+	return u
+}
+
+// ClearNextBenefitStartAmount clears the value of the "next_benefit_start_amount" field.
+func (u *GoodUpsert) ClearNextBenefitStartAmount() *GoodUpsert {
+	u.SetNull(good.FieldNextBenefitStartAmount)
 	return u
 }
 
@@ -1714,6 +1758,27 @@ func (u *GoodUpsertOne) UpdateBenefitTids() *GoodUpsertOne {
 func (u *GoodUpsertOne) ClearBenefitTids() *GoodUpsertOne {
 	return u.Update(func(s *GoodUpsert) {
 		s.ClearBenefitTids()
+	})
+}
+
+// SetNextBenefitStartAmount sets the "next_benefit_start_amount" field.
+func (u *GoodUpsertOne) SetNextBenefitStartAmount(v decimal.Decimal) *GoodUpsertOne {
+	return u.Update(func(s *GoodUpsert) {
+		s.SetNextBenefitStartAmount(v)
+	})
+}
+
+// UpdateNextBenefitStartAmount sets the "next_benefit_start_amount" field to the value that was provided on create.
+func (u *GoodUpsertOne) UpdateNextBenefitStartAmount() *GoodUpsertOne {
+	return u.Update(func(s *GoodUpsert) {
+		s.UpdateNextBenefitStartAmount()
+	})
+}
+
+// ClearNextBenefitStartAmount clears the value of the "next_benefit_start_amount" field.
+func (u *GoodUpsertOne) ClearNextBenefitStartAmount() *GoodUpsertOne {
+	return u.Update(func(s *GoodUpsert) {
+		s.ClearNextBenefitStartAmount()
 	})
 }
 
@@ -2413,6 +2478,27 @@ func (u *GoodUpsertBulk) UpdateBenefitTids() *GoodUpsertBulk {
 func (u *GoodUpsertBulk) ClearBenefitTids() *GoodUpsertBulk {
 	return u.Update(func(s *GoodUpsert) {
 		s.ClearBenefitTids()
+	})
+}
+
+// SetNextBenefitStartAmount sets the "next_benefit_start_amount" field.
+func (u *GoodUpsertBulk) SetNextBenefitStartAmount(v decimal.Decimal) *GoodUpsertBulk {
+	return u.Update(func(s *GoodUpsert) {
+		s.SetNextBenefitStartAmount(v)
+	})
+}
+
+// UpdateNextBenefitStartAmount sets the "next_benefit_start_amount" field to the value that was provided on create.
+func (u *GoodUpsertBulk) UpdateNextBenefitStartAmount() *GoodUpsertBulk {
+	return u.Update(func(s *GoodUpsert) {
+		s.UpdateNextBenefitStartAmount()
+	})
+}
+
+// ClearNextBenefitStartAmount clears the value of the "next_benefit_start_amount" field.
+func (u *GoodUpsertBulk) ClearNextBenefitStartAmount() *GoodUpsertBulk {
+	return u.Update(func(s *GoodUpsert) {
+		s.ClearNextBenefitStartAmount()
 	})
 }
 

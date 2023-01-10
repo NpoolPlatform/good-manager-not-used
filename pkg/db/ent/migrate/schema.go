@@ -138,6 +138,7 @@ var (
 		{Name: "benefit_state", Type: field.TypeString, Nullable: true, Default: "BenefitWait"},
 		{Name: "last_benefit_at", Type: field.TypeUint32, Nullable: true, Default: 0},
 		{Name: "benefit_tids", Type: field.TypeJSON, Nullable: true},
+		{Name: "next_benefit_start_amount", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
 	}
 	// GoodsTable holds the schema information for the "goods" table.
 	GoodsTable = &schema.Table{

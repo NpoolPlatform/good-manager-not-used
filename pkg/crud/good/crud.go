@@ -86,6 +86,13 @@ func CreateSet(c *ent.GoodCreate, in *npool.GoodReq) (*ent.GoodCreate, error) {
 	c.SetBenefitState(npool.BenefitState_BenefitWait.String())
 	c.SetLastBenefitAt(0)
 	c.SetBenefitTids([]uuid.UUID{})
+	if in.NextBenefitStartAmount != nil {
+		amount, err := decimal.NewFromString(in.GetNextBenefitStartAmount())
+		if err != nil {
+			return nil, err
+		}
+		c.SetNextBenefitStartAmount(amount)
+	}
 	return c, nil
 }
 
@@ -258,6 +265,13 @@ func UpdateSet(info *ent.Good, in *npool.GoodReq) (*ent.GoodUpdateOne, error) {
 			ids = append(ids, uuid.MustParse(id))
 		}
 		u.SetBenefitTids(ids)
+	}
+	if in.NextBenefitStartAmount != nil {
+		amount, err := decimal.NewFromString(in.GetNextBenefitStartAmount())
+		if err != nil {
+			return nil, err
+		}
+		u.SetNextBenefitStartAmount(amount)
 	}
 	return u, nil
 }

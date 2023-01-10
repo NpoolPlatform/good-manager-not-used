@@ -351,6 +351,10 @@ func init() {
 	goodDescBenefitTids := goodFields[19].Descriptor()
 	// good.DefaultBenefitTids holds the default value on creation for the benefit_tids field.
 	good.DefaultBenefitTids = goodDescBenefitTids.Default.([]uuid.UUID)
+	// goodDescNextBenefitStartAmount is the schema descriptor for next_benefit_start_amount field.
+	goodDescNextBenefitStartAmount := goodFields[20].Descriptor()
+	// good.DefaultNextBenefitStartAmount holds the default value on creation for the next_benefit_start_amount field.
+	good.DefaultNextBenefitStartAmount = goodDescNextBenefitStartAmount.Default.(decimal.Decimal)
 	// goodDescID is the schema descriptor for id field.
 	goodDescID := goodFields[0].Descriptor()
 	// good.DefaultID holds the default value on creation for the id field.
