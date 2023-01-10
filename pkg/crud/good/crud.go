@@ -93,6 +93,13 @@ func CreateSet(c *ent.GoodCreate, in *npool.GoodReq) (*ent.GoodCreate, error) {
 		}
 		c.SetNextBenefitStartAmount(amount)
 	}
+	if in.LastBenefitAmount != nil {
+		amount, err := decimal.NewFromString(in.GetLastBenefitAmount())
+		if err != nil {
+			return nil, err
+		}
+		c.SetLastBenefitAmount(amount)
+	}
 	return c, nil
 }
 
@@ -272,6 +279,13 @@ func UpdateSet(info *ent.Good, in *npool.GoodReq) (*ent.GoodUpdateOne, error) {
 			return nil, err
 		}
 		u.SetNextBenefitStartAmount(amount)
+	}
+	if in.LastBenefitAmount != nil {
+		amount, err := decimal.NewFromString(in.GetLastBenefitAmount())
+		if err != nil {
+			return nil, err
+		}
+		u.SetLastBenefitAmount(amount)
 	}
 	return u, nil
 }

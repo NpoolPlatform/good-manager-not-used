@@ -153,6 +153,7 @@ var schemaGraph = func() *sqlgraph.Schema {
 			good.FieldLastBenefitAt:          {Type: field.TypeUint32, Column: good.FieldLastBenefitAt},
 			good.FieldBenefitTids:            {Type: field.TypeJSON, Column: good.FieldBenefitTids},
 			good.FieldNextBenefitStartAmount: {Type: field.TypeOther, Column: good.FieldNextBenefitStartAmount},
+			good.FieldLastBenefitAmount:      {Type: field.TypeOther, Column: good.FieldLastBenefitAmount},
 		},
 	}
 	graph.Nodes[5] = &sqlgraph.Node{
@@ -804,6 +805,11 @@ func (f *GoodFilter) WhereBenefitTids(p entql.BytesP) {
 // WhereNextBenefitStartAmount applies the entql other predicate on the next_benefit_start_amount field.
 func (f *GoodFilter) WhereNextBenefitStartAmount(p entql.OtherP) {
 	f.Where(p.Field(good.FieldNextBenefitStartAmount))
+}
+
+// WhereLastBenefitAmount applies the entql other predicate on the last_benefit_amount field.
+func (f *GoodFilter) WhereLastBenefitAmount(p entql.OtherP) {
+	f.Where(p.Field(good.FieldLastBenefitAmount))
 }
 
 // addPredicate implements the predicateAdder interface.

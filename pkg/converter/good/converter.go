@@ -43,6 +43,7 @@ func Ent2Grpc(row *ent.Good) *npool.Good {
 		LastBenefitAt:          row.LastBenefitAt,
 		BenefitTIDs:            benefitTIDs,
 		NextBenefitStartAmount: row.NextBenefitStartAmount.String(),
+		LastBenefitAmount:      row.LastBenefitAmount.String(),
 		CreatedAt:              row.CreatedAt,
 		UpdatedAt:              row.UpdatedAt,
 		DeletedAt:              row.DeletedAt,

@@ -35,7 +35,7 @@ func init() {
 	}
 }
 
-var appDate = npool.Promotion{
+var ret = npool.Promotion{
 	ID:      uuid.NewString(),
 	AppID:   uuid.NewString(),
 	GoodID:  uuid.NewString(),
@@ -47,15 +47,15 @@ var appDate = npool.Promotion{
 }
 
 var (
-	appInfo = npool.PromotionReq{
-		ID:      &appDate.ID,
-		AppID:   &appDate.AppID,
-		GoodID:  &appDate.GoodID,
-		Message: &appDate.Message,
-		StartAt: &appDate.StartAt,
-		EndAt:   &appDate.EndAt,
-		Price:   &appDate.Price,
-		Posters: appDate.Posters,
+	req = npool.PromotionReq{
+		ID:      &ret.ID,
+		AppID:   &ret.AppID,
+		GoodID:  &ret.GoodID,
+		Message: &ret.Message,
+		StartAt: &ret.StartAt,
+		EndAt:   &ret.EndAt,
+		Price:   &ret.Price,
+		Posters: ret.Posters,
 	}
 )
 
@@ -63,11 +63,11 @@ var info *npool.Promotion
 
 func createPromotion(t *testing.T) {
 	var err error
-	info, err = CreatePromotion(context.Background(), &appInfo)
+	info, err = CreatePromotion(context.Background(), &req)
 	if assert.Nil(t, err) {
-		appDate.CreatedAt = info.CreatedAt
-		appDate.UpdatedAt = info.UpdatedAt
-		assert.Equal(t, info, &appDate)
+		ret.CreatedAt = info.CreatedAt
+		ret.UpdatedAt = info.UpdatedAt
+		assert.Equal(t, info, &ret)
 	}
 }
 
@@ -119,10 +119,10 @@ func createPromotions(t *testing.T) {
 
 func updatePromotion(t *testing.T) {
 	var err error
-	info, err = UpdatePromotion(context.Background(), &appInfo)
+	info, err = UpdatePromotion(context.Background(), &req)
 	if assert.Nil(t, err) {
-		appDate.UpdatedAt = info.UpdatedAt
-		assert.Equal(t, info, &appDate)
+		ret.UpdatedAt = info.UpdatedAt
+		assert.Equal(t, info, &ret)
 	}
 }
 
@@ -130,7 +130,7 @@ func getPromotion(t *testing.T) {
 	var err error
 	info, err = GetPromotion(context.Background(), info.ID)
 	if assert.Nil(t, err) {
-		assert.Equal(t, info, &appDate)
+		assert.Equal(t, info, &ret)
 	}
 }
 
@@ -144,7 +144,7 @@ func getPromotions(t *testing.T) {
 		}, 0, 1)
 	if assert.Nil(t, err) {
 		assert.Equal(t, total, uint32(1))
-		assert.Equal(t, infos[0], &appDate)
+		assert.Equal(t, infos[0], &ret)
 	}
 }
 
@@ -158,7 +158,7 @@ func getPromotionOnly(t *testing.T) {
 			},
 		})
 	if assert.Nil(t, err) {
-		assert.Equal(t, info, &appDate)
+		assert.Equal(t, info, &ret)
 	}
 }
 
@@ -186,8 +186,9 @@ func existPromotionConds(t *testing.T) {
 func deletePromotion(t *testing.T) {
 	info, err := DeletePromotion(context.Background(), info.ID)
 	if assert.Nil(t, err) {
-		appDate.DeletedAt = info.DeletedAt
-		assert.Equal(t, info, &appDate)
+		ret.DeletedAt = info.DeletedAt
+		ret.UpdatedAt = info.UpdatedAt
+		assert.Equal(t, info, &ret)
 	}
 }
 

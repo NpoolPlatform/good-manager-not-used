@@ -123,6 +123,13 @@ func validate(info *npool.GoodReq) error {
 		}
 	}
 
+	if info.LastBenefitAmount != nil {
+		if _, err := decimal.NewFromString(info.GetLastBenefitAmount()); err != nil {
+			logger.Sugar().Errorw("validate", "LastBenefitAmount", info.GetLastBenefitAmount(), "error", err)
+			return status.Error(codes.InvalidArgument, fmt.Sprintf("LastBenefitAmount is invalid: %v", err))
+		}
+	}
+
 	return nil
 }
 

@@ -52,6 +52,7 @@ var ret = ent.Good{
 	BenefitIntervalHours:   24,
 	BenefitState:           npool.BenefitState_BenefitWait.String(),
 	NextBenefitStartAmount: decimal.RequireFromString("0000000000000000000.000000000000000000"),
+	LastBenefitAmount:      decimal.RequireFromString("0000000000000000000.000000000000000000"),
 }
 
 var (
@@ -118,6 +119,7 @@ func createBulk(t *testing.T) {
 			BenefitIntervalHours:   24,
 			BenefitState:           npool.BenefitState_BenefitWait.String(),
 			NextBenefitStartAmount: decimal.RequireFromString("0000000000000000000.000000000000000000"),
+			LastBenefitAmount:      decimal.RequireFromString("0000000000000000000.000000000000000000"),
 		},
 		{
 			ID:                     uuid.New(),
@@ -139,6 +141,7 @@ func createBulk(t *testing.T) {
 			BenefitIntervalHours:   24,
 			BenefitState:           npool.BenefitState_BenefitWait.String(),
 			NextBenefitStartAmount: decimal.RequireFromString("0000000000000000000.000000000000000000"),
+			LastBenefitAmount:      decimal.RequireFromString("0000000000000000000.000000000000000000"),
 		},
 	}
 

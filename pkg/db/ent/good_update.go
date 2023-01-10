@@ -469,6 +469,26 @@ func (gu *GoodUpdate) ClearNextBenefitStartAmount() *GoodUpdate {
 	return gu
 }
 
+// SetLastBenefitAmount sets the "last_benefit_amount" field.
+func (gu *GoodUpdate) SetLastBenefitAmount(d decimal.Decimal) *GoodUpdate {
+	gu.mutation.SetLastBenefitAmount(d)
+	return gu
+}
+
+// SetNillableLastBenefitAmount sets the "last_benefit_amount" field if the given value is not nil.
+func (gu *GoodUpdate) SetNillableLastBenefitAmount(d *decimal.Decimal) *GoodUpdate {
+	if d != nil {
+		gu.SetLastBenefitAmount(*d)
+	}
+	return gu
+}
+
+// ClearLastBenefitAmount clears the value of the "last_benefit_amount" field.
+func (gu *GoodUpdate) ClearLastBenefitAmount() *GoodUpdate {
+	gu.mutation.ClearLastBenefitAmount()
+	return gu
+}
+
 // Mutation returns the GoodMutation object of the builder.
 func (gu *GoodUpdate) Mutation() *GoodMutation {
 	return gu.mutation
@@ -891,6 +911,19 @@ func (gu *GoodUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeOther,
 			Column: good.FieldNextBenefitStartAmount,
+		})
+	}
+	if value, ok := gu.mutation.LastBenefitAmount(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
+			Value:  value,
+			Column: good.FieldLastBenefitAmount,
+		})
+	}
+	if gu.mutation.LastBenefitAmountCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
+			Column: good.FieldLastBenefitAmount,
 		})
 	}
 	_spec.Modifiers = gu.modifiers
@@ -1353,6 +1386,26 @@ func (guo *GoodUpdateOne) ClearNextBenefitStartAmount() *GoodUpdateOne {
 	return guo
 }
 
+// SetLastBenefitAmount sets the "last_benefit_amount" field.
+func (guo *GoodUpdateOne) SetLastBenefitAmount(d decimal.Decimal) *GoodUpdateOne {
+	guo.mutation.SetLastBenefitAmount(d)
+	return guo
+}
+
+// SetNillableLastBenefitAmount sets the "last_benefit_amount" field if the given value is not nil.
+func (guo *GoodUpdateOne) SetNillableLastBenefitAmount(d *decimal.Decimal) *GoodUpdateOne {
+	if d != nil {
+		guo.SetLastBenefitAmount(*d)
+	}
+	return guo
+}
+
+// ClearLastBenefitAmount clears the value of the "last_benefit_amount" field.
+func (guo *GoodUpdateOne) ClearLastBenefitAmount() *GoodUpdateOne {
+	guo.mutation.ClearLastBenefitAmount()
+	return guo
+}
+
 // Mutation returns the GoodMutation object of the builder.
 func (guo *GoodUpdateOne) Mutation() *GoodMutation {
 	return guo.mutation
@@ -1805,6 +1858,19 @@ func (guo *GoodUpdateOne) sqlSave(ctx context.Context) (_node *Good, err error) 
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeOther,
 			Column: good.FieldNextBenefitStartAmount,
+		})
+	}
+	if value, ok := guo.mutation.LastBenefitAmount(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
+			Value:  value,
+			Column: good.FieldLastBenefitAmount,
+		})
+	}
+	if guo.mutation.LastBenefitAmountCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
+			Column: good.FieldLastBenefitAmount,
 		})
 	}
 	_spec.Modifiers = guo.modifiers

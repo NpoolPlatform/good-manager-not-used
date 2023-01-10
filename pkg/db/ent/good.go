@@ -64,6 +64,8 @@ type Good struct {
 	BenefitTids []uuid.UUID `json:"benefit_tids,omitempty"`
 	// NextBenefitStartAmount holds the value of the "next_benefit_start_amount" field.
 	NextBenefitStartAmount decimal.Decimal `json:"next_benefit_start_amount,omitempty"`
+	// LastBenefitAmount holds the value of the "last_benefit_amount" field.
+	LastBenefitAmount decimal.Decimal `json:"last_benefit_amount,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -73,7 +75,7 @@ func (*Good) scanValues(columns []string) ([]interface{}, error) {
 		switch columns[i] {
 		case good.FieldSupportCoinTypeIds, good.FieldBenefitTids:
 			values[i] = new([]byte)
-		case good.FieldPrice, good.FieldNextBenefitStartAmount:
+		case good.FieldPrice, good.FieldNextBenefitStartAmount, good.FieldLastBenefitAmount:
 			values[i] = new(decimal.Decimal)
 		case good.FieldTestOnly:
 			values[i] = new(sql.NullBool)
@@ -246,6 +248,12 @@ func (_go *Good) assignValues(columns []string, values []interface{}) error {
 			} else if value != nil {
 				_go.NextBenefitStartAmount = *value
 			}
+		case good.FieldLastBenefitAmount:
+			if value, ok := values[i].(*decimal.Decimal); !ok {
+				return fmt.Errorf("unexpected type %T for field last_benefit_amount", values[i])
+			} else if value != nil {
+				_go.LastBenefitAmount = *value
+			}
 		}
 	}
 	return nil
@@ -342,6 +350,9 @@ func (_go *Good) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("next_benefit_start_amount=")
 	builder.WriteString(fmt.Sprintf("%v", _go.NextBenefitStartAmount))
+	builder.WriteString(", ")
+	builder.WriteString("last_benefit_amount=")
+	builder.WriteString(fmt.Sprintf("%v", _go.LastBenefitAmount))
 	builder.WriteByte(')')
 	return builder.String()
 }
