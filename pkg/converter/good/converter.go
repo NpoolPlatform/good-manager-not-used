@@ -16,27 +16,37 @@ func Ent2Grpc(row *ent.Good) *npool.Good {
 		supportCoinTypeIDs = append(supportCoinTypeIDs, val.String())
 	}
 
+	benefitTIDs := []string{}
+	for _, val := range row.BenefitTids {
+		benefitTIDs = append(benefitTIDs, val.String())
+	}
+
 	return &npool.Good{
-		ID:                   row.ID.String(),
-		DeviceInfoID:         row.DeviceInfoID.String(),
-		DurationDays:         row.DurationDays,
-		CoinTypeID:           row.CoinTypeID.String(),
-		InheritFromGoodID:    row.InheritFromGoodID.String(),
-		VendorLocationID:     row.VendorLocationID.String(),
-		Price:                row.Price.String(),
-		BenefitType:          npool.BenefitType(npool.BenefitType_value[row.BenefitType]),
-		GoodType:             npool.GoodType(npool.GoodType_value[row.GoodType]),
-		Title:                row.Title,
-		Unit:                 row.Unit,
-		UnitAmount:           row.UnitAmount,
-		SupportCoinTypeIDs:   supportCoinTypeIDs,
-		DeliveryAt:           row.DeliveryAt,
-		StartAt:              row.StartAt,
-		TestOnly:             row.TestOnly,
-		BenefitIntervalHours: row.BenefitIntervalHours,
-		CreatedAt:            row.CreatedAt,
-		UpdatedAt:            row.UpdatedAt,
-		DeletedAt:            row.DeletedAt,
+		ID:                     row.ID.String(),
+		DeviceInfoID:           row.DeviceInfoID.String(),
+		DurationDays:           row.DurationDays,
+		CoinTypeID:             row.CoinTypeID.String(),
+		InheritFromGoodID:      row.InheritFromGoodID.String(),
+		VendorLocationID:       row.VendorLocationID.String(),
+		Price:                  row.Price.String(),
+		BenefitType:            npool.BenefitType(npool.BenefitType_value[row.BenefitType]),
+		GoodType:               npool.GoodType(npool.GoodType_value[row.GoodType]),
+		Title:                  row.Title,
+		Unit:                   row.Unit,
+		UnitAmount:             row.UnitAmount,
+		SupportCoinTypeIDs:     supportCoinTypeIDs,
+		DeliveryAt:             row.DeliveryAt,
+		StartAt:                row.StartAt,
+		TestOnly:               row.TestOnly,
+		BenefitIntervalHours:   row.BenefitIntervalHours,
+		BenefitState:           npool.BenefitState(npool.BenefitState_value[row.BenefitState]),
+		LastBenefitAt:          row.LastBenefitAt,
+		BenefitTIDs:            benefitTIDs,
+		NextBenefitStartAmount: row.NextBenefitStartAmount.String(),
+		LastBenefitAmount:      row.LastBenefitAmount.String(),
+		CreatedAt:              row.CreatedAt,
+		UpdatedAt:              row.UpdatedAt,
+		DeletedAt:              row.DeletedAt,
 	}
 }
 

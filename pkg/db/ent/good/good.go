@@ -51,6 +51,16 @@ const (
 	FieldTestOnly = "test_only"
 	// FieldBenefitIntervalHours holds the string denoting the benefit_interval_hours field in the database.
 	FieldBenefitIntervalHours = "benefit_interval_hours"
+	// FieldBenefitState holds the string denoting the benefit_state field in the database.
+	FieldBenefitState = "benefit_state"
+	// FieldLastBenefitAt holds the string denoting the last_benefit_at field in the database.
+	FieldLastBenefitAt = "last_benefit_at"
+	// FieldBenefitTids holds the string denoting the benefit_tids field in the database.
+	FieldBenefitTids = "benefit_tids"
+	// FieldNextBenefitStartAmount holds the string denoting the next_benefit_start_amount field in the database.
+	FieldNextBenefitStartAmount = "next_benefit_start_amount"
+	// FieldLastBenefitAmount holds the string denoting the last_benefit_amount field in the database.
+	FieldLastBenefitAmount = "last_benefit_amount"
 	// Table holds the table name of the good in the database.
 	Table = "goods"
 )
@@ -77,6 +87,11 @@ var Columns = []string{
 	FieldStartAt,
 	FieldTestOnly,
 	FieldBenefitIntervalHours,
+	FieldBenefitState,
+	FieldLastBenefitAt,
+	FieldBenefitTids,
+	FieldNextBenefitStartAmount,
+	FieldLastBenefitAmount,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -132,6 +147,16 @@ var (
 	DefaultTestOnly bool
 	// DefaultBenefitIntervalHours holds the default value on creation for the "benefit_interval_hours" field.
 	DefaultBenefitIntervalHours uint32
+	// DefaultBenefitState holds the default value on creation for the "benefit_state" field.
+	DefaultBenefitState string
+	// DefaultLastBenefitAt holds the default value on creation for the "last_benefit_at" field.
+	DefaultLastBenefitAt uint32
+	// DefaultBenefitTids holds the default value on creation for the "benefit_tids" field.
+	DefaultBenefitTids []uuid.UUID
+	// DefaultNextBenefitStartAmount holds the default value on creation for the "next_benefit_start_amount" field.
+	DefaultNextBenefitStartAmount decimal.Decimal
+	// DefaultLastBenefitAmount holds the default value on creation for the "last_benefit_amount" field.
+	DefaultLastBenefitAmount decimal.Decimal
 	// DefaultID holds the default value on creation for the "id" field.
 	DefaultID func() uuid.UUID
 )

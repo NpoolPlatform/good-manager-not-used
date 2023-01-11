@@ -109,6 +109,27 @@ func validate(info *npool.GoodReq) error {
 		return status.Error(codes.InvalidArgument, "GetPrice is Less than or equal to 0")
 	}
 
+	for _, id := range info.GetBenefitTIDs() {
+		if _, err := uuid.Parse(id); err != nil {
+			logger.Sugar().Errorw("validate", "Error", err)
+			return status.Error(codes.InvalidArgument, err.Error())
+		}
+	}
+
+	if info.NextBenefitStartAmount != nil {
+		if _, err := decimal.NewFromString(info.GetNextBenefitStartAmount()); err != nil {
+			logger.Sugar().Errorw("validate", "NextBenefitStartAmount", info.GetNextBenefitStartAmount(), "error", err)
+			return status.Error(codes.InvalidArgument, fmt.Sprintf("NextBenefitStartAmount is invalid: %v", err))
+		}
+	}
+
+	if info.LastBenefitAmount != nil {
+		if _, err := decimal.NewFromString(info.GetLastBenefitAmount()); err != nil {
+			logger.Sugar().Errorw("validate", "LastBenefitAmount", info.GetLastBenefitAmount(), "error", err)
+			return status.Error(codes.InvalidArgument, fmt.Sprintf("LastBenefitAmount is invalid: %v", err))
+		}
+	}
+
 	return nil
 }
 

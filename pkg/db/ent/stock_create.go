@@ -89,6 +89,12 @@ func (sc *StockCreate) SetInService(u uint32) *StockCreate {
 	return sc
 }
 
+// SetWaitStart sets the "wait_start" field.
+func (sc *StockCreate) SetWaitStart(u uint32) *StockCreate {
+	sc.mutation.SetWaitStart(u)
+	return sc
+}
+
 // SetSold sets the "sold" field.
 func (sc *StockCreate) SetSold(u uint32) *StockCreate {
 	sc.mutation.SetSold(u)
@@ -242,6 +248,9 @@ func (sc *StockCreate) check() error {
 	if _, ok := sc.mutation.InService(); !ok {
 		return &ValidationError{Name: "in_service", err: errors.New(`ent: missing required field "Stock.in_service"`)}
 	}
+	if _, ok := sc.mutation.WaitStart(); !ok {
+		return &ValidationError{Name: "wait_start", err: errors.New(`ent: missing required field "Stock.wait_start"`)}
+	}
 	if _, ok := sc.mutation.Sold(); !ok {
 		return &ValidationError{Name: "sold", err: errors.New(`ent: missing required field "Stock.sold"`)}
 	}
@@ -337,6 +346,14 @@ func (sc *StockCreate) createSpec() (*Stock, *sqlgraph.CreateSpec) {
 			Column: stock.FieldInService,
 		})
 		_node.InService = value
+	}
+	if value, ok := sc.mutation.WaitStart(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: stock.FieldWaitStart,
+		})
+		_node.WaitStart = value
 	}
 	if value, ok := sc.mutation.Sold(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -517,6 +534,24 @@ func (u *StockUpsert) UpdateInService() *StockUpsert {
 // AddInService adds v to the "in_service" field.
 func (u *StockUpsert) AddInService(v uint32) *StockUpsert {
 	u.Add(stock.FieldInService, v)
+	return u
+}
+
+// SetWaitStart sets the "wait_start" field.
+func (u *StockUpsert) SetWaitStart(v uint32) *StockUpsert {
+	u.Set(stock.FieldWaitStart, v)
+	return u
+}
+
+// UpdateWaitStart sets the "wait_start" field to the value that was provided on create.
+func (u *StockUpsert) UpdateWaitStart() *StockUpsert {
+	u.SetExcluded(stock.FieldWaitStart)
+	return u
+}
+
+// AddWaitStart adds v to the "wait_start" field.
+func (u *StockUpsert) AddWaitStart(v uint32) *StockUpsert {
+	u.Add(stock.FieldWaitStart, v)
 	return u
 }
 
@@ -725,6 +760,27 @@ func (u *StockUpsertOne) AddInService(v uint32) *StockUpsertOne {
 func (u *StockUpsertOne) UpdateInService() *StockUpsertOne {
 	return u.Update(func(s *StockUpsert) {
 		s.UpdateInService()
+	})
+}
+
+// SetWaitStart sets the "wait_start" field.
+func (u *StockUpsertOne) SetWaitStart(v uint32) *StockUpsertOne {
+	return u.Update(func(s *StockUpsert) {
+		s.SetWaitStart(v)
+	})
+}
+
+// AddWaitStart adds v to the "wait_start" field.
+func (u *StockUpsertOne) AddWaitStart(v uint32) *StockUpsertOne {
+	return u.Update(func(s *StockUpsert) {
+		s.AddWaitStart(v)
+	})
+}
+
+// UpdateWaitStart sets the "wait_start" field to the value that was provided on create.
+func (u *StockUpsertOne) UpdateWaitStart() *StockUpsertOne {
+	return u.Update(func(s *StockUpsert) {
+		s.UpdateWaitStart()
 	})
 }
 
@@ -1102,6 +1158,27 @@ func (u *StockUpsertBulk) AddInService(v uint32) *StockUpsertBulk {
 func (u *StockUpsertBulk) UpdateInService() *StockUpsertBulk {
 	return u.Update(func(s *StockUpsert) {
 		s.UpdateInService()
+	})
+}
+
+// SetWaitStart sets the "wait_start" field.
+func (u *StockUpsertBulk) SetWaitStart(v uint32) *StockUpsertBulk {
+	return u.Update(func(s *StockUpsert) {
+		s.SetWaitStart(v)
+	})
+}
+
+// AddWaitStart adds v to the "wait_start" field.
+func (u *StockUpsertBulk) AddWaitStart(v uint32) *StockUpsertBulk {
+	return u.Update(func(s *StockUpsert) {
+		s.AddWaitStart(v)
+	})
+}
+
+// UpdateWaitStart sets the "wait_start" field to the value that was provided on create.
+func (u *StockUpsertBulk) UpdateWaitStart() *StockUpsertBulk {
+	return u.Update(func(s *StockUpsert) {
+		s.UpdateWaitStart()
 	})
 }
 

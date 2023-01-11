@@ -1,3 +1,4 @@
+//nolint:dupl
 package good
 
 import (
@@ -32,23 +33,26 @@ func init() {
 }
 
 var ret = ent.Good{
-	ID:                   uuid.New(),
-	DeviceInfoID:         uuid.New(),
-	DurationDays:         100,
-	CoinTypeID:           uuid.New(),
-	InheritFromGoodID:    uuid.New(),
-	VendorLocationID:     uuid.New(),
-	Price:                decimal.RequireFromString("9999999999999999999.999999999999999999"),
-	BenefitType:          npool.BenefitType_BenefitTypePlatform.String(),
-	GoodType:             npool.GoodType_GoodTypeClassicMining.String(),
-	Title:                uuid.NewString(),
-	Unit:                 uuid.NewString(),
-	UnitAmount:           100,
-	SupportCoinTypeIds:   []uuid.UUID{uuid.New()},
-	DeliveryAt:           100,
-	StartAt:              100,
-	TestOnly:             true,
-	BenefitIntervalHours: 24,
+	ID:                     uuid.New(),
+	DeviceInfoID:           uuid.New(),
+	DurationDays:           100,
+	CoinTypeID:             uuid.New(),
+	InheritFromGoodID:      uuid.New(),
+	VendorLocationID:       uuid.New(),
+	Price:                  decimal.RequireFromString("9999999999999999999.999999999999999999"),
+	BenefitType:            npool.BenefitType_BenefitTypePlatform.String(),
+	GoodType:               npool.GoodType_GoodTypeClassicMining.String(),
+	Title:                  uuid.NewString(),
+	Unit:                   uuid.NewString(),
+	UnitAmount:             100,
+	SupportCoinTypeIds:     []uuid.UUID{uuid.New()},
+	DeliveryAt:             100,
+	StartAt:                100,
+	TestOnly:               true,
+	BenefitIntervalHours:   24,
+	BenefitState:           npool.BenefitState_BenefitWait.String(),
+	NextBenefitStartAmount: decimal.RequireFromString("0000000000000000000.000000000000000000"),
+	LastBenefitAmount:      decimal.RequireFromString("0000000000000000000.000000000000000000"),
 }
 
 var (
@@ -96,42 +100,48 @@ func create(t *testing.T) {
 func createBulk(t *testing.T) {
 	entities := []*ent.Good{
 		{
-			ID:                   uuid.New(),
-			DeviceInfoID:         uuid.New(),
-			DurationDays:         100,
-			CoinTypeID:           uuid.New(),
-			InheritFromGoodID:    uuid.New(),
-			VendorLocationID:     uuid.New(),
-			Price:                decimal.RequireFromString("9999999999999999999.999999999999999999"),
-			BenefitType:          npool.BenefitType_BenefitTypePlatform.String(),
-			GoodType:             npool.GoodType_GoodTypeClassicMining.String(),
-			Title:                uuid.NewString(),
-			Unit:                 uuid.NewString(),
-			UnitAmount:           100,
-			SupportCoinTypeIds:   []uuid.UUID{uuid.New()},
-			DeliveryAt:           100,
-			StartAt:              100,
-			TestOnly:             true,
-			BenefitIntervalHours: 24,
+			ID:                     uuid.New(),
+			DeviceInfoID:           uuid.New(),
+			DurationDays:           100,
+			CoinTypeID:             uuid.New(),
+			InheritFromGoodID:      uuid.New(),
+			VendorLocationID:       uuid.New(),
+			Price:                  decimal.RequireFromString("9999999999999999999.999999999999999999"),
+			BenefitType:            npool.BenefitType_BenefitTypePlatform.String(),
+			GoodType:               npool.GoodType_GoodTypeClassicMining.String(),
+			Title:                  uuid.NewString(),
+			Unit:                   uuid.NewString(),
+			UnitAmount:             100,
+			SupportCoinTypeIds:     []uuid.UUID{uuid.New()},
+			DeliveryAt:             100,
+			StartAt:                100,
+			TestOnly:               true,
+			BenefitIntervalHours:   24,
+			BenefitState:           npool.BenefitState_BenefitWait.String(),
+			NextBenefitStartAmount: decimal.RequireFromString("0000000000000000000.000000000000000000"),
+			LastBenefitAmount:      decimal.RequireFromString("0000000000000000000.000000000000000000"),
 		},
 		{
-			ID:                   uuid.New(),
-			DeviceInfoID:         uuid.New(),
-			DurationDays:         100,
-			CoinTypeID:           uuid.New(),
-			InheritFromGoodID:    uuid.New(),
-			VendorLocationID:     uuid.New(),
-			Price:                decimal.RequireFromString("9999999999999999999.999999999999999999"),
-			BenefitType:          npool.BenefitType_BenefitTypePlatform.String(),
-			GoodType:             npool.GoodType_GoodTypeClassicMining.String(),
-			Title:                uuid.NewString(),
-			Unit:                 uuid.NewString(),
-			UnitAmount:           100,
-			SupportCoinTypeIds:   []uuid.UUID{uuid.New()},
-			DeliveryAt:           100,
-			StartAt:              100,
-			TestOnly:             true,
-			BenefitIntervalHours: 24,
+			ID:                     uuid.New(),
+			DeviceInfoID:           uuid.New(),
+			DurationDays:           100,
+			CoinTypeID:             uuid.New(),
+			InheritFromGoodID:      uuid.New(),
+			VendorLocationID:       uuid.New(),
+			Price:                  decimal.RequireFromString("9999999999999999999.999999999999999999"),
+			BenefitType:            npool.BenefitType_BenefitTypePlatform.String(),
+			GoodType:               npool.GoodType_GoodTypeClassicMining.String(),
+			Title:                  uuid.NewString(),
+			Unit:                   uuid.NewString(),
+			UnitAmount:             100,
+			SupportCoinTypeIds:     []uuid.UUID{uuid.New()},
+			DeliveryAt:             100,
+			StartAt:                100,
+			TestOnly:               true,
+			BenefitIntervalHours:   24,
+			BenefitState:           npool.BenefitState_BenefitWait.String(),
+			NextBenefitStartAmount: decimal.RequireFromString("0000000000000000000.000000000000000000"),
+			LastBenefitAmount:      decimal.RequireFromString("0000000000000000000.000000000000000000"),
 		},
 	}
 
@@ -181,10 +191,33 @@ func update(t *testing.T) {
 	info, err = Update(context.Background(), &req)
 	if assert.Nil(t, err) {
 		ret.UpdatedAt = info.UpdatedAt
-		ret.CreatedAt = info.CreatedAt
 		assert.Equal(t, info.String(), ret.String())
 	}
+
+	state := npool.BenefitState_BenefitWait
+	req.BenefitState = &state
+
+	info, err = Update(context.Background(), &req)
+	assert.NotNil(t, err)
+
+	state = npool.BenefitState_BenefitTransferring
+	req.BenefitState = &state
+	ret.BenefitState = state.String()
+
+	info, err = Update(context.Background(), &req)
+	if assert.Nil(t, err) {
+		ret.UpdatedAt = info.UpdatedAt
+		ret.LastBenefitAt = info.LastBenefitAt
+		assert.Equal(t, info.String(), ret.String())
+	}
+
+	state = npool.BenefitState_BenefitWait
+	req.BenefitState = &state
+
+	_, err = Update(context.Background(), &req)
+	assert.NotNil(t, err)
 }
+
 func row(t *testing.T) {
 	var err error
 	info, err = Row(context.Background(), ret.ID)

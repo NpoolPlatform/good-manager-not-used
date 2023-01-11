@@ -97,6 +97,32 @@ func (Good) Fields() []ent.Field {
 			Uint32("benefit_interval_hours").
 			Optional().
 			Default(benefitHours),
+		field.
+			String("benefit_state").
+			Optional().
+			Default(good.BenefitState_BenefitWait.String()),
+		field.
+			Uint32("last_benefit_at").
+			Optional().
+			Default(0),
+		field.
+			JSON("benefit_tids", []uuid.UUID{}).
+			Optional().
+			Default([]uuid.UUID{}),
+		field.
+			Other("next_benefit_start_amount", decimal.Decimal{}).
+			SchemaType(map[string]string{
+				dialect.MySQL: "decimal(37,18)",
+			}).
+			Optional().
+			Default(decimal.Decimal{}),
+		field.
+			Other("last_benefit_amount", decimal.Decimal{}).
+			SchemaType(map[string]string{
+				dialect.MySQL: "decimal(37,18)",
+			}).
+			Optional().
+			Default(decimal.Decimal{}),
 	}
 }
 

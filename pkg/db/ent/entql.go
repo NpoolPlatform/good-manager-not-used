@@ -130,25 +130,30 @@ var schemaGraph = func() *sqlgraph.Schema {
 		},
 		Type: "Good",
 		Fields: map[string]*sqlgraph.FieldSpec{
-			good.FieldCreatedAt:            {Type: field.TypeUint32, Column: good.FieldCreatedAt},
-			good.FieldUpdatedAt:            {Type: field.TypeUint32, Column: good.FieldUpdatedAt},
-			good.FieldDeletedAt:            {Type: field.TypeUint32, Column: good.FieldDeletedAt},
-			good.FieldDeviceInfoID:         {Type: field.TypeUUID, Column: good.FieldDeviceInfoID},
-			good.FieldDurationDays:         {Type: field.TypeInt32, Column: good.FieldDurationDays},
-			good.FieldCoinTypeID:           {Type: field.TypeUUID, Column: good.FieldCoinTypeID},
-			good.FieldInheritFromGoodID:    {Type: field.TypeUUID, Column: good.FieldInheritFromGoodID},
-			good.FieldVendorLocationID:     {Type: field.TypeUUID, Column: good.FieldVendorLocationID},
-			good.FieldPrice:                {Type: field.TypeOther, Column: good.FieldPrice},
-			good.FieldBenefitType:          {Type: field.TypeString, Column: good.FieldBenefitType},
-			good.FieldGoodType:             {Type: field.TypeString, Column: good.FieldGoodType},
-			good.FieldTitle:                {Type: field.TypeString, Column: good.FieldTitle},
-			good.FieldUnit:                 {Type: field.TypeString, Column: good.FieldUnit},
-			good.FieldUnitAmount:           {Type: field.TypeInt32, Column: good.FieldUnitAmount},
-			good.FieldSupportCoinTypeIds:   {Type: field.TypeJSON, Column: good.FieldSupportCoinTypeIds},
-			good.FieldDeliveryAt:           {Type: field.TypeUint32, Column: good.FieldDeliveryAt},
-			good.FieldStartAt:              {Type: field.TypeUint32, Column: good.FieldStartAt},
-			good.FieldTestOnly:             {Type: field.TypeBool, Column: good.FieldTestOnly},
-			good.FieldBenefitIntervalHours: {Type: field.TypeUint32, Column: good.FieldBenefitIntervalHours},
+			good.FieldCreatedAt:              {Type: field.TypeUint32, Column: good.FieldCreatedAt},
+			good.FieldUpdatedAt:              {Type: field.TypeUint32, Column: good.FieldUpdatedAt},
+			good.FieldDeletedAt:              {Type: field.TypeUint32, Column: good.FieldDeletedAt},
+			good.FieldDeviceInfoID:           {Type: field.TypeUUID, Column: good.FieldDeviceInfoID},
+			good.FieldDurationDays:           {Type: field.TypeInt32, Column: good.FieldDurationDays},
+			good.FieldCoinTypeID:             {Type: field.TypeUUID, Column: good.FieldCoinTypeID},
+			good.FieldInheritFromGoodID:      {Type: field.TypeUUID, Column: good.FieldInheritFromGoodID},
+			good.FieldVendorLocationID:       {Type: field.TypeUUID, Column: good.FieldVendorLocationID},
+			good.FieldPrice:                  {Type: field.TypeOther, Column: good.FieldPrice},
+			good.FieldBenefitType:            {Type: field.TypeString, Column: good.FieldBenefitType},
+			good.FieldGoodType:               {Type: field.TypeString, Column: good.FieldGoodType},
+			good.FieldTitle:                  {Type: field.TypeString, Column: good.FieldTitle},
+			good.FieldUnit:                   {Type: field.TypeString, Column: good.FieldUnit},
+			good.FieldUnitAmount:             {Type: field.TypeInt32, Column: good.FieldUnitAmount},
+			good.FieldSupportCoinTypeIds:     {Type: field.TypeJSON, Column: good.FieldSupportCoinTypeIds},
+			good.FieldDeliveryAt:             {Type: field.TypeUint32, Column: good.FieldDeliveryAt},
+			good.FieldStartAt:                {Type: field.TypeUint32, Column: good.FieldStartAt},
+			good.FieldTestOnly:               {Type: field.TypeBool, Column: good.FieldTestOnly},
+			good.FieldBenefitIntervalHours:   {Type: field.TypeUint32, Column: good.FieldBenefitIntervalHours},
+			good.FieldBenefitState:           {Type: field.TypeString, Column: good.FieldBenefitState},
+			good.FieldLastBenefitAt:          {Type: field.TypeUint32, Column: good.FieldLastBenefitAt},
+			good.FieldBenefitTids:            {Type: field.TypeJSON, Column: good.FieldBenefitTids},
+			good.FieldNextBenefitStartAmount: {Type: field.TypeOther, Column: good.FieldNextBenefitStartAmount},
+			good.FieldLastBenefitAmount:      {Type: field.TypeOther, Column: good.FieldLastBenefitAmount},
 		},
 	}
 	graph.Nodes[5] = &sqlgraph.Node{
@@ -213,6 +218,7 @@ var schemaGraph = func() *sqlgraph.Schema {
 			stock.FieldTotal:     {Type: field.TypeUint32, Column: stock.FieldTotal},
 			stock.FieldLocked:    {Type: field.TypeUint32, Column: stock.FieldLocked},
 			stock.FieldInService: {Type: field.TypeUint32, Column: stock.FieldInService},
+			stock.FieldWaitStart: {Type: field.TypeUint32, Column: stock.FieldWaitStart},
 			stock.FieldSold:      {Type: field.TypeUint32, Column: stock.FieldSold},
 		},
 	}
@@ -781,6 +787,31 @@ func (f *GoodFilter) WhereBenefitIntervalHours(p entql.Uint32P) {
 	f.Where(p.Field(good.FieldBenefitIntervalHours))
 }
 
+// WhereBenefitState applies the entql string predicate on the benefit_state field.
+func (f *GoodFilter) WhereBenefitState(p entql.StringP) {
+	f.Where(p.Field(good.FieldBenefitState))
+}
+
+// WhereLastBenefitAt applies the entql uint32 predicate on the last_benefit_at field.
+func (f *GoodFilter) WhereLastBenefitAt(p entql.Uint32P) {
+	f.Where(p.Field(good.FieldLastBenefitAt))
+}
+
+// WhereBenefitTids applies the entql json.RawMessage predicate on the benefit_tids field.
+func (f *GoodFilter) WhereBenefitTids(p entql.BytesP) {
+	f.Where(p.Field(good.FieldBenefitTids))
+}
+
+// WhereNextBenefitStartAmount applies the entql other predicate on the next_benefit_start_amount field.
+func (f *GoodFilter) WhereNextBenefitStartAmount(p entql.OtherP) {
+	f.Where(p.Field(good.FieldNextBenefitStartAmount))
+}
+
+// WhereLastBenefitAmount applies the entql other predicate on the last_benefit_amount field.
+func (f *GoodFilter) WhereLastBenefitAmount(p entql.OtherP) {
+	f.Where(p.Field(good.FieldLastBenefitAmount))
+}
+
 // addPredicate implements the predicateAdder interface.
 func (pq *PromotionQuery) addPredicate(pred func(s *sql.Selector)) {
 	pq.predicates = append(pq.predicates, pred)
@@ -1024,6 +1055,11 @@ func (f *StockFilter) WhereLocked(p entql.Uint32P) {
 // WhereInService applies the entql uint32 predicate on the in_service field.
 func (f *StockFilter) WhereInService(p entql.Uint32P) {
 	f.Where(p.Field(stock.FieldInService))
+}
+
+// WhereWaitStart applies the entql uint32 predicate on the wait_start field.
+func (f *StockFilter) WhereWaitStart(p entql.Uint32P) {
+	f.Where(p.Field(stock.FieldWaitStart))
 }
 
 // WhereSold applies the entql uint32 predicate on the sold field.

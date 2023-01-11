@@ -128,6 +128,13 @@ func InService(v uint32) predicate.Stock {
 	})
 }
 
+// WaitStart applies equality check predicate on the "wait_start" field. It's identical to WaitStartEQ.
+func WaitStart(v uint32) predicate.Stock {
+	return predicate.Stock(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldWaitStart), v))
+	})
+}
+
 // Sold applies equality check predicate on the "sold" field. It's identical to SoldEQ.
 func Sold(v uint32) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
@@ -580,6 +587,70 @@ func InServiceLT(v uint32) predicate.Stock {
 func InServiceLTE(v uint32) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldInService), v))
+	})
+}
+
+// WaitStartEQ applies the EQ predicate on the "wait_start" field.
+func WaitStartEQ(v uint32) predicate.Stock {
+	return predicate.Stock(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldWaitStart), v))
+	})
+}
+
+// WaitStartNEQ applies the NEQ predicate on the "wait_start" field.
+func WaitStartNEQ(v uint32) predicate.Stock {
+	return predicate.Stock(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldWaitStart), v))
+	})
+}
+
+// WaitStartIn applies the In predicate on the "wait_start" field.
+func WaitStartIn(vs ...uint32) predicate.Stock {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Stock(func(s *sql.Selector) {
+		s.Where(sql.In(s.C(FieldWaitStart), v...))
+	})
+}
+
+// WaitStartNotIn applies the NotIn predicate on the "wait_start" field.
+func WaitStartNotIn(vs ...uint32) predicate.Stock {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Stock(func(s *sql.Selector) {
+		s.Where(sql.NotIn(s.C(FieldWaitStart), v...))
+	})
+}
+
+// WaitStartGT applies the GT predicate on the "wait_start" field.
+func WaitStartGT(v uint32) predicate.Stock {
+	return predicate.Stock(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldWaitStart), v))
+	})
+}
+
+// WaitStartGTE applies the GTE predicate on the "wait_start" field.
+func WaitStartGTE(v uint32) predicate.Stock {
+	return predicate.Stock(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldWaitStart), v))
+	})
+}
+
+// WaitStartLT applies the LT predicate on the "wait_start" field.
+func WaitStartLT(v uint32) predicate.Stock {
+	return predicate.Stock(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldWaitStart), v))
+	})
+}
+
+// WaitStartLTE applies the LTE predicate on the "wait_start" field.
+func WaitStartLTE(v uint32) predicate.Stock {
+	return predicate.Stock(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldWaitStart), v))
 	})
 }
 

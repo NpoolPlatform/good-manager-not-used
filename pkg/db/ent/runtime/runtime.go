@@ -339,6 +339,26 @@ func init() {
 	goodDescBenefitIntervalHours := goodFields[16].Descriptor()
 	// good.DefaultBenefitIntervalHours holds the default value on creation for the benefit_interval_hours field.
 	good.DefaultBenefitIntervalHours = goodDescBenefitIntervalHours.Default.(uint32)
+	// goodDescBenefitState is the schema descriptor for benefit_state field.
+	goodDescBenefitState := goodFields[17].Descriptor()
+	// good.DefaultBenefitState holds the default value on creation for the benefit_state field.
+	good.DefaultBenefitState = goodDescBenefitState.Default.(string)
+	// goodDescLastBenefitAt is the schema descriptor for last_benefit_at field.
+	goodDescLastBenefitAt := goodFields[18].Descriptor()
+	// good.DefaultLastBenefitAt holds the default value on creation for the last_benefit_at field.
+	good.DefaultLastBenefitAt = goodDescLastBenefitAt.Default.(uint32)
+	// goodDescBenefitTids is the schema descriptor for benefit_tids field.
+	goodDescBenefitTids := goodFields[19].Descriptor()
+	// good.DefaultBenefitTids holds the default value on creation for the benefit_tids field.
+	good.DefaultBenefitTids = goodDescBenefitTids.Default.([]uuid.UUID)
+	// goodDescNextBenefitStartAmount is the schema descriptor for next_benefit_start_amount field.
+	goodDescNextBenefitStartAmount := goodFields[20].Descriptor()
+	// good.DefaultNextBenefitStartAmount holds the default value on creation for the next_benefit_start_amount field.
+	good.DefaultNextBenefitStartAmount = goodDescNextBenefitStartAmount.Default.(decimal.Decimal)
+	// goodDescLastBenefitAmount is the schema descriptor for last_benefit_amount field.
+	goodDescLastBenefitAmount := goodFields[21].Descriptor()
+	// good.DefaultLastBenefitAmount holds the default value on creation for the last_benefit_amount field.
+	good.DefaultLastBenefitAmount = goodDescLastBenefitAmount.Default.(decimal.Decimal)
 	// goodDescID is the schema descriptor for id field.
 	goodDescID := goodFields[0].Descriptor()
 	// good.DefaultID holds the default value on creation for the id field.

@@ -129,6 +129,19 @@ func (su *StockUpdate) AddInService(u int32) *StockUpdate {
 	return su
 }
 
+// SetWaitStart sets the "wait_start" field.
+func (su *StockUpdate) SetWaitStart(u uint32) *StockUpdate {
+	su.mutation.ResetWaitStart()
+	su.mutation.SetWaitStart(u)
+	return su
+}
+
+// AddWaitStart adds u to the "wait_start" field.
+func (su *StockUpdate) AddWaitStart(u int32) *StockUpdate {
+	su.mutation.AddWaitStart(u)
+	return su
+}
+
 // SetSold sets the "sold" field.
 func (su *StockUpdate) SetSold(u uint32) *StockUpdate {
 	su.mutation.ResetSold()
@@ -331,6 +344,20 @@ func (su *StockUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: stock.FieldInService,
 		})
 	}
+	if value, ok := su.mutation.WaitStart(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: stock.FieldWaitStart,
+		})
+	}
+	if value, ok := su.mutation.AddedWaitStart(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: stock.FieldWaitStart,
+		})
+	}
 	if value, ok := su.mutation.Sold(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeUint32,
@@ -463,6 +490,19 @@ func (suo *StockUpdateOne) SetInService(u uint32) *StockUpdateOne {
 // AddInService adds u to the "in_service" field.
 func (suo *StockUpdateOne) AddInService(u int32) *StockUpdateOne {
 	suo.mutation.AddInService(u)
+	return suo
+}
+
+// SetWaitStart sets the "wait_start" field.
+func (suo *StockUpdateOne) SetWaitStart(u uint32) *StockUpdateOne {
+	suo.mutation.ResetWaitStart()
+	suo.mutation.SetWaitStart(u)
+	return suo
+}
+
+// AddWaitStart adds u to the "wait_start" field.
+func (suo *StockUpdateOne) AddWaitStart(u int32) *StockUpdateOne {
+	suo.mutation.AddWaitStart(u)
 	return suo
 }
 
@@ -696,6 +736,20 @@ func (suo *StockUpdateOne) sqlSave(ctx context.Context) (_node *Stock, err error
 			Type:   field.TypeUint32,
 			Value:  value,
 			Column: stock.FieldInService,
+		})
+	}
+	if value, ok := suo.mutation.WaitStart(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: stock.FieldWaitStart,
+		})
+	}
+	if value, ok := suo.mutation.AddedWaitStart(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: stock.FieldWaitStart,
 		})
 	}
 	if value, ok := suo.mutation.Sold(); ok {

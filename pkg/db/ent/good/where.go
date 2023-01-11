@@ -206,6 +206,34 @@ func BenefitIntervalHours(v uint32) predicate.Good {
 	})
 }
 
+// BenefitState applies equality check predicate on the "benefit_state" field. It's identical to BenefitStateEQ.
+func BenefitState(v string) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldBenefitState), v))
+	})
+}
+
+// LastBenefitAt applies equality check predicate on the "last_benefit_at" field. It's identical to LastBenefitAtEQ.
+func LastBenefitAt(v uint32) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldLastBenefitAt), v))
+	})
+}
+
+// NextBenefitStartAmount applies equality check predicate on the "next_benefit_start_amount" field. It's identical to NextBenefitStartAmountEQ.
+func NextBenefitStartAmount(v decimal.Decimal) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldNextBenefitStartAmount), v))
+	})
+}
+
+// LastBenefitAmount applies equality check predicate on the "last_benefit_amount" field. It's identical to LastBenefitAmountEQ.
+func LastBenefitAmount(v decimal.Decimal) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldLastBenefitAmount), v))
+	})
+}
+
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
 func CreatedAtEQ(v uint32) predicate.Good {
 	return predicate.Good(func(s *sql.Selector) {
@@ -1627,6 +1655,367 @@ func BenefitIntervalHoursIsNil() predicate.Good {
 func BenefitIntervalHoursNotNil() predicate.Good {
 	return predicate.Good(func(s *sql.Selector) {
 		s.Where(sql.NotNull(s.C(FieldBenefitIntervalHours)))
+	})
+}
+
+// BenefitStateEQ applies the EQ predicate on the "benefit_state" field.
+func BenefitStateEQ(v string) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldBenefitState), v))
+	})
+}
+
+// BenefitStateNEQ applies the NEQ predicate on the "benefit_state" field.
+func BenefitStateNEQ(v string) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldBenefitState), v))
+	})
+}
+
+// BenefitStateIn applies the In predicate on the "benefit_state" field.
+func BenefitStateIn(vs ...string) predicate.Good {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.In(s.C(FieldBenefitState), v...))
+	})
+}
+
+// BenefitStateNotIn applies the NotIn predicate on the "benefit_state" field.
+func BenefitStateNotIn(vs ...string) predicate.Good {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.NotIn(s.C(FieldBenefitState), v...))
+	})
+}
+
+// BenefitStateGT applies the GT predicate on the "benefit_state" field.
+func BenefitStateGT(v string) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldBenefitState), v))
+	})
+}
+
+// BenefitStateGTE applies the GTE predicate on the "benefit_state" field.
+func BenefitStateGTE(v string) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldBenefitState), v))
+	})
+}
+
+// BenefitStateLT applies the LT predicate on the "benefit_state" field.
+func BenefitStateLT(v string) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldBenefitState), v))
+	})
+}
+
+// BenefitStateLTE applies the LTE predicate on the "benefit_state" field.
+func BenefitStateLTE(v string) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldBenefitState), v))
+	})
+}
+
+// BenefitStateContains applies the Contains predicate on the "benefit_state" field.
+func BenefitStateContains(v string) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldBenefitState), v))
+	})
+}
+
+// BenefitStateHasPrefix applies the HasPrefix predicate on the "benefit_state" field.
+func BenefitStateHasPrefix(v string) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldBenefitState), v))
+	})
+}
+
+// BenefitStateHasSuffix applies the HasSuffix predicate on the "benefit_state" field.
+func BenefitStateHasSuffix(v string) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldBenefitState), v))
+	})
+}
+
+// BenefitStateIsNil applies the IsNil predicate on the "benefit_state" field.
+func BenefitStateIsNil() predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldBenefitState)))
+	})
+}
+
+// BenefitStateNotNil applies the NotNil predicate on the "benefit_state" field.
+func BenefitStateNotNil() predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldBenefitState)))
+	})
+}
+
+// BenefitStateEqualFold applies the EqualFold predicate on the "benefit_state" field.
+func BenefitStateEqualFold(v string) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldBenefitState), v))
+	})
+}
+
+// BenefitStateContainsFold applies the ContainsFold predicate on the "benefit_state" field.
+func BenefitStateContainsFold(v string) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldBenefitState), v))
+	})
+}
+
+// LastBenefitAtEQ applies the EQ predicate on the "last_benefit_at" field.
+func LastBenefitAtEQ(v uint32) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldLastBenefitAt), v))
+	})
+}
+
+// LastBenefitAtNEQ applies the NEQ predicate on the "last_benefit_at" field.
+func LastBenefitAtNEQ(v uint32) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldLastBenefitAt), v))
+	})
+}
+
+// LastBenefitAtIn applies the In predicate on the "last_benefit_at" field.
+func LastBenefitAtIn(vs ...uint32) predicate.Good {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.In(s.C(FieldLastBenefitAt), v...))
+	})
+}
+
+// LastBenefitAtNotIn applies the NotIn predicate on the "last_benefit_at" field.
+func LastBenefitAtNotIn(vs ...uint32) predicate.Good {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.NotIn(s.C(FieldLastBenefitAt), v...))
+	})
+}
+
+// LastBenefitAtGT applies the GT predicate on the "last_benefit_at" field.
+func LastBenefitAtGT(v uint32) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldLastBenefitAt), v))
+	})
+}
+
+// LastBenefitAtGTE applies the GTE predicate on the "last_benefit_at" field.
+func LastBenefitAtGTE(v uint32) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldLastBenefitAt), v))
+	})
+}
+
+// LastBenefitAtLT applies the LT predicate on the "last_benefit_at" field.
+func LastBenefitAtLT(v uint32) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldLastBenefitAt), v))
+	})
+}
+
+// LastBenefitAtLTE applies the LTE predicate on the "last_benefit_at" field.
+func LastBenefitAtLTE(v uint32) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldLastBenefitAt), v))
+	})
+}
+
+// LastBenefitAtIsNil applies the IsNil predicate on the "last_benefit_at" field.
+func LastBenefitAtIsNil() predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldLastBenefitAt)))
+	})
+}
+
+// LastBenefitAtNotNil applies the NotNil predicate on the "last_benefit_at" field.
+func LastBenefitAtNotNil() predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldLastBenefitAt)))
+	})
+}
+
+// BenefitTidsIsNil applies the IsNil predicate on the "benefit_tids" field.
+func BenefitTidsIsNil() predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldBenefitTids)))
+	})
+}
+
+// BenefitTidsNotNil applies the NotNil predicate on the "benefit_tids" field.
+func BenefitTidsNotNil() predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldBenefitTids)))
+	})
+}
+
+// NextBenefitStartAmountEQ applies the EQ predicate on the "next_benefit_start_amount" field.
+func NextBenefitStartAmountEQ(v decimal.Decimal) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldNextBenefitStartAmount), v))
+	})
+}
+
+// NextBenefitStartAmountNEQ applies the NEQ predicate on the "next_benefit_start_amount" field.
+func NextBenefitStartAmountNEQ(v decimal.Decimal) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldNextBenefitStartAmount), v))
+	})
+}
+
+// NextBenefitStartAmountIn applies the In predicate on the "next_benefit_start_amount" field.
+func NextBenefitStartAmountIn(vs ...decimal.Decimal) predicate.Good {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.In(s.C(FieldNextBenefitStartAmount), v...))
+	})
+}
+
+// NextBenefitStartAmountNotIn applies the NotIn predicate on the "next_benefit_start_amount" field.
+func NextBenefitStartAmountNotIn(vs ...decimal.Decimal) predicate.Good {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.NotIn(s.C(FieldNextBenefitStartAmount), v...))
+	})
+}
+
+// NextBenefitStartAmountGT applies the GT predicate on the "next_benefit_start_amount" field.
+func NextBenefitStartAmountGT(v decimal.Decimal) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldNextBenefitStartAmount), v))
+	})
+}
+
+// NextBenefitStartAmountGTE applies the GTE predicate on the "next_benefit_start_amount" field.
+func NextBenefitStartAmountGTE(v decimal.Decimal) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldNextBenefitStartAmount), v))
+	})
+}
+
+// NextBenefitStartAmountLT applies the LT predicate on the "next_benefit_start_amount" field.
+func NextBenefitStartAmountLT(v decimal.Decimal) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldNextBenefitStartAmount), v))
+	})
+}
+
+// NextBenefitStartAmountLTE applies the LTE predicate on the "next_benefit_start_amount" field.
+func NextBenefitStartAmountLTE(v decimal.Decimal) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldNextBenefitStartAmount), v))
+	})
+}
+
+// NextBenefitStartAmountIsNil applies the IsNil predicate on the "next_benefit_start_amount" field.
+func NextBenefitStartAmountIsNil() predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldNextBenefitStartAmount)))
+	})
+}
+
+// NextBenefitStartAmountNotNil applies the NotNil predicate on the "next_benefit_start_amount" field.
+func NextBenefitStartAmountNotNil() predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldNextBenefitStartAmount)))
+	})
+}
+
+// LastBenefitAmountEQ applies the EQ predicate on the "last_benefit_amount" field.
+func LastBenefitAmountEQ(v decimal.Decimal) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldLastBenefitAmount), v))
+	})
+}
+
+// LastBenefitAmountNEQ applies the NEQ predicate on the "last_benefit_amount" field.
+func LastBenefitAmountNEQ(v decimal.Decimal) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldLastBenefitAmount), v))
+	})
+}
+
+// LastBenefitAmountIn applies the In predicate on the "last_benefit_amount" field.
+func LastBenefitAmountIn(vs ...decimal.Decimal) predicate.Good {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.In(s.C(FieldLastBenefitAmount), v...))
+	})
+}
+
+// LastBenefitAmountNotIn applies the NotIn predicate on the "last_benefit_amount" field.
+func LastBenefitAmountNotIn(vs ...decimal.Decimal) predicate.Good {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.NotIn(s.C(FieldLastBenefitAmount), v...))
+	})
+}
+
+// LastBenefitAmountGT applies the GT predicate on the "last_benefit_amount" field.
+func LastBenefitAmountGT(v decimal.Decimal) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldLastBenefitAmount), v))
+	})
+}
+
+// LastBenefitAmountGTE applies the GTE predicate on the "last_benefit_amount" field.
+func LastBenefitAmountGTE(v decimal.Decimal) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldLastBenefitAmount), v))
+	})
+}
+
+// LastBenefitAmountLT applies the LT predicate on the "last_benefit_amount" field.
+func LastBenefitAmountLT(v decimal.Decimal) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldLastBenefitAmount), v))
+	})
+}
+
+// LastBenefitAmountLTE applies the LTE predicate on the "last_benefit_amount" field.
+func LastBenefitAmountLTE(v decimal.Decimal) predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldLastBenefitAmount), v))
+	})
+}
+
+// LastBenefitAmountIsNil applies the IsNil predicate on the "last_benefit_amount" field.
+func LastBenefitAmountIsNil() predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldLastBenefitAmount)))
+	})
+}
+
+// LastBenefitAmountNotNil applies the NotNil predicate on the "last_benefit_amount" field.
+func LastBenefitAmountNotNil() predicate.Good {
+	return predicate.Good(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldLastBenefitAmount)))
 	})
 }
 

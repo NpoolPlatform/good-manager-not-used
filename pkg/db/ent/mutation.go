@@ -4810,6 +4810,12 @@ type GoodMutation struct {
 	test_only                 *bool
 	benefit_interval_hours    *uint32
 	addbenefit_interval_hours *int32
+	benefit_state             *string
+	last_benefit_at           *uint32
+	addlast_benefit_at        *int32
+	benefit_tids              *[]uuid.UUID
+	next_benefit_start_amount *decimal.Decimal
+	last_benefit_amount       *decimal.Decimal
 	clearedFields             map[string]struct{}
 	done                      bool
 	oldValue                  func(context.Context) (*Good, error)
@@ -5938,6 +5944,272 @@ func (m *GoodMutation) ResetBenefitIntervalHours() {
 	delete(m.clearedFields, good.FieldBenefitIntervalHours)
 }
 
+// SetBenefitState sets the "benefit_state" field.
+func (m *GoodMutation) SetBenefitState(s string) {
+	m.benefit_state = &s
+}
+
+// BenefitState returns the value of the "benefit_state" field in the mutation.
+func (m *GoodMutation) BenefitState() (r string, exists bool) {
+	v := m.benefit_state
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldBenefitState returns the old "benefit_state" field's value of the Good entity.
+// If the Good object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GoodMutation) OldBenefitState(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldBenefitState is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldBenefitState requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldBenefitState: %w", err)
+	}
+	return oldValue.BenefitState, nil
+}
+
+// ClearBenefitState clears the value of the "benefit_state" field.
+func (m *GoodMutation) ClearBenefitState() {
+	m.benefit_state = nil
+	m.clearedFields[good.FieldBenefitState] = struct{}{}
+}
+
+// BenefitStateCleared returns if the "benefit_state" field was cleared in this mutation.
+func (m *GoodMutation) BenefitStateCleared() bool {
+	_, ok := m.clearedFields[good.FieldBenefitState]
+	return ok
+}
+
+// ResetBenefitState resets all changes to the "benefit_state" field.
+func (m *GoodMutation) ResetBenefitState() {
+	m.benefit_state = nil
+	delete(m.clearedFields, good.FieldBenefitState)
+}
+
+// SetLastBenefitAt sets the "last_benefit_at" field.
+func (m *GoodMutation) SetLastBenefitAt(u uint32) {
+	m.last_benefit_at = &u
+	m.addlast_benefit_at = nil
+}
+
+// LastBenefitAt returns the value of the "last_benefit_at" field in the mutation.
+func (m *GoodMutation) LastBenefitAt() (r uint32, exists bool) {
+	v := m.last_benefit_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldLastBenefitAt returns the old "last_benefit_at" field's value of the Good entity.
+// If the Good object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GoodMutation) OldLastBenefitAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldLastBenefitAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldLastBenefitAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldLastBenefitAt: %w", err)
+	}
+	return oldValue.LastBenefitAt, nil
+}
+
+// AddLastBenefitAt adds u to the "last_benefit_at" field.
+func (m *GoodMutation) AddLastBenefitAt(u int32) {
+	if m.addlast_benefit_at != nil {
+		*m.addlast_benefit_at += u
+	} else {
+		m.addlast_benefit_at = &u
+	}
+}
+
+// AddedLastBenefitAt returns the value that was added to the "last_benefit_at" field in this mutation.
+func (m *GoodMutation) AddedLastBenefitAt() (r int32, exists bool) {
+	v := m.addlast_benefit_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearLastBenefitAt clears the value of the "last_benefit_at" field.
+func (m *GoodMutation) ClearLastBenefitAt() {
+	m.last_benefit_at = nil
+	m.addlast_benefit_at = nil
+	m.clearedFields[good.FieldLastBenefitAt] = struct{}{}
+}
+
+// LastBenefitAtCleared returns if the "last_benefit_at" field was cleared in this mutation.
+func (m *GoodMutation) LastBenefitAtCleared() bool {
+	_, ok := m.clearedFields[good.FieldLastBenefitAt]
+	return ok
+}
+
+// ResetLastBenefitAt resets all changes to the "last_benefit_at" field.
+func (m *GoodMutation) ResetLastBenefitAt() {
+	m.last_benefit_at = nil
+	m.addlast_benefit_at = nil
+	delete(m.clearedFields, good.FieldLastBenefitAt)
+}
+
+// SetBenefitTids sets the "benefit_tids" field.
+func (m *GoodMutation) SetBenefitTids(u []uuid.UUID) {
+	m.benefit_tids = &u
+}
+
+// BenefitTids returns the value of the "benefit_tids" field in the mutation.
+func (m *GoodMutation) BenefitTids() (r []uuid.UUID, exists bool) {
+	v := m.benefit_tids
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldBenefitTids returns the old "benefit_tids" field's value of the Good entity.
+// If the Good object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GoodMutation) OldBenefitTids(ctx context.Context) (v []uuid.UUID, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldBenefitTids is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldBenefitTids requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldBenefitTids: %w", err)
+	}
+	return oldValue.BenefitTids, nil
+}
+
+// ClearBenefitTids clears the value of the "benefit_tids" field.
+func (m *GoodMutation) ClearBenefitTids() {
+	m.benefit_tids = nil
+	m.clearedFields[good.FieldBenefitTids] = struct{}{}
+}
+
+// BenefitTidsCleared returns if the "benefit_tids" field was cleared in this mutation.
+func (m *GoodMutation) BenefitTidsCleared() bool {
+	_, ok := m.clearedFields[good.FieldBenefitTids]
+	return ok
+}
+
+// ResetBenefitTids resets all changes to the "benefit_tids" field.
+func (m *GoodMutation) ResetBenefitTids() {
+	m.benefit_tids = nil
+	delete(m.clearedFields, good.FieldBenefitTids)
+}
+
+// SetNextBenefitStartAmount sets the "next_benefit_start_amount" field.
+func (m *GoodMutation) SetNextBenefitStartAmount(d decimal.Decimal) {
+	m.next_benefit_start_amount = &d
+}
+
+// NextBenefitStartAmount returns the value of the "next_benefit_start_amount" field in the mutation.
+func (m *GoodMutation) NextBenefitStartAmount() (r decimal.Decimal, exists bool) {
+	v := m.next_benefit_start_amount
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldNextBenefitStartAmount returns the old "next_benefit_start_amount" field's value of the Good entity.
+// If the Good object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GoodMutation) OldNextBenefitStartAmount(ctx context.Context) (v decimal.Decimal, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldNextBenefitStartAmount is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldNextBenefitStartAmount requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldNextBenefitStartAmount: %w", err)
+	}
+	return oldValue.NextBenefitStartAmount, nil
+}
+
+// ClearNextBenefitStartAmount clears the value of the "next_benefit_start_amount" field.
+func (m *GoodMutation) ClearNextBenefitStartAmount() {
+	m.next_benefit_start_amount = nil
+	m.clearedFields[good.FieldNextBenefitStartAmount] = struct{}{}
+}
+
+// NextBenefitStartAmountCleared returns if the "next_benefit_start_amount" field was cleared in this mutation.
+func (m *GoodMutation) NextBenefitStartAmountCleared() bool {
+	_, ok := m.clearedFields[good.FieldNextBenefitStartAmount]
+	return ok
+}
+
+// ResetNextBenefitStartAmount resets all changes to the "next_benefit_start_amount" field.
+func (m *GoodMutation) ResetNextBenefitStartAmount() {
+	m.next_benefit_start_amount = nil
+	delete(m.clearedFields, good.FieldNextBenefitStartAmount)
+}
+
+// SetLastBenefitAmount sets the "last_benefit_amount" field.
+func (m *GoodMutation) SetLastBenefitAmount(d decimal.Decimal) {
+	m.last_benefit_amount = &d
+}
+
+// LastBenefitAmount returns the value of the "last_benefit_amount" field in the mutation.
+func (m *GoodMutation) LastBenefitAmount() (r decimal.Decimal, exists bool) {
+	v := m.last_benefit_amount
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldLastBenefitAmount returns the old "last_benefit_amount" field's value of the Good entity.
+// If the Good object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GoodMutation) OldLastBenefitAmount(ctx context.Context) (v decimal.Decimal, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldLastBenefitAmount is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldLastBenefitAmount requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldLastBenefitAmount: %w", err)
+	}
+	return oldValue.LastBenefitAmount, nil
+}
+
+// ClearLastBenefitAmount clears the value of the "last_benefit_amount" field.
+func (m *GoodMutation) ClearLastBenefitAmount() {
+	m.last_benefit_amount = nil
+	m.clearedFields[good.FieldLastBenefitAmount] = struct{}{}
+}
+
+// LastBenefitAmountCleared returns if the "last_benefit_amount" field was cleared in this mutation.
+func (m *GoodMutation) LastBenefitAmountCleared() bool {
+	_, ok := m.clearedFields[good.FieldLastBenefitAmount]
+	return ok
+}
+
+// ResetLastBenefitAmount resets all changes to the "last_benefit_amount" field.
+func (m *GoodMutation) ResetLastBenefitAmount() {
+	m.last_benefit_amount = nil
+	delete(m.clearedFields, good.FieldLastBenefitAmount)
+}
+
 // Where appends a list predicates to the GoodMutation builder.
 func (m *GoodMutation) Where(ps ...predicate.Good) {
 	m.predicates = append(m.predicates, ps...)
@@ -5957,7 +6229,7 @@ func (m *GoodMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *GoodMutation) Fields() []string {
-	fields := make([]string, 0, 19)
+	fields := make([]string, 0, 24)
 	if m.created_at != nil {
 		fields = append(fields, good.FieldCreatedAt)
 	}
@@ -6015,6 +6287,21 @@ func (m *GoodMutation) Fields() []string {
 	if m.benefit_interval_hours != nil {
 		fields = append(fields, good.FieldBenefitIntervalHours)
 	}
+	if m.benefit_state != nil {
+		fields = append(fields, good.FieldBenefitState)
+	}
+	if m.last_benefit_at != nil {
+		fields = append(fields, good.FieldLastBenefitAt)
+	}
+	if m.benefit_tids != nil {
+		fields = append(fields, good.FieldBenefitTids)
+	}
+	if m.next_benefit_start_amount != nil {
+		fields = append(fields, good.FieldNextBenefitStartAmount)
+	}
+	if m.last_benefit_amount != nil {
+		fields = append(fields, good.FieldLastBenefitAmount)
+	}
 	return fields
 }
 
@@ -6061,6 +6348,16 @@ func (m *GoodMutation) Field(name string) (ent.Value, bool) {
 		return m.TestOnly()
 	case good.FieldBenefitIntervalHours:
 		return m.BenefitIntervalHours()
+	case good.FieldBenefitState:
+		return m.BenefitState()
+	case good.FieldLastBenefitAt:
+		return m.LastBenefitAt()
+	case good.FieldBenefitTids:
+		return m.BenefitTids()
+	case good.FieldNextBenefitStartAmount:
+		return m.NextBenefitStartAmount()
+	case good.FieldLastBenefitAmount:
+		return m.LastBenefitAmount()
 	}
 	return nil, false
 }
@@ -6108,6 +6405,16 @@ func (m *GoodMutation) OldField(ctx context.Context, name string) (ent.Value, er
 		return m.OldTestOnly(ctx)
 	case good.FieldBenefitIntervalHours:
 		return m.OldBenefitIntervalHours(ctx)
+	case good.FieldBenefitState:
+		return m.OldBenefitState(ctx)
+	case good.FieldLastBenefitAt:
+		return m.OldLastBenefitAt(ctx)
+	case good.FieldBenefitTids:
+		return m.OldBenefitTids(ctx)
+	case good.FieldNextBenefitStartAmount:
+		return m.OldNextBenefitStartAmount(ctx)
+	case good.FieldLastBenefitAmount:
+		return m.OldLastBenefitAmount(ctx)
 	}
 	return nil, fmt.Errorf("unknown Good field %s", name)
 }
@@ -6250,6 +6557,41 @@ func (m *GoodMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetBenefitIntervalHours(v)
 		return nil
+	case good.FieldBenefitState:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetBenefitState(v)
+		return nil
+	case good.FieldLastBenefitAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetLastBenefitAt(v)
+		return nil
+	case good.FieldBenefitTids:
+		v, ok := value.([]uuid.UUID)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetBenefitTids(v)
+		return nil
+	case good.FieldNextBenefitStartAmount:
+		v, ok := value.(decimal.Decimal)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetNextBenefitStartAmount(v)
+		return nil
+	case good.FieldLastBenefitAmount:
+		v, ok := value.(decimal.Decimal)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetLastBenefitAmount(v)
+		return nil
 	}
 	return fmt.Errorf("unknown Good field %s", name)
 }
@@ -6282,6 +6624,9 @@ func (m *GoodMutation) AddedFields() []string {
 	if m.addbenefit_interval_hours != nil {
 		fields = append(fields, good.FieldBenefitIntervalHours)
 	}
+	if m.addlast_benefit_at != nil {
+		fields = append(fields, good.FieldLastBenefitAt)
+	}
 	return fields
 }
 
@@ -6306,6 +6651,8 @@ func (m *GoodMutation) AddedField(name string) (ent.Value, bool) {
 		return m.AddedStartAt()
 	case good.FieldBenefitIntervalHours:
 		return m.AddedBenefitIntervalHours()
+	case good.FieldLastBenefitAt:
+		return m.AddedLastBenefitAt()
 	}
 	return nil, false
 }
@@ -6371,6 +6718,13 @@ func (m *GoodMutation) AddField(name string, value ent.Value) error {
 		}
 		m.AddBenefitIntervalHours(v)
 		return nil
+	case good.FieldLastBenefitAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddLastBenefitAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown Good numeric field %s", name)
 }
@@ -6417,6 +6771,21 @@ func (m *GoodMutation) ClearedFields() []string {
 	}
 	if m.FieldCleared(good.FieldBenefitIntervalHours) {
 		fields = append(fields, good.FieldBenefitIntervalHours)
+	}
+	if m.FieldCleared(good.FieldBenefitState) {
+		fields = append(fields, good.FieldBenefitState)
+	}
+	if m.FieldCleared(good.FieldLastBenefitAt) {
+		fields = append(fields, good.FieldLastBenefitAt)
+	}
+	if m.FieldCleared(good.FieldBenefitTids) {
+		fields = append(fields, good.FieldBenefitTids)
+	}
+	if m.FieldCleared(good.FieldNextBenefitStartAmount) {
+		fields = append(fields, good.FieldNextBenefitStartAmount)
+	}
+	if m.FieldCleared(good.FieldLastBenefitAmount) {
+		fields = append(fields, good.FieldLastBenefitAmount)
 	}
 	return fields
 }
@@ -6470,6 +6839,21 @@ func (m *GoodMutation) ClearField(name string) error {
 		return nil
 	case good.FieldBenefitIntervalHours:
 		m.ClearBenefitIntervalHours()
+		return nil
+	case good.FieldBenefitState:
+		m.ClearBenefitState()
+		return nil
+	case good.FieldLastBenefitAt:
+		m.ClearLastBenefitAt()
+		return nil
+	case good.FieldBenefitTids:
+		m.ClearBenefitTids()
+		return nil
+	case good.FieldNextBenefitStartAmount:
+		m.ClearNextBenefitStartAmount()
+		return nil
+	case good.FieldLastBenefitAmount:
+		m.ClearLastBenefitAmount()
 		return nil
 	}
 	return fmt.Errorf("unknown Good nullable field %s", name)
@@ -6535,6 +6919,21 @@ func (m *GoodMutation) ResetField(name string) error {
 		return nil
 	case good.FieldBenefitIntervalHours:
 		m.ResetBenefitIntervalHours()
+		return nil
+	case good.FieldBenefitState:
+		m.ResetBenefitState()
+		return nil
+	case good.FieldLastBenefitAt:
+		m.ResetLastBenefitAt()
+		return nil
+	case good.FieldBenefitTids:
+		m.ResetBenefitTids()
+		return nil
+	case good.FieldNextBenefitStartAmount:
+		m.ResetNextBenefitStartAmount()
+		return nil
+	case good.FieldLastBenefitAmount:
+		m.ResetLastBenefitAmount()
 		return nil
 	}
 	return fmt.Errorf("unknown Good field %s", name)
@@ -8569,6 +8968,8 @@ type StockMutation struct {
 	addlocked     *int32
 	in_service    *uint32
 	addin_service *int32
+	wait_start    *uint32
+	addwait_start *int32
 	sold          *uint32
 	addsold       *int32
 	clearedFields map[string]struct{}
@@ -9053,6 +9454,62 @@ func (m *StockMutation) ResetInService() {
 	m.addin_service = nil
 }
 
+// SetWaitStart sets the "wait_start" field.
+func (m *StockMutation) SetWaitStart(u uint32) {
+	m.wait_start = &u
+	m.addwait_start = nil
+}
+
+// WaitStart returns the value of the "wait_start" field in the mutation.
+func (m *StockMutation) WaitStart() (r uint32, exists bool) {
+	v := m.wait_start
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldWaitStart returns the old "wait_start" field's value of the Stock entity.
+// If the Stock object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *StockMutation) OldWaitStart(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldWaitStart is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldWaitStart requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldWaitStart: %w", err)
+	}
+	return oldValue.WaitStart, nil
+}
+
+// AddWaitStart adds u to the "wait_start" field.
+func (m *StockMutation) AddWaitStart(u int32) {
+	if m.addwait_start != nil {
+		*m.addwait_start += u
+	} else {
+		m.addwait_start = &u
+	}
+}
+
+// AddedWaitStart returns the value that was added to the "wait_start" field in this mutation.
+func (m *StockMutation) AddedWaitStart() (r int32, exists bool) {
+	v := m.addwait_start
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetWaitStart resets all changes to the "wait_start" field.
+func (m *StockMutation) ResetWaitStart() {
+	m.wait_start = nil
+	m.addwait_start = nil
+}
+
 // SetSold sets the "sold" field.
 func (m *StockMutation) SetSold(u uint32) {
 	m.sold = &u
@@ -9128,7 +9585,7 @@ func (m *StockMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *StockMutation) Fields() []string {
-	fields := make([]string, 0, 8)
+	fields := make([]string, 0, 9)
 	if m.created_at != nil {
 		fields = append(fields, stock.FieldCreatedAt)
 	}
@@ -9149,6 +9606,9 @@ func (m *StockMutation) Fields() []string {
 	}
 	if m.in_service != nil {
 		fields = append(fields, stock.FieldInService)
+	}
+	if m.wait_start != nil {
+		fields = append(fields, stock.FieldWaitStart)
 	}
 	if m.sold != nil {
 		fields = append(fields, stock.FieldSold)
@@ -9175,6 +9635,8 @@ func (m *StockMutation) Field(name string) (ent.Value, bool) {
 		return m.Locked()
 	case stock.FieldInService:
 		return m.InService()
+	case stock.FieldWaitStart:
+		return m.WaitStart()
 	case stock.FieldSold:
 		return m.Sold()
 	}
@@ -9200,6 +9662,8 @@ func (m *StockMutation) OldField(ctx context.Context, name string) (ent.Value, e
 		return m.OldLocked(ctx)
 	case stock.FieldInService:
 		return m.OldInService(ctx)
+	case stock.FieldWaitStart:
+		return m.OldWaitStart(ctx)
 	case stock.FieldSold:
 		return m.OldSold(ctx)
 	}
@@ -9260,6 +9724,13 @@ func (m *StockMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetInService(v)
 		return nil
+	case stock.FieldWaitStart:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetWaitStart(v)
+		return nil
 	case stock.FieldSold:
 		v, ok := value.(uint32)
 		if !ok {
@@ -9293,6 +9764,9 @@ func (m *StockMutation) AddedFields() []string {
 	if m.addin_service != nil {
 		fields = append(fields, stock.FieldInService)
 	}
+	if m.addwait_start != nil {
+		fields = append(fields, stock.FieldWaitStart)
+	}
 	if m.addsold != nil {
 		fields = append(fields, stock.FieldSold)
 	}
@@ -9316,6 +9790,8 @@ func (m *StockMutation) AddedField(name string) (ent.Value, bool) {
 		return m.AddedLocked()
 	case stock.FieldInService:
 		return m.AddedInService()
+	case stock.FieldWaitStart:
+		return m.AddedWaitStart()
 	case stock.FieldSold:
 		return m.AddedSold()
 	}
@@ -9368,6 +9844,13 @@ func (m *StockMutation) AddField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.AddInService(v)
+		return nil
+	case stock.FieldWaitStart:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddWaitStart(v)
 		return nil
 	case stock.FieldSold:
 		v, ok := value.(int32)
@@ -9423,6 +9906,9 @@ func (m *StockMutation) ResetField(name string) error {
 		return nil
 	case stock.FieldInService:
 		m.ResetInService()
+		return nil
+	case stock.FieldWaitStart:
+		m.ResetWaitStart()
 		return nil
 	case stock.FieldSold:
 		m.ResetSold()
