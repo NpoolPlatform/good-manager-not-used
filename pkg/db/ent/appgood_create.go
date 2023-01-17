@@ -280,6 +280,20 @@ func (agc *AppGoodCreate) SetDescriptions(s []string) *AppGoodCreate {
 	return agc
 }
 
+// SetGoodBanner sets the "good_banner" field.
+func (agc *AppGoodCreate) SetGoodBanner(s string) *AppGoodCreate {
+	agc.mutation.SetGoodBanner(s)
+	return agc
+}
+
+// SetNillableGoodBanner sets the "good_banner" field if the given value is not nil.
+func (agc *AppGoodCreate) SetNillableGoodBanner(s *string) *AppGoodCreate {
+	if s != nil {
+		agc.SetGoodBanner(*s)
+	}
+	return agc
+}
+
 // SetID sets the "id" field.
 func (agc *AppGoodCreate) SetID(u uuid.UUID) *AppGoodCreate {
 	agc.mutation.SetID(u)
@@ -453,6 +467,10 @@ func (agc *AppGoodCreate) defaults() error {
 	if _, ok := agc.mutation.Descriptions(); !ok {
 		v := appgood.DefaultDescriptions
 		agc.mutation.SetDescriptions(v)
+	}
+	if _, ok := agc.mutation.GoodBanner(); !ok {
+		v := appgood.DefaultGoodBanner
+		agc.mutation.SetGoodBanner(v)
 	}
 	if _, ok := agc.mutation.ID(); !ok {
 		if appgood.DefaultID == nil {
@@ -677,6 +695,14 @@ func (agc *AppGoodCreate) createSpec() (*AppGood, *sqlgraph.CreateSpec) {
 			Column: appgood.FieldDescriptions,
 		})
 		_node.Descriptions = value
+	}
+	if value, ok := agc.mutation.GoodBanner(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: appgood.FieldGoodBanner,
+		})
+		_node.GoodBanner = value
 	}
 	return _node, _spec
 }
@@ -1125,6 +1151,24 @@ func (u *AppGoodUpsert) UpdateDescriptions() *AppGoodUpsert {
 // ClearDescriptions clears the value of the "descriptions" field.
 func (u *AppGoodUpsert) ClearDescriptions() *AppGoodUpsert {
 	u.SetNull(appgood.FieldDescriptions)
+	return u
+}
+
+// SetGoodBanner sets the "good_banner" field.
+func (u *AppGoodUpsert) SetGoodBanner(v string) *AppGoodUpsert {
+	u.Set(appgood.FieldGoodBanner, v)
+	return u
+}
+
+// UpdateGoodBanner sets the "good_banner" field to the value that was provided on create.
+func (u *AppGoodUpsert) UpdateGoodBanner() *AppGoodUpsert {
+	u.SetExcluded(appgood.FieldGoodBanner)
+	return u
+}
+
+// ClearGoodBanner clears the value of the "good_banner" field.
+func (u *AppGoodUpsert) ClearGoodBanner() *AppGoodUpsert {
+	u.SetNull(appgood.FieldGoodBanner)
 	return u
 }
 
@@ -1637,6 +1681,27 @@ func (u *AppGoodUpsertOne) UpdateDescriptions() *AppGoodUpsertOne {
 func (u *AppGoodUpsertOne) ClearDescriptions() *AppGoodUpsertOne {
 	return u.Update(func(s *AppGoodUpsert) {
 		s.ClearDescriptions()
+	})
+}
+
+// SetGoodBanner sets the "good_banner" field.
+func (u *AppGoodUpsertOne) SetGoodBanner(v string) *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetGoodBanner(v)
+	})
+}
+
+// UpdateGoodBanner sets the "good_banner" field to the value that was provided on create.
+func (u *AppGoodUpsertOne) UpdateGoodBanner() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateGoodBanner()
+	})
+}
+
+// ClearGoodBanner clears the value of the "good_banner" field.
+func (u *AppGoodUpsertOne) ClearGoodBanner() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearGoodBanner()
 	})
 }
 
@@ -2315,6 +2380,27 @@ func (u *AppGoodUpsertBulk) UpdateDescriptions() *AppGoodUpsertBulk {
 func (u *AppGoodUpsertBulk) ClearDescriptions() *AppGoodUpsertBulk {
 	return u.Update(func(s *AppGoodUpsert) {
 		s.ClearDescriptions()
+	})
+}
+
+// SetGoodBanner sets the "good_banner" field.
+func (u *AppGoodUpsertBulk) SetGoodBanner(v string) *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetGoodBanner(v)
+	})
+}
+
+// UpdateGoodBanner sets the "good_banner" field to the value that was provided on create.
+func (u *AppGoodUpsertBulk) UpdateGoodBanner() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateGoodBanner()
+	})
+}
+
+// ClearGoodBanner clears the value of the "good_banner" field.
+func (u *AppGoodUpsertBulk) ClearGoodBanner() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearGoodBanner()
 	})
 }
 

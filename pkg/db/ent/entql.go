@@ -54,6 +54,7 @@ var schemaGraph = func() *sqlgraph.Schema {
 			appgood.FieldDailyRewardAmount:    {Type: field.TypeOther, Column: appgood.FieldDailyRewardAmount},
 			appgood.FieldCommissionSettleType: {Type: field.TypeString, Column: appgood.FieldCommissionSettleType},
 			appgood.FieldDescriptions:         {Type: field.TypeJSON, Column: appgood.FieldDescriptions},
+			appgood.FieldGoodBanner:           {Type: field.TypeString, Column: appgood.FieldGoodBanner},
 		},
 	}
 	graph.Nodes[1] = &sqlgraph.Node{
@@ -411,6 +412,11 @@ func (f *AppGoodFilter) WhereCommissionSettleType(p entql.StringP) {
 // WhereDescriptions applies the entql json.RawMessage predicate on the descriptions field.
 func (f *AppGoodFilter) WhereDescriptions(p entql.BytesP) {
 	f.Where(p.Field(appgood.FieldDescriptions))
+}
+
+// WhereGoodBanner applies the entql string predicate on the good_banner field.
+func (f *AppGoodFilter) WhereGoodBanner(p entql.StringP) {
+	f.Where(p.Field(appgood.FieldGoodBanner))
 }
 
 // addPredicate implements the predicateAdder interface.

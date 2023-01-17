@@ -213,6 +213,13 @@ func CommissionSettleType(v string) predicate.AppGood {
 	})
 }
 
+// GoodBanner applies equality check predicate on the "good_banner" field. It's identical to GoodBannerEQ.
+func GoodBanner(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldGoodBanner), v))
+	})
+}
+
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
 func CreatedAtEQ(v uint32) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
@@ -1606,6 +1613,119 @@ func DescriptionsIsNil() predicate.AppGood {
 func DescriptionsNotNil() predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
 		s.Where(sql.NotNull(s.C(FieldDescriptions)))
+	})
+}
+
+// GoodBannerEQ applies the EQ predicate on the "good_banner" field.
+func GoodBannerEQ(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldGoodBanner), v))
+	})
+}
+
+// GoodBannerNEQ applies the NEQ predicate on the "good_banner" field.
+func GoodBannerNEQ(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldGoodBanner), v))
+	})
+}
+
+// GoodBannerIn applies the In predicate on the "good_banner" field.
+func GoodBannerIn(vs ...string) predicate.AppGood {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.In(s.C(FieldGoodBanner), v...))
+	})
+}
+
+// GoodBannerNotIn applies the NotIn predicate on the "good_banner" field.
+func GoodBannerNotIn(vs ...string) predicate.AppGood {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotIn(s.C(FieldGoodBanner), v...))
+	})
+}
+
+// GoodBannerGT applies the GT predicate on the "good_banner" field.
+func GoodBannerGT(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldGoodBanner), v))
+	})
+}
+
+// GoodBannerGTE applies the GTE predicate on the "good_banner" field.
+func GoodBannerGTE(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldGoodBanner), v))
+	})
+}
+
+// GoodBannerLT applies the LT predicate on the "good_banner" field.
+func GoodBannerLT(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldGoodBanner), v))
+	})
+}
+
+// GoodBannerLTE applies the LTE predicate on the "good_banner" field.
+func GoodBannerLTE(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldGoodBanner), v))
+	})
+}
+
+// GoodBannerContains applies the Contains predicate on the "good_banner" field.
+func GoodBannerContains(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldGoodBanner), v))
+	})
+}
+
+// GoodBannerHasPrefix applies the HasPrefix predicate on the "good_banner" field.
+func GoodBannerHasPrefix(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldGoodBanner), v))
+	})
+}
+
+// GoodBannerHasSuffix applies the HasSuffix predicate on the "good_banner" field.
+func GoodBannerHasSuffix(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldGoodBanner), v))
+	})
+}
+
+// GoodBannerIsNil applies the IsNil predicate on the "good_banner" field.
+func GoodBannerIsNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldGoodBanner)))
+	})
+}
+
+// GoodBannerNotNil applies the NotNil predicate on the "good_banner" field.
+func GoodBannerNotNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldGoodBanner)))
+	})
+}
+
+// GoodBannerEqualFold applies the EqualFold predicate on the "good_banner" field.
+func GoodBannerEqualFold(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldGoodBanner), v))
+	})
+}
+
+// GoodBannerContainsFold applies the ContainsFold predicate on the "good_banner" field.
+func GoodBannerContainsFold(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldGoodBanner), v))
 	})
 }
 

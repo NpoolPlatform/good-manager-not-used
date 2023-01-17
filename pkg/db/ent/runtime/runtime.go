@@ -115,6 +115,10 @@ func init() {
 	appgoodDescDescriptions := appgoodFields[17].Descriptor()
 	// appgood.DefaultDescriptions holds the default value on creation for the descriptions field.
 	appgood.DefaultDescriptions = appgoodDescDescriptions.Default.([]string)
+	// appgoodDescGoodBanner is the schema descriptor for good_banner field.
+	appgoodDescGoodBanner := appgoodFields[18].Descriptor()
+	// appgood.DefaultGoodBanner holds the default value on creation for the good_banner field.
+	appgood.DefaultGoodBanner = appgoodDescGoodBanner.Default.(string)
 	// appgoodDescID is the schema descriptor for id field.
 	appgoodDescID := appgoodFields[0].Descriptor()
 	// appgood.DefaultID holds the default value on creation for the id field.

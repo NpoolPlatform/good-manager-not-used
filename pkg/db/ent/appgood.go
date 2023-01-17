@@ -58,6 +58,8 @@ type AppGood struct {
 	CommissionSettleType string `json:"commission_settle_type,omitempty"`
 	// Descriptions holds the value of the "descriptions" field.
 	Descriptions []string `json:"descriptions,omitempty"`
+	// GoodBanner holds the value of the "good_banner" field.
+	GoodBanner string `json:"good_banner,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -73,7 +75,7 @@ func (*AppGood) scanValues(columns []string) ([]interface{}, error) {
 			values[i] = new(sql.NullBool)
 		case appgood.FieldCreatedAt, appgood.FieldUpdatedAt, appgood.FieldDeletedAt, appgood.FieldDisplayIndex, appgood.FieldPurchaseLimit, appgood.FieldCommissionPercent, appgood.FieldSaleStartAt, appgood.FieldSaleEndAt, appgood.FieldServiceStartAt, appgood.FieldTechnicalFeeRatio, appgood.FieldElectricityFeeRatio:
 			values[i] = new(sql.NullInt64)
-		case appgood.FieldGoodName, appgood.FieldCommissionSettleType:
+		case appgood.FieldGoodName, appgood.FieldCommissionSettleType, appgood.FieldGoodBanner:
 			values[i] = new(sql.NullString)
 		case appgood.FieldID, appgood.FieldAppID, appgood.FieldGoodID:
 			values[i] = new(uuid.UUID)
@@ -220,6 +222,12 @@ func (ag *AppGood) assignValues(columns []string, values []interface{}) error {
 					return fmt.Errorf("unmarshal field descriptions: %w", err)
 				}
 			}
+		case appgood.FieldGoodBanner:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field good_banner", values[i])
+			} else if value.Valid {
+				ag.GoodBanner = value.String
+			}
 		}
 	}
 	return nil
@@ -307,6 +315,9 @@ func (ag *AppGood) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("descriptions=")
 	builder.WriteString(fmt.Sprintf("%v", ag.Descriptions))
+	builder.WriteString(", ")
+	builder.WriteString("good_banner=")
+	builder.WriteString(ag.GoodBanner)
 	builder.WriteByte(')')
 	return builder.String()
 }

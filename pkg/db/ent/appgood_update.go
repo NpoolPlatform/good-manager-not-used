@@ -445,6 +445,26 @@ func (agu *AppGoodUpdate) ClearDescriptions() *AppGoodUpdate {
 	return agu
 }
 
+// SetGoodBanner sets the "good_banner" field.
+func (agu *AppGoodUpdate) SetGoodBanner(s string) *AppGoodUpdate {
+	agu.mutation.SetGoodBanner(s)
+	return agu
+}
+
+// SetNillableGoodBanner sets the "good_banner" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableGoodBanner(s *string) *AppGoodUpdate {
+	if s != nil {
+		agu.SetGoodBanner(*s)
+	}
+	return agu
+}
+
+// ClearGoodBanner clears the value of the "good_banner" field.
+func (agu *AppGoodUpdate) ClearGoodBanner() *AppGoodUpdate {
+	agu.mutation.ClearGoodBanner()
+	return agu
+}
+
 // Mutation returns the AppGoodMutation object of the builder.
 func (agu *AppGoodUpdate) Mutation() *AppGoodMutation {
 	return agu.mutation
@@ -848,6 +868,19 @@ func (agu *AppGoodUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeJSON,
 			Column: appgood.FieldDescriptions,
+		})
+	}
+	if value, ok := agu.mutation.GoodBanner(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: appgood.FieldGoodBanner,
+		})
+	}
+	if agu.mutation.GoodBannerCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: appgood.FieldGoodBanner,
 		})
 	}
 	_spec.Modifiers = agu.modifiers
@@ -1286,6 +1319,26 @@ func (aguo *AppGoodUpdateOne) ClearDescriptions() *AppGoodUpdateOne {
 	return aguo
 }
 
+// SetGoodBanner sets the "good_banner" field.
+func (aguo *AppGoodUpdateOne) SetGoodBanner(s string) *AppGoodUpdateOne {
+	aguo.mutation.SetGoodBanner(s)
+	return aguo
+}
+
+// SetNillableGoodBanner sets the "good_banner" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableGoodBanner(s *string) *AppGoodUpdateOne {
+	if s != nil {
+		aguo.SetGoodBanner(*s)
+	}
+	return aguo
+}
+
+// ClearGoodBanner clears the value of the "good_banner" field.
+func (aguo *AppGoodUpdateOne) ClearGoodBanner() *AppGoodUpdateOne {
+	aguo.mutation.ClearGoodBanner()
+	return aguo
+}
+
 // Mutation returns the AppGoodMutation object of the builder.
 func (aguo *AppGoodUpdateOne) Mutation() *AppGoodMutation {
 	return aguo.mutation
@@ -1719,6 +1772,19 @@ func (aguo *AppGoodUpdateOne) sqlSave(ctx context.Context) (_node *AppGood, err 
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeJSON,
 			Column: appgood.FieldDescriptions,
+		})
+	}
+	if value, ok := aguo.mutation.GoodBanner(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: appgood.FieldGoodBanner,
+		})
+	}
+	if aguo.mutation.GoodBannerCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: appgood.FieldGoodBanner,
 		})
 	}
 	_spec.Modifiers = aguo.modifiers

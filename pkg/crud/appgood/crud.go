@@ -84,6 +84,9 @@ func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (*ent.AppGoodCreate, 
 	if in.Descriptions != nil {
 		c.SetDescriptions(in.GetDescriptions())
 	}
+	if in.GoodBanner != nil {
+		c.SetGoodBanner(in.GetGoodBanner())
+	}
 
 	return c, nil
 }
@@ -207,6 +210,9 @@ func UpdateSet(u *ent.AppGoodUpdateOne, in *npool.AppGoodReq) (*ent.AppGoodUpdat
 	}
 	if len(in.Descriptions) > 0 {
 		u.SetDescriptions(in.GetDescriptions())
+	}
+	if in.GoodBanner != nil {
+		u.SetGoodBanner(in.GetGoodBanner())
 	}
 	return u, nil
 }
