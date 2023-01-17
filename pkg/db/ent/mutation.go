@@ -82,6 +82,7 @@ type AppGoodMutation struct {
 	addelectricity_fee_ratio *int32
 	daily_reward_amount      *decimal.Decimal
 	commission_settle_type   *string
+	descriptions             *[]string
 	clearedFields            map[string]struct{}
 	done                     bool
 	oldValue                 func(context.Context) (*AppGood, error)
@@ -1286,6 +1287,55 @@ func (m *AppGoodMutation) ResetCommissionSettleType() {
 	delete(m.clearedFields, appgood.FieldCommissionSettleType)
 }
 
+// SetDescriptions sets the "descriptions" field.
+func (m *AppGoodMutation) SetDescriptions(s []string) {
+	m.descriptions = &s
+}
+
+// Descriptions returns the value of the "descriptions" field in the mutation.
+func (m *AppGoodMutation) Descriptions() (r []string, exists bool) {
+	v := m.descriptions
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDescriptions returns the old "descriptions" field's value of the AppGood entity.
+// If the AppGood object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodMutation) OldDescriptions(ctx context.Context) (v []string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDescriptions is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDescriptions requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDescriptions: %w", err)
+	}
+	return oldValue.Descriptions, nil
+}
+
+// ClearDescriptions clears the value of the "descriptions" field.
+func (m *AppGoodMutation) ClearDescriptions() {
+	m.descriptions = nil
+	m.clearedFields[appgood.FieldDescriptions] = struct{}{}
+}
+
+// DescriptionsCleared returns if the "descriptions" field was cleared in this mutation.
+func (m *AppGoodMutation) DescriptionsCleared() bool {
+	_, ok := m.clearedFields[appgood.FieldDescriptions]
+	return ok
+}
+
+// ResetDescriptions resets all changes to the "descriptions" field.
+func (m *AppGoodMutation) ResetDescriptions() {
+	m.descriptions = nil
+	delete(m.clearedFields, appgood.FieldDescriptions)
+}
+
 // Where appends a list predicates to the AppGoodMutation builder.
 func (m *AppGoodMutation) Where(ps ...predicate.AppGood) {
 	m.predicates = append(m.predicates, ps...)
@@ -1305,7 +1355,7 @@ func (m *AppGoodMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppGoodMutation) Fields() []string {
-	fields := make([]string, 0, 19)
+	fields := make([]string, 0, 20)
 	if m.created_at != nil {
 		fields = append(fields, appgood.FieldCreatedAt)
 	}
@@ -1363,6 +1413,9 @@ func (m *AppGoodMutation) Fields() []string {
 	if m.commission_settle_type != nil {
 		fields = append(fields, appgood.FieldCommissionSettleType)
 	}
+	if m.descriptions != nil {
+		fields = append(fields, appgood.FieldDescriptions)
+	}
 	return fields
 }
 
@@ -1409,6 +1462,8 @@ func (m *AppGoodMutation) Field(name string) (ent.Value, bool) {
 		return m.DailyRewardAmount()
 	case appgood.FieldCommissionSettleType:
 		return m.CommissionSettleType()
+	case appgood.FieldDescriptions:
+		return m.Descriptions()
 	}
 	return nil, false
 }
@@ -1456,6 +1511,8 @@ func (m *AppGoodMutation) OldField(ctx context.Context, name string) (ent.Value,
 		return m.OldDailyRewardAmount(ctx)
 	case appgood.FieldCommissionSettleType:
 		return m.OldCommissionSettleType(ctx)
+	case appgood.FieldDescriptions:
+		return m.OldDescriptions(ctx)
 	}
 	return nil, fmt.Errorf("unknown AppGood field %s", name)
 }
@@ -1597,6 +1654,13 @@ func (m *AppGoodMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetCommissionSettleType(v)
+		return nil
+	case appgood.FieldDescriptions:
+		v, ok := value.([]string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDescriptions(v)
 		return nil
 	}
 	return fmt.Errorf("unknown AppGood field %s", name)
@@ -1805,6 +1869,9 @@ func (m *AppGoodMutation) ClearedFields() []string {
 	if m.FieldCleared(appgood.FieldCommissionSettleType) {
 		fields = append(fields, appgood.FieldCommissionSettleType)
 	}
+	if m.FieldCleared(appgood.FieldDescriptions) {
+		fields = append(fields, appgood.FieldDescriptions)
+	}
 	return fields
 }
 
@@ -1860,6 +1927,9 @@ func (m *AppGoodMutation) ClearField(name string) error {
 		return nil
 	case appgood.FieldCommissionSettleType:
 		m.ClearCommissionSettleType()
+		return nil
+	case appgood.FieldDescriptions:
+		m.ClearDescriptions()
 		return nil
 	}
 	return fmt.Errorf("unknown AppGood nullable field %s", name)
@@ -1925,6 +1995,9 @@ func (m *AppGoodMutation) ResetField(name string) error {
 		return nil
 	case appgood.FieldCommissionSettleType:
 		m.ResetCommissionSettleType()
+		return nil
+	case appgood.FieldDescriptions:
+		m.ResetDescriptions()
 		return nil
 	}
 	return fmt.Errorf("unknown AppGood field %s", name)

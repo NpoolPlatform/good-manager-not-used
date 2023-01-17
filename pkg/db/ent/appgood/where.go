@@ -1595,6 +1595,20 @@ func CommissionSettleTypeContainsFold(v string) predicate.AppGood {
 	})
 }
 
+// DescriptionsIsNil applies the IsNil predicate on the "descriptions" field.
+func DescriptionsIsNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldDescriptions)))
+	})
+}
+
+// DescriptionsNotNil applies the NotNil predicate on the "descriptions" field.
+func DescriptionsNotNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldDescriptions)))
+	})
+}
+
 // And groups predicates with the AND operator between them.
 func And(predicates ...predicate.AppGood) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {

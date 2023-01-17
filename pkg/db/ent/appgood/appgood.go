@@ -51,6 +51,8 @@ const (
 	FieldDailyRewardAmount = "daily_reward_amount"
 	// FieldCommissionSettleType holds the string denoting the commission_settle_type field in the database.
 	FieldCommissionSettleType = "commission_settle_type"
+	// FieldDescriptions holds the string denoting the descriptions field in the database.
+	FieldDescriptions = "descriptions"
 	// Table holds the table name of the appgood in the database.
 	Table = "app_goods"
 )
@@ -77,6 +79,7 @@ var Columns = []string{
 	FieldElectricityFeeRatio,
 	FieldDailyRewardAmount,
 	FieldCommissionSettleType,
+	FieldDescriptions,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -134,6 +137,8 @@ var (
 	DefaultDailyRewardAmount decimal.Decimal
 	// DefaultCommissionSettleType holds the default value on creation for the "commission_settle_type" field.
 	DefaultCommissionSettleType string
+	// DefaultDescriptions holds the default value on creation for the "descriptions" field.
+	DefaultDescriptions []string
 	// DefaultID holds the default value on creation for the "id" field.
 	DefaultID func() uuid.UUID
 )

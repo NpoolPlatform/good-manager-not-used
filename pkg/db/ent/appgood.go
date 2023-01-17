@@ -3,6 +3,7 @@
 package ent
 
 import (
+	"encoding/json"
 	"fmt"
 	"strings"
 
@@ -55,6 +56,8 @@ type AppGood struct {
 	DailyRewardAmount decimal.Decimal `json:"daily_reward_amount,omitempty"`
 	// CommissionSettleType holds the value of the "commission_settle_type" field.
 	CommissionSettleType string `json:"commission_settle_type,omitempty"`
+	// Descriptions holds the value of the "descriptions" field.
+	Descriptions []string `json:"descriptions,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -62,6 +65,8 @@ func (*AppGood) scanValues(columns []string) ([]interface{}, error) {
 	values := make([]interface{}, len(columns))
 	for i := range columns {
 		switch columns[i] {
+		case appgood.FieldDescriptions:
+			values[i] = new([]byte)
 		case appgood.FieldPrice, appgood.FieldDailyRewardAmount:
 			values[i] = new(decimal.Decimal)
 		case appgood.FieldOnline, appgood.FieldVisible:
@@ -207,6 +212,14 @@ func (ag *AppGood) assignValues(columns []string, values []interface{}) error {
 			} else if value.Valid {
 				ag.CommissionSettleType = value.String
 			}
+		case appgood.FieldDescriptions:
+			if value, ok := values[i].(*[]byte); !ok {
+				return fmt.Errorf("unexpected type %T for field descriptions", values[i])
+			} else if value != nil && len(*value) > 0 {
+				if err := json.Unmarshal(*value, &ag.Descriptions); err != nil {
+					return fmt.Errorf("unmarshal field descriptions: %w", err)
+				}
+			}
 		}
 	}
 	return nil
@@ -291,6 +304,9 @@ func (ag *AppGood) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("commission_settle_type=")
 	builder.WriteString(ag.CommissionSettleType)
+	builder.WriteString(", ")
+	builder.WriteString("descriptions=")
+	builder.WriteString(fmt.Sprintf("%v", ag.Descriptions))
 	builder.WriteByte(')')
 	return builder.String()
 }

@@ -111,6 +111,10 @@ func init() {
 	appgoodDescCommissionSettleType := appgoodFields[16].Descriptor()
 	// appgood.DefaultCommissionSettleType holds the default value on creation for the commission_settle_type field.
 	appgood.DefaultCommissionSettleType = appgoodDescCommissionSettleType.Default.(string)
+	// appgoodDescDescriptions is the schema descriptor for descriptions field.
+	appgoodDescDescriptions := appgoodFields[17].Descriptor()
+	// appgood.DefaultDescriptions holds the default value on creation for the descriptions field.
+	appgood.DefaultDescriptions = appgoodDescDescriptions.Default.([]string)
 	// appgoodDescID is the schema descriptor for id field.
 	appgoodDescID := appgoodFields[0].Descriptor()
 	// appgood.DefaultID holds the default value on creation for the id field.

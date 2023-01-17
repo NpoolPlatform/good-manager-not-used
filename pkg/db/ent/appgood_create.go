@@ -274,6 +274,12 @@ func (agc *AppGoodCreate) SetNillableCommissionSettleType(s *string) *AppGoodCre
 	return agc
 }
 
+// SetDescriptions sets the "descriptions" field.
+func (agc *AppGoodCreate) SetDescriptions(s []string) *AppGoodCreate {
+	agc.mutation.SetDescriptions(s)
+	return agc
+}
+
 // SetID sets the "id" field.
 func (agc *AppGoodCreate) SetID(u uuid.UUID) *AppGoodCreate {
 	agc.mutation.SetID(u)
@@ -443,6 +449,10 @@ func (agc *AppGoodCreate) defaults() error {
 	if _, ok := agc.mutation.CommissionSettleType(); !ok {
 		v := appgood.DefaultCommissionSettleType
 		agc.mutation.SetCommissionSettleType(v)
+	}
+	if _, ok := agc.mutation.Descriptions(); !ok {
+		v := appgood.DefaultDescriptions
+		agc.mutation.SetDescriptions(v)
 	}
 	if _, ok := agc.mutation.ID(); !ok {
 		if appgood.DefaultID == nil {
@@ -659,6 +669,14 @@ func (agc *AppGoodCreate) createSpec() (*AppGood, *sqlgraph.CreateSpec) {
 			Column: appgood.FieldCommissionSettleType,
 		})
 		_node.CommissionSettleType = value
+	}
+	if value, ok := agc.mutation.Descriptions(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeJSON,
+			Value:  value,
+			Column: appgood.FieldDescriptions,
+		})
+		_node.Descriptions = value
 	}
 	return _node, _spec
 }
@@ -1089,6 +1107,24 @@ func (u *AppGoodUpsert) UpdateCommissionSettleType() *AppGoodUpsert {
 // ClearCommissionSettleType clears the value of the "commission_settle_type" field.
 func (u *AppGoodUpsert) ClearCommissionSettleType() *AppGoodUpsert {
 	u.SetNull(appgood.FieldCommissionSettleType)
+	return u
+}
+
+// SetDescriptions sets the "descriptions" field.
+func (u *AppGoodUpsert) SetDescriptions(v []string) *AppGoodUpsert {
+	u.Set(appgood.FieldDescriptions, v)
+	return u
+}
+
+// UpdateDescriptions sets the "descriptions" field to the value that was provided on create.
+func (u *AppGoodUpsert) UpdateDescriptions() *AppGoodUpsert {
+	u.SetExcluded(appgood.FieldDescriptions)
+	return u
+}
+
+// ClearDescriptions clears the value of the "descriptions" field.
+func (u *AppGoodUpsert) ClearDescriptions() *AppGoodUpsert {
+	u.SetNull(appgood.FieldDescriptions)
 	return u
 }
 
@@ -1580,6 +1616,27 @@ func (u *AppGoodUpsertOne) UpdateCommissionSettleType() *AppGoodUpsertOne {
 func (u *AppGoodUpsertOne) ClearCommissionSettleType() *AppGoodUpsertOne {
 	return u.Update(func(s *AppGoodUpsert) {
 		s.ClearCommissionSettleType()
+	})
+}
+
+// SetDescriptions sets the "descriptions" field.
+func (u *AppGoodUpsertOne) SetDescriptions(v []string) *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetDescriptions(v)
+	})
+}
+
+// UpdateDescriptions sets the "descriptions" field to the value that was provided on create.
+func (u *AppGoodUpsertOne) UpdateDescriptions() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateDescriptions()
+	})
+}
+
+// ClearDescriptions clears the value of the "descriptions" field.
+func (u *AppGoodUpsertOne) ClearDescriptions() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearDescriptions()
 	})
 }
 
@@ -2237,6 +2294,27 @@ func (u *AppGoodUpsertBulk) UpdateCommissionSettleType() *AppGoodUpsertBulk {
 func (u *AppGoodUpsertBulk) ClearCommissionSettleType() *AppGoodUpsertBulk {
 	return u.Update(func(s *AppGoodUpsert) {
 		s.ClearCommissionSettleType()
+	})
+}
+
+// SetDescriptions sets the "descriptions" field.
+func (u *AppGoodUpsertBulk) SetDescriptions(v []string) *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetDescriptions(v)
+	})
+}
+
+// UpdateDescriptions sets the "descriptions" field to the value that was provided on create.
+func (u *AppGoodUpsertBulk) UpdateDescriptions() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateDescriptions()
+	})
+}
+
+// ClearDescriptions clears the value of the "descriptions" field.
+func (u *AppGoodUpsertBulk) ClearDescriptions() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearDescriptions()
 	})
 }
 

@@ -433,6 +433,18 @@ func (agu *AppGoodUpdate) ClearCommissionSettleType() *AppGoodUpdate {
 	return agu
 }
 
+// SetDescriptions sets the "descriptions" field.
+func (agu *AppGoodUpdate) SetDescriptions(s []string) *AppGoodUpdate {
+	agu.mutation.SetDescriptions(s)
+	return agu
+}
+
+// ClearDescriptions clears the value of the "descriptions" field.
+func (agu *AppGoodUpdate) ClearDescriptions() *AppGoodUpdate {
+	agu.mutation.ClearDescriptions()
+	return agu
+}
+
 // Mutation returns the AppGoodMutation object of the builder.
 func (agu *AppGoodUpdate) Mutation() *AppGoodMutation {
 	return agu.mutation
@@ -823,6 +835,19 @@ func (agu *AppGoodUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Column: appgood.FieldCommissionSettleType,
+		})
+	}
+	if value, ok := agu.mutation.Descriptions(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeJSON,
+			Value:  value,
+			Column: appgood.FieldDescriptions,
+		})
+	}
+	if agu.mutation.DescriptionsCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeJSON,
+			Column: appgood.FieldDescriptions,
 		})
 	}
 	_spec.Modifiers = agu.modifiers
@@ -1249,6 +1274,18 @@ func (aguo *AppGoodUpdateOne) ClearCommissionSettleType() *AppGoodUpdateOne {
 	return aguo
 }
 
+// SetDescriptions sets the "descriptions" field.
+func (aguo *AppGoodUpdateOne) SetDescriptions(s []string) *AppGoodUpdateOne {
+	aguo.mutation.SetDescriptions(s)
+	return aguo
+}
+
+// ClearDescriptions clears the value of the "descriptions" field.
+func (aguo *AppGoodUpdateOne) ClearDescriptions() *AppGoodUpdateOne {
+	aguo.mutation.ClearDescriptions()
+	return aguo
+}
+
 // Mutation returns the AppGoodMutation object of the builder.
 func (aguo *AppGoodUpdateOne) Mutation() *AppGoodMutation {
 	return aguo.mutation
@@ -1669,6 +1706,19 @@ func (aguo *AppGoodUpdateOne) sqlSave(ctx context.Context) (_node *AppGood, err 
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Column: appgood.FieldCommissionSettleType,
+		})
+	}
+	if value, ok := aguo.mutation.Descriptions(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeJSON,
+			Value:  value,
+			Column: appgood.FieldDescriptions,
+		})
+	}
+	if aguo.mutation.DescriptionsCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeJSON,
+			Column: appgood.FieldDescriptions,
 		})
 	}
 	_spec.Modifiers = aguo.modifiers

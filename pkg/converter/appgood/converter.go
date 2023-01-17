@@ -33,6 +33,7 @@ func Ent2Grpc(row *ent.AppGood) *npool.AppGood {
 		ElectricityFeeRatio:  row.ElectricityFeeRatio,
 		DailyRewardAmount:    row.DailyRewardAmount.String(),
 		CommissionSettleType: commmgrpb.SettleType(commmgrpb.SettleType_value[row.CommissionSettleType]),
+		Descriptions:         row.Descriptions,
 	}
 }
 

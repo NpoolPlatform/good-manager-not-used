@@ -81,6 +81,9 @@ func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (*ent.AppGoodCreate, 
 	if in.CommissionSettleType != nil {
 		c.SetCommissionSettleType(in.GetCommissionSettleType().String())
 	}
+	if in.Descriptions != nil {
+		c.SetDescriptions(in.GetDescriptions())
+	}
 
 	return c, nil
 }
@@ -201,6 +204,9 @@ func UpdateSet(u *ent.AppGoodUpdateOne, in *npool.AppGoodReq) (*ent.AppGoodUpdat
 	}
 	if in.CommissionSettleType != nil {
 		u.SetCommissionSettleType(in.GetCommissionSettleType().String())
+	}
+	if len(in.Descriptions) > 0 {
+		u.SetDescriptions(in.GetDescriptions())
 	}
 	return u, nil
 }

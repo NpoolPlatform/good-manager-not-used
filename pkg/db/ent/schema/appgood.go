@@ -98,6 +98,10 @@ func (AppGood) Fields() []ent.Field {
 			String("commission_settle_type").
 			Optional().
 			Default(commmgrpb.SettleType_NoCommission.String()),
+		field.
+			JSON("descriptions", []string{}).
+			Optional().
+			Default([]string{}),
 	}
 }
 
