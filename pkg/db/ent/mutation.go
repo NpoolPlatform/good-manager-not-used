@@ -84,6 +84,7 @@ type AppGoodMutation struct {
 	commission_settle_type   *string
 	descriptions             *[]string
 	good_banner              *string
+	display_names            *[]string
 	clearedFields            map[string]struct{}
 	done                     bool
 	oldValue                 func(context.Context) (*AppGood, error)
@@ -1386,6 +1387,55 @@ func (m *AppGoodMutation) ResetGoodBanner() {
 	delete(m.clearedFields, appgood.FieldGoodBanner)
 }
 
+// SetDisplayNames sets the "display_names" field.
+func (m *AppGoodMutation) SetDisplayNames(s []string) {
+	m.display_names = &s
+}
+
+// DisplayNames returns the value of the "display_names" field in the mutation.
+func (m *AppGoodMutation) DisplayNames() (r []string, exists bool) {
+	v := m.display_names
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDisplayNames returns the old "display_names" field's value of the AppGood entity.
+// If the AppGood object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodMutation) OldDisplayNames(ctx context.Context) (v []string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDisplayNames is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDisplayNames requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDisplayNames: %w", err)
+	}
+	return oldValue.DisplayNames, nil
+}
+
+// ClearDisplayNames clears the value of the "display_names" field.
+func (m *AppGoodMutation) ClearDisplayNames() {
+	m.display_names = nil
+	m.clearedFields[appgood.FieldDisplayNames] = struct{}{}
+}
+
+// DisplayNamesCleared returns if the "display_names" field was cleared in this mutation.
+func (m *AppGoodMutation) DisplayNamesCleared() bool {
+	_, ok := m.clearedFields[appgood.FieldDisplayNames]
+	return ok
+}
+
+// ResetDisplayNames resets all changes to the "display_names" field.
+func (m *AppGoodMutation) ResetDisplayNames() {
+	m.display_names = nil
+	delete(m.clearedFields, appgood.FieldDisplayNames)
+}
+
 // Where appends a list predicates to the AppGoodMutation builder.
 func (m *AppGoodMutation) Where(ps ...predicate.AppGood) {
 	m.predicates = append(m.predicates, ps...)
@@ -1405,7 +1455,7 @@ func (m *AppGoodMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppGoodMutation) Fields() []string {
-	fields := make([]string, 0, 21)
+	fields := make([]string, 0, 22)
 	if m.created_at != nil {
 		fields = append(fields, appgood.FieldCreatedAt)
 	}
@@ -1469,6 +1519,9 @@ func (m *AppGoodMutation) Fields() []string {
 	if m.good_banner != nil {
 		fields = append(fields, appgood.FieldGoodBanner)
 	}
+	if m.display_names != nil {
+		fields = append(fields, appgood.FieldDisplayNames)
+	}
 	return fields
 }
 
@@ -1519,6 +1572,8 @@ func (m *AppGoodMutation) Field(name string) (ent.Value, bool) {
 		return m.Descriptions()
 	case appgood.FieldGoodBanner:
 		return m.GoodBanner()
+	case appgood.FieldDisplayNames:
+		return m.DisplayNames()
 	}
 	return nil, false
 }
@@ -1570,6 +1625,8 @@ func (m *AppGoodMutation) OldField(ctx context.Context, name string) (ent.Value,
 		return m.OldDescriptions(ctx)
 	case appgood.FieldGoodBanner:
 		return m.OldGoodBanner(ctx)
+	case appgood.FieldDisplayNames:
+		return m.OldDisplayNames(ctx)
 	}
 	return nil, fmt.Errorf("unknown AppGood field %s", name)
 }
@@ -1725,6 +1782,13 @@ func (m *AppGoodMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetGoodBanner(v)
+		return nil
+	case appgood.FieldDisplayNames:
+		v, ok := value.([]string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDisplayNames(v)
 		return nil
 	}
 	return fmt.Errorf("unknown AppGood field %s", name)
@@ -1939,6 +2003,9 @@ func (m *AppGoodMutation) ClearedFields() []string {
 	if m.FieldCleared(appgood.FieldGoodBanner) {
 		fields = append(fields, appgood.FieldGoodBanner)
 	}
+	if m.FieldCleared(appgood.FieldDisplayNames) {
+		fields = append(fields, appgood.FieldDisplayNames)
+	}
 	return fields
 }
 
@@ -2000,6 +2067,9 @@ func (m *AppGoodMutation) ClearField(name string) error {
 		return nil
 	case appgood.FieldGoodBanner:
 		m.ClearGoodBanner()
+		return nil
+	case appgood.FieldDisplayNames:
+		m.ClearDisplayNames()
 		return nil
 	}
 	return fmt.Errorf("unknown AppGood nullable field %s", name)
@@ -2071,6 +2141,9 @@ func (m *AppGoodMutation) ResetField(name string) error {
 		return nil
 	case appgood.FieldGoodBanner:
 		m.ResetGoodBanner()
+		return nil
+	case appgood.FieldDisplayNames:
+		m.ResetDisplayNames()
 		return nil
 	}
 	return fmt.Errorf("unknown AppGood field %s", name)

@@ -1729,6 +1729,20 @@ func GoodBannerContainsFold(v string) predicate.AppGood {
 	})
 }
 
+// DisplayNamesIsNil applies the IsNil predicate on the "display_names" field.
+func DisplayNamesIsNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldDisplayNames)))
+	})
+}
+
+// DisplayNamesNotNil applies the NotNil predicate on the "display_names" field.
+func DisplayNamesNotNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldDisplayNames)))
+	})
+}
+
 // And groups predicates with the AND operator between them.
 func And(predicates ...predicate.AppGood) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {

@@ -106,6 +106,10 @@ func (AppGood) Fields() []ent.Field {
 			String("good_banner").
 			Optional().
 			Default(""),
+		field.
+			JSON("display_names", []string{}).
+			Optional().
+			Default([]string{}),
 	}
 }
 

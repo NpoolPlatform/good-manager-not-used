@@ -55,6 +55,8 @@ const (
 	FieldDescriptions = "descriptions"
 	// FieldGoodBanner holds the string denoting the good_banner field in the database.
 	FieldGoodBanner = "good_banner"
+	// FieldDisplayNames holds the string denoting the display_names field in the database.
+	FieldDisplayNames = "display_names"
 	// Table holds the table name of the appgood in the database.
 	Table = "app_goods"
 )
@@ -83,6 +85,7 @@ var Columns = []string{
 	FieldCommissionSettleType,
 	FieldDescriptions,
 	FieldGoodBanner,
+	FieldDisplayNames,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -144,6 +147,8 @@ var (
 	DefaultDescriptions []string
 	// DefaultGoodBanner holds the default value on creation for the "good_banner" field.
 	DefaultGoodBanner string
+	// DefaultDisplayNames holds the default value on creation for the "display_names" field.
+	DefaultDisplayNames []string
 	// DefaultID holds the default value on creation for the "id" field.
 	DefaultID func() uuid.UUID
 )

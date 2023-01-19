@@ -465,6 +465,18 @@ func (agu *AppGoodUpdate) ClearGoodBanner() *AppGoodUpdate {
 	return agu
 }
 
+// SetDisplayNames sets the "display_names" field.
+func (agu *AppGoodUpdate) SetDisplayNames(s []string) *AppGoodUpdate {
+	agu.mutation.SetDisplayNames(s)
+	return agu
+}
+
+// ClearDisplayNames clears the value of the "display_names" field.
+func (agu *AppGoodUpdate) ClearDisplayNames() *AppGoodUpdate {
+	agu.mutation.ClearDisplayNames()
+	return agu
+}
+
 // Mutation returns the AppGoodMutation object of the builder.
 func (agu *AppGoodUpdate) Mutation() *AppGoodMutation {
 	return agu.mutation
@@ -881,6 +893,19 @@ func (agu *AppGoodUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Column: appgood.FieldGoodBanner,
+		})
+	}
+	if value, ok := agu.mutation.DisplayNames(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeJSON,
+			Value:  value,
+			Column: appgood.FieldDisplayNames,
+		})
+	}
+	if agu.mutation.DisplayNamesCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeJSON,
+			Column: appgood.FieldDisplayNames,
 		})
 	}
 	_spec.Modifiers = agu.modifiers
@@ -1339,6 +1364,18 @@ func (aguo *AppGoodUpdateOne) ClearGoodBanner() *AppGoodUpdateOne {
 	return aguo
 }
 
+// SetDisplayNames sets the "display_names" field.
+func (aguo *AppGoodUpdateOne) SetDisplayNames(s []string) *AppGoodUpdateOne {
+	aguo.mutation.SetDisplayNames(s)
+	return aguo
+}
+
+// ClearDisplayNames clears the value of the "display_names" field.
+func (aguo *AppGoodUpdateOne) ClearDisplayNames() *AppGoodUpdateOne {
+	aguo.mutation.ClearDisplayNames()
+	return aguo
+}
+
 // Mutation returns the AppGoodMutation object of the builder.
 func (aguo *AppGoodUpdateOne) Mutation() *AppGoodMutation {
 	return aguo.mutation
@@ -1785,6 +1822,19 @@ func (aguo *AppGoodUpdateOne) sqlSave(ctx context.Context) (_node *AppGood, err 
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Column: appgood.FieldGoodBanner,
+		})
+	}
+	if value, ok := aguo.mutation.DisplayNames(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeJSON,
+			Value:  value,
+			Column: appgood.FieldDisplayNames,
+		})
+	}
+	if aguo.mutation.DisplayNamesCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeJSON,
+			Column: appgood.FieldDisplayNames,
 		})
 	}
 	_spec.Modifiers = aguo.modifiers

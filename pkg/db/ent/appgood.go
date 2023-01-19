@@ -60,6 +60,8 @@ type AppGood struct {
 	Descriptions []string `json:"descriptions,omitempty"`
 	// GoodBanner holds the value of the "good_banner" field.
 	GoodBanner string `json:"good_banner,omitempty"`
+	// DisplayNames holds the value of the "display_names" field.
+	DisplayNames []string `json:"display_names,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -67,7 +69,7 @@ func (*AppGood) scanValues(columns []string) ([]interface{}, error) {
 	values := make([]interface{}, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case appgood.FieldDescriptions:
+		case appgood.FieldDescriptions, appgood.FieldDisplayNames:
 			values[i] = new([]byte)
 		case appgood.FieldPrice, appgood.FieldDailyRewardAmount:
 			values[i] = new(decimal.Decimal)
@@ -228,6 +230,14 @@ func (ag *AppGood) assignValues(columns []string, values []interface{}) error {
 			} else if value.Valid {
 				ag.GoodBanner = value.String
 			}
+		case appgood.FieldDisplayNames:
+			if value, ok := values[i].(*[]byte); !ok {
+				return fmt.Errorf("unexpected type %T for field display_names", values[i])
+			} else if value != nil && len(*value) > 0 {
+				if err := json.Unmarshal(*value, &ag.DisplayNames); err != nil {
+					return fmt.Errorf("unmarshal field display_names: %w", err)
+				}
+			}
 		}
 	}
 	return nil
@@ -318,6 +328,9 @@ func (ag *AppGood) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("good_banner=")
 	builder.WriteString(ag.GoodBanner)
+	builder.WriteString(", ")
+	builder.WriteString("display_names=")
+	builder.WriteString(fmt.Sprintf("%v", ag.DisplayNames))
 	builder.WriteByte(')')
 	return builder.String()
 }

@@ -32,6 +32,7 @@ var (
 		{Name: "commission_settle_type", Type: field.TypeString, Nullable: true, Default: "NoCommission"},
 		{Name: "descriptions", Type: field.TypeJSON, Nullable: true},
 		{Name: "good_banner", Type: field.TypeString, Nullable: true, Default: ""},
+		{Name: "display_names", Type: field.TypeJSON, Nullable: true},
 	}
 	// AppGoodsTable holds the schema information for the "app_goods" table.
 	AppGoodsTable = &schema.Table{
