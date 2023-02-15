@@ -3,6 +3,7 @@
 package migrate
 
 import (
+	"entgo.io/ent/dialect/entsql"
 	"entgo.io/ent/dialect/sql/schema"
 	"entgo.io/ent/schema/field"
 )
@@ -209,29 +210,29 @@ var (
 			},
 		},
 	}
-	// StocksColumns holds the columns for the "stocks" table.
-	StocksColumns = []*schema.Column{
+	// StocksV1Columns holds the columns for the "stocks_v1" table.
+	StocksV1Columns = []*schema.Column{
 		{Name: "id", Type: field.TypeUUID, Unique: true},
 		{Name: "created_at", Type: field.TypeUint32},
 		{Name: "updated_at", Type: field.TypeUint32},
 		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "good_id", Type: field.TypeUUID},
-		{Name: "total", Type: field.TypeUint32},
-		{Name: "locked", Type: field.TypeUint32},
-		{Name: "in_service", Type: field.TypeUint32},
-		{Name: "wait_start", Type: field.TypeUint32},
-		{Name: "sold", Type: field.TypeUint32},
+		{Name: "total", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
+		{Name: "locked", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
+		{Name: "in_service", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
+		{Name: "wait_start", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
+		{Name: "sold", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
 	}
-	// StocksTable holds the schema information for the "stocks" table.
-	StocksTable = &schema.Table{
-		Name:       "stocks",
-		Columns:    StocksColumns,
-		PrimaryKey: []*schema.Column{StocksColumns[0]},
+	// StocksV1Table holds the schema information for the "stocks_v1" table.
+	StocksV1Table = &schema.Table{
+		Name:       "stocks_v1",
+		Columns:    StocksV1Columns,
+		PrimaryKey: []*schema.Column{StocksV1Columns[0]},
 		Indexes: []*schema.Index{
 			{
-				Name:    "stock_good_id",
+				Name:    "stockv1_good_id",
 				Unique:  true,
-				Columns: []*schema.Column{StocksColumns[4]},
+				Columns: []*schema.Column{StocksV1Columns[4]},
 			},
 		},
 	}
@@ -286,11 +287,14 @@ var (
 		GoodsTable,
 		PromotionsTable,
 		RecommendsTable,
-		StocksTable,
+		StocksV1Table,
 		SubGoodsTable,
 		VendorLocationsTable,
 	}
 )
 
 func init() {
+	StocksV1Table.Annotation = &entsql.Annotation{
+		Table: "stocks_v1",
+	}
 }

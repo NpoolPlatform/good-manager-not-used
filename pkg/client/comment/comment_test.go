@@ -179,6 +179,7 @@ func existCommentConds(t *testing.T) {
 func deleteComment(t *testing.T) {
 	info, err := DeleteComment(context.Background(), info.ID)
 	if assert.Nil(t, err) {
+		appDate.UpdatedAt = info.UpdatedAt
 		appDate.DeletedAt = info.DeletedAt
 		assert.Equal(t, info, &appDate)
 	}

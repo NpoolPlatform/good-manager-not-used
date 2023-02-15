@@ -18,7 +18,7 @@ import (
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/good"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/promotion"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/recommend"
-	"github.com/NpoolPlatform/good-manager/pkg/db/ent/stock"
+	"github.com/NpoolPlatform/good-manager/pkg/db/ent/stockv1"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/subgood"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/vendorlocation"
 
@@ -45,8 +45,8 @@ type Client struct {
 	Promotion *PromotionClient
 	// Recommend is the client for interacting with the Recommend builders.
 	Recommend *RecommendClient
-	// Stock is the client for interacting with the Stock builders.
-	Stock *StockClient
+	// StockV1 is the client for interacting with the StockV1 builders.
+	StockV1 *StockV1Client
 	// SubGood is the client for interacting with the SubGood builders.
 	SubGood *SubGoodClient
 	// VendorLocation is the client for interacting with the VendorLocation builders.
@@ -71,7 +71,7 @@ func (c *Client) init() {
 	c.Good = NewGoodClient(c.config)
 	c.Promotion = NewPromotionClient(c.config)
 	c.Recommend = NewRecommendClient(c.config)
-	c.Stock = NewStockClient(c.config)
+	c.StockV1 = NewStockV1Client(c.config)
 	c.SubGood = NewSubGoodClient(c.config)
 	c.VendorLocation = NewVendorLocationClient(c.config)
 }
@@ -114,7 +114,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		Good:           NewGoodClient(cfg),
 		Promotion:      NewPromotionClient(cfg),
 		Recommend:      NewRecommendClient(cfg),
-		Stock:          NewStockClient(cfg),
+		StockV1:        NewStockV1Client(cfg),
 		SubGood:        NewSubGoodClient(cfg),
 		VendorLocation: NewVendorLocationClient(cfg),
 	}, nil
@@ -143,7 +143,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		Good:           NewGoodClient(cfg),
 		Promotion:      NewPromotionClient(cfg),
 		Recommend:      NewRecommendClient(cfg),
-		Stock:          NewStockClient(cfg),
+		StockV1:        NewStockV1Client(cfg),
 		SubGood:        NewSubGoodClient(cfg),
 		VendorLocation: NewVendorLocationClient(cfg),
 	}, nil
@@ -182,7 +182,7 @@ func (c *Client) Use(hooks ...Hook) {
 	c.Good.Use(hooks...)
 	c.Promotion.Use(hooks...)
 	c.Recommend.Use(hooks...)
-	c.Stock.Use(hooks...)
+	c.StockV1.Use(hooks...)
 	c.SubGood.Use(hooks...)
 	c.VendorLocation.Use(hooks...)
 }
@@ -824,84 +824,84 @@ func (c *RecommendClient) Hooks() []Hook {
 	return append(hooks[:len(hooks):len(hooks)], recommend.Hooks[:]...)
 }
 
-// StockClient is a client for the Stock schema.
-type StockClient struct {
+// StockV1Client is a client for the StockV1 schema.
+type StockV1Client struct {
 	config
 }
 
-// NewStockClient returns a client for the Stock from the given config.
-func NewStockClient(c config) *StockClient {
-	return &StockClient{config: c}
+// NewStockV1Client returns a client for the StockV1 from the given config.
+func NewStockV1Client(c config) *StockV1Client {
+	return &StockV1Client{config: c}
 }
 
 // Use adds a list of mutation hooks to the hooks stack.
-// A call to `Use(f, g, h)` equals to `stock.Hooks(f(g(h())))`.
-func (c *StockClient) Use(hooks ...Hook) {
-	c.hooks.Stock = append(c.hooks.Stock, hooks...)
+// A call to `Use(f, g, h)` equals to `stockv1.Hooks(f(g(h())))`.
+func (c *StockV1Client) Use(hooks ...Hook) {
+	c.hooks.StockV1 = append(c.hooks.StockV1, hooks...)
 }
 
-// Create returns a builder for creating a Stock entity.
-func (c *StockClient) Create() *StockCreate {
-	mutation := newStockMutation(c.config, OpCreate)
-	return &StockCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+// Create returns a builder for creating a StockV1 entity.
+func (c *StockV1Client) Create() *StockV1Create {
+	mutation := newStockV1Mutation(c.config, OpCreate)
+	return &StockV1Create{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-// CreateBulk returns a builder for creating a bulk of Stock entities.
-func (c *StockClient) CreateBulk(builders ...*StockCreate) *StockCreateBulk {
-	return &StockCreateBulk{config: c.config, builders: builders}
+// CreateBulk returns a builder for creating a bulk of StockV1 entities.
+func (c *StockV1Client) CreateBulk(builders ...*StockV1Create) *StockV1CreateBulk {
+	return &StockV1CreateBulk{config: c.config, builders: builders}
 }
 
-// Update returns an update builder for Stock.
-func (c *StockClient) Update() *StockUpdate {
-	mutation := newStockMutation(c.config, OpUpdate)
-	return &StockUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+// Update returns an update builder for StockV1.
+func (c *StockV1Client) Update() *StockV1Update {
+	mutation := newStockV1Mutation(c.config, OpUpdate)
+	return &StockV1Update{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *StockClient) UpdateOne(s *Stock) *StockUpdateOne {
-	mutation := newStockMutation(c.config, OpUpdateOne, withStock(s))
-	return &StockUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+func (c *StockV1Client) UpdateOne(s *StockV1) *StockV1UpdateOne {
+	mutation := newStockV1Mutation(c.config, OpUpdateOne, withStockV1(s))
+	return &StockV1UpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
 // UpdateOneID returns an update builder for the given id.
-func (c *StockClient) UpdateOneID(id uuid.UUID) *StockUpdateOne {
-	mutation := newStockMutation(c.config, OpUpdateOne, withStockID(id))
-	return &StockUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+func (c *StockV1Client) UpdateOneID(id uuid.UUID) *StockV1UpdateOne {
+	mutation := newStockV1Mutation(c.config, OpUpdateOne, withStockV1ID(id))
+	return &StockV1UpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-// Delete returns a delete builder for Stock.
-func (c *StockClient) Delete() *StockDelete {
-	mutation := newStockMutation(c.config, OpDelete)
-	return &StockDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+// Delete returns a delete builder for StockV1.
+func (c *StockV1Client) Delete() *StockV1Delete {
+	mutation := newStockV1Mutation(c.config, OpDelete)
+	return &StockV1Delete{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
 // DeleteOne returns a builder for deleting the given entity.
-func (c *StockClient) DeleteOne(s *Stock) *StockDeleteOne {
+func (c *StockV1Client) DeleteOne(s *StockV1) *StockV1DeleteOne {
 	return c.DeleteOneID(s.ID)
 }
 
 // DeleteOne returns a builder for deleting the given entity by its id.
-func (c *StockClient) DeleteOneID(id uuid.UUID) *StockDeleteOne {
-	builder := c.Delete().Where(stock.ID(id))
+func (c *StockV1Client) DeleteOneID(id uuid.UUID) *StockV1DeleteOne {
+	builder := c.Delete().Where(stockv1.ID(id))
 	builder.mutation.id = &id
 	builder.mutation.op = OpDeleteOne
-	return &StockDeleteOne{builder}
+	return &StockV1DeleteOne{builder}
 }
 
-// Query returns a query builder for Stock.
-func (c *StockClient) Query() *StockQuery {
-	return &StockQuery{
+// Query returns a query builder for StockV1.
+func (c *StockV1Client) Query() *StockV1Query {
+	return &StockV1Query{
 		config: c.config,
 	}
 }
 
-// Get returns a Stock entity by its id.
-func (c *StockClient) Get(ctx context.Context, id uuid.UUID) (*Stock, error) {
-	return c.Query().Where(stock.ID(id)).Only(ctx)
+// Get returns a StockV1 entity by its id.
+func (c *StockV1Client) Get(ctx context.Context, id uuid.UUID) (*StockV1, error) {
+	return c.Query().Where(stockv1.ID(id)).Only(ctx)
 }
 
 // GetX is like Get, but panics if an error occurs.
-func (c *StockClient) GetX(ctx context.Context, id uuid.UUID) *Stock {
+func (c *StockV1Client) GetX(ctx context.Context, id uuid.UUID) *StockV1 {
 	obj, err := c.Get(ctx, id)
 	if err != nil {
 		panic(err)
@@ -910,9 +910,9 @@ func (c *StockClient) GetX(ctx context.Context, id uuid.UUID) *Stock {
 }
 
 // Hooks returns the client hooks.
-func (c *StockClient) Hooks() []Hook {
-	hooks := c.hooks.Stock
-	return append(hooks[:len(hooks):len(hooks)], stock.Hooks[:]...)
+func (c *StockV1Client) Hooks() []Hook {
+	hooks := c.hooks.StockV1
+	return append(hooks[:len(hooks):len(hooks)], stockv1.Hooks[:]...)
 }
 
 // SubGoodClient is a client for the SubGood schema.

@@ -114,3 +114,5 @@ replace google.golang.org/grpc => github.com/grpc/grpc-go v1.41.0
 replace entgo.io/ent => entgo.io/ent v0.11.2
 
 replace github.com/ugorji/go => github.com/ugorji/go v0.0.0-20190204201341-e444a5086c43
+
+replace github.com/NpoolPlatform/message => ../message

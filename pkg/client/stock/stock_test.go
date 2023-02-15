@@ -7,6 +7,8 @@ import (
 	"strconv"
 	"testing"
 
+	"github.com/shopspring/decimal"
+
 	"google.golang.org/grpc/credentials/insecure"
 
 	"github.com/NpoolPlatform/go-service-framework/pkg/config"
@@ -36,19 +38,20 @@ func init() {
 }
 
 var appDate = npool.Stock{
-	ID:     uuid.NewString(),
-	GoodID: uuid.NewString(),
-	Total:  1005,
+	ID:        uuid.NewString(),
+	GoodID:    uuid.NewString(),
+	Total:     decimal.NewFromInt(1005).String(),
+	Locked:    decimal.NewFromInt(0).String(),
+	InService: decimal.NewFromInt(0).String(),
+	WaitStart: decimal.NewFromInt(0).String(),
+	Sold:      decimal.NewFromInt(0).String(),
 }
 
 var (
 	appInfo = npool.StockReq{
-		ID:        &appDate.ID,
-		GoodID:    &appDate.GoodID,
-		Total:     &appDate.Total,
-		Locked:    &appDate.Locked,
-		InService: &appDate.InService,
-		Sold:      &appDate.Sold,
+		ID:     &appDate.ID,
+		GoodID: &appDate.GoodID,
+		Total:  &appDate.Total,
 	}
 )
 
@@ -69,24 +72,21 @@ func createStocks(t *testing.T) {
 		{
 			ID:     uuid.NewString(),
 			GoodID: uuid.NewString(),
-			Total:  1005,
+			Total:  decimal.NewFromInt(1005).String(),
 		},
 		{
 			ID:     uuid.NewString(),
 			GoodID: uuid.NewString(),
-			Total:  1005,
+			Total:  decimal.NewFromInt(1005).String(),
 		},
 	}
 
 	apps := []*npool.StockReq{}
 	for key := range appDates {
 		apps = append(apps, &npool.StockReq{
-			ID:        &appDates[key].ID,
-			GoodID:    &appDates[key].GoodID,
-			Total:     &appDates[key].Total,
-			Locked:    &appDates[key].Locked,
-			InService: &appDates[key].InService,
-			Sold:      &appDates[key].Sold,
+			ID:     &appDates[key].ID,
+			GoodID: &appDates[key].GoodID,
+			Total:  &appDates[key].Total,
 		})
 	}
 
@@ -170,7 +170,7 @@ func deleteStock(t *testing.T) {
 	}
 }
 
-func TestMainOrder(t *testing.T) {
+func TestStock(t *testing.T) {
 	if runByGithubAction, err := strconv.ParseBool(os.Getenv("RUN_BY_GITHUB_ACTION")); err == nil && runByGithubAction {
 		return
 	}

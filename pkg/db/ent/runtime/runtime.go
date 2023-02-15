@@ -13,7 +13,7 @@ import (
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/promotion"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/recommend"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/schema"
-	"github.com/NpoolPlatform/good-manager/pkg/db/ent/stock"
+	"github.com/NpoolPlatform/good-manager/pkg/db/ent/stockv1"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/subgood"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/vendorlocation"
 	"github.com/google/uuid"
@@ -471,38 +471,58 @@ func init() {
 	recommendDescID := recommendFields[0].Descriptor()
 	// recommend.DefaultID holds the default value on creation for the id field.
 	recommend.DefaultID = recommendDescID.Default.(func() uuid.UUID)
-	stockMixin := schema.Stock{}.Mixin()
-	stock.Policy = privacy.NewPolicies(stockMixin[0], schema.Stock{})
-	stock.Hooks[0] = func(next ent.Mutator) ent.Mutator {
+	stockv1Mixin := schema.StockV1{}.Mixin()
+	stockv1.Policy = privacy.NewPolicies(stockv1Mixin[0], schema.StockV1{})
+	stockv1.Hooks[0] = func(next ent.Mutator) ent.Mutator {
 		return ent.MutateFunc(func(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-			if err := stock.Policy.EvalMutation(ctx, m); err != nil {
+			if err := stockv1.Policy.EvalMutation(ctx, m); err != nil {
 				return nil, err
 			}
 			return next.Mutate(ctx, m)
 		})
 	}
-	stockMixinFields0 := stockMixin[0].Fields()
-	_ = stockMixinFields0
-	stockFields := schema.Stock{}.Fields()
-	_ = stockFields
-	// stockDescCreatedAt is the schema descriptor for created_at field.
-	stockDescCreatedAt := stockMixinFields0[0].Descriptor()
-	// stock.DefaultCreatedAt holds the default value on creation for the created_at field.
-	stock.DefaultCreatedAt = stockDescCreatedAt.Default.(func() uint32)
-	// stockDescUpdatedAt is the schema descriptor for updated_at field.
-	stockDescUpdatedAt := stockMixinFields0[1].Descriptor()
-	// stock.DefaultUpdatedAt holds the default value on creation for the updated_at field.
-	stock.DefaultUpdatedAt = stockDescUpdatedAt.Default.(func() uint32)
-	// stock.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
-	stock.UpdateDefaultUpdatedAt = stockDescUpdatedAt.UpdateDefault.(func() uint32)
-	// stockDescDeletedAt is the schema descriptor for deleted_at field.
-	stockDescDeletedAt := stockMixinFields0[2].Descriptor()
-	// stock.DefaultDeletedAt holds the default value on creation for the deleted_at field.
-	stock.DefaultDeletedAt = stockDescDeletedAt.Default.(func() uint32)
-	// stockDescID is the schema descriptor for id field.
-	stockDescID := stockFields[0].Descriptor()
-	// stock.DefaultID holds the default value on creation for the id field.
-	stock.DefaultID = stockDescID.Default.(func() uuid.UUID)
+	stockv1MixinFields0 := stockv1Mixin[0].Fields()
+	_ = stockv1MixinFields0
+	stockv1Fields := schema.StockV1{}.Fields()
+	_ = stockv1Fields
+	// stockv1DescCreatedAt is the schema descriptor for created_at field.
+	stockv1DescCreatedAt := stockv1MixinFields0[0].Descriptor()
+	// stockv1.DefaultCreatedAt holds the default value on creation for the created_at field.
+	stockv1.DefaultCreatedAt = stockv1DescCreatedAt.Default.(func() uint32)
+	// stockv1DescUpdatedAt is the schema descriptor for updated_at field.
+	stockv1DescUpdatedAt := stockv1MixinFields0[1].Descriptor()
+	// stockv1.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	stockv1.DefaultUpdatedAt = stockv1DescUpdatedAt.Default.(func() uint32)
+	// stockv1.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	stockv1.UpdateDefaultUpdatedAt = stockv1DescUpdatedAt.UpdateDefault.(func() uint32)
+	// stockv1DescDeletedAt is the schema descriptor for deleted_at field.
+	stockv1DescDeletedAt := stockv1MixinFields0[2].Descriptor()
+	// stockv1.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	stockv1.DefaultDeletedAt = stockv1DescDeletedAt.Default.(func() uint32)
+	// stockv1DescTotal is the schema descriptor for total field.
+	stockv1DescTotal := stockv1Fields[2].Descriptor()
+	// stockv1.DefaultTotal holds the default value on creation for the total field.
+	stockv1.DefaultTotal = stockv1DescTotal.Default.(decimal.Decimal)
+	// stockv1DescLocked is the schema descriptor for locked field.
+	stockv1DescLocked := stockv1Fields[3].Descriptor()
+	// stockv1.DefaultLocked holds the default value on creation for the locked field.
+	stockv1.DefaultLocked = stockv1DescLocked.Default.(decimal.Decimal)
+	// stockv1DescInService is the schema descriptor for in_service field.
+	stockv1DescInService := stockv1Fields[4].Descriptor()
+	// stockv1.DefaultInService holds the default value on creation for the in_service field.
+	stockv1.DefaultInService = stockv1DescInService.Default.(decimal.Decimal)
+	// stockv1DescWaitStart is the schema descriptor for wait_start field.
+	stockv1DescWaitStart := stockv1Fields[5].Descriptor()
+	// stockv1.DefaultWaitStart holds the default value on creation for the wait_start field.
+	stockv1.DefaultWaitStart = stockv1DescWaitStart.Default.(decimal.Decimal)
+	// stockv1DescSold is the schema descriptor for sold field.
+	stockv1DescSold := stockv1Fields[6].Descriptor()
+	// stockv1.DefaultSold holds the default value on creation for the sold field.
+	stockv1.DefaultSold = stockv1DescSold.Default.(decimal.Decimal)
+	// stockv1DescID is the schema descriptor for id field.
+	stockv1DescID := stockv1Fields[0].Descriptor()
+	// stockv1.DefaultID holds the default value on creation for the id field.
+	stockv1.DefaultID = stockv1DescID.Default.(func() uuid.UUID)
 	subgoodMixin := schema.SubGood{}.Mixin()
 	subgood.Policy = privacy.NewPolicies(subgoodMixin[0], schema.SubGood{})
 	subgood.Hooks[0] = func(next ent.Mutator) ent.Mutator {

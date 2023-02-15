@@ -16,7 +16,7 @@ import (
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/predicate"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/promotion"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/recommend"
-	"github.com/NpoolPlatform/good-manager/pkg/db/ent/stock"
+	"github.com/NpoolPlatform/good-manager/pkg/db/ent/stockv1"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/subgood"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/vendorlocation"
 	"github.com/google/uuid"
@@ -41,7 +41,7 @@ const (
 	TypeGood           = "Good"
 	TypePromotion      = "Promotion"
 	TypeRecommend      = "Recommend"
-	TypeStock          = "Stock"
+	TypeStockV1        = "StockV1"
 	TypeSubGood        = "SubGood"
 	TypeVendorLocation = "VendorLocation"
 )
@@ -9168,8 +9168,8 @@ func (m *RecommendMutation) ResetEdge(name string) error {
 	return fmt.Errorf("unknown Recommend edge %s", name)
 }
 
-// StockMutation represents an operation that mutates the Stock nodes in the graph.
-type StockMutation struct {
+// StockV1Mutation represents an operation that mutates the StockV1 nodes in the graph.
+type StockV1Mutation struct {
 	config
 	op            Op
 	typ           string
@@ -9181,33 +9181,28 @@ type StockMutation struct {
 	deleted_at    *uint32
 	adddeleted_at *int32
 	good_id       *uuid.UUID
-	total         *uint32
-	addtotal      *int32
-	locked        *uint32
-	addlocked     *int32
-	in_service    *uint32
-	addin_service *int32
-	wait_start    *uint32
-	addwait_start *int32
-	sold          *uint32
-	addsold       *int32
+	total         *decimal.Decimal
+	locked        *decimal.Decimal
+	in_service    *decimal.Decimal
+	wait_start    *decimal.Decimal
+	sold          *decimal.Decimal
 	clearedFields map[string]struct{}
 	done          bool
-	oldValue      func(context.Context) (*Stock, error)
-	predicates    []predicate.Stock
+	oldValue      func(context.Context) (*StockV1, error)
+	predicates    []predicate.StockV1
 }
 
-var _ ent.Mutation = (*StockMutation)(nil)
+var _ ent.Mutation = (*StockV1Mutation)(nil)
 
-// stockOption allows management of the mutation configuration using functional options.
-type stockOption func(*StockMutation)
+// stockv1Option allows management of the mutation configuration using functional options.
+type stockv1Option func(*StockV1Mutation)
 
-// newStockMutation creates new mutation for the Stock entity.
-func newStockMutation(c config, op Op, opts ...stockOption) *StockMutation {
-	m := &StockMutation{
+// newStockV1Mutation creates new mutation for the StockV1 entity.
+func newStockV1Mutation(c config, op Op, opts ...stockv1Option) *StockV1Mutation {
+	m := &StockV1Mutation{
 		config:        c,
 		op:            op,
-		typ:           TypeStock,
+		typ:           TypeStockV1,
 		clearedFields: make(map[string]struct{}),
 	}
 	for _, opt := range opts {
@@ -9216,20 +9211,20 @@ func newStockMutation(c config, op Op, opts ...stockOption) *StockMutation {
 	return m
 }
 
-// withStockID sets the ID field of the mutation.
-func withStockID(id uuid.UUID) stockOption {
-	return func(m *StockMutation) {
+// withStockV1ID sets the ID field of the mutation.
+func withStockV1ID(id uuid.UUID) stockv1Option {
+	return func(m *StockV1Mutation) {
 		var (
 			err   error
 			once  sync.Once
-			value *Stock
+			value *StockV1
 		)
-		m.oldValue = func(ctx context.Context) (*Stock, error) {
+		m.oldValue = func(ctx context.Context) (*StockV1, error) {
 			once.Do(func() {
 				if m.done {
 					err = errors.New("querying old values post mutation is not allowed")
 				} else {
-					value, err = m.Client().Stock.Get(ctx, id)
+					value, err = m.Client().StockV1.Get(ctx, id)
 				}
 			})
 			return value, err
@@ -9238,10 +9233,10 @@ func withStockID(id uuid.UUID) stockOption {
 	}
 }
 
-// withStock sets the old Stock of the mutation.
-func withStock(node *Stock) stockOption {
-	return func(m *StockMutation) {
-		m.oldValue = func(context.Context) (*Stock, error) {
+// withStockV1 sets the old StockV1 of the mutation.
+func withStockV1(node *StockV1) stockv1Option {
+	return func(m *StockV1Mutation) {
+		m.oldValue = func(context.Context) (*StockV1, error) {
 			return node, nil
 		}
 		m.id = &node.ID
@@ -9250,7 +9245,7 @@ func withStock(node *Stock) stockOption {
 
 // Client returns a new `ent.Client` from the mutation. If the mutation was
 // executed in a transaction (ent.Tx), a transactional client is returned.
-func (m StockMutation) Client() *Client {
+func (m StockV1Mutation) Client() *Client {
 	client := &Client{config: m.config}
 	client.init()
 	return client
@@ -9258,7 +9253,7 @@ func (m StockMutation) Client() *Client {
 
 // Tx returns an `ent.Tx` for mutations that were executed in transactions;
 // it returns an error otherwise.
-func (m StockMutation) Tx() (*Tx, error) {
+func (m StockV1Mutation) Tx() (*Tx, error) {
 	if _, ok := m.driver.(*txDriver); !ok {
 		return nil, errors.New("ent: mutation is not running in a transaction")
 	}
@@ -9268,14 +9263,14 @@ func (m StockMutation) Tx() (*Tx, error) {
 }
 
 // SetID sets the value of the id field. Note that this
-// operation is only accepted on creation of Stock entities.
-func (m *StockMutation) SetID(id uuid.UUID) {
+// operation is only accepted on creation of StockV1 entities.
+func (m *StockV1Mutation) SetID(id uuid.UUID) {
 	m.id = &id
 }
 
 // ID returns the ID value in the mutation. Note that the ID is only available
 // if it was provided to the builder or after it was returned from the database.
-func (m *StockMutation) ID() (id uuid.UUID, exists bool) {
+func (m *StockV1Mutation) ID() (id uuid.UUID, exists bool) {
 	if m.id == nil {
 		return
 	}
@@ -9286,7 +9281,7 @@ func (m *StockMutation) ID() (id uuid.UUID, exists bool) {
 // That means, if the mutation is applied within a transaction with an isolation level such
 // as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
 // or updated by the mutation.
-func (m *StockMutation) IDs(ctx context.Context) ([]uuid.UUID, error) {
+func (m *StockV1Mutation) IDs(ctx context.Context) ([]uuid.UUID, error) {
 	switch {
 	case m.op.Is(OpUpdateOne | OpDeleteOne):
 		id, exists := m.ID()
@@ -9295,20 +9290,20 @@ func (m *StockMutation) IDs(ctx context.Context) ([]uuid.UUID, error) {
 		}
 		fallthrough
 	case m.op.Is(OpUpdate | OpDelete):
-		return m.Client().Stock.Query().Where(m.predicates...).IDs(ctx)
+		return m.Client().StockV1.Query().Where(m.predicates...).IDs(ctx)
 	default:
 		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.op)
 	}
 }
 
 // SetCreatedAt sets the "created_at" field.
-func (m *StockMutation) SetCreatedAt(u uint32) {
+func (m *StockV1Mutation) SetCreatedAt(u uint32) {
 	m.created_at = &u
 	m.addcreated_at = nil
 }
 
 // CreatedAt returns the value of the "created_at" field in the mutation.
-func (m *StockMutation) CreatedAt() (r uint32, exists bool) {
+func (m *StockV1Mutation) CreatedAt() (r uint32, exists bool) {
 	v := m.created_at
 	if v == nil {
 		return
@@ -9316,10 +9311,10 @@ func (m *StockMutation) CreatedAt() (r uint32, exists bool) {
 	return *v, true
 }
 
-// OldCreatedAt returns the old "created_at" field's value of the Stock entity.
-// If the Stock object wasn't provided to the builder, the object is fetched from the database.
+// OldCreatedAt returns the old "created_at" field's value of the StockV1 entity.
+// If the StockV1 object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *StockMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+func (m *StockV1Mutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
 	}
@@ -9334,7 +9329,7 @@ func (m *StockMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) 
 }
 
 // AddCreatedAt adds u to the "created_at" field.
-func (m *StockMutation) AddCreatedAt(u int32) {
+func (m *StockV1Mutation) AddCreatedAt(u int32) {
 	if m.addcreated_at != nil {
 		*m.addcreated_at += u
 	} else {
@@ -9343,7 +9338,7 @@ func (m *StockMutation) AddCreatedAt(u int32) {
 }
 
 // AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
-func (m *StockMutation) AddedCreatedAt() (r int32, exists bool) {
+func (m *StockV1Mutation) AddedCreatedAt() (r int32, exists bool) {
 	v := m.addcreated_at
 	if v == nil {
 		return
@@ -9352,19 +9347,19 @@ func (m *StockMutation) AddedCreatedAt() (r int32, exists bool) {
 }
 
 // ResetCreatedAt resets all changes to the "created_at" field.
-func (m *StockMutation) ResetCreatedAt() {
+func (m *StockV1Mutation) ResetCreatedAt() {
 	m.created_at = nil
 	m.addcreated_at = nil
 }
 
 // SetUpdatedAt sets the "updated_at" field.
-func (m *StockMutation) SetUpdatedAt(u uint32) {
+func (m *StockV1Mutation) SetUpdatedAt(u uint32) {
 	m.updated_at = &u
 	m.addupdated_at = nil
 }
 
 // UpdatedAt returns the value of the "updated_at" field in the mutation.
-func (m *StockMutation) UpdatedAt() (r uint32, exists bool) {
+func (m *StockV1Mutation) UpdatedAt() (r uint32, exists bool) {
 	v := m.updated_at
 	if v == nil {
 		return
@@ -9372,10 +9367,10 @@ func (m *StockMutation) UpdatedAt() (r uint32, exists bool) {
 	return *v, true
 }
 
-// OldUpdatedAt returns the old "updated_at" field's value of the Stock entity.
-// If the Stock object wasn't provided to the builder, the object is fetched from the database.
+// OldUpdatedAt returns the old "updated_at" field's value of the StockV1 entity.
+// If the StockV1 object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *StockMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+func (m *StockV1Mutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
 	}
@@ -9390,7 +9385,7 @@ func (m *StockMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) 
 }
 
 // AddUpdatedAt adds u to the "updated_at" field.
-func (m *StockMutation) AddUpdatedAt(u int32) {
+func (m *StockV1Mutation) AddUpdatedAt(u int32) {
 	if m.addupdated_at != nil {
 		*m.addupdated_at += u
 	} else {
@@ -9399,7 +9394,7 @@ func (m *StockMutation) AddUpdatedAt(u int32) {
 }
 
 // AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
-func (m *StockMutation) AddedUpdatedAt() (r int32, exists bool) {
+func (m *StockV1Mutation) AddedUpdatedAt() (r int32, exists bool) {
 	v := m.addupdated_at
 	if v == nil {
 		return
@@ -9408,19 +9403,19 @@ func (m *StockMutation) AddedUpdatedAt() (r int32, exists bool) {
 }
 
 // ResetUpdatedAt resets all changes to the "updated_at" field.
-func (m *StockMutation) ResetUpdatedAt() {
+func (m *StockV1Mutation) ResetUpdatedAt() {
 	m.updated_at = nil
 	m.addupdated_at = nil
 }
 
 // SetDeletedAt sets the "deleted_at" field.
-func (m *StockMutation) SetDeletedAt(u uint32) {
+func (m *StockV1Mutation) SetDeletedAt(u uint32) {
 	m.deleted_at = &u
 	m.adddeleted_at = nil
 }
 
 // DeletedAt returns the value of the "deleted_at" field in the mutation.
-func (m *StockMutation) DeletedAt() (r uint32, exists bool) {
+func (m *StockV1Mutation) DeletedAt() (r uint32, exists bool) {
 	v := m.deleted_at
 	if v == nil {
 		return
@@ -9428,10 +9423,10 @@ func (m *StockMutation) DeletedAt() (r uint32, exists bool) {
 	return *v, true
 }
 
-// OldDeletedAt returns the old "deleted_at" field's value of the Stock entity.
-// If the Stock object wasn't provided to the builder, the object is fetched from the database.
+// OldDeletedAt returns the old "deleted_at" field's value of the StockV1 entity.
+// If the StockV1 object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *StockMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+func (m *StockV1Mutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
 	}
@@ -9446,7 +9441,7 @@ func (m *StockMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) 
 }
 
 // AddDeletedAt adds u to the "deleted_at" field.
-func (m *StockMutation) AddDeletedAt(u int32) {
+func (m *StockV1Mutation) AddDeletedAt(u int32) {
 	if m.adddeleted_at != nil {
 		*m.adddeleted_at += u
 	} else {
@@ -9455,7 +9450,7 @@ func (m *StockMutation) AddDeletedAt(u int32) {
 }
 
 // AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
-func (m *StockMutation) AddedDeletedAt() (r int32, exists bool) {
+func (m *StockV1Mutation) AddedDeletedAt() (r int32, exists bool) {
 	v := m.adddeleted_at
 	if v == nil {
 		return
@@ -9464,18 +9459,18 @@ func (m *StockMutation) AddedDeletedAt() (r int32, exists bool) {
 }
 
 // ResetDeletedAt resets all changes to the "deleted_at" field.
-func (m *StockMutation) ResetDeletedAt() {
+func (m *StockV1Mutation) ResetDeletedAt() {
 	m.deleted_at = nil
 	m.adddeleted_at = nil
 }
 
 // SetGoodID sets the "good_id" field.
-func (m *StockMutation) SetGoodID(u uuid.UUID) {
+func (m *StockV1Mutation) SetGoodID(u uuid.UUID) {
 	m.good_id = &u
 }
 
 // GoodID returns the value of the "good_id" field in the mutation.
-func (m *StockMutation) GoodID() (r uuid.UUID, exists bool) {
+func (m *StockV1Mutation) GoodID() (r uuid.UUID, exists bool) {
 	v := m.good_id
 	if v == nil {
 		return
@@ -9483,10 +9478,10 @@ func (m *StockMutation) GoodID() (r uuid.UUID, exists bool) {
 	return *v, true
 }
 
-// OldGoodID returns the old "good_id" field's value of the Stock entity.
-// If the Stock object wasn't provided to the builder, the object is fetched from the database.
+// OldGoodID returns the old "good_id" field's value of the StockV1 entity.
+// If the StockV1 object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *StockMutation) OldGoodID(ctx context.Context) (v uuid.UUID, err error) {
+func (m *StockV1Mutation) OldGoodID(ctx context.Context) (v uuid.UUID, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldGoodID is only allowed on UpdateOne operations")
 	}
@@ -9501,18 +9496,17 @@ func (m *StockMutation) OldGoodID(ctx context.Context) (v uuid.UUID, err error) 
 }
 
 // ResetGoodID resets all changes to the "good_id" field.
-func (m *StockMutation) ResetGoodID() {
+func (m *StockV1Mutation) ResetGoodID() {
 	m.good_id = nil
 }
 
 // SetTotal sets the "total" field.
-func (m *StockMutation) SetTotal(u uint32) {
-	m.total = &u
-	m.addtotal = nil
+func (m *StockV1Mutation) SetTotal(d decimal.Decimal) {
+	m.total = &d
 }
 
 // Total returns the value of the "total" field in the mutation.
-func (m *StockMutation) Total() (r uint32, exists bool) {
+func (m *StockV1Mutation) Total() (r decimal.Decimal, exists bool) {
 	v := m.total
 	if v == nil {
 		return
@@ -9520,10 +9514,10 @@ func (m *StockMutation) Total() (r uint32, exists bool) {
 	return *v, true
 }
 
-// OldTotal returns the old "total" field's value of the Stock entity.
-// If the Stock object wasn't provided to the builder, the object is fetched from the database.
+// OldTotal returns the old "total" field's value of the StockV1 entity.
+// If the StockV1 object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *StockMutation) OldTotal(ctx context.Context) (v uint32, err error) {
+func (m *StockV1Mutation) OldTotal(ctx context.Context) (v decimal.Decimal, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldTotal is only allowed on UpdateOne operations")
 	}
@@ -9537,38 +9531,31 @@ func (m *StockMutation) OldTotal(ctx context.Context) (v uint32, err error) {
 	return oldValue.Total, nil
 }
 
-// AddTotal adds u to the "total" field.
-func (m *StockMutation) AddTotal(u int32) {
-	if m.addtotal != nil {
-		*m.addtotal += u
-	} else {
-		m.addtotal = &u
-	}
+// ClearTotal clears the value of the "total" field.
+func (m *StockV1Mutation) ClearTotal() {
+	m.total = nil
+	m.clearedFields[stockv1.FieldTotal] = struct{}{}
 }
 
-// AddedTotal returns the value that was added to the "total" field in this mutation.
-func (m *StockMutation) AddedTotal() (r int32, exists bool) {
-	v := m.addtotal
-	if v == nil {
-		return
-	}
-	return *v, true
+// TotalCleared returns if the "total" field was cleared in this mutation.
+func (m *StockV1Mutation) TotalCleared() bool {
+	_, ok := m.clearedFields[stockv1.FieldTotal]
+	return ok
 }
 
 // ResetTotal resets all changes to the "total" field.
-func (m *StockMutation) ResetTotal() {
+func (m *StockV1Mutation) ResetTotal() {
 	m.total = nil
-	m.addtotal = nil
+	delete(m.clearedFields, stockv1.FieldTotal)
 }
 
 // SetLocked sets the "locked" field.
-func (m *StockMutation) SetLocked(u uint32) {
-	m.locked = &u
-	m.addlocked = nil
+func (m *StockV1Mutation) SetLocked(d decimal.Decimal) {
+	m.locked = &d
 }
 
 // Locked returns the value of the "locked" field in the mutation.
-func (m *StockMutation) Locked() (r uint32, exists bool) {
+func (m *StockV1Mutation) Locked() (r decimal.Decimal, exists bool) {
 	v := m.locked
 	if v == nil {
 		return
@@ -9576,10 +9563,10 @@ func (m *StockMutation) Locked() (r uint32, exists bool) {
 	return *v, true
 }
 
-// OldLocked returns the old "locked" field's value of the Stock entity.
-// If the Stock object wasn't provided to the builder, the object is fetched from the database.
+// OldLocked returns the old "locked" field's value of the StockV1 entity.
+// If the StockV1 object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *StockMutation) OldLocked(ctx context.Context) (v uint32, err error) {
+func (m *StockV1Mutation) OldLocked(ctx context.Context) (v decimal.Decimal, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldLocked is only allowed on UpdateOne operations")
 	}
@@ -9593,38 +9580,31 @@ func (m *StockMutation) OldLocked(ctx context.Context) (v uint32, err error) {
 	return oldValue.Locked, nil
 }
 
-// AddLocked adds u to the "locked" field.
-func (m *StockMutation) AddLocked(u int32) {
-	if m.addlocked != nil {
-		*m.addlocked += u
-	} else {
-		m.addlocked = &u
-	}
+// ClearLocked clears the value of the "locked" field.
+func (m *StockV1Mutation) ClearLocked() {
+	m.locked = nil
+	m.clearedFields[stockv1.FieldLocked] = struct{}{}
 }
 
-// AddedLocked returns the value that was added to the "locked" field in this mutation.
-func (m *StockMutation) AddedLocked() (r int32, exists bool) {
-	v := m.addlocked
-	if v == nil {
-		return
-	}
-	return *v, true
+// LockedCleared returns if the "locked" field was cleared in this mutation.
+func (m *StockV1Mutation) LockedCleared() bool {
+	_, ok := m.clearedFields[stockv1.FieldLocked]
+	return ok
 }
 
 // ResetLocked resets all changes to the "locked" field.
-func (m *StockMutation) ResetLocked() {
+func (m *StockV1Mutation) ResetLocked() {
 	m.locked = nil
-	m.addlocked = nil
+	delete(m.clearedFields, stockv1.FieldLocked)
 }
 
 // SetInService sets the "in_service" field.
-func (m *StockMutation) SetInService(u uint32) {
-	m.in_service = &u
-	m.addin_service = nil
+func (m *StockV1Mutation) SetInService(d decimal.Decimal) {
+	m.in_service = &d
 }
 
 // InService returns the value of the "in_service" field in the mutation.
-func (m *StockMutation) InService() (r uint32, exists bool) {
+func (m *StockV1Mutation) InService() (r decimal.Decimal, exists bool) {
 	v := m.in_service
 	if v == nil {
 		return
@@ -9632,10 +9612,10 @@ func (m *StockMutation) InService() (r uint32, exists bool) {
 	return *v, true
 }
 
-// OldInService returns the old "in_service" field's value of the Stock entity.
-// If the Stock object wasn't provided to the builder, the object is fetched from the database.
+// OldInService returns the old "in_service" field's value of the StockV1 entity.
+// If the StockV1 object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *StockMutation) OldInService(ctx context.Context) (v uint32, err error) {
+func (m *StockV1Mutation) OldInService(ctx context.Context) (v decimal.Decimal, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldInService is only allowed on UpdateOne operations")
 	}
@@ -9649,38 +9629,31 @@ func (m *StockMutation) OldInService(ctx context.Context) (v uint32, err error) 
 	return oldValue.InService, nil
 }
 
-// AddInService adds u to the "in_service" field.
-func (m *StockMutation) AddInService(u int32) {
-	if m.addin_service != nil {
-		*m.addin_service += u
-	} else {
-		m.addin_service = &u
-	}
+// ClearInService clears the value of the "in_service" field.
+func (m *StockV1Mutation) ClearInService() {
+	m.in_service = nil
+	m.clearedFields[stockv1.FieldInService] = struct{}{}
 }
 
-// AddedInService returns the value that was added to the "in_service" field in this mutation.
-func (m *StockMutation) AddedInService() (r int32, exists bool) {
-	v := m.addin_service
-	if v == nil {
-		return
-	}
-	return *v, true
+// InServiceCleared returns if the "in_service" field was cleared in this mutation.
+func (m *StockV1Mutation) InServiceCleared() bool {
+	_, ok := m.clearedFields[stockv1.FieldInService]
+	return ok
 }
 
 // ResetInService resets all changes to the "in_service" field.
-func (m *StockMutation) ResetInService() {
+func (m *StockV1Mutation) ResetInService() {
 	m.in_service = nil
-	m.addin_service = nil
+	delete(m.clearedFields, stockv1.FieldInService)
 }
 
 // SetWaitStart sets the "wait_start" field.
-func (m *StockMutation) SetWaitStart(u uint32) {
-	m.wait_start = &u
-	m.addwait_start = nil
+func (m *StockV1Mutation) SetWaitStart(d decimal.Decimal) {
+	m.wait_start = &d
 }
 
 // WaitStart returns the value of the "wait_start" field in the mutation.
-func (m *StockMutation) WaitStart() (r uint32, exists bool) {
+func (m *StockV1Mutation) WaitStart() (r decimal.Decimal, exists bool) {
 	v := m.wait_start
 	if v == nil {
 		return
@@ -9688,10 +9661,10 @@ func (m *StockMutation) WaitStart() (r uint32, exists bool) {
 	return *v, true
 }
 
-// OldWaitStart returns the old "wait_start" field's value of the Stock entity.
-// If the Stock object wasn't provided to the builder, the object is fetched from the database.
+// OldWaitStart returns the old "wait_start" field's value of the StockV1 entity.
+// If the StockV1 object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *StockMutation) OldWaitStart(ctx context.Context) (v uint32, err error) {
+func (m *StockV1Mutation) OldWaitStart(ctx context.Context) (v decimal.Decimal, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldWaitStart is only allowed on UpdateOne operations")
 	}
@@ -9705,38 +9678,31 @@ func (m *StockMutation) OldWaitStart(ctx context.Context) (v uint32, err error) 
 	return oldValue.WaitStart, nil
 }
 
-// AddWaitStart adds u to the "wait_start" field.
-func (m *StockMutation) AddWaitStart(u int32) {
-	if m.addwait_start != nil {
-		*m.addwait_start += u
-	} else {
-		m.addwait_start = &u
-	}
+// ClearWaitStart clears the value of the "wait_start" field.
+func (m *StockV1Mutation) ClearWaitStart() {
+	m.wait_start = nil
+	m.clearedFields[stockv1.FieldWaitStart] = struct{}{}
 }
 
-// AddedWaitStart returns the value that was added to the "wait_start" field in this mutation.
-func (m *StockMutation) AddedWaitStart() (r int32, exists bool) {
-	v := m.addwait_start
-	if v == nil {
-		return
-	}
-	return *v, true
+// WaitStartCleared returns if the "wait_start" field was cleared in this mutation.
+func (m *StockV1Mutation) WaitStartCleared() bool {
+	_, ok := m.clearedFields[stockv1.FieldWaitStart]
+	return ok
 }
 
 // ResetWaitStart resets all changes to the "wait_start" field.
-func (m *StockMutation) ResetWaitStart() {
+func (m *StockV1Mutation) ResetWaitStart() {
 	m.wait_start = nil
-	m.addwait_start = nil
+	delete(m.clearedFields, stockv1.FieldWaitStart)
 }
 
 // SetSold sets the "sold" field.
-func (m *StockMutation) SetSold(u uint32) {
-	m.sold = &u
-	m.addsold = nil
+func (m *StockV1Mutation) SetSold(d decimal.Decimal) {
+	m.sold = &d
 }
 
 // Sold returns the value of the "sold" field in the mutation.
-func (m *StockMutation) Sold() (r uint32, exists bool) {
+func (m *StockV1Mutation) Sold() (r decimal.Decimal, exists bool) {
 	v := m.sold
 	if v == nil {
 		return
@@ -9744,10 +9710,10 @@ func (m *StockMutation) Sold() (r uint32, exists bool) {
 	return *v, true
 }
 
-// OldSold returns the old "sold" field's value of the Stock entity.
-// If the Stock object wasn't provided to the builder, the object is fetched from the database.
+// OldSold returns the old "sold" field's value of the StockV1 entity.
+// If the StockV1 object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *StockMutation) OldSold(ctx context.Context) (v uint32, err error) {
+func (m *StockV1Mutation) OldSold(ctx context.Context) (v decimal.Decimal, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldSold is only allowed on UpdateOne operations")
 	}
@@ -9761,76 +9727,70 @@ func (m *StockMutation) OldSold(ctx context.Context) (v uint32, err error) {
 	return oldValue.Sold, nil
 }
 
-// AddSold adds u to the "sold" field.
-func (m *StockMutation) AddSold(u int32) {
-	if m.addsold != nil {
-		*m.addsold += u
-	} else {
-		m.addsold = &u
-	}
+// ClearSold clears the value of the "sold" field.
+func (m *StockV1Mutation) ClearSold() {
+	m.sold = nil
+	m.clearedFields[stockv1.FieldSold] = struct{}{}
 }
 
-// AddedSold returns the value that was added to the "sold" field in this mutation.
-func (m *StockMutation) AddedSold() (r int32, exists bool) {
-	v := m.addsold
-	if v == nil {
-		return
-	}
-	return *v, true
+// SoldCleared returns if the "sold" field was cleared in this mutation.
+func (m *StockV1Mutation) SoldCleared() bool {
+	_, ok := m.clearedFields[stockv1.FieldSold]
+	return ok
 }
 
 // ResetSold resets all changes to the "sold" field.
-func (m *StockMutation) ResetSold() {
+func (m *StockV1Mutation) ResetSold() {
 	m.sold = nil
-	m.addsold = nil
+	delete(m.clearedFields, stockv1.FieldSold)
 }
 
-// Where appends a list predicates to the StockMutation builder.
-func (m *StockMutation) Where(ps ...predicate.Stock) {
+// Where appends a list predicates to the StockV1Mutation builder.
+func (m *StockV1Mutation) Where(ps ...predicate.StockV1) {
 	m.predicates = append(m.predicates, ps...)
 }
 
 // Op returns the operation name.
-func (m *StockMutation) Op() Op {
+func (m *StockV1Mutation) Op() Op {
 	return m.op
 }
 
-// Type returns the node type of this mutation (Stock).
-func (m *StockMutation) Type() string {
+// Type returns the node type of this mutation (StockV1).
+func (m *StockV1Mutation) Type() string {
 	return m.typ
 }
 
 // Fields returns all fields that were changed during this mutation. Note that in
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
-func (m *StockMutation) Fields() []string {
+func (m *StockV1Mutation) Fields() []string {
 	fields := make([]string, 0, 9)
 	if m.created_at != nil {
-		fields = append(fields, stock.FieldCreatedAt)
+		fields = append(fields, stockv1.FieldCreatedAt)
 	}
 	if m.updated_at != nil {
-		fields = append(fields, stock.FieldUpdatedAt)
+		fields = append(fields, stockv1.FieldUpdatedAt)
 	}
 	if m.deleted_at != nil {
-		fields = append(fields, stock.FieldDeletedAt)
+		fields = append(fields, stockv1.FieldDeletedAt)
 	}
 	if m.good_id != nil {
-		fields = append(fields, stock.FieldGoodID)
+		fields = append(fields, stockv1.FieldGoodID)
 	}
 	if m.total != nil {
-		fields = append(fields, stock.FieldTotal)
+		fields = append(fields, stockv1.FieldTotal)
 	}
 	if m.locked != nil {
-		fields = append(fields, stock.FieldLocked)
+		fields = append(fields, stockv1.FieldLocked)
 	}
 	if m.in_service != nil {
-		fields = append(fields, stock.FieldInService)
+		fields = append(fields, stockv1.FieldInService)
 	}
 	if m.wait_start != nil {
-		fields = append(fields, stock.FieldWaitStart)
+		fields = append(fields, stockv1.FieldWaitStart)
 	}
 	if m.sold != nil {
-		fields = append(fields, stock.FieldSold)
+		fields = append(fields, stockv1.FieldSold)
 	}
 	return fields
 }
@@ -9838,25 +9798,25 @@ func (m *StockMutation) Fields() []string {
 // Field returns the value of a field with the given name. The second boolean
 // return value indicates that this field was not set, or was not defined in the
 // schema.
-func (m *StockMutation) Field(name string) (ent.Value, bool) {
+func (m *StockV1Mutation) Field(name string) (ent.Value, bool) {
 	switch name {
-	case stock.FieldCreatedAt:
+	case stockv1.FieldCreatedAt:
 		return m.CreatedAt()
-	case stock.FieldUpdatedAt:
+	case stockv1.FieldUpdatedAt:
 		return m.UpdatedAt()
-	case stock.FieldDeletedAt:
+	case stockv1.FieldDeletedAt:
 		return m.DeletedAt()
-	case stock.FieldGoodID:
+	case stockv1.FieldGoodID:
 		return m.GoodID()
-	case stock.FieldTotal:
+	case stockv1.FieldTotal:
 		return m.Total()
-	case stock.FieldLocked:
+	case stockv1.FieldLocked:
 		return m.Locked()
-	case stock.FieldInService:
+	case stockv1.FieldInService:
 		return m.InService()
-	case stock.FieldWaitStart:
+	case stockv1.FieldWaitStart:
 		return m.WaitStart()
-	case stock.FieldSold:
+	case stockv1.FieldSold:
 		return m.Sold()
 	}
 	return nil, false
@@ -9865,129 +9825,114 @@ func (m *StockMutation) Field(name string) (ent.Value, bool) {
 // OldField returns the old value of the field from the database. An error is
 // returned if the mutation operation is not UpdateOne, or the query to the
 // database failed.
-func (m *StockMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+func (m *StockV1Mutation) OldField(ctx context.Context, name string) (ent.Value, error) {
 	switch name {
-	case stock.FieldCreatedAt:
+	case stockv1.FieldCreatedAt:
 		return m.OldCreatedAt(ctx)
-	case stock.FieldUpdatedAt:
+	case stockv1.FieldUpdatedAt:
 		return m.OldUpdatedAt(ctx)
-	case stock.FieldDeletedAt:
+	case stockv1.FieldDeletedAt:
 		return m.OldDeletedAt(ctx)
-	case stock.FieldGoodID:
+	case stockv1.FieldGoodID:
 		return m.OldGoodID(ctx)
-	case stock.FieldTotal:
+	case stockv1.FieldTotal:
 		return m.OldTotal(ctx)
-	case stock.FieldLocked:
+	case stockv1.FieldLocked:
 		return m.OldLocked(ctx)
-	case stock.FieldInService:
+	case stockv1.FieldInService:
 		return m.OldInService(ctx)
-	case stock.FieldWaitStart:
+	case stockv1.FieldWaitStart:
 		return m.OldWaitStart(ctx)
-	case stock.FieldSold:
+	case stockv1.FieldSold:
 		return m.OldSold(ctx)
 	}
-	return nil, fmt.Errorf("unknown Stock field %s", name)
+	return nil, fmt.Errorf("unknown StockV1 field %s", name)
 }
 
 // SetField sets the value of a field with the given name. It returns an error if
 // the field is not defined in the schema, or if the type mismatched the field
 // type.
-func (m *StockMutation) SetField(name string, value ent.Value) error {
+func (m *StockV1Mutation) SetField(name string, value ent.Value) error {
 	switch name {
-	case stock.FieldCreatedAt:
+	case stockv1.FieldCreatedAt:
 		v, ok := value.(uint32)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetCreatedAt(v)
 		return nil
-	case stock.FieldUpdatedAt:
+	case stockv1.FieldUpdatedAt:
 		v, ok := value.(uint32)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetUpdatedAt(v)
 		return nil
-	case stock.FieldDeletedAt:
+	case stockv1.FieldDeletedAt:
 		v, ok := value.(uint32)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetDeletedAt(v)
 		return nil
-	case stock.FieldGoodID:
+	case stockv1.FieldGoodID:
 		v, ok := value.(uuid.UUID)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetGoodID(v)
 		return nil
-	case stock.FieldTotal:
-		v, ok := value.(uint32)
+	case stockv1.FieldTotal:
+		v, ok := value.(decimal.Decimal)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetTotal(v)
 		return nil
-	case stock.FieldLocked:
-		v, ok := value.(uint32)
+	case stockv1.FieldLocked:
+		v, ok := value.(decimal.Decimal)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetLocked(v)
 		return nil
-	case stock.FieldInService:
-		v, ok := value.(uint32)
+	case stockv1.FieldInService:
+		v, ok := value.(decimal.Decimal)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetInService(v)
 		return nil
-	case stock.FieldWaitStart:
-		v, ok := value.(uint32)
+	case stockv1.FieldWaitStart:
+		v, ok := value.(decimal.Decimal)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetWaitStart(v)
 		return nil
-	case stock.FieldSold:
-		v, ok := value.(uint32)
+	case stockv1.FieldSold:
+		v, ok := value.(decimal.Decimal)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetSold(v)
 		return nil
 	}
-	return fmt.Errorf("unknown Stock field %s", name)
+	return fmt.Errorf("unknown StockV1 field %s", name)
 }
 
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
-func (m *StockMutation) AddedFields() []string {
+func (m *StockV1Mutation) AddedFields() []string {
 	var fields []string
 	if m.addcreated_at != nil {
-		fields = append(fields, stock.FieldCreatedAt)
+		fields = append(fields, stockv1.FieldCreatedAt)
 	}
 	if m.addupdated_at != nil {
-		fields = append(fields, stock.FieldUpdatedAt)
+		fields = append(fields, stockv1.FieldUpdatedAt)
 	}
 	if m.adddeleted_at != nil {
-		fields = append(fields, stock.FieldDeletedAt)
-	}
-	if m.addtotal != nil {
-		fields = append(fields, stock.FieldTotal)
-	}
-	if m.addlocked != nil {
-		fields = append(fields, stock.FieldLocked)
-	}
-	if m.addin_service != nil {
-		fields = append(fields, stock.FieldInService)
-	}
-	if m.addwait_start != nil {
-		fields = append(fields, stock.FieldWaitStart)
-	}
-	if m.addsold != nil {
-		fields = append(fields, stock.FieldSold)
+		fields = append(fields, stockv1.FieldDeletedAt)
 	}
 	return fields
 }
@@ -9995,24 +9940,14 @@ func (m *StockMutation) AddedFields() []string {
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
-func (m *StockMutation) AddedField(name string) (ent.Value, bool) {
+func (m *StockV1Mutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
-	case stock.FieldCreatedAt:
+	case stockv1.FieldCreatedAt:
 		return m.AddedCreatedAt()
-	case stock.FieldUpdatedAt:
+	case stockv1.FieldUpdatedAt:
 		return m.AddedUpdatedAt()
-	case stock.FieldDeletedAt:
+	case stockv1.FieldDeletedAt:
 		return m.AddedDeletedAt()
-	case stock.FieldTotal:
-		return m.AddedTotal()
-	case stock.FieldLocked:
-		return m.AddedLocked()
-	case stock.FieldInService:
-		return m.AddedInService()
-	case stock.FieldWaitStart:
-		return m.AddedWaitStart()
-	case stock.FieldSold:
-		return m.AddedSold()
 	}
 	return nil, false
 }
@@ -10020,168 +9955,166 @@ func (m *StockMutation) AddedField(name string) (ent.Value, bool) {
 // AddField adds the value to the field with the given name. It returns an error if
 // the field is not defined in the schema, or if the type mismatched the field
 // type.
-func (m *StockMutation) AddField(name string, value ent.Value) error {
+func (m *StockV1Mutation) AddField(name string, value ent.Value) error {
 	switch name {
-	case stock.FieldCreatedAt:
+	case stockv1.FieldCreatedAt:
 		v, ok := value.(int32)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.AddCreatedAt(v)
 		return nil
-	case stock.FieldUpdatedAt:
+	case stockv1.FieldUpdatedAt:
 		v, ok := value.(int32)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.AddUpdatedAt(v)
 		return nil
-	case stock.FieldDeletedAt:
+	case stockv1.FieldDeletedAt:
 		v, ok := value.(int32)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.AddDeletedAt(v)
 		return nil
-	case stock.FieldTotal:
-		v, ok := value.(int32)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.AddTotal(v)
-		return nil
-	case stock.FieldLocked:
-		v, ok := value.(int32)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.AddLocked(v)
-		return nil
-	case stock.FieldInService:
-		v, ok := value.(int32)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.AddInService(v)
-		return nil
-	case stock.FieldWaitStart:
-		v, ok := value.(int32)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.AddWaitStart(v)
-		return nil
-	case stock.FieldSold:
-		v, ok := value.(int32)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.AddSold(v)
-		return nil
 	}
-	return fmt.Errorf("unknown Stock numeric field %s", name)
+	return fmt.Errorf("unknown StockV1 numeric field %s", name)
 }
 
 // ClearedFields returns all nullable fields that were cleared during this
 // mutation.
-func (m *StockMutation) ClearedFields() []string {
-	return nil
+func (m *StockV1Mutation) ClearedFields() []string {
+	var fields []string
+	if m.FieldCleared(stockv1.FieldTotal) {
+		fields = append(fields, stockv1.FieldTotal)
+	}
+	if m.FieldCleared(stockv1.FieldLocked) {
+		fields = append(fields, stockv1.FieldLocked)
+	}
+	if m.FieldCleared(stockv1.FieldInService) {
+		fields = append(fields, stockv1.FieldInService)
+	}
+	if m.FieldCleared(stockv1.FieldWaitStart) {
+		fields = append(fields, stockv1.FieldWaitStart)
+	}
+	if m.FieldCleared(stockv1.FieldSold) {
+		fields = append(fields, stockv1.FieldSold)
+	}
+	return fields
 }
 
 // FieldCleared returns a boolean indicating if a field with the given name was
 // cleared in this mutation.
-func (m *StockMutation) FieldCleared(name string) bool {
+func (m *StockV1Mutation) FieldCleared(name string) bool {
 	_, ok := m.clearedFields[name]
 	return ok
 }
 
 // ClearField clears the value of the field with the given name. It returns an
 // error if the field is not defined in the schema.
-func (m *StockMutation) ClearField(name string) error {
-	return fmt.Errorf("unknown Stock nullable field %s", name)
+func (m *StockV1Mutation) ClearField(name string) error {
+	switch name {
+	case stockv1.FieldTotal:
+		m.ClearTotal()
+		return nil
+	case stockv1.FieldLocked:
+		m.ClearLocked()
+		return nil
+	case stockv1.FieldInService:
+		m.ClearInService()
+		return nil
+	case stockv1.FieldWaitStart:
+		m.ClearWaitStart()
+		return nil
+	case stockv1.FieldSold:
+		m.ClearSold()
+		return nil
+	}
+	return fmt.Errorf("unknown StockV1 nullable field %s", name)
 }
 
 // ResetField resets all changes in the mutation for the field with the given name.
 // It returns an error if the field is not defined in the schema.
-func (m *StockMutation) ResetField(name string) error {
+func (m *StockV1Mutation) ResetField(name string) error {
 	switch name {
-	case stock.FieldCreatedAt:
+	case stockv1.FieldCreatedAt:
 		m.ResetCreatedAt()
 		return nil
-	case stock.FieldUpdatedAt:
+	case stockv1.FieldUpdatedAt:
 		m.ResetUpdatedAt()
 		return nil
-	case stock.FieldDeletedAt:
+	case stockv1.FieldDeletedAt:
 		m.ResetDeletedAt()
 		return nil
-	case stock.FieldGoodID:
+	case stockv1.FieldGoodID:
 		m.ResetGoodID()
 		return nil
-	case stock.FieldTotal:
+	case stockv1.FieldTotal:
 		m.ResetTotal()
 		return nil
-	case stock.FieldLocked:
+	case stockv1.FieldLocked:
 		m.ResetLocked()
 		return nil
-	case stock.FieldInService:
+	case stockv1.FieldInService:
 		m.ResetInService()
 		return nil
-	case stock.FieldWaitStart:
+	case stockv1.FieldWaitStart:
 		m.ResetWaitStart()
 		return nil
-	case stock.FieldSold:
+	case stockv1.FieldSold:
 		m.ResetSold()
 		return nil
 	}
-	return fmt.Errorf("unknown Stock field %s", name)
+	return fmt.Errorf("unknown StockV1 field %s", name)
 }
 
 // AddedEdges returns all edge names that were set/added in this mutation.
-func (m *StockMutation) AddedEdges() []string {
+func (m *StockV1Mutation) AddedEdges() []string {
 	edges := make([]string, 0, 0)
 	return edges
 }
 
 // AddedIDs returns all IDs (to other nodes) that were added for the given edge
 // name in this mutation.
-func (m *StockMutation) AddedIDs(name string) []ent.Value {
+func (m *StockV1Mutation) AddedIDs(name string) []ent.Value {
 	return nil
 }
 
 // RemovedEdges returns all edge names that were removed in this mutation.
-func (m *StockMutation) RemovedEdges() []string {
+func (m *StockV1Mutation) RemovedEdges() []string {
 	edges := make([]string, 0, 0)
 	return edges
 }
 
 // RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
 // the given name in this mutation.
-func (m *StockMutation) RemovedIDs(name string) []ent.Value {
+func (m *StockV1Mutation) RemovedIDs(name string) []ent.Value {
 	return nil
 }
 
 // ClearedEdges returns all edge names that were cleared in this mutation.
-func (m *StockMutation) ClearedEdges() []string {
+func (m *StockV1Mutation) ClearedEdges() []string {
 	edges := make([]string, 0, 0)
 	return edges
 }
 
 // EdgeCleared returns a boolean which indicates if the edge with the given name
 // was cleared in this mutation.
-func (m *StockMutation) EdgeCleared(name string) bool {
+func (m *StockV1Mutation) EdgeCleared(name string) bool {
 	return false
 }
 
 // ClearEdge clears the value of the edge with the given name. It returns an error
 // if that edge is not defined in the schema.
-func (m *StockMutation) ClearEdge(name string) error {
-	return fmt.Errorf("unknown Stock unique edge %s", name)
+func (m *StockV1Mutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown StockV1 unique edge %s", name)
 }
 
 // ResetEdge resets all changes to the edge with the given name in this mutation.
 // It returns an error if the edge is not defined in the schema.
-func (m *StockMutation) ResetEdge(name string) error {
-	return fmt.Errorf("unknown Stock edge %s", name)
+func (m *StockV1Mutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown StockV1 edge %s", name)
 }
 
 // SubGoodMutation represents an operation that mutates the SubGood nodes in the graph.

@@ -3,6 +3,8 @@ package stock
 import (
 	"fmt"
 
+	"github.com/shopspring/decimal"
+
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
@@ -23,7 +25,12 @@ func validate(info *npool.StockReq) error {
 		return status.Error(codes.InvalidArgument, fmt.Sprintf("GoodID is invalid: %v", err))
 	}
 
-	if info.GetTotal() <= 0 {
+	total, err := decimal.NewFromString(info.GetTotal())
+	if err != nil {
+		logger.Sugar().Errorw("validate", "Total", info.GetTotal())
+		return status.Error(codes.InvalidArgument, err.Error())
+	}
+	if total.Cmp(decimal.NewFromInt(0)) <= 0 {
 		logger.Sugar().Errorw("validate", "Total", info.GetTotal())
 		return status.Error(codes.InvalidArgument, "Total is Less than or equal to 0")
 	}

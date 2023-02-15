@@ -318,28 +318,28 @@ func (f RecommendMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutat
 	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.RecommendMutation", m)
 }
 
-// The StockQueryRuleFunc type is an adapter to allow the use of ordinary
+// The StockV1QueryRuleFunc type is an adapter to allow the use of ordinary
 // functions as a query rule.
-type StockQueryRuleFunc func(context.Context, *ent.StockQuery) error
+type StockV1QueryRuleFunc func(context.Context, *ent.StockV1Query) error
 
 // EvalQuery return f(ctx, q).
-func (f StockQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
-	if q, ok := q.(*ent.StockQuery); ok {
+func (f StockV1QueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.StockV1Query); ok {
 		return f(ctx, q)
 	}
-	return Denyf("ent/privacy: unexpected query type %T, expect *ent.StockQuery", q)
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.StockV1Query", q)
 }
 
-// The StockMutationRuleFunc type is an adapter to allow the use of ordinary
+// The StockV1MutationRuleFunc type is an adapter to allow the use of ordinary
 // functions as a mutation rule.
-type StockMutationRuleFunc func(context.Context, *ent.StockMutation) error
+type StockV1MutationRuleFunc func(context.Context, *ent.StockV1Mutation) error
 
 // EvalMutation calls f(ctx, m).
-func (f StockMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
-	if m, ok := m.(*ent.StockMutation); ok {
+func (f StockV1MutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.StockV1Mutation); ok {
 		return f(ctx, m)
 	}
-	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.StockMutation", m)
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.StockV1Mutation", m)
 }
 
 // The SubGoodQueryRuleFunc type is an adapter to allow the use of ordinary
@@ -439,7 +439,7 @@ func queryFilter(q ent.Query) (Filter, error) {
 		return q.Filter(), nil
 	case *ent.RecommendQuery:
 		return q.Filter(), nil
-	case *ent.StockQuery:
+	case *ent.StockV1Query:
 		return q.Filter(), nil
 	case *ent.SubGoodQuery:
 		return q.Filter(), nil
@@ -466,7 +466,7 @@ func mutationFilter(m ent.Mutation) (Filter, error) {
 		return m.Filter(), nil
 	case *ent.RecommendMutation:
 		return m.Filter(), nil
-	case *ent.StockMutation:
+	case *ent.StockV1Mutation:
 		return m.Filter(), nil
 	case *ent.SubGoodMutation:
 		return m.Filter(), nil

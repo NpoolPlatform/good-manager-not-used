@@ -7,12 +7,13 @@ import (
 	"strings"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/NpoolPlatform/good-manager/pkg/db/ent/stock"
+	"github.com/NpoolPlatform/good-manager/pkg/db/ent/stockv1"
 	"github.com/google/uuid"
+	"github.com/shopspring/decimal"
 )
 
-// Stock is the model entity for the Stock schema.
-type Stock struct {
+// StockV1 is the model entity for the StockV1 schema.
+type StockV1 struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID uuid.UUID `json:"id,omitempty"`
@@ -25,128 +26,130 @@ type Stock struct {
 	// GoodID holds the value of the "good_id" field.
 	GoodID uuid.UUID `json:"good_id,omitempty"`
 	// Total holds the value of the "total" field.
-	Total uint32 `json:"total,omitempty"`
+	Total decimal.Decimal `json:"total,omitempty"`
 	// Locked holds the value of the "locked" field.
-	Locked uint32 `json:"locked,omitempty"`
+	Locked decimal.Decimal `json:"locked,omitempty"`
 	// InService holds the value of the "in_service" field.
-	InService uint32 `json:"in_service,omitempty"`
+	InService decimal.Decimal `json:"in_service,omitempty"`
 	// WaitStart holds the value of the "wait_start" field.
-	WaitStart uint32 `json:"wait_start,omitempty"`
+	WaitStart decimal.Decimal `json:"wait_start,omitempty"`
 	// Sold holds the value of the "sold" field.
-	Sold uint32 `json:"sold,omitempty"`
+	Sold decimal.Decimal `json:"sold,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
-func (*Stock) scanValues(columns []string) ([]interface{}, error) {
+func (*StockV1) scanValues(columns []string) ([]interface{}, error) {
 	values := make([]interface{}, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case stock.FieldCreatedAt, stock.FieldUpdatedAt, stock.FieldDeletedAt, stock.FieldTotal, stock.FieldLocked, stock.FieldInService, stock.FieldWaitStart, stock.FieldSold:
+		case stockv1.FieldTotal, stockv1.FieldLocked, stockv1.FieldInService, stockv1.FieldWaitStart, stockv1.FieldSold:
+			values[i] = new(decimal.Decimal)
+		case stockv1.FieldCreatedAt, stockv1.FieldUpdatedAt, stockv1.FieldDeletedAt:
 			values[i] = new(sql.NullInt64)
-		case stock.FieldID, stock.FieldGoodID:
+		case stockv1.FieldID, stockv1.FieldGoodID:
 			values[i] = new(uuid.UUID)
 		default:
-			return nil, fmt.Errorf("unexpected column %q for type Stock", columns[i])
+			return nil, fmt.Errorf("unexpected column %q for type StockV1", columns[i])
 		}
 	}
 	return values, nil
 }
 
 // assignValues assigns the values that were returned from sql.Rows (after scanning)
-// to the Stock fields.
-func (s *Stock) assignValues(columns []string, values []interface{}) error {
+// to the StockV1 fields.
+func (s *StockV1) assignValues(columns []string, values []interface{}) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
 	for i := range columns {
 		switch columns[i] {
-		case stock.FieldID:
+		case stockv1.FieldID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
 				return fmt.Errorf("unexpected type %T for field id", values[i])
 			} else if value != nil {
 				s.ID = *value
 			}
-		case stock.FieldCreatedAt:
+		case stockv1.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
 			} else if value.Valid {
 				s.CreatedAt = uint32(value.Int64)
 			}
-		case stock.FieldUpdatedAt:
+		case stockv1.FieldUpdatedAt:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
 				s.UpdatedAt = uint32(value.Int64)
 			}
-		case stock.FieldDeletedAt:
+		case stockv1.FieldDeletedAt:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
 			} else if value.Valid {
 				s.DeletedAt = uint32(value.Int64)
 			}
-		case stock.FieldGoodID:
+		case stockv1.FieldGoodID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
 				return fmt.Errorf("unexpected type %T for field good_id", values[i])
 			} else if value != nil {
 				s.GoodID = *value
 			}
-		case stock.FieldTotal:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
+		case stockv1.FieldTotal:
+			if value, ok := values[i].(*decimal.Decimal); !ok {
 				return fmt.Errorf("unexpected type %T for field total", values[i])
-			} else if value.Valid {
-				s.Total = uint32(value.Int64)
+			} else if value != nil {
+				s.Total = *value
 			}
-		case stock.FieldLocked:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
+		case stockv1.FieldLocked:
+			if value, ok := values[i].(*decimal.Decimal); !ok {
 				return fmt.Errorf("unexpected type %T for field locked", values[i])
-			} else if value.Valid {
-				s.Locked = uint32(value.Int64)
+			} else if value != nil {
+				s.Locked = *value
 			}
-		case stock.FieldInService:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
+		case stockv1.FieldInService:
+			if value, ok := values[i].(*decimal.Decimal); !ok {
 				return fmt.Errorf("unexpected type %T for field in_service", values[i])
-			} else if value.Valid {
-				s.InService = uint32(value.Int64)
+			} else if value != nil {
+				s.InService = *value
 			}
-		case stock.FieldWaitStart:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
+		case stockv1.FieldWaitStart:
+			if value, ok := values[i].(*decimal.Decimal); !ok {
 				return fmt.Errorf("unexpected type %T for field wait_start", values[i])
-			} else if value.Valid {
-				s.WaitStart = uint32(value.Int64)
+			} else if value != nil {
+				s.WaitStart = *value
 			}
-		case stock.FieldSold:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
+		case stockv1.FieldSold:
+			if value, ok := values[i].(*decimal.Decimal); !ok {
 				return fmt.Errorf("unexpected type %T for field sold", values[i])
-			} else if value.Valid {
-				s.Sold = uint32(value.Int64)
+			} else if value != nil {
+				s.Sold = *value
 			}
 		}
 	}
 	return nil
 }
 
-// Update returns a builder for updating this Stock.
-// Note that you need to call Stock.Unwrap() before calling this method if this Stock
+// Update returns a builder for updating this StockV1.
+// Note that you need to call StockV1.Unwrap() before calling this method if this StockV1
 // was returned from a transaction, and the transaction was committed or rolled back.
-func (s *Stock) Update() *StockUpdateOne {
-	return (&StockClient{config: s.config}).UpdateOne(s)
+func (s *StockV1) Update() *StockV1UpdateOne {
+	return (&StockV1Client{config: s.config}).UpdateOne(s)
 }
 
-// Unwrap unwraps the Stock entity that was returned from a transaction after it was closed,
+// Unwrap unwraps the StockV1 entity that was returned from a transaction after it was closed,
 // so that all future queries will be executed through the driver which created the transaction.
-func (s *Stock) Unwrap() *Stock {
+func (s *StockV1) Unwrap() *StockV1 {
 	_tx, ok := s.config.driver.(*txDriver)
 	if !ok {
-		panic("ent: Stock is not a transactional entity")
+		panic("ent: StockV1 is not a transactional entity")
 	}
 	s.config.driver = _tx.drv
 	return s
 }
 
 // String implements the fmt.Stringer.
-func (s *Stock) String() string {
+func (s *StockV1) String() string {
 	var builder strings.Builder
-	builder.WriteString("Stock(")
+	builder.WriteString("StockV1(")
 	builder.WriteString(fmt.Sprintf("id=%v, ", s.ID))
 	builder.WriteString("created_at=")
 	builder.WriteString(fmt.Sprintf("%v", s.CreatedAt))
@@ -178,10 +181,10 @@ func (s *Stock) String() string {
 	return builder.String()
 }
 
-// Stocks is a parsable slice of Stock.
-type Stocks []*Stock
+// StockV1s is a parsable slice of StockV1.
+type StockV1s []*StockV1
 
-func (s Stocks) config(cfg config) {
+func (s StockV1s) config(cfg config) {
 	for _i := range s {
 		s[_i].config = cfg
 	}

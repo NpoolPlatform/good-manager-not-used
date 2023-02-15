@@ -13,10 +13,10 @@ func trace(span trace1.Span, in *npool.StockReq, index int) trace1.Span {
 	span.SetAttributes(
 		attribute.String(fmt.Sprintf("ID.%v", index), in.GetID()),
 		attribute.String(fmt.Sprintf("GoodID.%v", index), in.GetGoodID()),
-		attribute.Int(fmt.Sprintf("Total.%v", index), int(in.GetTotal())),
-		attribute.Int(fmt.Sprintf("Locked.%v", index), int(in.GetLocked())),
-		attribute.Int(fmt.Sprintf("InService.%v", index), int(in.GetInService())),
-		attribute.Float64(fmt.Sprintf("Sold.%v", index), float64(in.GetSold())),
+		attribute.String(fmt.Sprintf("Total.%v", index), in.GetTotal()),
+		attribute.String(fmt.Sprintf("Locked.%v", index), in.GetLocked()),
+		attribute.String(fmt.Sprintf("InService.%v", index), in.GetInService()),
+		attribute.String(fmt.Sprintf("Sold.%v", index), in.GetSold()),
 	)
 	return span
 }

@@ -10,48 +10,48 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/predicate"
-	"github.com/NpoolPlatform/good-manager/pkg/db/ent/stock"
+	"github.com/NpoolPlatform/good-manager/pkg/db/ent/stockv1"
 )
 
-// StockDelete is the builder for deleting a Stock entity.
-type StockDelete struct {
+// StockV1Delete is the builder for deleting a StockV1 entity.
+type StockV1Delete struct {
 	config
 	hooks    []Hook
-	mutation *StockMutation
+	mutation *StockV1Mutation
 }
 
-// Where appends a list predicates to the StockDelete builder.
-func (sd *StockDelete) Where(ps ...predicate.Stock) *StockDelete {
-	sd.mutation.Where(ps...)
-	return sd
+// Where appends a list predicates to the StockV1Delete builder.
+func (sv *StockV1Delete) Where(ps ...predicate.StockV1) *StockV1Delete {
+	sv.mutation.Where(ps...)
+	return sv
 }
 
 // Exec executes the deletion query and returns how many vertices were deleted.
-func (sd *StockDelete) Exec(ctx context.Context) (int, error) {
+func (sv *StockV1Delete) Exec(ctx context.Context) (int, error) {
 	var (
 		err      error
 		affected int
 	)
-	if len(sd.hooks) == 0 {
-		affected, err = sd.sqlExec(ctx)
+	if len(sv.hooks) == 0 {
+		affected, err = sv.sqlExec(ctx)
 	} else {
 		var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
-			mutation, ok := m.(*StockMutation)
+			mutation, ok := m.(*StockV1Mutation)
 			if !ok {
 				return nil, fmt.Errorf("unexpected mutation type %T", m)
 			}
-			sd.mutation = mutation
-			affected, err = sd.sqlExec(ctx)
+			sv.mutation = mutation
+			affected, err = sv.sqlExec(ctx)
 			mutation.done = true
 			return affected, err
 		})
-		for i := len(sd.hooks) - 1; i >= 0; i-- {
-			if sd.hooks[i] == nil {
+		for i := len(sv.hooks) - 1; i >= 0; i-- {
+			if sv.hooks[i] == nil {
 				return 0, fmt.Errorf("ent: uninitialized hook (forgotten import ent/runtime?)")
 			}
-			mut = sd.hooks[i](mut)
+			mut = sv.hooks[i](mut)
 		}
-		if _, err := mut.Mutate(ctx, sd.mutation); err != nil {
+		if _, err := mut.Mutate(ctx, sv.mutation); err != nil {
 			return 0, err
 		}
 	}
@@ -59,57 +59,57 @@ func (sd *StockDelete) Exec(ctx context.Context) (int, error) {
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (sd *StockDelete) ExecX(ctx context.Context) int {
-	n, err := sd.Exec(ctx)
+func (sv *StockV1Delete) ExecX(ctx context.Context) int {
+	n, err := sv.Exec(ctx)
 	if err != nil {
 		panic(err)
 	}
 	return n
 }
 
-func (sd *StockDelete) sqlExec(ctx context.Context) (int, error) {
+func (sv *StockV1Delete) sqlExec(ctx context.Context) (int, error) {
 	_spec := &sqlgraph.DeleteSpec{
 		Node: &sqlgraph.NodeSpec{
-			Table: stock.Table,
+			Table: stockv1.Table,
 			ID: &sqlgraph.FieldSpec{
 				Type:   field.TypeUUID,
-				Column: stock.FieldID,
+				Column: stockv1.FieldID,
 			},
 		},
 	}
-	if ps := sd.mutation.predicates; len(ps) > 0 {
+	if ps := sv.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
 				ps[i](selector)
 			}
 		}
 	}
-	affected, err := sqlgraph.DeleteNodes(ctx, sd.driver, _spec)
+	affected, err := sqlgraph.DeleteNodes(ctx, sv.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
 	return affected, err
 }
 
-// StockDeleteOne is the builder for deleting a single Stock entity.
-type StockDeleteOne struct {
-	sd *StockDelete
+// StockV1DeleteOne is the builder for deleting a single StockV1 entity.
+type StockV1DeleteOne struct {
+	sv *StockV1Delete
 }
 
 // Exec executes the deletion query.
-func (sdo *StockDeleteOne) Exec(ctx context.Context) error {
-	n, err := sdo.sd.Exec(ctx)
+func (svo *StockV1DeleteOne) Exec(ctx context.Context) error {
+	n, err := svo.sv.Exec(ctx)
 	switch {
 	case err != nil:
 		return err
 	case n == 0:
-		return &NotFoundError{stock.Label}
+		return &NotFoundError{stockv1.Label}
 	default:
 		return nil
 	}
 }
 
 // ExecX is like Exec, but panics if an error occurs.
-func (sdo *StockDeleteOne) ExecX(ctx context.Context) {
-	sdo.sd.ExecX(ctx)
+func (svo *StockV1DeleteOne) ExecX(ctx context.Context) {
+	svo.sv.ExecX(ctx)
 }

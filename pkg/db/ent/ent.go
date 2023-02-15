@@ -17,7 +17,7 @@ import (
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/good"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/promotion"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/recommend"
-	"github.com/NpoolPlatform/good-manager/pkg/db/ent/stock"
+	"github.com/NpoolPlatform/good-manager/pkg/db/ent/stockv1"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/subgood"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/vendorlocation"
 )
@@ -47,7 +47,7 @@ func columnChecker(table string) func(string) error {
 		good.Table:           good.ValidColumn,
 		promotion.Table:      promotion.ValidColumn,
 		recommend.Table:      recommend.ValidColumn,
-		stock.Table:          stock.ValidColumn,
+		stockv1.Table:        stockv1.ValidColumn,
 		subgood.Table:        subgood.ValidColumn,
 		vendorlocation.Table: vendorlocation.ValidColumn,
 	}
