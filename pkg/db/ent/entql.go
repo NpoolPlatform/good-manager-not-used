@@ -10,7 +10,6 @@ import (
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/good"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/promotion"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/recommend"
-	"github.com/NpoolPlatform/good-manager/pkg/db/ent/stock"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/stockv1"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/subgood"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/vendorlocation"
@@ -23,7 +22,7 @@ import (
 
 // schemaGraph holds a representation of ent/schema at runtime.
 var schemaGraph = func() *sqlgraph.Schema {
-	graph := &sqlgraph.Schema{Nodes: make([]*sqlgraph.Node, 11)}
+	graph := &sqlgraph.Schema{Nodes: make([]*sqlgraph.Node, 10)}
 	graph.Nodes[0] = &sqlgraph.Node{
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   appgood.Table,
@@ -206,28 +205,6 @@ var schemaGraph = func() *sqlgraph.Schema {
 	}
 	graph.Nodes[7] = &sqlgraph.Node{
 		NodeSpec: sqlgraph.NodeSpec{
-			Table:   stock.Table,
-			Columns: stock.Columns,
-			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeUUID,
-				Column: stock.FieldID,
-			},
-		},
-		Type: "Stock",
-		Fields: map[string]*sqlgraph.FieldSpec{
-			stock.FieldCreatedAt: {Type: field.TypeUint32, Column: stock.FieldCreatedAt},
-			stock.FieldUpdatedAt: {Type: field.TypeUint32, Column: stock.FieldUpdatedAt},
-			stock.FieldDeletedAt: {Type: field.TypeUint32, Column: stock.FieldDeletedAt},
-			stock.FieldGoodID:    {Type: field.TypeUUID, Column: stock.FieldGoodID},
-			stock.FieldTotal:     {Type: field.TypeUint32, Column: stock.FieldTotal},
-			stock.FieldLocked:    {Type: field.TypeUint32, Column: stock.FieldLocked},
-			stock.FieldInService: {Type: field.TypeUint32, Column: stock.FieldInService},
-			stock.FieldWaitStart: {Type: field.TypeUint32, Column: stock.FieldWaitStart},
-			stock.FieldSold:      {Type: field.TypeUint32, Column: stock.FieldSold},
-		},
-	}
-	graph.Nodes[8] = &sqlgraph.Node{
-		NodeSpec: sqlgraph.NodeSpec{
 			Table:   stockv1.Table,
 			Columns: stockv1.Columns,
 			ID: &sqlgraph.FieldSpec{
@@ -248,7 +225,7 @@ var schemaGraph = func() *sqlgraph.Schema {
 			stockv1.FieldSold:      {Type: field.TypeOther, Column: stockv1.FieldSold},
 		},
 	}
-	graph.Nodes[9] = &sqlgraph.Node{
+	graph.Nodes[8] = &sqlgraph.Node{
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   subgood.Table,
 			Columns: subgood.Columns,
@@ -269,7 +246,7 @@ var schemaGraph = func() *sqlgraph.Schema {
 			subgood.FieldCommission: {Type: field.TypeBool, Column: subgood.FieldCommission},
 		},
 	}
-	graph.Nodes[10] = &sqlgraph.Node{
+	graph.Nodes[9] = &sqlgraph.Node{
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   vendorlocation.Table,
 			Columns: vendorlocation.Columns,
@@ -1024,91 +1001,6 @@ func (f *RecommendFilter) WhereRecommendIndex(p entql.Float64P) {
 }
 
 // addPredicate implements the predicateAdder interface.
-func (sq *StockQuery) addPredicate(pred func(s *sql.Selector)) {
-	sq.predicates = append(sq.predicates, pred)
-}
-
-// Filter returns a Filter implementation to apply filters on the StockQuery builder.
-func (sq *StockQuery) Filter() *StockFilter {
-	return &StockFilter{config: sq.config, predicateAdder: sq}
-}
-
-// addPredicate implements the predicateAdder interface.
-func (m *StockMutation) addPredicate(pred func(s *sql.Selector)) {
-	m.predicates = append(m.predicates, pred)
-}
-
-// Filter returns an entql.Where implementation to apply filters on the StockMutation builder.
-func (m *StockMutation) Filter() *StockFilter {
-	return &StockFilter{config: m.config, predicateAdder: m}
-}
-
-// StockFilter provides a generic filtering capability at runtime for StockQuery.
-type StockFilter struct {
-	predicateAdder
-	config
-}
-
-// Where applies the entql predicate on the query filter.
-func (f *StockFilter) Where(p entql.P) {
-	f.addPredicate(func(s *sql.Selector) {
-		if err := schemaGraph.EvalP(schemaGraph.Nodes[7].Type, p, s); err != nil {
-			s.AddError(err)
-		}
-	})
-}
-
-// WhereID applies the entql [16]byte predicate on the id field.
-func (f *StockFilter) WhereID(p entql.ValueP) {
-	f.Where(p.Field(stock.FieldID))
-}
-
-// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
-func (f *StockFilter) WhereCreatedAt(p entql.Uint32P) {
-	f.Where(p.Field(stock.FieldCreatedAt))
-}
-
-// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
-func (f *StockFilter) WhereUpdatedAt(p entql.Uint32P) {
-	f.Where(p.Field(stock.FieldUpdatedAt))
-}
-
-// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
-func (f *StockFilter) WhereDeletedAt(p entql.Uint32P) {
-	f.Where(p.Field(stock.FieldDeletedAt))
-}
-
-// WhereGoodID applies the entql [16]byte predicate on the good_id field.
-func (f *StockFilter) WhereGoodID(p entql.ValueP) {
-	f.Where(p.Field(stock.FieldGoodID))
-}
-
-// WhereTotal applies the entql uint32 predicate on the total field.
-func (f *StockFilter) WhereTotal(p entql.Uint32P) {
-	f.Where(p.Field(stock.FieldTotal))
-}
-
-// WhereLocked applies the entql uint32 predicate on the locked field.
-func (f *StockFilter) WhereLocked(p entql.Uint32P) {
-	f.Where(p.Field(stock.FieldLocked))
-}
-
-// WhereInService applies the entql uint32 predicate on the in_service field.
-func (f *StockFilter) WhereInService(p entql.Uint32P) {
-	f.Where(p.Field(stock.FieldInService))
-}
-
-// WhereWaitStart applies the entql uint32 predicate on the wait_start field.
-func (f *StockFilter) WhereWaitStart(p entql.Uint32P) {
-	f.Where(p.Field(stock.FieldWaitStart))
-}
-
-// WhereSold applies the entql uint32 predicate on the sold field.
-func (f *StockFilter) WhereSold(p entql.Uint32P) {
-	f.Where(p.Field(stock.FieldSold))
-}
-
-// addPredicate implements the predicateAdder interface.
 func (sv *StockV1Query) addPredicate(pred func(s *sql.Selector)) {
 	sv.predicates = append(sv.predicates, pred)
 }
@@ -1137,7 +1029,7 @@ type StockV1Filter struct {
 // Where applies the entql predicate on the query filter.
 func (f *StockV1Filter) Where(p entql.P) {
 	f.addPredicate(func(s *sql.Selector) {
-		if err := schemaGraph.EvalP(schemaGraph.Nodes[8].Type, p, s); err != nil {
+		if err := schemaGraph.EvalP(schemaGraph.Nodes[7].Type, p, s); err != nil {
 			s.AddError(err)
 		}
 	})
@@ -1222,7 +1114,7 @@ type SubGoodFilter struct {
 // Where applies the entql predicate on the query filter.
 func (f *SubGoodFilter) Where(p entql.P) {
 	f.addPredicate(func(s *sql.Selector) {
-		if err := schemaGraph.EvalP(schemaGraph.Nodes[9].Type, p, s); err != nil {
+		if err := schemaGraph.EvalP(schemaGraph.Nodes[8].Type, p, s); err != nil {
 			s.AddError(err)
 		}
 	})
@@ -1302,7 +1194,7 @@ type VendorLocationFilter struct {
 // Where applies the entql predicate on the query filter.
 func (f *VendorLocationFilter) Where(p entql.P) {
 	f.addPredicate(func(s *sql.Selector) {
-		if err := schemaGraph.EvalP(schemaGraph.Nodes[10].Type, p, s); err != nil {
+		if err := schemaGraph.EvalP(schemaGraph.Nodes[9].Type, p, s); err != nil {
 			s.AddError(err)
 		}
 	})

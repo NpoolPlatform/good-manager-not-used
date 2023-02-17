@@ -28,8 +28,6 @@ type Tx struct {
 	Promotion *PromotionClient
 	// Recommend is the client for interacting with the Recommend builders.
 	Recommend *RecommendClient
-	// Stock is the client for interacting with the Stock builders.
-	Stock *StockClient
 	// StockV1 is the client for interacting with the StockV1 builders.
 	StockV1 *StockV1Client
 	// SubGood is the client for interacting with the SubGood builders.
@@ -178,7 +176,6 @@ func (tx *Tx) init() {
 	tx.Good = NewGoodClient(tx.config)
 	tx.Promotion = NewPromotionClient(tx.config)
 	tx.Recommend = NewRecommendClient(tx.config)
-	tx.Stock = NewStockClient(tx.config)
 	tx.StockV1 = NewStockV1Client(tx.config)
 	tx.SubGood = NewSubGoodClient(tx.config)
 	tx.VendorLocation = NewVendorLocationClient(tx.config)
