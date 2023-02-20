@@ -27,8 +27,8 @@ type Promotion func(*sql.Selector)
 // Recommend is the predicate function for recommend builders.
 type Recommend func(*sql.Selector)
 
-// StockV1 is the predicate function for stockv1 builders.
-type StockV1 func(*sql.Selector)
+// Stock is the predicate function for stock builders.
+type Stock func(*sql.Selector)
 
 // SubGood is the predicate function for subgood builders.
 type SubGood func(*sql.Selector)

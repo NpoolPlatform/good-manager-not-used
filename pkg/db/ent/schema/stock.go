@@ -12,19 +12,19 @@ import (
 	"github.com/shopspring/decimal"
 )
 
-// StockV1 holds the schema definition for the StockV1 entity.
-type StockV1 struct {
+// Stock holds the schema definition for the Stock entity.
+type Stock struct {
 	ent.Schema
 }
 
-func (StockV1) Mixin() []ent.Mixin {
+func (Stock) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		mixin.TimeMixin{},
 	}
 }
 
-// Fields of the StockV1.
-func (StockV1) Fields() []ent.Field {
+// Fields of the Stock.
+func (Stock) Fields() []ent.Field {
 	return []ent.Field{
 		field.
 			UUID("id", uuid.UUID{}).
@@ -70,14 +70,14 @@ func (StockV1) Fields() []ent.Field {
 	}
 }
 
-func (StockV1) Indexes() []ent.Index {
-	return []ent.Index{
-		index.Fields("good_id").Unique(),
+func (Stock) Annotations() []schema.Annotation {
+	return []schema.Annotation{
+		entsql.Annotation{Table: "stock_v1"},
 	}
 }
 
-func (StockV1) Annotations() []schema.Annotation {
-	return []schema.Annotation{
-		entsql.Annotation{Table: "stocks_v1"},
+func (Stock) Indexes() []ent.Index {
+	return []ent.Index{
+		index.Fields("good_id").Unique(),
 	}
 }

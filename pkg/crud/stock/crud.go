@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/NpoolPlatform/good-manager/pkg/db/ent/stockv1"
+	"github.com/NpoolPlatform/good-manager/pkg/db/ent/stock"
 	"github.com/shopspring/decimal"
 
 	constant "github.com/NpoolPlatform/good-manager/pkg/message/const"
@@ -22,7 +22,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func CreateSet(c *ent.StockV1Create, in *npool.StockReq) (*ent.StockV1Create, error) {
+func CreateSet(c *ent.StockCreate, in *npool.StockReq) (*ent.StockCreate, error) {
 	if in.ID != nil {
 		c.SetID(uuid.MustParse(in.GetID()))
 	}
@@ -44,8 +44,8 @@ func CreateSet(c *ent.StockV1Create, in *npool.StockReq) (*ent.StockV1Create, er
 	return c, nil
 }
 
-func Create(ctx context.Context, in *npool.StockReq) (*ent.StockV1, error) {
-	var info *ent.StockV1
+func Create(ctx context.Context, in *npool.StockReq) (*ent.Stock, error) {
+	var info *ent.Stock
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "Create")
@@ -61,7 +61,7 @@ func Create(ctx context.Context, in *npool.StockReq) (*ent.StockV1, error) {
 	span = tracer.Trace(span, in)
 
 	err = db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
-		c := cli.StockV1.Create()
+		c := cli.Stock.Create()
 		stm, err := CreateSet(c, in)
 		if err != nil {
 			return err
@@ -76,7 +76,7 @@ func Create(ctx context.Context, in *npool.StockReq) (*ent.StockV1, error) {
 	return info, nil
 }
 
-func CreateBulk(ctx context.Context, in []*npool.StockReq) ([]*ent.StockV1, error) {
+func CreateBulk(ctx context.Context, in []*npool.StockReq) ([]*ent.Stock, error) {
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "CreateBulk")
@@ -91,17 +91,17 @@ func CreateBulk(ctx context.Context, in []*npool.StockReq) ([]*ent.StockV1, erro
 
 	span = tracer.TraceMany(span, in)
 
-	rows := []*ent.StockV1{}
+	rows := []*ent.Stock{}
 	err = db.WithTx(ctx, func(_ctx context.Context, tx *ent.Tx) error {
-		bulk := make([]*ent.StockV1Create, len(in))
+		bulk := make([]*ent.StockCreate, len(in))
 		for i, info := range in {
-			bulk[i] = tx.StockV1.Create()
+			bulk[i] = tx.Stock.Create()
 			bulk[i], err = CreateSet(bulk[i], info)
 			if err != nil {
 				return err
 			}
 		}
-		rows, err = tx.StockV1.CreateBulk(bulk...).Save(_ctx)
+		rows, err = tx.Stock.CreateBulk(bulk...).Save(_ctx)
 		return err
 	})
 	if err != nil {
@@ -110,7 +110,7 @@ func CreateBulk(ctx context.Context, in []*npool.StockReq) ([]*ent.StockV1, erro
 	return rows, nil
 }
 
-func UpdateSet(u *ent.StockV1UpdateOne, in *npool.StockReq) (*ent.StockV1UpdateOne, error) {
+func UpdateSet(u *ent.StockUpdateOne, in *npool.StockReq) (*ent.StockUpdateOne, error) {
 	if in.Total != nil {
 		val, err := decimal.NewFromString(in.GetTotal())
 		if err != nil {
@@ -121,8 +121,8 @@ func UpdateSet(u *ent.StockV1UpdateOne, in *npool.StockReq) (*ent.StockV1UpdateO
 	return u, nil
 }
 
-func Update(ctx context.Context, in *npool.StockReq) (*ent.StockV1, error) {
-	var info *ent.StockV1
+func Update(ctx context.Context, in *npool.StockReq) (*ent.Stock, error) {
+	var info *ent.Stock
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "Update")
@@ -138,7 +138,7 @@ func Update(ctx context.Context, in *npool.StockReq) (*ent.StockV1, error) {
 	span = tracer.Trace(span, in)
 
 	err = db.WithTx(ctx, func(_ctx context.Context, tx *ent.Tx) error {
-		info, err = tx.StockV1.Query().Where(stockv1.ID(uuid.MustParse(in.GetID()))).ForUpdate().Only(_ctx)
+		info, err = tx.Stock.Query().Where(stock.ID(uuid.MustParse(in.GetID()))).ForUpdate().Only(_ctx)
 		if err != nil {
 			return err
 		}
@@ -168,7 +168,7 @@ func Update(ctx context.Context, in *npool.StockReq) (*ent.StockV1, error) {
 }
 
 //nolint:gocyclo
-func AddFieldSet(info *ent.StockV1, in *npool.StockReq) (*ent.StockV1UpdateOne, error) {
+func AddFieldSet(info *ent.Stock, in *npool.StockReq) (*ent.StockUpdateOne, error) {
 	locked := info.Locked
 	if in.Locked != nil {
 		val, err := decimal.NewFromString(in.GetLocked())
@@ -228,8 +228,8 @@ func AddFieldSet(info *ent.StockV1, in *npool.StockReq) (*ent.StockV1UpdateOne, 
 	return u, nil
 }
 
-func AddFields(ctx context.Context, in *npool.StockReq) (*ent.StockV1, error) {
-	var info *ent.StockV1
+func AddFields(ctx context.Context, in *npool.StockReq) (*ent.Stock, error) {
+	var info *ent.Stock
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "AddFields")
@@ -245,7 +245,7 @@ func AddFields(ctx context.Context, in *npool.StockReq) (*ent.StockV1, error) {
 	span = tracer.Trace(span, in)
 
 	err = db.WithTx(ctx, func(_ctx context.Context, tx *ent.Tx) error {
-		info, err = tx.StockV1.Query().Where(stockv1.ID(uuid.MustParse(in.GetID()))).ForUpdate().Only(_ctx)
+		info, err = tx.Stock.Query().Where(stock.ID(uuid.MustParse(in.GetID()))).ForUpdate().Only(_ctx)
 		if err != nil {
 			return fmt.Errorf("fail query stock: %v", err)
 		}
@@ -269,8 +269,8 @@ func AddFields(ctx context.Context, in *npool.StockReq) (*ent.StockV1, error) {
 	return info, nil
 }
 
-func Row(ctx context.Context, id uuid.UUID) (*ent.StockV1, error) {
-	var info *ent.StockV1
+func Row(ctx context.Context, id uuid.UUID) (*ent.Stock, error) {
+	var info *ent.Stock
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "Row")
@@ -286,7 +286,7 @@ func Row(ctx context.Context, id uuid.UUID) (*ent.StockV1, error) {
 	span = commontracer.TraceID(span, id.String())
 
 	err = db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
-		info, err = cli.StockV1.Query().Where(stockv1.ID(id)).Only(_ctx)
+		info, err = cli.Stock.Query().Where(stock.ID(id)).Only(_ctx)
 		return err
 	})
 	if err != nil {
@@ -296,15 +296,15 @@ func Row(ctx context.Context, id uuid.UUID) (*ent.StockV1, error) {
 	return info, nil
 }
 
-func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.StockV1Query, error) {
-	stm := cli.StockV1.Query()
+func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.StockQuery, error) {
+	stm := cli.Stock.Query()
 	if conds == nil {
 		return stm, nil
 	}
 	if conds.ID != nil {
 		switch conds.GetID().GetOp() {
 		case cruder.EQ:
-			stm.Where(stockv1.ID(uuid.MustParse(conds.GetID().GetValue())))
+			stm.Where(stock.ID(uuid.MustParse(conds.GetID().GetValue())))
 		default:
 			return nil, fmt.Errorf("invalid stock field")
 		}
@@ -312,7 +312,7 @@ func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.StockV1Query, erro
 	if conds.GoodID != nil {
 		switch conds.GetGoodID().GetOp() {
 		case cruder.EQ:
-			stm.Where(stockv1.GoodID(uuid.MustParse(conds.GetGoodID().GetValue())))
+			stm.Where(stock.GoodID(uuid.MustParse(conds.GetGoodID().GetValue())))
 		default:
 			return nil, fmt.Errorf("invalid stock field")
 		}
@@ -320,7 +320,7 @@ func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.StockV1Query, erro
 	return stm, nil
 }
 
-func Rows(ctx context.Context, conds *npool.Conds, offset, limit int) ([]*ent.StockV1, int, error) {
+func Rows(ctx context.Context, conds *npool.Conds, offset, limit int) ([]*ent.Stock, int, error) {
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "Rows")
@@ -336,7 +336,7 @@ func Rows(ctx context.Context, conds *npool.Conds, offset, limit int) ([]*ent.St
 	span = tracer.TraceConds(span, conds)
 	span = commontracer.TraceOffsetLimit(span, offset, limit)
 
-	rows := []*ent.StockV1{}
+	rows := []*ent.Stock{}
 	var total int
 	err = db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
 		stm, err := setQueryConds(conds, cli)
@@ -351,7 +351,7 @@ func Rows(ctx context.Context, conds *npool.Conds, offset, limit int) ([]*ent.St
 
 		rows, err = stm.
 			Offset(offset).
-			Order(ent.Desc(stockv1.FieldUpdatedAt)).
+			Order(ent.Desc(stock.FieldUpdatedAt)).
 			Limit(limit).
 			All(_ctx)
 		if err != nil {
@@ -366,8 +366,8 @@ func Rows(ctx context.Context, conds *npool.Conds, offset, limit int) ([]*ent.St
 	return rows, total, nil
 }
 
-func RowOnly(ctx context.Context, conds *npool.Conds) (*ent.StockV1, error) {
-	var info *ent.StockV1
+func RowOnly(ctx context.Context, conds *npool.Conds) (*ent.Stock, error) {
+	var info *ent.Stock
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "RowOnly")
@@ -454,7 +454,7 @@ func Exist(ctx context.Context, id uuid.UUID) (bool, error) {
 	span = commontracer.TraceID(span, id.String())
 
 	err = db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
-		exist, err = cli.StockV1.Query().Where(stockv1.ID(id)).Exist(_ctx)
+		exist, err = cli.Stock.Query().Where(stock.ID(id)).Exist(_ctx)
 		return err
 	})
 	if err != nil {
@@ -500,8 +500,8 @@ func ExistConds(ctx context.Context, conds *npool.Conds) (bool, error) {
 	return exist, nil
 }
 
-func Delete(ctx context.Context, id string) (*ent.StockV1, error) {
-	var info *ent.StockV1
+func Delete(ctx context.Context, id string) (*ent.Stock, error) {
+	var info *ent.Stock
 	var err error
 
 	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "Delete")
@@ -517,7 +517,7 @@ func Delete(ctx context.Context, id string) (*ent.StockV1, error) {
 	span = commontracer.TraceID(span, id)
 
 	err = db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
-		info, err = cli.StockV1.UpdateOneID(uuid.MustParse(id)).
+		info, err = cli.Stock.UpdateOneID(uuid.MustParse(id)).
 			SetDeletedAt(uint32(time.Now().Unix())).
 			Save(_ctx)
 		return err

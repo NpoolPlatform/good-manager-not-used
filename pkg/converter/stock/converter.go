@@ -6,7 +6,7 @@ import (
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent"
 )
 
-func Ent2Grpc(row *ent.StockV1) *npool.Stock {
+func Ent2Grpc(row *ent.Stock) *npool.Stock {
 	if row == nil {
 		return nil
 	}
@@ -25,7 +25,7 @@ func Ent2Grpc(row *ent.StockV1) *npool.Stock {
 	}
 }
 
-func Ent2GrpcMany(rows []*ent.StockV1) []*npool.Stock {
+func Ent2GrpcMany(rows []*ent.Stock) []*npool.Stock {
 	infos := []*npool.Stock{}
 	for _, row := range rows {
 		infos = append(infos, Ent2Grpc(row))

@@ -31,7 +31,7 @@ func init() {
 	}
 }
 
-var _stock = ent.StockV1{
+var _stock = ent.Stock{
 	ID:     uuid.New(),
 	GoodID: uuid.New(),
 	Total:  decimal.NewFromInt(1005),
@@ -53,7 +53,7 @@ var (
 	}
 )
 
-var info *ent.StockV1
+var info *ent.Stock
 
 func create(t *testing.T) {
 	var err error
@@ -66,7 +66,7 @@ func create(t *testing.T) {
 }
 
 func createBulk(t *testing.T) {
-	entities := []*ent.StockV1{
+	entities := []*ent.Stock{
 		{
 			ID:     uuid.New(),
 			GoodID: uuid.New(),

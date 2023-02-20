@@ -10,7 +10,7 @@ import (
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/good"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/promotion"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/recommend"
-	"github.com/NpoolPlatform/good-manager/pkg/db/ent/stockv1"
+	"github.com/NpoolPlatform/good-manager/pkg/db/ent/stock"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/subgood"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/vendorlocation"
 
@@ -205,24 +205,24 @@ var schemaGraph = func() *sqlgraph.Schema {
 	}
 	graph.Nodes[7] = &sqlgraph.Node{
 		NodeSpec: sqlgraph.NodeSpec{
-			Table:   stockv1.Table,
-			Columns: stockv1.Columns,
+			Table:   stock.Table,
+			Columns: stock.Columns,
 			ID: &sqlgraph.FieldSpec{
 				Type:   field.TypeUUID,
-				Column: stockv1.FieldID,
+				Column: stock.FieldID,
 			},
 		},
-		Type: "StockV1",
+		Type: "Stock",
 		Fields: map[string]*sqlgraph.FieldSpec{
-			stockv1.FieldCreatedAt: {Type: field.TypeUint32, Column: stockv1.FieldCreatedAt},
-			stockv1.FieldUpdatedAt: {Type: field.TypeUint32, Column: stockv1.FieldUpdatedAt},
-			stockv1.FieldDeletedAt: {Type: field.TypeUint32, Column: stockv1.FieldDeletedAt},
-			stockv1.FieldGoodID:    {Type: field.TypeUUID, Column: stockv1.FieldGoodID},
-			stockv1.FieldTotal:     {Type: field.TypeOther, Column: stockv1.FieldTotal},
-			stockv1.FieldLocked:    {Type: field.TypeOther, Column: stockv1.FieldLocked},
-			stockv1.FieldInService: {Type: field.TypeOther, Column: stockv1.FieldInService},
-			stockv1.FieldWaitStart: {Type: field.TypeOther, Column: stockv1.FieldWaitStart},
-			stockv1.FieldSold:      {Type: field.TypeOther, Column: stockv1.FieldSold},
+			stock.FieldCreatedAt: {Type: field.TypeUint32, Column: stock.FieldCreatedAt},
+			stock.FieldUpdatedAt: {Type: field.TypeUint32, Column: stock.FieldUpdatedAt},
+			stock.FieldDeletedAt: {Type: field.TypeUint32, Column: stock.FieldDeletedAt},
+			stock.FieldGoodID:    {Type: field.TypeUUID, Column: stock.FieldGoodID},
+			stock.FieldTotal:     {Type: field.TypeOther, Column: stock.FieldTotal},
+			stock.FieldLocked:    {Type: field.TypeOther, Column: stock.FieldLocked},
+			stock.FieldInService: {Type: field.TypeOther, Column: stock.FieldInService},
+			stock.FieldWaitStart: {Type: field.TypeOther, Column: stock.FieldWaitStart},
+			stock.FieldSold:      {Type: field.TypeOther, Column: stock.FieldSold},
 		},
 	}
 	graph.Nodes[8] = &sqlgraph.Node{
@@ -1001,33 +1001,33 @@ func (f *RecommendFilter) WhereRecommendIndex(p entql.Float64P) {
 }
 
 // addPredicate implements the predicateAdder interface.
-func (sv *StockV1Query) addPredicate(pred func(s *sql.Selector)) {
-	sv.predicates = append(sv.predicates, pred)
+func (sq *StockQuery) addPredicate(pred func(s *sql.Selector)) {
+	sq.predicates = append(sq.predicates, pred)
 }
 
-// Filter returns a Filter implementation to apply filters on the StockV1Query builder.
-func (sv *StockV1Query) Filter() *StockV1Filter {
-	return &StockV1Filter{config: sv.config, predicateAdder: sv}
+// Filter returns a Filter implementation to apply filters on the StockQuery builder.
+func (sq *StockQuery) Filter() *StockFilter {
+	return &StockFilter{config: sq.config, predicateAdder: sq}
 }
 
 // addPredicate implements the predicateAdder interface.
-func (m *StockV1Mutation) addPredicate(pred func(s *sql.Selector)) {
+func (m *StockMutation) addPredicate(pred func(s *sql.Selector)) {
 	m.predicates = append(m.predicates, pred)
 }
 
-// Filter returns an entql.Where implementation to apply filters on the StockV1Mutation builder.
-func (m *StockV1Mutation) Filter() *StockV1Filter {
-	return &StockV1Filter{config: m.config, predicateAdder: m}
+// Filter returns an entql.Where implementation to apply filters on the StockMutation builder.
+func (m *StockMutation) Filter() *StockFilter {
+	return &StockFilter{config: m.config, predicateAdder: m}
 }
 
-// StockV1Filter provides a generic filtering capability at runtime for StockV1Query.
-type StockV1Filter struct {
+// StockFilter provides a generic filtering capability at runtime for StockQuery.
+type StockFilter struct {
 	predicateAdder
 	config
 }
 
 // Where applies the entql predicate on the query filter.
-func (f *StockV1Filter) Where(p entql.P) {
+func (f *StockFilter) Where(p entql.P) {
 	f.addPredicate(func(s *sql.Selector) {
 		if err := schemaGraph.EvalP(schemaGraph.Nodes[7].Type, p, s); err != nil {
 			s.AddError(err)
@@ -1036,53 +1036,53 @@ func (f *StockV1Filter) Where(p entql.P) {
 }
 
 // WhereID applies the entql [16]byte predicate on the id field.
-func (f *StockV1Filter) WhereID(p entql.ValueP) {
-	f.Where(p.Field(stockv1.FieldID))
+func (f *StockFilter) WhereID(p entql.ValueP) {
+	f.Where(p.Field(stock.FieldID))
 }
 
 // WhereCreatedAt applies the entql uint32 predicate on the created_at field.
-func (f *StockV1Filter) WhereCreatedAt(p entql.Uint32P) {
-	f.Where(p.Field(stockv1.FieldCreatedAt))
+func (f *StockFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(stock.FieldCreatedAt))
 }
 
 // WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
-func (f *StockV1Filter) WhereUpdatedAt(p entql.Uint32P) {
-	f.Where(p.Field(stockv1.FieldUpdatedAt))
+func (f *StockFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(stock.FieldUpdatedAt))
 }
 
 // WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
-func (f *StockV1Filter) WhereDeletedAt(p entql.Uint32P) {
-	f.Where(p.Field(stockv1.FieldDeletedAt))
+func (f *StockFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(stock.FieldDeletedAt))
 }
 
 // WhereGoodID applies the entql [16]byte predicate on the good_id field.
-func (f *StockV1Filter) WhereGoodID(p entql.ValueP) {
-	f.Where(p.Field(stockv1.FieldGoodID))
+func (f *StockFilter) WhereGoodID(p entql.ValueP) {
+	f.Where(p.Field(stock.FieldGoodID))
 }
 
 // WhereTotal applies the entql other predicate on the total field.
-func (f *StockV1Filter) WhereTotal(p entql.OtherP) {
-	f.Where(p.Field(stockv1.FieldTotal))
+func (f *StockFilter) WhereTotal(p entql.OtherP) {
+	f.Where(p.Field(stock.FieldTotal))
 }
 
 // WhereLocked applies the entql other predicate on the locked field.
-func (f *StockV1Filter) WhereLocked(p entql.OtherP) {
-	f.Where(p.Field(stockv1.FieldLocked))
+func (f *StockFilter) WhereLocked(p entql.OtherP) {
+	f.Where(p.Field(stock.FieldLocked))
 }
 
 // WhereInService applies the entql other predicate on the in_service field.
-func (f *StockV1Filter) WhereInService(p entql.OtherP) {
-	f.Where(p.Field(stockv1.FieldInService))
+func (f *StockFilter) WhereInService(p entql.OtherP) {
+	f.Where(p.Field(stock.FieldInService))
 }
 
 // WhereWaitStart applies the entql other predicate on the wait_start field.
-func (f *StockV1Filter) WhereWaitStart(p entql.OtherP) {
-	f.Where(p.Field(stockv1.FieldWaitStart))
+func (f *StockFilter) WhereWaitStart(p entql.OtherP) {
+	f.Where(p.Field(stock.FieldWaitStart))
 }
 
 // WhereSold applies the entql other predicate on the sold field.
-func (f *StockV1Filter) WhereSold(p entql.OtherP) {
-	f.Where(p.Field(stockv1.FieldSold))
+func (f *StockFilter) WhereSold(p entql.OtherP) {
+	f.Where(p.Field(stock.FieldSold))
 }
 
 // addPredicate implements the predicateAdder interface.

@@ -35,7 +35,7 @@ func init() {
 	}
 }
 
-var appDate = npool.Comment{
+var ret = npool.Comment{
 	ID:        uuid.NewString(),
 	AppID:     uuid.NewString(),
 	UserID:    uuid.NewString(),
@@ -46,14 +46,14 @@ var appDate = npool.Comment{
 }
 
 var (
-	appInfo = npool.CommentReq{
-		ID:        &appDate.ID,
-		AppID:     &appDate.AppID,
-		UserID:    &appDate.UserID,
-		GoodID:    &appDate.GoodID,
-		OrderID:   &appDate.OrderID,
-		Content:   &appDate.Content,
-		ReplyToID: &appDate.ReplyToID,
+	req = npool.CommentReq{
+		ID:        &ret.ID,
+		AppID:     &ret.AppID,
+		UserID:    &ret.UserID,
+		GoodID:    &ret.GoodID,
+		OrderID:   &ret.OrderID,
+		Content:   &ret.Content,
+		ReplyToID: &ret.ReplyToID,
 	}
 )
 
@@ -61,16 +61,16 @@ var info *npool.Comment
 
 func createComment(t *testing.T) {
 	var err error
-	info, err = CreateComment(context.Background(), &appInfo)
+	info, err = CreateComment(context.Background(), &req)
 	if assert.Nil(t, err) {
-		appDate.CreatedAt = info.CreatedAt
-		appDate.UpdatedAt = info.UpdatedAt
-		assert.Equal(t, info, &appDate)
+		ret.CreatedAt = info.CreatedAt
+		ret.UpdatedAt = info.UpdatedAt
+		assert.Equal(t, info, &ret)
 	}
 }
 
 func createComments(t *testing.T) {
-	appDates := []npool.Comment{
+	rets := []npool.Comment{
 		{
 			ID:        uuid.NewString(),
 			AppID:     uuid.NewString(),
@@ -92,15 +92,15 @@ func createComments(t *testing.T) {
 	}
 
 	apps := []*npool.CommentReq{}
-	for key := range appDates {
+	for key := range rets {
 		apps = append(apps, &npool.CommentReq{
-			ID:        &appDates[key].ID,
-			AppID:     &appDates[key].AppID,
-			UserID:    &appDates[key].UserID,
-			GoodID:    &appDates[key].GoodID,
-			OrderID:   &appDates[key].OrderID,
-			Content:   &appDates[key].Content,
-			ReplyToID: &appDates[key].ReplyToID,
+			ID:        &rets[key].ID,
+			AppID:     &rets[key].AppID,
+			UserID:    &rets[key].UserID,
+			GoodID:    &rets[key].GoodID,
+			OrderID:   &rets[key].OrderID,
+			Content:   &rets[key].Content,
+			ReplyToID: &rets[key].ReplyToID,
 		})
 	}
 
@@ -112,10 +112,10 @@ func createComments(t *testing.T) {
 
 func updateComment(t *testing.T) {
 	var err error
-	info, err = UpdateComment(context.Background(), &appInfo)
+	info, err = UpdateComment(context.Background(), &req)
 	if assert.Nil(t, err) {
-		appDate.UpdatedAt = info.UpdatedAt
-		assert.Equal(t, info, &appDate)
+		ret.UpdatedAt = info.UpdatedAt
+		assert.Equal(t, info, &ret)
 	}
 }
 
@@ -123,7 +123,7 @@ func getComment(t *testing.T) {
 	var err error
 	info, err = GetComment(context.Background(), info.ID)
 	if assert.Nil(t, err) {
-		assert.Equal(t, info, &appDate)
+		assert.Equal(t, info, &ret)
 	}
 }
 
@@ -137,7 +137,7 @@ func getComments(t *testing.T) {
 		}, 0, 1)
 	if assert.Nil(t, err) {
 		assert.Equal(t, total, uint32(1))
-		assert.Equal(t, infos[0], &appDate)
+		assert.Equal(t, infos[0], &ret)
 	}
 }
 
@@ -151,7 +151,7 @@ func getCommentOnly(t *testing.T) {
 			},
 		})
 	if assert.Nil(t, err) {
-		assert.Equal(t, info, &appDate)
+		assert.Equal(t, info, &ret)
 	}
 }
 
@@ -179,9 +179,9 @@ func existCommentConds(t *testing.T) {
 func deleteComment(t *testing.T) {
 	info, err := DeleteComment(context.Background(), info.ID)
 	if assert.Nil(t, err) {
-		appDate.UpdatedAt = info.UpdatedAt
-		appDate.DeletedAt = info.DeletedAt
-		assert.Equal(t, info, &appDate)
+		ret.UpdatedAt = info.UpdatedAt
+		ret.DeletedAt = info.DeletedAt
+		assert.Equal(t, info, &ret)
 	}
 }
 
