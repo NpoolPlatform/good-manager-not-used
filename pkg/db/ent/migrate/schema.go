@@ -210,8 +210,8 @@ var (
 			},
 		},
 	}
-	// StockV1Columns holds the columns for the "stock_v1" table.
-	StockV1Columns = []*schema.Column{
+	// StocksV1Columns holds the columns for the "stocks_v1" table.
+	StocksV1Columns = []*schema.Column{
 		{Name: "id", Type: field.TypeUUID, Unique: true},
 		{Name: "created_at", Type: field.TypeUint32},
 		{Name: "updated_at", Type: field.TypeUint32},
@@ -223,16 +223,16 @@ var (
 		{Name: "wait_start", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
 		{Name: "sold", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
 	}
-	// StockV1Table holds the schema information for the "stock_v1" table.
-	StockV1Table = &schema.Table{
-		Name:       "stock_v1",
-		Columns:    StockV1Columns,
-		PrimaryKey: []*schema.Column{StockV1Columns[0]},
+	// StocksV1Table holds the schema information for the "stocks_v1" table.
+	StocksV1Table = &schema.Table{
+		Name:       "stocks_v1",
+		Columns:    StocksV1Columns,
+		PrimaryKey: []*schema.Column{StocksV1Columns[0]},
 		Indexes: []*schema.Index{
 			{
 				Name:    "stock_good_id",
 				Unique:  true,
-				Columns: []*schema.Column{StockV1Columns[4]},
+				Columns: []*schema.Column{StocksV1Columns[4]},
 			},
 		},
 	}
@@ -287,14 +287,14 @@ var (
 		GoodsTable,
 		PromotionsTable,
 		RecommendsTable,
-		StockV1Table,
+		StocksV1Table,
 		SubGoodsTable,
 		VendorLocationsTable,
 	}
 )
 
 func init() {
-	StockV1Table.Annotation = &entsql.Annotation{
-		Table: "stock_v1",
+	StocksV1Table.Annotation = &entsql.Annotation{
+		Table: "stocks_v1",
 	}
 }

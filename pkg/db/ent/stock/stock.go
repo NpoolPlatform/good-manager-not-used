@@ -32,7 +32,7 @@ const (
 	// FieldSold holds the string denoting the sold field in the database.
 	FieldSold = "sold"
 	// Table holds the table name of the stock in the database.
-	Table = "stock_v1"
+	Table = "stocks_v1"
 )
 
 // Columns holds all SQL columns for stock fields.

@@ -72,7 +72,7 @@ func (Stock) Fields() []ent.Field {
 
 func (Stock) Annotations() []schema.Annotation {
 	return []schema.Annotation{
-		entsql.Annotation{Table: "stock_v1"},
+		entsql.Annotation{Table: "stocks_v1"},
 	}
 }
 
