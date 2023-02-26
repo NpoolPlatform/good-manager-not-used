@@ -499,6 +499,26 @@ func init() {
 	stockDescDeletedAt := stockMixinFields0[2].Descriptor()
 	// stock.DefaultDeletedAt holds the default value on creation for the deleted_at field.
 	stock.DefaultDeletedAt = stockDescDeletedAt.Default.(func() uint32)
+	// stockDescTotal is the schema descriptor for total field.
+	stockDescTotal := stockFields[2].Descriptor()
+	// stock.DefaultTotal holds the default value on creation for the total field.
+	stock.DefaultTotal = stockDescTotal.Default.(decimal.Decimal)
+	// stockDescLocked is the schema descriptor for locked field.
+	stockDescLocked := stockFields[3].Descriptor()
+	// stock.DefaultLocked holds the default value on creation for the locked field.
+	stock.DefaultLocked = stockDescLocked.Default.(decimal.Decimal)
+	// stockDescInService is the schema descriptor for in_service field.
+	stockDescInService := stockFields[4].Descriptor()
+	// stock.DefaultInService holds the default value on creation for the in_service field.
+	stock.DefaultInService = stockDescInService.Default.(decimal.Decimal)
+	// stockDescWaitStart is the schema descriptor for wait_start field.
+	stockDescWaitStart := stockFields[5].Descriptor()
+	// stock.DefaultWaitStart holds the default value on creation for the wait_start field.
+	stock.DefaultWaitStart = stockDescWaitStart.Default.(decimal.Decimal)
+	// stockDescSold is the schema descriptor for sold field.
+	stockDescSold := stockFields[6].Descriptor()
+	// stock.DefaultSold holds the default value on creation for the sold field.
+	stock.DefaultSold = stockDescSold.Default.(decimal.Decimal)
 	// stockDescID is the schema descriptor for id field.
 	stockDescID := stockFields[0].Descriptor()
 	// stock.DefaultID holds the default value on creation for the id field.

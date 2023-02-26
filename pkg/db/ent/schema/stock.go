@@ -2,10 +2,14 @@ package schema
 
 import (
 	"entgo.io/ent"
+	"entgo.io/ent/dialect"
+	"entgo.io/ent/dialect/entsql"
+	"entgo.io/ent/schema"
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/index"
 	"github.com/NpoolPlatform/good-manager/pkg/db/mixin"
 	"github.com/google/uuid"
+	"github.com/shopspring/decimal"
 )
 
 // Stock holds the schema definition for the Stock entity.
@@ -29,15 +33,46 @@ func (Stock) Fields() []ent.Field {
 		field.
 			UUID("good_id", uuid.UUID{}),
 		field.
-			Uint32("total"),
+			Other("total", decimal.Decimal{}).
+			SchemaType(map[string]string{
+				dialect.MySQL: "decimal(37,18)",
+			}).
+			Optional().
+			Default(decimal.Decimal{}),
 		field.
-			Uint32("locked"),
+			Other("locked", decimal.Decimal{}).
+			SchemaType(map[string]string{
+				dialect.MySQL: "decimal(37,18)",
+			}).
+			Optional().
+			Default(decimal.Decimal{}),
 		field.
-			Uint32("in_service"),
+			Other("in_service", decimal.Decimal{}).
+			SchemaType(map[string]string{
+				dialect.MySQL: "decimal(37,18)",
+			}).
+			Optional().
+			Default(decimal.Decimal{}),
 		field.
-			Uint32("wait_start"),
+			Other("wait_start", decimal.Decimal{}).
+			SchemaType(map[string]string{
+				dialect.MySQL: "decimal(37,18)",
+			}).
+			Optional().
+			Default(decimal.Decimal{}),
 		field.
-			Uint32("sold"),
+			Other("sold", decimal.Decimal{}).
+			SchemaType(map[string]string{
+				dialect.MySQL: "decimal(37,18)",
+			}).
+			Optional().
+			Default(decimal.Decimal{}),
+	}
+}
+
+func (Stock) Annotations() []schema.Annotation {
+	return []schema.Annotation{
+		entsql.Annotation{Table: "stocks_v1"},
 	}
 }
 

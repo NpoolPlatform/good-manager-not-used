@@ -9,6 +9,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/stock"
 	"github.com/google/uuid"
+	"github.com/shopspring/decimal"
 )
 
 // Stock is the model entity for the Stock schema.
@@ -25,15 +26,15 @@ type Stock struct {
 	// GoodID holds the value of the "good_id" field.
 	GoodID uuid.UUID `json:"good_id,omitempty"`
 	// Total holds the value of the "total" field.
-	Total uint32 `json:"total,omitempty"`
+	Total decimal.Decimal `json:"total,omitempty"`
 	// Locked holds the value of the "locked" field.
-	Locked uint32 `json:"locked,omitempty"`
+	Locked decimal.Decimal `json:"locked,omitempty"`
 	// InService holds the value of the "in_service" field.
-	InService uint32 `json:"in_service,omitempty"`
+	InService decimal.Decimal `json:"in_service,omitempty"`
 	// WaitStart holds the value of the "wait_start" field.
-	WaitStart uint32 `json:"wait_start,omitempty"`
+	WaitStart decimal.Decimal `json:"wait_start,omitempty"`
 	// Sold holds the value of the "sold" field.
-	Sold uint32 `json:"sold,omitempty"`
+	Sold decimal.Decimal `json:"sold,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -41,7 +42,9 @@ func (*Stock) scanValues(columns []string) ([]interface{}, error) {
 	values := make([]interface{}, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case stock.FieldCreatedAt, stock.FieldUpdatedAt, stock.FieldDeletedAt, stock.FieldTotal, stock.FieldLocked, stock.FieldInService, stock.FieldWaitStart, stock.FieldSold:
+		case stock.FieldTotal, stock.FieldLocked, stock.FieldInService, stock.FieldWaitStart, stock.FieldSold:
+			values[i] = new(decimal.Decimal)
+		case stock.FieldCreatedAt, stock.FieldUpdatedAt, stock.FieldDeletedAt:
 			values[i] = new(sql.NullInt64)
 		case stock.FieldID, stock.FieldGoodID:
 			values[i] = new(uuid.UUID)
@@ -91,34 +94,34 @@ func (s *Stock) assignValues(columns []string, values []interface{}) error {
 				s.GoodID = *value
 			}
 		case stock.FieldTotal:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
+			if value, ok := values[i].(*decimal.Decimal); !ok {
 				return fmt.Errorf("unexpected type %T for field total", values[i])
-			} else if value.Valid {
-				s.Total = uint32(value.Int64)
+			} else if value != nil {
+				s.Total = *value
 			}
 		case stock.FieldLocked:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
+			if value, ok := values[i].(*decimal.Decimal); !ok {
 				return fmt.Errorf("unexpected type %T for field locked", values[i])
-			} else if value.Valid {
-				s.Locked = uint32(value.Int64)
+			} else if value != nil {
+				s.Locked = *value
 			}
 		case stock.FieldInService:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
+			if value, ok := values[i].(*decimal.Decimal); !ok {
 				return fmt.Errorf("unexpected type %T for field in_service", values[i])
-			} else if value.Valid {
-				s.InService = uint32(value.Int64)
+			} else if value != nil {
+				s.InService = *value
 			}
 		case stock.FieldWaitStart:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
+			if value, ok := values[i].(*decimal.Decimal); !ok {
 				return fmt.Errorf("unexpected type %T for field wait_start", values[i])
-			} else if value.Valid {
-				s.WaitStart = uint32(value.Int64)
+			} else if value != nil {
+				s.WaitStart = *value
 			}
 		case stock.FieldSold:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
+			if value, ok := values[i].(*decimal.Decimal); !ok {
 				return fmt.Errorf("unexpected type %T for field sold", values[i])
-			} else if value.Valid {
-				s.Sold = uint32(value.Int64)
+			} else if value != nil {
+				s.Sold = *value
 			}
 		}
 	}

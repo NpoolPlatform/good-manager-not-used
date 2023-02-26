@@ -13,6 +13,7 @@ import (
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/predicate"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/stock"
 	"github.com/google/uuid"
+	"github.com/shopspring/decimal"
 )
 
 // StockUpdate is the builder for updating Stock entities.
@@ -91,67 +92,102 @@ func (su *StockUpdate) SetGoodID(u uuid.UUID) *StockUpdate {
 }
 
 // SetTotal sets the "total" field.
-func (su *StockUpdate) SetTotal(u uint32) *StockUpdate {
-	su.mutation.ResetTotal()
-	su.mutation.SetTotal(u)
+func (su *StockUpdate) SetTotal(d decimal.Decimal) *StockUpdate {
+	su.mutation.SetTotal(d)
 	return su
 }
 
-// AddTotal adds u to the "total" field.
-func (su *StockUpdate) AddTotal(u int32) *StockUpdate {
-	su.mutation.AddTotal(u)
+// SetNillableTotal sets the "total" field if the given value is not nil.
+func (su *StockUpdate) SetNillableTotal(d *decimal.Decimal) *StockUpdate {
+	if d != nil {
+		su.SetTotal(*d)
+	}
+	return su
+}
+
+// ClearTotal clears the value of the "total" field.
+func (su *StockUpdate) ClearTotal() *StockUpdate {
+	su.mutation.ClearTotal()
 	return su
 }
 
 // SetLocked sets the "locked" field.
-func (su *StockUpdate) SetLocked(u uint32) *StockUpdate {
-	su.mutation.ResetLocked()
-	su.mutation.SetLocked(u)
+func (su *StockUpdate) SetLocked(d decimal.Decimal) *StockUpdate {
+	su.mutation.SetLocked(d)
 	return su
 }
 
-// AddLocked adds u to the "locked" field.
-func (su *StockUpdate) AddLocked(u int32) *StockUpdate {
-	su.mutation.AddLocked(u)
+// SetNillableLocked sets the "locked" field if the given value is not nil.
+func (su *StockUpdate) SetNillableLocked(d *decimal.Decimal) *StockUpdate {
+	if d != nil {
+		su.SetLocked(*d)
+	}
+	return su
+}
+
+// ClearLocked clears the value of the "locked" field.
+func (su *StockUpdate) ClearLocked() *StockUpdate {
+	su.mutation.ClearLocked()
 	return su
 }
 
 // SetInService sets the "in_service" field.
-func (su *StockUpdate) SetInService(u uint32) *StockUpdate {
-	su.mutation.ResetInService()
-	su.mutation.SetInService(u)
+func (su *StockUpdate) SetInService(d decimal.Decimal) *StockUpdate {
+	su.mutation.SetInService(d)
 	return su
 }
 
-// AddInService adds u to the "in_service" field.
-func (su *StockUpdate) AddInService(u int32) *StockUpdate {
-	su.mutation.AddInService(u)
+// SetNillableInService sets the "in_service" field if the given value is not nil.
+func (su *StockUpdate) SetNillableInService(d *decimal.Decimal) *StockUpdate {
+	if d != nil {
+		su.SetInService(*d)
+	}
+	return su
+}
+
+// ClearInService clears the value of the "in_service" field.
+func (su *StockUpdate) ClearInService() *StockUpdate {
+	su.mutation.ClearInService()
 	return su
 }
 
 // SetWaitStart sets the "wait_start" field.
-func (su *StockUpdate) SetWaitStart(u uint32) *StockUpdate {
-	su.mutation.ResetWaitStart()
-	su.mutation.SetWaitStart(u)
+func (su *StockUpdate) SetWaitStart(d decimal.Decimal) *StockUpdate {
+	su.mutation.SetWaitStart(d)
 	return su
 }
 
-// AddWaitStart adds u to the "wait_start" field.
-func (su *StockUpdate) AddWaitStart(u int32) *StockUpdate {
-	su.mutation.AddWaitStart(u)
+// SetNillableWaitStart sets the "wait_start" field if the given value is not nil.
+func (su *StockUpdate) SetNillableWaitStart(d *decimal.Decimal) *StockUpdate {
+	if d != nil {
+		su.SetWaitStart(*d)
+	}
+	return su
+}
+
+// ClearWaitStart clears the value of the "wait_start" field.
+func (su *StockUpdate) ClearWaitStart() *StockUpdate {
+	su.mutation.ClearWaitStart()
 	return su
 }
 
 // SetSold sets the "sold" field.
-func (su *StockUpdate) SetSold(u uint32) *StockUpdate {
-	su.mutation.ResetSold()
-	su.mutation.SetSold(u)
+func (su *StockUpdate) SetSold(d decimal.Decimal) *StockUpdate {
+	su.mutation.SetSold(d)
 	return su
 }
 
-// AddSold adds u to the "sold" field.
-func (su *StockUpdate) AddSold(u int32) *StockUpdate {
-	su.mutation.AddSold(u)
+// SetNillableSold sets the "sold" field if the given value is not nil.
+func (su *StockUpdate) SetNillableSold(d *decimal.Decimal) *StockUpdate {
+	if d != nil {
+		su.SetSold(*d)
+	}
+	return su
+}
+
+// ClearSold clears the value of the "sold" field.
+func (su *StockUpdate) ClearSold() *StockUpdate {
+	su.mutation.ClearSold()
 	return su
 }
 
@@ -304,71 +340,66 @@ func (su *StockUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := su.mutation.Total(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeUint32,
+			Type:   field.TypeOther,
 			Value:  value,
 			Column: stock.FieldTotal,
 		})
 	}
-	if value, ok := su.mutation.AddedTotal(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeUint32,
-			Value:  value,
+	if su.mutation.TotalCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
 			Column: stock.FieldTotal,
 		})
 	}
 	if value, ok := su.mutation.Locked(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeUint32,
+			Type:   field.TypeOther,
 			Value:  value,
 			Column: stock.FieldLocked,
 		})
 	}
-	if value, ok := su.mutation.AddedLocked(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeUint32,
-			Value:  value,
+	if su.mutation.LockedCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
 			Column: stock.FieldLocked,
 		})
 	}
 	if value, ok := su.mutation.InService(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeUint32,
+			Type:   field.TypeOther,
 			Value:  value,
 			Column: stock.FieldInService,
 		})
 	}
-	if value, ok := su.mutation.AddedInService(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeUint32,
-			Value:  value,
+	if su.mutation.InServiceCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
 			Column: stock.FieldInService,
 		})
 	}
 	if value, ok := su.mutation.WaitStart(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeUint32,
+			Type:   field.TypeOther,
 			Value:  value,
 			Column: stock.FieldWaitStart,
 		})
 	}
-	if value, ok := su.mutation.AddedWaitStart(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeUint32,
-			Value:  value,
+	if su.mutation.WaitStartCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
 			Column: stock.FieldWaitStart,
 		})
 	}
 	if value, ok := su.mutation.Sold(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeUint32,
+			Type:   field.TypeOther,
 			Value:  value,
 			Column: stock.FieldSold,
 		})
 	}
-	if value, ok := su.mutation.AddedSold(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeUint32,
-			Value:  value,
+	if su.mutation.SoldCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
 			Column: stock.FieldSold,
 		})
 	}
@@ -455,67 +486,102 @@ func (suo *StockUpdateOne) SetGoodID(u uuid.UUID) *StockUpdateOne {
 }
 
 // SetTotal sets the "total" field.
-func (suo *StockUpdateOne) SetTotal(u uint32) *StockUpdateOne {
-	suo.mutation.ResetTotal()
-	suo.mutation.SetTotal(u)
+func (suo *StockUpdateOne) SetTotal(d decimal.Decimal) *StockUpdateOne {
+	suo.mutation.SetTotal(d)
 	return suo
 }
 
-// AddTotal adds u to the "total" field.
-func (suo *StockUpdateOne) AddTotal(u int32) *StockUpdateOne {
-	suo.mutation.AddTotal(u)
+// SetNillableTotal sets the "total" field if the given value is not nil.
+func (suo *StockUpdateOne) SetNillableTotal(d *decimal.Decimal) *StockUpdateOne {
+	if d != nil {
+		suo.SetTotal(*d)
+	}
+	return suo
+}
+
+// ClearTotal clears the value of the "total" field.
+func (suo *StockUpdateOne) ClearTotal() *StockUpdateOne {
+	suo.mutation.ClearTotal()
 	return suo
 }
 
 // SetLocked sets the "locked" field.
-func (suo *StockUpdateOne) SetLocked(u uint32) *StockUpdateOne {
-	suo.mutation.ResetLocked()
-	suo.mutation.SetLocked(u)
+func (suo *StockUpdateOne) SetLocked(d decimal.Decimal) *StockUpdateOne {
+	suo.mutation.SetLocked(d)
 	return suo
 }
 
-// AddLocked adds u to the "locked" field.
-func (suo *StockUpdateOne) AddLocked(u int32) *StockUpdateOne {
-	suo.mutation.AddLocked(u)
+// SetNillableLocked sets the "locked" field if the given value is not nil.
+func (suo *StockUpdateOne) SetNillableLocked(d *decimal.Decimal) *StockUpdateOne {
+	if d != nil {
+		suo.SetLocked(*d)
+	}
+	return suo
+}
+
+// ClearLocked clears the value of the "locked" field.
+func (suo *StockUpdateOne) ClearLocked() *StockUpdateOne {
+	suo.mutation.ClearLocked()
 	return suo
 }
 
 // SetInService sets the "in_service" field.
-func (suo *StockUpdateOne) SetInService(u uint32) *StockUpdateOne {
-	suo.mutation.ResetInService()
-	suo.mutation.SetInService(u)
+func (suo *StockUpdateOne) SetInService(d decimal.Decimal) *StockUpdateOne {
+	suo.mutation.SetInService(d)
 	return suo
 }
 
-// AddInService adds u to the "in_service" field.
-func (suo *StockUpdateOne) AddInService(u int32) *StockUpdateOne {
-	suo.mutation.AddInService(u)
+// SetNillableInService sets the "in_service" field if the given value is not nil.
+func (suo *StockUpdateOne) SetNillableInService(d *decimal.Decimal) *StockUpdateOne {
+	if d != nil {
+		suo.SetInService(*d)
+	}
+	return suo
+}
+
+// ClearInService clears the value of the "in_service" field.
+func (suo *StockUpdateOne) ClearInService() *StockUpdateOne {
+	suo.mutation.ClearInService()
 	return suo
 }
 
 // SetWaitStart sets the "wait_start" field.
-func (suo *StockUpdateOne) SetWaitStart(u uint32) *StockUpdateOne {
-	suo.mutation.ResetWaitStart()
-	suo.mutation.SetWaitStart(u)
+func (suo *StockUpdateOne) SetWaitStart(d decimal.Decimal) *StockUpdateOne {
+	suo.mutation.SetWaitStart(d)
 	return suo
 }
 
-// AddWaitStart adds u to the "wait_start" field.
-func (suo *StockUpdateOne) AddWaitStart(u int32) *StockUpdateOne {
-	suo.mutation.AddWaitStart(u)
+// SetNillableWaitStart sets the "wait_start" field if the given value is not nil.
+func (suo *StockUpdateOne) SetNillableWaitStart(d *decimal.Decimal) *StockUpdateOne {
+	if d != nil {
+		suo.SetWaitStart(*d)
+	}
+	return suo
+}
+
+// ClearWaitStart clears the value of the "wait_start" field.
+func (suo *StockUpdateOne) ClearWaitStart() *StockUpdateOne {
+	suo.mutation.ClearWaitStart()
 	return suo
 }
 
 // SetSold sets the "sold" field.
-func (suo *StockUpdateOne) SetSold(u uint32) *StockUpdateOne {
-	suo.mutation.ResetSold()
-	suo.mutation.SetSold(u)
+func (suo *StockUpdateOne) SetSold(d decimal.Decimal) *StockUpdateOne {
+	suo.mutation.SetSold(d)
 	return suo
 }
 
-// AddSold adds u to the "sold" field.
-func (suo *StockUpdateOne) AddSold(u int32) *StockUpdateOne {
-	suo.mutation.AddSold(u)
+// SetNillableSold sets the "sold" field if the given value is not nil.
+func (suo *StockUpdateOne) SetNillableSold(d *decimal.Decimal) *StockUpdateOne {
+	if d != nil {
+		suo.SetSold(*d)
+	}
+	return suo
+}
+
+// ClearSold clears the value of the "sold" field.
+func (suo *StockUpdateOne) ClearSold() *StockUpdateOne {
+	suo.mutation.ClearSold()
 	return suo
 }
 
@@ -698,71 +764,66 @@ func (suo *StockUpdateOne) sqlSave(ctx context.Context) (_node *Stock, err error
 	}
 	if value, ok := suo.mutation.Total(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeUint32,
+			Type:   field.TypeOther,
 			Value:  value,
 			Column: stock.FieldTotal,
 		})
 	}
-	if value, ok := suo.mutation.AddedTotal(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeUint32,
-			Value:  value,
+	if suo.mutation.TotalCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
 			Column: stock.FieldTotal,
 		})
 	}
 	if value, ok := suo.mutation.Locked(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeUint32,
+			Type:   field.TypeOther,
 			Value:  value,
 			Column: stock.FieldLocked,
 		})
 	}
-	if value, ok := suo.mutation.AddedLocked(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeUint32,
-			Value:  value,
+	if suo.mutation.LockedCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
 			Column: stock.FieldLocked,
 		})
 	}
 	if value, ok := suo.mutation.InService(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeUint32,
+			Type:   field.TypeOther,
 			Value:  value,
 			Column: stock.FieldInService,
 		})
 	}
-	if value, ok := suo.mutation.AddedInService(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeUint32,
-			Value:  value,
+	if suo.mutation.InServiceCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
 			Column: stock.FieldInService,
 		})
 	}
 	if value, ok := suo.mutation.WaitStart(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeUint32,
+			Type:   field.TypeOther,
 			Value:  value,
 			Column: stock.FieldWaitStart,
 		})
 	}
-	if value, ok := suo.mutation.AddedWaitStart(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeUint32,
-			Value:  value,
+	if suo.mutation.WaitStartCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
 			Column: stock.FieldWaitStart,
 		})
 	}
 	if value, ok := suo.mutation.Sold(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeUint32,
+			Type:   field.TypeOther,
 			Value:  value,
 			Column: stock.FieldSold,
 		})
 	}
-	if value, ok := suo.mutation.AddedSold(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeUint32,
-			Value:  value,
+	if suo.mutation.SoldCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
 			Column: stock.FieldSold,
 		})
 	}

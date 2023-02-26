@@ -9181,16 +9181,11 @@ type StockMutation struct {
 	deleted_at    *uint32
 	adddeleted_at *int32
 	good_id       *uuid.UUID
-	total         *uint32
-	addtotal      *int32
-	locked        *uint32
-	addlocked     *int32
-	in_service    *uint32
-	addin_service *int32
-	wait_start    *uint32
-	addwait_start *int32
-	sold          *uint32
-	addsold       *int32
+	total         *decimal.Decimal
+	locked        *decimal.Decimal
+	in_service    *decimal.Decimal
+	wait_start    *decimal.Decimal
+	sold          *decimal.Decimal
 	clearedFields map[string]struct{}
 	done          bool
 	oldValue      func(context.Context) (*Stock, error)
@@ -9506,13 +9501,12 @@ func (m *StockMutation) ResetGoodID() {
 }
 
 // SetTotal sets the "total" field.
-func (m *StockMutation) SetTotal(u uint32) {
-	m.total = &u
-	m.addtotal = nil
+func (m *StockMutation) SetTotal(d decimal.Decimal) {
+	m.total = &d
 }
 
 // Total returns the value of the "total" field in the mutation.
-func (m *StockMutation) Total() (r uint32, exists bool) {
+func (m *StockMutation) Total() (r decimal.Decimal, exists bool) {
 	v := m.total
 	if v == nil {
 		return
@@ -9523,7 +9517,7 @@ func (m *StockMutation) Total() (r uint32, exists bool) {
 // OldTotal returns the old "total" field's value of the Stock entity.
 // If the Stock object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *StockMutation) OldTotal(ctx context.Context) (v uint32, err error) {
+func (m *StockMutation) OldTotal(ctx context.Context) (v decimal.Decimal, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldTotal is only allowed on UpdateOne operations")
 	}
@@ -9537,38 +9531,31 @@ func (m *StockMutation) OldTotal(ctx context.Context) (v uint32, err error) {
 	return oldValue.Total, nil
 }
 
-// AddTotal adds u to the "total" field.
-func (m *StockMutation) AddTotal(u int32) {
-	if m.addtotal != nil {
-		*m.addtotal += u
-	} else {
-		m.addtotal = &u
-	}
+// ClearTotal clears the value of the "total" field.
+func (m *StockMutation) ClearTotal() {
+	m.total = nil
+	m.clearedFields[stock.FieldTotal] = struct{}{}
 }
 
-// AddedTotal returns the value that was added to the "total" field in this mutation.
-func (m *StockMutation) AddedTotal() (r int32, exists bool) {
-	v := m.addtotal
-	if v == nil {
-		return
-	}
-	return *v, true
+// TotalCleared returns if the "total" field was cleared in this mutation.
+func (m *StockMutation) TotalCleared() bool {
+	_, ok := m.clearedFields[stock.FieldTotal]
+	return ok
 }
 
 // ResetTotal resets all changes to the "total" field.
 func (m *StockMutation) ResetTotal() {
 	m.total = nil
-	m.addtotal = nil
+	delete(m.clearedFields, stock.FieldTotal)
 }
 
 // SetLocked sets the "locked" field.
-func (m *StockMutation) SetLocked(u uint32) {
-	m.locked = &u
-	m.addlocked = nil
+func (m *StockMutation) SetLocked(d decimal.Decimal) {
+	m.locked = &d
 }
 
 // Locked returns the value of the "locked" field in the mutation.
-func (m *StockMutation) Locked() (r uint32, exists bool) {
+func (m *StockMutation) Locked() (r decimal.Decimal, exists bool) {
 	v := m.locked
 	if v == nil {
 		return
@@ -9579,7 +9566,7 @@ func (m *StockMutation) Locked() (r uint32, exists bool) {
 // OldLocked returns the old "locked" field's value of the Stock entity.
 // If the Stock object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *StockMutation) OldLocked(ctx context.Context) (v uint32, err error) {
+func (m *StockMutation) OldLocked(ctx context.Context) (v decimal.Decimal, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldLocked is only allowed on UpdateOne operations")
 	}
@@ -9593,38 +9580,31 @@ func (m *StockMutation) OldLocked(ctx context.Context) (v uint32, err error) {
 	return oldValue.Locked, nil
 }
 
-// AddLocked adds u to the "locked" field.
-func (m *StockMutation) AddLocked(u int32) {
-	if m.addlocked != nil {
-		*m.addlocked += u
-	} else {
-		m.addlocked = &u
-	}
+// ClearLocked clears the value of the "locked" field.
+func (m *StockMutation) ClearLocked() {
+	m.locked = nil
+	m.clearedFields[stock.FieldLocked] = struct{}{}
 }
 
-// AddedLocked returns the value that was added to the "locked" field in this mutation.
-func (m *StockMutation) AddedLocked() (r int32, exists bool) {
-	v := m.addlocked
-	if v == nil {
-		return
-	}
-	return *v, true
+// LockedCleared returns if the "locked" field was cleared in this mutation.
+func (m *StockMutation) LockedCleared() bool {
+	_, ok := m.clearedFields[stock.FieldLocked]
+	return ok
 }
 
 // ResetLocked resets all changes to the "locked" field.
 func (m *StockMutation) ResetLocked() {
 	m.locked = nil
-	m.addlocked = nil
+	delete(m.clearedFields, stock.FieldLocked)
 }
 
 // SetInService sets the "in_service" field.
-func (m *StockMutation) SetInService(u uint32) {
-	m.in_service = &u
-	m.addin_service = nil
+func (m *StockMutation) SetInService(d decimal.Decimal) {
+	m.in_service = &d
 }
 
 // InService returns the value of the "in_service" field in the mutation.
-func (m *StockMutation) InService() (r uint32, exists bool) {
+func (m *StockMutation) InService() (r decimal.Decimal, exists bool) {
 	v := m.in_service
 	if v == nil {
 		return
@@ -9635,7 +9615,7 @@ func (m *StockMutation) InService() (r uint32, exists bool) {
 // OldInService returns the old "in_service" field's value of the Stock entity.
 // If the Stock object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *StockMutation) OldInService(ctx context.Context) (v uint32, err error) {
+func (m *StockMutation) OldInService(ctx context.Context) (v decimal.Decimal, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldInService is only allowed on UpdateOne operations")
 	}
@@ -9649,38 +9629,31 @@ func (m *StockMutation) OldInService(ctx context.Context) (v uint32, err error) 
 	return oldValue.InService, nil
 }
 
-// AddInService adds u to the "in_service" field.
-func (m *StockMutation) AddInService(u int32) {
-	if m.addin_service != nil {
-		*m.addin_service += u
-	} else {
-		m.addin_service = &u
-	}
+// ClearInService clears the value of the "in_service" field.
+func (m *StockMutation) ClearInService() {
+	m.in_service = nil
+	m.clearedFields[stock.FieldInService] = struct{}{}
 }
 
-// AddedInService returns the value that was added to the "in_service" field in this mutation.
-func (m *StockMutation) AddedInService() (r int32, exists bool) {
-	v := m.addin_service
-	if v == nil {
-		return
-	}
-	return *v, true
+// InServiceCleared returns if the "in_service" field was cleared in this mutation.
+func (m *StockMutation) InServiceCleared() bool {
+	_, ok := m.clearedFields[stock.FieldInService]
+	return ok
 }
 
 // ResetInService resets all changes to the "in_service" field.
 func (m *StockMutation) ResetInService() {
 	m.in_service = nil
-	m.addin_service = nil
+	delete(m.clearedFields, stock.FieldInService)
 }
 
 // SetWaitStart sets the "wait_start" field.
-func (m *StockMutation) SetWaitStart(u uint32) {
-	m.wait_start = &u
-	m.addwait_start = nil
+func (m *StockMutation) SetWaitStart(d decimal.Decimal) {
+	m.wait_start = &d
 }
 
 // WaitStart returns the value of the "wait_start" field in the mutation.
-func (m *StockMutation) WaitStart() (r uint32, exists bool) {
+func (m *StockMutation) WaitStart() (r decimal.Decimal, exists bool) {
 	v := m.wait_start
 	if v == nil {
 		return
@@ -9691,7 +9664,7 @@ func (m *StockMutation) WaitStart() (r uint32, exists bool) {
 // OldWaitStart returns the old "wait_start" field's value of the Stock entity.
 // If the Stock object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *StockMutation) OldWaitStart(ctx context.Context) (v uint32, err error) {
+func (m *StockMutation) OldWaitStart(ctx context.Context) (v decimal.Decimal, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldWaitStart is only allowed on UpdateOne operations")
 	}
@@ -9705,38 +9678,31 @@ func (m *StockMutation) OldWaitStart(ctx context.Context) (v uint32, err error) 
 	return oldValue.WaitStart, nil
 }
 
-// AddWaitStart adds u to the "wait_start" field.
-func (m *StockMutation) AddWaitStart(u int32) {
-	if m.addwait_start != nil {
-		*m.addwait_start += u
-	} else {
-		m.addwait_start = &u
-	}
+// ClearWaitStart clears the value of the "wait_start" field.
+func (m *StockMutation) ClearWaitStart() {
+	m.wait_start = nil
+	m.clearedFields[stock.FieldWaitStart] = struct{}{}
 }
 
-// AddedWaitStart returns the value that was added to the "wait_start" field in this mutation.
-func (m *StockMutation) AddedWaitStart() (r int32, exists bool) {
-	v := m.addwait_start
-	if v == nil {
-		return
-	}
-	return *v, true
+// WaitStartCleared returns if the "wait_start" field was cleared in this mutation.
+func (m *StockMutation) WaitStartCleared() bool {
+	_, ok := m.clearedFields[stock.FieldWaitStart]
+	return ok
 }
 
 // ResetWaitStart resets all changes to the "wait_start" field.
 func (m *StockMutation) ResetWaitStart() {
 	m.wait_start = nil
-	m.addwait_start = nil
+	delete(m.clearedFields, stock.FieldWaitStart)
 }
 
 // SetSold sets the "sold" field.
-func (m *StockMutation) SetSold(u uint32) {
-	m.sold = &u
-	m.addsold = nil
+func (m *StockMutation) SetSold(d decimal.Decimal) {
+	m.sold = &d
 }
 
 // Sold returns the value of the "sold" field in the mutation.
-func (m *StockMutation) Sold() (r uint32, exists bool) {
+func (m *StockMutation) Sold() (r decimal.Decimal, exists bool) {
 	v := m.sold
 	if v == nil {
 		return
@@ -9747,7 +9713,7 @@ func (m *StockMutation) Sold() (r uint32, exists bool) {
 // OldSold returns the old "sold" field's value of the Stock entity.
 // If the Stock object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *StockMutation) OldSold(ctx context.Context) (v uint32, err error) {
+func (m *StockMutation) OldSold(ctx context.Context) (v decimal.Decimal, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldSold is only allowed on UpdateOne operations")
 	}
@@ -9761,28 +9727,22 @@ func (m *StockMutation) OldSold(ctx context.Context) (v uint32, err error) {
 	return oldValue.Sold, nil
 }
 
-// AddSold adds u to the "sold" field.
-func (m *StockMutation) AddSold(u int32) {
-	if m.addsold != nil {
-		*m.addsold += u
-	} else {
-		m.addsold = &u
-	}
+// ClearSold clears the value of the "sold" field.
+func (m *StockMutation) ClearSold() {
+	m.sold = nil
+	m.clearedFields[stock.FieldSold] = struct{}{}
 }
 
-// AddedSold returns the value that was added to the "sold" field in this mutation.
-func (m *StockMutation) AddedSold() (r int32, exists bool) {
-	v := m.addsold
-	if v == nil {
-		return
-	}
-	return *v, true
+// SoldCleared returns if the "sold" field was cleared in this mutation.
+func (m *StockMutation) SoldCleared() bool {
+	_, ok := m.clearedFields[stock.FieldSold]
+	return ok
 }
 
 // ResetSold resets all changes to the "sold" field.
 func (m *StockMutation) ResetSold() {
 	m.sold = nil
-	m.addsold = nil
+	delete(m.clearedFields, stock.FieldSold)
 }
 
 // Where appends a list predicates to the StockMutation builder.
@@ -9923,35 +9883,35 @@ func (m *StockMutation) SetField(name string, value ent.Value) error {
 		m.SetGoodID(v)
 		return nil
 	case stock.FieldTotal:
-		v, ok := value.(uint32)
+		v, ok := value.(decimal.Decimal)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetTotal(v)
 		return nil
 	case stock.FieldLocked:
-		v, ok := value.(uint32)
+		v, ok := value.(decimal.Decimal)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetLocked(v)
 		return nil
 	case stock.FieldInService:
-		v, ok := value.(uint32)
+		v, ok := value.(decimal.Decimal)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetInService(v)
 		return nil
 	case stock.FieldWaitStart:
-		v, ok := value.(uint32)
+		v, ok := value.(decimal.Decimal)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetWaitStart(v)
 		return nil
 	case stock.FieldSold:
-		v, ok := value.(uint32)
+		v, ok := value.(decimal.Decimal)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -9974,21 +9934,6 @@ func (m *StockMutation) AddedFields() []string {
 	if m.adddeleted_at != nil {
 		fields = append(fields, stock.FieldDeletedAt)
 	}
-	if m.addtotal != nil {
-		fields = append(fields, stock.FieldTotal)
-	}
-	if m.addlocked != nil {
-		fields = append(fields, stock.FieldLocked)
-	}
-	if m.addin_service != nil {
-		fields = append(fields, stock.FieldInService)
-	}
-	if m.addwait_start != nil {
-		fields = append(fields, stock.FieldWaitStart)
-	}
-	if m.addsold != nil {
-		fields = append(fields, stock.FieldSold)
-	}
 	return fields
 }
 
@@ -10003,16 +9948,6 @@ func (m *StockMutation) AddedField(name string) (ent.Value, bool) {
 		return m.AddedUpdatedAt()
 	case stock.FieldDeletedAt:
 		return m.AddedDeletedAt()
-	case stock.FieldTotal:
-		return m.AddedTotal()
-	case stock.FieldLocked:
-		return m.AddedLocked()
-	case stock.FieldInService:
-		return m.AddedInService()
-	case stock.FieldWaitStart:
-		return m.AddedWaitStart()
-	case stock.FieldSold:
-		return m.AddedSold()
 	}
 	return nil, false
 }
@@ -10043,41 +9978,6 @@ func (m *StockMutation) AddField(name string, value ent.Value) error {
 		}
 		m.AddDeletedAt(v)
 		return nil
-	case stock.FieldTotal:
-		v, ok := value.(int32)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.AddTotal(v)
-		return nil
-	case stock.FieldLocked:
-		v, ok := value.(int32)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.AddLocked(v)
-		return nil
-	case stock.FieldInService:
-		v, ok := value.(int32)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.AddInService(v)
-		return nil
-	case stock.FieldWaitStart:
-		v, ok := value.(int32)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.AddWaitStart(v)
-		return nil
-	case stock.FieldSold:
-		v, ok := value.(int32)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.AddSold(v)
-		return nil
 	}
 	return fmt.Errorf("unknown Stock numeric field %s", name)
 }
@@ -10085,7 +9985,23 @@ func (m *StockMutation) AddField(name string, value ent.Value) error {
 // ClearedFields returns all nullable fields that were cleared during this
 // mutation.
 func (m *StockMutation) ClearedFields() []string {
-	return nil
+	var fields []string
+	if m.FieldCleared(stock.FieldTotal) {
+		fields = append(fields, stock.FieldTotal)
+	}
+	if m.FieldCleared(stock.FieldLocked) {
+		fields = append(fields, stock.FieldLocked)
+	}
+	if m.FieldCleared(stock.FieldInService) {
+		fields = append(fields, stock.FieldInService)
+	}
+	if m.FieldCleared(stock.FieldWaitStart) {
+		fields = append(fields, stock.FieldWaitStart)
+	}
+	if m.FieldCleared(stock.FieldSold) {
+		fields = append(fields, stock.FieldSold)
+	}
+	return fields
 }
 
 // FieldCleared returns a boolean indicating if a field with the given name was
@@ -10098,6 +10014,23 @@ func (m *StockMutation) FieldCleared(name string) bool {
 // ClearField clears the value of the field with the given name. It returns an
 // error if the field is not defined in the schema.
 func (m *StockMutation) ClearField(name string) error {
+	switch name {
+	case stock.FieldTotal:
+		m.ClearTotal()
+		return nil
+	case stock.FieldLocked:
+		m.ClearLocked()
+		return nil
+	case stock.FieldInService:
+		m.ClearInService()
+		return nil
+	case stock.FieldWaitStart:
+		m.ClearWaitStart()
+		return nil
+	case stock.FieldSold:
+		m.ClearSold()
+		return nil
+	}
 	return fmt.Errorf("unknown Stock nullable field %s", name)
 }
 

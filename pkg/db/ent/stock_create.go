@@ -13,6 +13,7 @@ import (
 	"entgo.io/ent/schema/field"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/stock"
 	"github.com/google/uuid"
+	"github.com/shopspring/decimal"
 )
 
 // StockCreate is the builder for creating a Stock entity.
@@ -72,32 +73,72 @@ func (sc *StockCreate) SetGoodID(u uuid.UUID) *StockCreate {
 }
 
 // SetTotal sets the "total" field.
-func (sc *StockCreate) SetTotal(u uint32) *StockCreate {
-	sc.mutation.SetTotal(u)
+func (sc *StockCreate) SetTotal(d decimal.Decimal) *StockCreate {
+	sc.mutation.SetTotal(d)
+	return sc
+}
+
+// SetNillableTotal sets the "total" field if the given value is not nil.
+func (sc *StockCreate) SetNillableTotal(d *decimal.Decimal) *StockCreate {
+	if d != nil {
+		sc.SetTotal(*d)
+	}
 	return sc
 }
 
 // SetLocked sets the "locked" field.
-func (sc *StockCreate) SetLocked(u uint32) *StockCreate {
-	sc.mutation.SetLocked(u)
+func (sc *StockCreate) SetLocked(d decimal.Decimal) *StockCreate {
+	sc.mutation.SetLocked(d)
+	return sc
+}
+
+// SetNillableLocked sets the "locked" field if the given value is not nil.
+func (sc *StockCreate) SetNillableLocked(d *decimal.Decimal) *StockCreate {
+	if d != nil {
+		sc.SetLocked(*d)
+	}
 	return sc
 }
 
 // SetInService sets the "in_service" field.
-func (sc *StockCreate) SetInService(u uint32) *StockCreate {
-	sc.mutation.SetInService(u)
+func (sc *StockCreate) SetInService(d decimal.Decimal) *StockCreate {
+	sc.mutation.SetInService(d)
+	return sc
+}
+
+// SetNillableInService sets the "in_service" field if the given value is not nil.
+func (sc *StockCreate) SetNillableInService(d *decimal.Decimal) *StockCreate {
+	if d != nil {
+		sc.SetInService(*d)
+	}
 	return sc
 }
 
 // SetWaitStart sets the "wait_start" field.
-func (sc *StockCreate) SetWaitStart(u uint32) *StockCreate {
-	sc.mutation.SetWaitStart(u)
+func (sc *StockCreate) SetWaitStart(d decimal.Decimal) *StockCreate {
+	sc.mutation.SetWaitStart(d)
+	return sc
+}
+
+// SetNillableWaitStart sets the "wait_start" field if the given value is not nil.
+func (sc *StockCreate) SetNillableWaitStart(d *decimal.Decimal) *StockCreate {
+	if d != nil {
+		sc.SetWaitStart(*d)
+	}
 	return sc
 }
 
 // SetSold sets the "sold" field.
-func (sc *StockCreate) SetSold(u uint32) *StockCreate {
-	sc.mutation.SetSold(u)
+func (sc *StockCreate) SetSold(d decimal.Decimal) *StockCreate {
+	sc.mutation.SetSold(d)
+	return sc
+}
+
+// SetNillableSold sets the "sold" field if the given value is not nil.
+func (sc *StockCreate) SetNillableSold(d *decimal.Decimal) *StockCreate {
+	if d != nil {
+		sc.SetSold(*d)
+	}
 	return sc
 }
 
@@ -215,6 +256,26 @@ func (sc *StockCreate) defaults() error {
 		v := stock.DefaultDeletedAt()
 		sc.mutation.SetDeletedAt(v)
 	}
+	if _, ok := sc.mutation.Total(); !ok {
+		v := stock.DefaultTotal
+		sc.mutation.SetTotal(v)
+	}
+	if _, ok := sc.mutation.Locked(); !ok {
+		v := stock.DefaultLocked
+		sc.mutation.SetLocked(v)
+	}
+	if _, ok := sc.mutation.InService(); !ok {
+		v := stock.DefaultInService
+		sc.mutation.SetInService(v)
+	}
+	if _, ok := sc.mutation.WaitStart(); !ok {
+		v := stock.DefaultWaitStart
+		sc.mutation.SetWaitStart(v)
+	}
+	if _, ok := sc.mutation.Sold(); !ok {
+		v := stock.DefaultSold
+		sc.mutation.SetSold(v)
+	}
 	if _, ok := sc.mutation.ID(); !ok {
 		if stock.DefaultID == nil {
 			return fmt.Errorf("ent: uninitialized stock.DefaultID (forgotten import ent/runtime?)")
@@ -238,21 +299,6 @@ func (sc *StockCreate) check() error {
 	}
 	if _, ok := sc.mutation.GoodID(); !ok {
 		return &ValidationError{Name: "good_id", err: errors.New(`ent: missing required field "Stock.good_id"`)}
-	}
-	if _, ok := sc.mutation.Total(); !ok {
-		return &ValidationError{Name: "total", err: errors.New(`ent: missing required field "Stock.total"`)}
-	}
-	if _, ok := sc.mutation.Locked(); !ok {
-		return &ValidationError{Name: "locked", err: errors.New(`ent: missing required field "Stock.locked"`)}
-	}
-	if _, ok := sc.mutation.InService(); !ok {
-		return &ValidationError{Name: "in_service", err: errors.New(`ent: missing required field "Stock.in_service"`)}
-	}
-	if _, ok := sc.mutation.WaitStart(); !ok {
-		return &ValidationError{Name: "wait_start", err: errors.New(`ent: missing required field "Stock.wait_start"`)}
-	}
-	if _, ok := sc.mutation.Sold(); !ok {
-		return &ValidationError{Name: "sold", err: errors.New(`ent: missing required field "Stock.sold"`)}
 	}
 	return nil
 }
@@ -325,7 +371,7 @@ func (sc *StockCreate) createSpec() (*Stock, *sqlgraph.CreateSpec) {
 	}
 	if value, ok := sc.mutation.Total(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeUint32,
+			Type:   field.TypeOther,
 			Value:  value,
 			Column: stock.FieldTotal,
 		})
@@ -333,7 +379,7 @@ func (sc *StockCreate) createSpec() (*Stock, *sqlgraph.CreateSpec) {
 	}
 	if value, ok := sc.mutation.Locked(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeUint32,
+			Type:   field.TypeOther,
 			Value:  value,
 			Column: stock.FieldLocked,
 		})
@@ -341,7 +387,7 @@ func (sc *StockCreate) createSpec() (*Stock, *sqlgraph.CreateSpec) {
 	}
 	if value, ok := sc.mutation.InService(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeUint32,
+			Type:   field.TypeOther,
 			Value:  value,
 			Column: stock.FieldInService,
 		})
@@ -349,7 +395,7 @@ func (sc *StockCreate) createSpec() (*Stock, *sqlgraph.CreateSpec) {
 	}
 	if value, ok := sc.mutation.WaitStart(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeUint32,
+			Type:   field.TypeOther,
 			Value:  value,
 			Column: stock.FieldWaitStart,
 		})
@@ -357,7 +403,7 @@ func (sc *StockCreate) createSpec() (*Stock, *sqlgraph.CreateSpec) {
 	}
 	if value, ok := sc.mutation.Sold(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeUint32,
+			Type:   field.TypeOther,
 			Value:  value,
 			Column: stock.FieldSold,
 		})
@@ -484,7 +530,7 @@ func (u *StockUpsert) UpdateGoodID() *StockUpsert {
 }
 
 // SetTotal sets the "total" field.
-func (u *StockUpsert) SetTotal(v uint32) *StockUpsert {
+func (u *StockUpsert) SetTotal(v decimal.Decimal) *StockUpsert {
 	u.Set(stock.FieldTotal, v)
 	return u
 }
@@ -495,14 +541,14 @@ func (u *StockUpsert) UpdateTotal() *StockUpsert {
 	return u
 }
 
-// AddTotal adds v to the "total" field.
-func (u *StockUpsert) AddTotal(v uint32) *StockUpsert {
-	u.Add(stock.FieldTotal, v)
+// ClearTotal clears the value of the "total" field.
+func (u *StockUpsert) ClearTotal() *StockUpsert {
+	u.SetNull(stock.FieldTotal)
 	return u
 }
 
 // SetLocked sets the "locked" field.
-func (u *StockUpsert) SetLocked(v uint32) *StockUpsert {
+func (u *StockUpsert) SetLocked(v decimal.Decimal) *StockUpsert {
 	u.Set(stock.FieldLocked, v)
 	return u
 }
@@ -513,14 +559,14 @@ func (u *StockUpsert) UpdateLocked() *StockUpsert {
 	return u
 }
 
-// AddLocked adds v to the "locked" field.
-func (u *StockUpsert) AddLocked(v uint32) *StockUpsert {
-	u.Add(stock.FieldLocked, v)
+// ClearLocked clears the value of the "locked" field.
+func (u *StockUpsert) ClearLocked() *StockUpsert {
+	u.SetNull(stock.FieldLocked)
 	return u
 }
 
 // SetInService sets the "in_service" field.
-func (u *StockUpsert) SetInService(v uint32) *StockUpsert {
+func (u *StockUpsert) SetInService(v decimal.Decimal) *StockUpsert {
 	u.Set(stock.FieldInService, v)
 	return u
 }
@@ -531,14 +577,14 @@ func (u *StockUpsert) UpdateInService() *StockUpsert {
 	return u
 }
 
-// AddInService adds v to the "in_service" field.
-func (u *StockUpsert) AddInService(v uint32) *StockUpsert {
-	u.Add(stock.FieldInService, v)
+// ClearInService clears the value of the "in_service" field.
+func (u *StockUpsert) ClearInService() *StockUpsert {
+	u.SetNull(stock.FieldInService)
 	return u
 }
 
 // SetWaitStart sets the "wait_start" field.
-func (u *StockUpsert) SetWaitStart(v uint32) *StockUpsert {
+func (u *StockUpsert) SetWaitStart(v decimal.Decimal) *StockUpsert {
 	u.Set(stock.FieldWaitStart, v)
 	return u
 }
@@ -549,14 +595,14 @@ func (u *StockUpsert) UpdateWaitStart() *StockUpsert {
 	return u
 }
 
-// AddWaitStart adds v to the "wait_start" field.
-func (u *StockUpsert) AddWaitStart(v uint32) *StockUpsert {
-	u.Add(stock.FieldWaitStart, v)
+// ClearWaitStart clears the value of the "wait_start" field.
+func (u *StockUpsert) ClearWaitStart() *StockUpsert {
+	u.SetNull(stock.FieldWaitStart)
 	return u
 }
 
 // SetSold sets the "sold" field.
-func (u *StockUpsert) SetSold(v uint32) *StockUpsert {
+func (u *StockUpsert) SetSold(v decimal.Decimal) *StockUpsert {
 	u.Set(stock.FieldSold, v)
 	return u
 }
@@ -567,9 +613,9 @@ func (u *StockUpsert) UpdateSold() *StockUpsert {
 	return u
 }
 
-// AddSold adds v to the "sold" field.
-func (u *StockUpsert) AddSold(v uint32) *StockUpsert {
-	u.Add(stock.FieldSold, v)
+// ClearSold clears the value of the "sold" field.
+func (u *StockUpsert) ClearSold() *StockUpsert {
+	u.SetNull(stock.FieldSold)
 	return u
 }
 
@@ -701,16 +747,9 @@ func (u *StockUpsertOne) UpdateGoodID() *StockUpsertOne {
 }
 
 // SetTotal sets the "total" field.
-func (u *StockUpsertOne) SetTotal(v uint32) *StockUpsertOne {
+func (u *StockUpsertOne) SetTotal(v decimal.Decimal) *StockUpsertOne {
 	return u.Update(func(s *StockUpsert) {
 		s.SetTotal(v)
-	})
-}
-
-// AddTotal adds v to the "total" field.
-func (u *StockUpsertOne) AddTotal(v uint32) *StockUpsertOne {
-	return u.Update(func(s *StockUpsert) {
-		s.AddTotal(v)
 	})
 }
 
@@ -721,17 +760,17 @@ func (u *StockUpsertOne) UpdateTotal() *StockUpsertOne {
 	})
 }
 
-// SetLocked sets the "locked" field.
-func (u *StockUpsertOne) SetLocked(v uint32) *StockUpsertOne {
+// ClearTotal clears the value of the "total" field.
+func (u *StockUpsertOne) ClearTotal() *StockUpsertOne {
 	return u.Update(func(s *StockUpsert) {
-		s.SetLocked(v)
+		s.ClearTotal()
 	})
 }
 
-// AddLocked adds v to the "locked" field.
-func (u *StockUpsertOne) AddLocked(v uint32) *StockUpsertOne {
+// SetLocked sets the "locked" field.
+func (u *StockUpsertOne) SetLocked(v decimal.Decimal) *StockUpsertOne {
 	return u.Update(func(s *StockUpsert) {
-		s.AddLocked(v)
+		s.SetLocked(v)
 	})
 }
 
@@ -742,17 +781,17 @@ func (u *StockUpsertOne) UpdateLocked() *StockUpsertOne {
 	})
 }
 
-// SetInService sets the "in_service" field.
-func (u *StockUpsertOne) SetInService(v uint32) *StockUpsertOne {
+// ClearLocked clears the value of the "locked" field.
+func (u *StockUpsertOne) ClearLocked() *StockUpsertOne {
 	return u.Update(func(s *StockUpsert) {
-		s.SetInService(v)
+		s.ClearLocked()
 	})
 }
 
-// AddInService adds v to the "in_service" field.
-func (u *StockUpsertOne) AddInService(v uint32) *StockUpsertOne {
+// SetInService sets the "in_service" field.
+func (u *StockUpsertOne) SetInService(v decimal.Decimal) *StockUpsertOne {
 	return u.Update(func(s *StockUpsert) {
-		s.AddInService(v)
+		s.SetInService(v)
 	})
 }
 
@@ -763,17 +802,17 @@ func (u *StockUpsertOne) UpdateInService() *StockUpsertOne {
 	})
 }
 
-// SetWaitStart sets the "wait_start" field.
-func (u *StockUpsertOne) SetWaitStart(v uint32) *StockUpsertOne {
+// ClearInService clears the value of the "in_service" field.
+func (u *StockUpsertOne) ClearInService() *StockUpsertOne {
 	return u.Update(func(s *StockUpsert) {
-		s.SetWaitStart(v)
+		s.ClearInService()
 	})
 }
 
-// AddWaitStart adds v to the "wait_start" field.
-func (u *StockUpsertOne) AddWaitStart(v uint32) *StockUpsertOne {
+// SetWaitStart sets the "wait_start" field.
+func (u *StockUpsertOne) SetWaitStart(v decimal.Decimal) *StockUpsertOne {
 	return u.Update(func(s *StockUpsert) {
-		s.AddWaitStart(v)
+		s.SetWaitStart(v)
 	})
 }
 
@@ -784,17 +823,17 @@ func (u *StockUpsertOne) UpdateWaitStart() *StockUpsertOne {
 	})
 }
 
-// SetSold sets the "sold" field.
-func (u *StockUpsertOne) SetSold(v uint32) *StockUpsertOne {
+// ClearWaitStart clears the value of the "wait_start" field.
+func (u *StockUpsertOne) ClearWaitStart() *StockUpsertOne {
 	return u.Update(func(s *StockUpsert) {
-		s.SetSold(v)
+		s.ClearWaitStart()
 	})
 }
 
-// AddSold adds v to the "sold" field.
-func (u *StockUpsertOne) AddSold(v uint32) *StockUpsertOne {
+// SetSold sets the "sold" field.
+func (u *StockUpsertOne) SetSold(v decimal.Decimal) *StockUpsertOne {
 	return u.Update(func(s *StockUpsert) {
-		s.AddSold(v)
+		s.SetSold(v)
 	})
 }
 
@@ -802,6 +841,13 @@ func (u *StockUpsertOne) AddSold(v uint32) *StockUpsertOne {
 func (u *StockUpsertOne) UpdateSold() *StockUpsertOne {
 	return u.Update(func(s *StockUpsert) {
 		s.UpdateSold()
+	})
+}
+
+// ClearSold clears the value of the "sold" field.
+func (u *StockUpsertOne) ClearSold() *StockUpsertOne {
+	return u.Update(func(s *StockUpsert) {
+		s.ClearSold()
 	})
 }
 
@@ -1099,16 +1145,9 @@ func (u *StockUpsertBulk) UpdateGoodID() *StockUpsertBulk {
 }
 
 // SetTotal sets the "total" field.
-func (u *StockUpsertBulk) SetTotal(v uint32) *StockUpsertBulk {
+func (u *StockUpsertBulk) SetTotal(v decimal.Decimal) *StockUpsertBulk {
 	return u.Update(func(s *StockUpsert) {
 		s.SetTotal(v)
-	})
-}
-
-// AddTotal adds v to the "total" field.
-func (u *StockUpsertBulk) AddTotal(v uint32) *StockUpsertBulk {
-	return u.Update(func(s *StockUpsert) {
-		s.AddTotal(v)
 	})
 }
 
@@ -1119,17 +1158,17 @@ func (u *StockUpsertBulk) UpdateTotal() *StockUpsertBulk {
 	})
 }
 
-// SetLocked sets the "locked" field.
-func (u *StockUpsertBulk) SetLocked(v uint32) *StockUpsertBulk {
+// ClearTotal clears the value of the "total" field.
+func (u *StockUpsertBulk) ClearTotal() *StockUpsertBulk {
 	return u.Update(func(s *StockUpsert) {
-		s.SetLocked(v)
+		s.ClearTotal()
 	})
 }
 
-// AddLocked adds v to the "locked" field.
-func (u *StockUpsertBulk) AddLocked(v uint32) *StockUpsertBulk {
+// SetLocked sets the "locked" field.
+func (u *StockUpsertBulk) SetLocked(v decimal.Decimal) *StockUpsertBulk {
 	return u.Update(func(s *StockUpsert) {
-		s.AddLocked(v)
+		s.SetLocked(v)
 	})
 }
 
@@ -1140,17 +1179,17 @@ func (u *StockUpsertBulk) UpdateLocked() *StockUpsertBulk {
 	})
 }
 
-// SetInService sets the "in_service" field.
-func (u *StockUpsertBulk) SetInService(v uint32) *StockUpsertBulk {
+// ClearLocked clears the value of the "locked" field.
+func (u *StockUpsertBulk) ClearLocked() *StockUpsertBulk {
 	return u.Update(func(s *StockUpsert) {
-		s.SetInService(v)
+		s.ClearLocked()
 	})
 }
 
-// AddInService adds v to the "in_service" field.
-func (u *StockUpsertBulk) AddInService(v uint32) *StockUpsertBulk {
+// SetInService sets the "in_service" field.
+func (u *StockUpsertBulk) SetInService(v decimal.Decimal) *StockUpsertBulk {
 	return u.Update(func(s *StockUpsert) {
-		s.AddInService(v)
+		s.SetInService(v)
 	})
 }
 
@@ -1161,17 +1200,17 @@ func (u *StockUpsertBulk) UpdateInService() *StockUpsertBulk {
 	})
 }
 
-// SetWaitStart sets the "wait_start" field.
-func (u *StockUpsertBulk) SetWaitStart(v uint32) *StockUpsertBulk {
+// ClearInService clears the value of the "in_service" field.
+func (u *StockUpsertBulk) ClearInService() *StockUpsertBulk {
 	return u.Update(func(s *StockUpsert) {
-		s.SetWaitStart(v)
+		s.ClearInService()
 	})
 }
 
-// AddWaitStart adds v to the "wait_start" field.
-func (u *StockUpsertBulk) AddWaitStart(v uint32) *StockUpsertBulk {
+// SetWaitStart sets the "wait_start" field.
+func (u *StockUpsertBulk) SetWaitStart(v decimal.Decimal) *StockUpsertBulk {
 	return u.Update(func(s *StockUpsert) {
-		s.AddWaitStart(v)
+		s.SetWaitStart(v)
 	})
 }
 
@@ -1182,17 +1221,17 @@ func (u *StockUpsertBulk) UpdateWaitStart() *StockUpsertBulk {
 	})
 }
 
-// SetSold sets the "sold" field.
-func (u *StockUpsertBulk) SetSold(v uint32) *StockUpsertBulk {
+// ClearWaitStart clears the value of the "wait_start" field.
+func (u *StockUpsertBulk) ClearWaitStart() *StockUpsertBulk {
 	return u.Update(func(s *StockUpsert) {
-		s.SetSold(v)
+		s.ClearWaitStart()
 	})
 }
 
-// AddSold adds v to the "sold" field.
-func (u *StockUpsertBulk) AddSold(v uint32) *StockUpsertBulk {
+// SetSold sets the "sold" field.
+func (u *StockUpsertBulk) SetSold(v decimal.Decimal) *StockUpsertBulk {
 	return u.Update(func(s *StockUpsert) {
-		s.AddSold(v)
+		s.SetSold(v)
 	})
 }
 
@@ -1200,6 +1239,13 @@ func (u *StockUpsertBulk) AddSold(v uint32) *StockUpsertBulk {
 func (u *StockUpsertBulk) UpdateSold() *StockUpsertBulk {
 	return u.Update(func(s *StockUpsert) {
 		s.UpdateSold()
+	})
+}
+
+// ClearSold clears the value of the "sold" field.
+func (u *StockUpsertBulk) ClearSold() *StockUpsertBulk {
+	return u.Update(func(s *StockUpsert) {
+		s.ClearSold()
 	})
 }
 

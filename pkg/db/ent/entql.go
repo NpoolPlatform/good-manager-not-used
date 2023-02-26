@@ -218,11 +218,11 @@ var schemaGraph = func() *sqlgraph.Schema {
 			stock.FieldUpdatedAt: {Type: field.TypeUint32, Column: stock.FieldUpdatedAt},
 			stock.FieldDeletedAt: {Type: field.TypeUint32, Column: stock.FieldDeletedAt},
 			stock.FieldGoodID:    {Type: field.TypeUUID, Column: stock.FieldGoodID},
-			stock.FieldTotal:     {Type: field.TypeUint32, Column: stock.FieldTotal},
-			stock.FieldLocked:    {Type: field.TypeUint32, Column: stock.FieldLocked},
-			stock.FieldInService: {Type: field.TypeUint32, Column: stock.FieldInService},
-			stock.FieldWaitStart: {Type: field.TypeUint32, Column: stock.FieldWaitStart},
-			stock.FieldSold:      {Type: field.TypeUint32, Column: stock.FieldSold},
+			stock.FieldTotal:     {Type: field.TypeOther, Column: stock.FieldTotal},
+			stock.FieldLocked:    {Type: field.TypeOther, Column: stock.FieldLocked},
+			stock.FieldInService: {Type: field.TypeOther, Column: stock.FieldInService},
+			stock.FieldWaitStart: {Type: field.TypeOther, Column: stock.FieldWaitStart},
+			stock.FieldSold:      {Type: field.TypeOther, Column: stock.FieldSold},
 		},
 	}
 	graph.Nodes[8] = &sqlgraph.Node{
@@ -1060,28 +1060,28 @@ func (f *StockFilter) WhereGoodID(p entql.ValueP) {
 	f.Where(p.Field(stock.FieldGoodID))
 }
 
-// WhereTotal applies the entql uint32 predicate on the total field.
-func (f *StockFilter) WhereTotal(p entql.Uint32P) {
+// WhereTotal applies the entql other predicate on the total field.
+func (f *StockFilter) WhereTotal(p entql.OtherP) {
 	f.Where(p.Field(stock.FieldTotal))
 }
 
-// WhereLocked applies the entql uint32 predicate on the locked field.
-func (f *StockFilter) WhereLocked(p entql.Uint32P) {
+// WhereLocked applies the entql other predicate on the locked field.
+func (f *StockFilter) WhereLocked(p entql.OtherP) {
 	f.Where(p.Field(stock.FieldLocked))
 }
 
-// WhereInService applies the entql uint32 predicate on the in_service field.
-func (f *StockFilter) WhereInService(p entql.Uint32P) {
+// WhereInService applies the entql other predicate on the in_service field.
+func (f *StockFilter) WhereInService(p entql.OtherP) {
 	f.Where(p.Field(stock.FieldInService))
 }
 
-// WhereWaitStart applies the entql uint32 predicate on the wait_start field.
-func (f *StockFilter) WhereWaitStart(p entql.Uint32P) {
+// WhereWaitStart applies the entql other predicate on the wait_start field.
+func (f *StockFilter) WhereWaitStart(p entql.OtherP) {
 	f.Where(p.Field(stock.FieldWaitStart))
 }
 
-// WhereSold applies the entql uint32 predicate on the sold field.
-func (f *StockFilter) WhereSold(p entql.Uint32P) {
+// WhereSold applies the entql other predicate on the sold field.
+func (f *StockFilter) WhereSold(p entql.OtherP) {
 	f.Where(p.Field(stock.FieldSold))
 }
 

@@ -6,6 +6,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/predicate"
 	"github.com/google/uuid"
+	"github.com/shopspring/decimal"
 )
 
 // ID filters vertices based on their ID field.
@@ -108,35 +109,35 @@ func GoodID(v uuid.UUID) predicate.Stock {
 }
 
 // Total applies equality check predicate on the "total" field. It's identical to TotalEQ.
-func Total(v uint32) predicate.Stock {
+func Total(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldTotal), v))
 	})
 }
 
 // Locked applies equality check predicate on the "locked" field. It's identical to LockedEQ.
-func Locked(v uint32) predicate.Stock {
+func Locked(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldLocked), v))
 	})
 }
 
 // InService applies equality check predicate on the "in_service" field. It's identical to InServiceEQ.
-func InService(v uint32) predicate.Stock {
+func InService(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldInService), v))
 	})
 }
 
 // WaitStart applies equality check predicate on the "wait_start" field. It's identical to WaitStartEQ.
-func WaitStart(v uint32) predicate.Stock {
+func WaitStart(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldWaitStart), v))
 	})
 }
 
 // Sold applies equality check predicate on the "sold" field. It's identical to SoldEQ.
-func Sold(v uint32) predicate.Stock {
+func Sold(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldSold), v))
 	})
@@ -399,21 +400,21 @@ func GoodIDLTE(v uuid.UUID) predicate.Stock {
 }
 
 // TotalEQ applies the EQ predicate on the "total" field.
-func TotalEQ(v uint32) predicate.Stock {
+func TotalEQ(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldTotal), v))
 	})
 }
 
 // TotalNEQ applies the NEQ predicate on the "total" field.
-func TotalNEQ(v uint32) predicate.Stock {
+func TotalNEQ(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldTotal), v))
 	})
 }
 
 // TotalIn applies the In predicate on the "total" field.
-func TotalIn(vs ...uint32) predicate.Stock {
+func TotalIn(vs ...decimal.Decimal) predicate.Stock {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -424,7 +425,7 @@ func TotalIn(vs ...uint32) predicate.Stock {
 }
 
 // TotalNotIn applies the NotIn predicate on the "total" field.
-func TotalNotIn(vs ...uint32) predicate.Stock {
+func TotalNotIn(vs ...decimal.Decimal) predicate.Stock {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -435,49 +436,63 @@ func TotalNotIn(vs ...uint32) predicate.Stock {
 }
 
 // TotalGT applies the GT predicate on the "total" field.
-func TotalGT(v uint32) predicate.Stock {
+func TotalGT(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.GT(s.C(FieldTotal), v))
 	})
 }
 
 // TotalGTE applies the GTE predicate on the "total" field.
-func TotalGTE(v uint32) predicate.Stock {
+func TotalGTE(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.GTE(s.C(FieldTotal), v))
 	})
 }
 
 // TotalLT applies the LT predicate on the "total" field.
-func TotalLT(v uint32) predicate.Stock {
+func TotalLT(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.LT(s.C(FieldTotal), v))
 	})
 }
 
 // TotalLTE applies the LTE predicate on the "total" field.
-func TotalLTE(v uint32) predicate.Stock {
+func TotalLTE(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldTotal), v))
 	})
 }
 
+// TotalIsNil applies the IsNil predicate on the "total" field.
+func TotalIsNil() predicate.Stock {
+	return predicate.Stock(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldTotal)))
+	})
+}
+
+// TotalNotNil applies the NotNil predicate on the "total" field.
+func TotalNotNil() predicate.Stock {
+	return predicate.Stock(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldTotal)))
+	})
+}
+
 // LockedEQ applies the EQ predicate on the "locked" field.
-func LockedEQ(v uint32) predicate.Stock {
+func LockedEQ(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldLocked), v))
 	})
 }
 
 // LockedNEQ applies the NEQ predicate on the "locked" field.
-func LockedNEQ(v uint32) predicate.Stock {
+func LockedNEQ(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldLocked), v))
 	})
 }
 
 // LockedIn applies the In predicate on the "locked" field.
-func LockedIn(vs ...uint32) predicate.Stock {
+func LockedIn(vs ...decimal.Decimal) predicate.Stock {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -488,7 +503,7 @@ func LockedIn(vs ...uint32) predicate.Stock {
 }
 
 // LockedNotIn applies the NotIn predicate on the "locked" field.
-func LockedNotIn(vs ...uint32) predicate.Stock {
+func LockedNotIn(vs ...decimal.Decimal) predicate.Stock {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -499,49 +514,63 @@ func LockedNotIn(vs ...uint32) predicate.Stock {
 }
 
 // LockedGT applies the GT predicate on the "locked" field.
-func LockedGT(v uint32) predicate.Stock {
+func LockedGT(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.GT(s.C(FieldLocked), v))
 	})
 }
 
 // LockedGTE applies the GTE predicate on the "locked" field.
-func LockedGTE(v uint32) predicate.Stock {
+func LockedGTE(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.GTE(s.C(FieldLocked), v))
 	})
 }
 
 // LockedLT applies the LT predicate on the "locked" field.
-func LockedLT(v uint32) predicate.Stock {
+func LockedLT(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.LT(s.C(FieldLocked), v))
 	})
 }
 
 // LockedLTE applies the LTE predicate on the "locked" field.
-func LockedLTE(v uint32) predicate.Stock {
+func LockedLTE(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldLocked), v))
 	})
 }
 
+// LockedIsNil applies the IsNil predicate on the "locked" field.
+func LockedIsNil() predicate.Stock {
+	return predicate.Stock(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldLocked)))
+	})
+}
+
+// LockedNotNil applies the NotNil predicate on the "locked" field.
+func LockedNotNil() predicate.Stock {
+	return predicate.Stock(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldLocked)))
+	})
+}
+
 // InServiceEQ applies the EQ predicate on the "in_service" field.
-func InServiceEQ(v uint32) predicate.Stock {
+func InServiceEQ(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldInService), v))
 	})
 }
 
 // InServiceNEQ applies the NEQ predicate on the "in_service" field.
-func InServiceNEQ(v uint32) predicate.Stock {
+func InServiceNEQ(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldInService), v))
 	})
 }
 
 // InServiceIn applies the In predicate on the "in_service" field.
-func InServiceIn(vs ...uint32) predicate.Stock {
+func InServiceIn(vs ...decimal.Decimal) predicate.Stock {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -552,7 +581,7 @@ func InServiceIn(vs ...uint32) predicate.Stock {
 }
 
 // InServiceNotIn applies the NotIn predicate on the "in_service" field.
-func InServiceNotIn(vs ...uint32) predicate.Stock {
+func InServiceNotIn(vs ...decimal.Decimal) predicate.Stock {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -563,49 +592,63 @@ func InServiceNotIn(vs ...uint32) predicate.Stock {
 }
 
 // InServiceGT applies the GT predicate on the "in_service" field.
-func InServiceGT(v uint32) predicate.Stock {
+func InServiceGT(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.GT(s.C(FieldInService), v))
 	})
 }
 
 // InServiceGTE applies the GTE predicate on the "in_service" field.
-func InServiceGTE(v uint32) predicate.Stock {
+func InServiceGTE(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.GTE(s.C(FieldInService), v))
 	})
 }
 
 // InServiceLT applies the LT predicate on the "in_service" field.
-func InServiceLT(v uint32) predicate.Stock {
+func InServiceLT(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.LT(s.C(FieldInService), v))
 	})
 }
 
 // InServiceLTE applies the LTE predicate on the "in_service" field.
-func InServiceLTE(v uint32) predicate.Stock {
+func InServiceLTE(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldInService), v))
 	})
 }
 
+// InServiceIsNil applies the IsNil predicate on the "in_service" field.
+func InServiceIsNil() predicate.Stock {
+	return predicate.Stock(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldInService)))
+	})
+}
+
+// InServiceNotNil applies the NotNil predicate on the "in_service" field.
+func InServiceNotNil() predicate.Stock {
+	return predicate.Stock(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldInService)))
+	})
+}
+
 // WaitStartEQ applies the EQ predicate on the "wait_start" field.
-func WaitStartEQ(v uint32) predicate.Stock {
+func WaitStartEQ(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldWaitStart), v))
 	})
 }
 
 // WaitStartNEQ applies the NEQ predicate on the "wait_start" field.
-func WaitStartNEQ(v uint32) predicate.Stock {
+func WaitStartNEQ(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldWaitStart), v))
 	})
 }
 
 // WaitStartIn applies the In predicate on the "wait_start" field.
-func WaitStartIn(vs ...uint32) predicate.Stock {
+func WaitStartIn(vs ...decimal.Decimal) predicate.Stock {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -616,7 +659,7 @@ func WaitStartIn(vs ...uint32) predicate.Stock {
 }
 
 // WaitStartNotIn applies the NotIn predicate on the "wait_start" field.
-func WaitStartNotIn(vs ...uint32) predicate.Stock {
+func WaitStartNotIn(vs ...decimal.Decimal) predicate.Stock {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -627,49 +670,63 @@ func WaitStartNotIn(vs ...uint32) predicate.Stock {
 }
 
 // WaitStartGT applies the GT predicate on the "wait_start" field.
-func WaitStartGT(v uint32) predicate.Stock {
+func WaitStartGT(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.GT(s.C(FieldWaitStart), v))
 	})
 }
 
 // WaitStartGTE applies the GTE predicate on the "wait_start" field.
-func WaitStartGTE(v uint32) predicate.Stock {
+func WaitStartGTE(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.GTE(s.C(FieldWaitStart), v))
 	})
 }
 
 // WaitStartLT applies the LT predicate on the "wait_start" field.
-func WaitStartLT(v uint32) predicate.Stock {
+func WaitStartLT(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.LT(s.C(FieldWaitStart), v))
 	})
 }
 
 // WaitStartLTE applies the LTE predicate on the "wait_start" field.
-func WaitStartLTE(v uint32) predicate.Stock {
+func WaitStartLTE(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldWaitStart), v))
 	})
 }
 
+// WaitStartIsNil applies the IsNil predicate on the "wait_start" field.
+func WaitStartIsNil() predicate.Stock {
+	return predicate.Stock(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldWaitStart)))
+	})
+}
+
+// WaitStartNotNil applies the NotNil predicate on the "wait_start" field.
+func WaitStartNotNil() predicate.Stock {
+	return predicate.Stock(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldWaitStart)))
+	})
+}
+
 // SoldEQ applies the EQ predicate on the "sold" field.
-func SoldEQ(v uint32) predicate.Stock {
+func SoldEQ(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldSold), v))
 	})
 }
 
 // SoldNEQ applies the NEQ predicate on the "sold" field.
-func SoldNEQ(v uint32) predicate.Stock {
+func SoldNEQ(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldSold), v))
 	})
 }
 
 // SoldIn applies the In predicate on the "sold" field.
-func SoldIn(vs ...uint32) predicate.Stock {
+func SoldIn(vs ...decimal.Decimal) predicate.Stock {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -680,7 +737,7 @@ func SoldIn(vs ...uint32) predicate.Stock {
 }
 
 // SoldNotIn applies the NotIn predicate on the "sold" field.
-func SoldNotIn(vs ...uint32) predicate.Stock {
+func SoldNotIn(vs ...decimal.Decimal) predicate.Stock {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -691,30 +748,44 @@ func SoldNotIn(vs ...uint32) predicate.Stock {
 }
 
 // SoldGT applies the GT predicate on the "sold" field.
-func SoldGT(v uint32) predicate.Stock {
+func SoldGT(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.GT(s.C(FieldSold), v))
 	})
 }
 
 // SoldGTE applies the GTE predicate on the "sold" field.
-func SoldGTE(v uint32) predicate.Stock {
+func SoldGTE(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.GTE(s.C(FieldSold), v))
 	})
 }
 
 // SoldLT applies the LT predicate on the "sold" field.
-func SoldLT(v uint32) predicate.Stock {
+func SoldLT(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.LT(s.C(FieldSold), v))
 	})
 }
 
 // SoldLTE applies the LTE predicate on the "sold" field.
-func SoldLTE(v uint32) predicate.Stock {
+func SoldLTE(v decimal.Decimal) predicate.Stock {
 	return predicate.Stock(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldSold), v))
+	})
+}
+
+// SoldIsNil applies the IsNil predicate on the "sold" field.
+func SoldIsNil() predicate.Stock {
+	return predicate.Stock(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldSold)))
+	})
+}
+
+// SoldNotNil applies the NotNil predicate on the "sold" field.
+func SoldNotNil() predicate.Stock {
+	return predicate.Stock(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldSold)))
 	})
 }
 

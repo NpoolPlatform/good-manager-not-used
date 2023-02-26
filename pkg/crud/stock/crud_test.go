@@ -7,6 +7,8 @@ import (
 	"strconv"
 	"testing"
 
+	"github.com/shopspring/decimal"
+
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent"
 
 	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
@@ -32,21 +34,22 @@ func init() {
 var _stock = ent.Stock{
 	ID:     uuid.New(),
 	GoodID: uuid.New(),
-	Total:  1005,
+	Total:  decimal.NewFromInt(1005),
 }
 
 var (
 	id        = _stock.ID.String()
 	goodID    = _stock.GoodID.String()
-	locked    = int32(_stock.Locked)
-	inService = int32(_stock.InService)
+	total     = _stock.Total.String()
+	locked    = _stock.Locked.String()
+	inService = _stock.InService.String()
 	req       = npool.StockReq{
 		ID:        &id,
 		GoodID:    &goodID,
-		Total:     &_stock.Total,
+		Total:     &total,
 		Locked:    &locked,
 		InService: &inService,
-		Sold:      &_stock.Sold,
+		Sold:      &inService,
 	}
 )
 
@@ -65,20 +68,14 @@ func create(t *testing.T) {
 func createBulk(t *testing.T) {
 	entities := []*ent.Stock{
 		{
-			ID:        uuid.New(),
-			GoodID:    uuid.New(),
-			Total:     1005,
-			Locked:    0,
-			InService: 0,
-			Sold:      0,
+			ID:     uuid.New(),
+			GoodID: uuid.New(),
+			Total:  decimal.NewFromInt(1005),
 		},
 		{
-			ID:        uuid.New(),
-			GoodID:    uuid.New(),
-			Total:     1005,
-			Locked:    0,
-			InService: 0,
-			Sold:      0,
+			ID:     uuid.New(),
+			GoodID: uuid.New(),
+			Total:  decimal.NewFromInt(1005),
 		},
 	}
 
@@ -86,15 +83,17 @@ func createBulk(t *testing.T) {
 	for _, _stock1 := range entities {
 		_id := _stock1.ID.String()
 		_goodID := _stock1.GoodID.String()
-		_locked := int32(_stock1.Locked)
-		_inService := int32(_stock1.InService)
+		_total := _stock1.Total.String()
+		_locked := _stock1.Locked.String()
+		_inService := _stock1.InService.String()
+		_sold := _stock1.Sold.String()
 		reqs = append(reqs, &npool.StockReq{
 			ID:        &_id,
 			GoodID:    &_goodID,
-			Total:     &_stock1.Total,
+			Total:     &_total,
 			Locked:    &_locked,
 			InService: &_inService,
-			Sold:      &_stock1.Sold,
+			Sold:      &_sold,
 		})
 	}
 	infos, err := CreateBulk(context.Background(), reqs)
@@ -106,8 +105,9 @@ func createBulk(t *testing.T) {
 func update(t *testing.T) {
 	var err error
 
-	total := uint32(2000)
-	req.Total = &total
+	total := decimal.NewFromInt(2000)
+	_total := total.String()
+	req.Total = &_total
 	_stock.Total = total
 
 	info, err = Update(context.Background(), &req)
@@ -118,20 +118,24 @@ func update(t *testing.T) {
 }
 
 func addFields(t *testing.T) {
-	locked := int32(10)
-	waitStart := int32(10)
-	inService := int32(20)
-	sold := uint32(20)
+	locked := decimal.NewFromInt(10)
+	lockedStr := locked.String()
+	waitStart := decimal.NewFromInt(10)
+	waitStartStr := waitStart.String()
+	inService := decimal.NewFromInt(20)
+	inServiceStr := inService.String()
+	sold := decimal.NewFromInt(20)
+	soldStr := sold.String()
 
-	req.Locked = &locked
-	req.WaitStart = &waitStart
-	req.InService = &inService
-	req.Sold = &sold
+	req.Locked = &lockedStr
+	req.WaitStart = &waitStartStr
+	req.InService = &inServiceStr
+	req.Sold = &soldStr
 
-	_stock.Locked = uint32(int32(_stock.Locked) + locked)
-	_stock.WaitStart = uint32(int32(_stock.WaitStart) + waitStart)
-	_stock.InService = uint32(int32(_stock.InService) + inService)
-	_stock.Sold += uint32(waitStart)
+	_stock.Locked = _stock.Locked.Add(locked)
+	_stock.WaitStart = _stock.WaitStart.Add(waitStart)
+	_stock.InService = _stock.InService.Add(inService)
+	_stock.Sold = _stock.Sold.Add(waitStart)
 
 	info, err := AddFields(context.Background(), &req)
 	if assert.Nil(t, err) {
@@ -139,14 +143,16 @@ func addFields(t *testing.T) {
 		assert.Equal(t, info.String(), _stock.String())
 	}
 
-	locked = -5
-	inService = -3
+	locked = decimal.NewFromInt(-5)
+	lockedStr = locked.String()
+	inService = decimal.NewFromInt(-3)
+	inServiceStr = inService.String()
 
-	_stock.Locked = uint32(int32(_stock.Locked) + locked)
-	_stock.InService = uint32(int32(_stock.InService) + inService)
+	_stock.Locked = _stock.Locked.Add(locked)
+	_stock.InService = _stock.InService.Add(inService)
 
-	req.Locked = &locked
-	req.InService = &inService
+	req.Locked = &lockedStr
+	req.InService = &inServiceStr
 	req.WaitStart = nil
 
 	info, err = AddFields(context.Background(), &req)
@@ -155,13 +161,15 @@ func addFields(t *testing.T) {
 		assert.Equal(t, info.String(), _stock.String())
 	}
 
-	locked = 3000
-	req.Locked = &locked
+	locked = decimal.NewFromInt(3000)
+	lockedStr = locked.String()
+	req.Locked = &lockedStr
 	_, err = AddFields(context.Background(), &req)
 	assert.NotNil(t, err)
 
-	inService = 3000
-	req.InService = &inService
+	inService = decimal.NewFromInt(3000)
+	inServiceStr = inService.String()
+	req.InService = &inServiceStr
 	_, err = AddFields(context.Background(), &req)
 	assert.NotNil(t, err)
 }

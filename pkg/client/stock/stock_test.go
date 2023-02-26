@@ -7,6 +7,8 @@ import (
 	"strconv"
 	"testing"
 
+	"github.com/shopspring/decimal"
+
 	"google.golang.org/grpc/credentials/insecure"
 
 	"github.com/NpoolPlatform/go-service-framework/pkg/config"
@@ -35,20 +37,21 @@ func init() {
 	}
 }
 
-var appDate = npool.Stock{
-	ID:     uuid.NewString(),
-	GoodID: uuid.NewString(),
-	Total:  1005,
+var ret = npool.Stock{
+	ID:        uuid.NewString(),
+	GoodID:    uuid.NewString(),
+	Total:     decimal.NewFromInt(1005).String(),
+	Locked:    decimal.NewFromInt(0).String(),
+	InService: decimal.NewFromInt(0).String(),
+	WaitStart: decimal.NewFromInt(0).String(),
+	Sold:      decimal.NewFromInt(0).String(),
 }
 
 var (
-	appInfo = npool.StockReq{
-		ID:        &appDate.ID,
-		GoodID:    &appDate.GoodID,
-		Total:     &appDate.Total,
-		Locked:    &appDate.Locked,
-		InService: &appDate.InService,
-		Sold:      &appDate.Sold,
+	req = npool.StockReq{
+		ID:     &ret.ID,
+		GoodID: &ret.GoodID,
+		Total:  &ret.Total,
 	}
 )
 
@@ -56,37 +59,34 @@ var info *npool.Stock
 
 func createStock(t *testing.T) {
 	var err error
-	info, err = CreateStock(context.Background(), &appInfo)
+	info, err = CreateStock(context.Background(), &req)
 	if assert.Nil(t, err) {
-		appDate.CreatedAt = info.CreatedAt
-		appDate.UpdatedAt = info.UpdatedAt
-		assert.Equal(t, info, &appDate)
+		ret.CreatedAt = info.CreatedAt
+		ret.UpdatedAt = info.UpdatedAt
+		assert.Equal(t, info, &ret)
 	}
 }
 
 func createStocks(t *testing.T) {
-	appDates := []npool.Stock{
+	rets := []npool.Stock{
 		{
 			ID:     uuid.NewString(),
 			GoodID: uuid.NewString(),
-			Total:  1005,
+			Total:  decimal.NewFromInt(1005).String(),
 		},
 		{
 			ID:     uuid.NewString(),
 			GoodID: uuid.NewString(),
-			Total:  1005,
+			Total:  decimal.NewFromInt(1005).String(),
 		},
 	}
 
 	apps := []*npool.StockReq{}
-	for key := range appDates {
+	for key := range rets {
 		apps = append(apps, &npool.StockReq{
-			ID:        &appDates[key].ID,
-			GoodID:    &appDates[key].GoodID,
-			Total:     &appDates[key].Total,
-			Locked:    &appDates[key].Locked,
-			InService: &appDates[key].InService,
-			Sold:      &appDates[key].Sold,
+			ID:     &rets[key].ID,
+			GoodID: &rets[key].GoodID,
+			Total:  &rets[key].Total,
 		})
 	}
 
@@ -98,10 +98,10 @@ func createStocks(t *testing.T) {
 
 func updateStock(t *testing.T) {
 	var err error
-	info, err = UpdateStock(context.Background(), &appInfo)
+	info, err = UpdateStock(context.Background(), &req)
 	if assert.Nil(t, err) {
-		appDate.UpdatedAt = info.UpdatedAt
-		assert.Equal(t, info, &appDate)
+		ret.UpdatedAt = info.UpdatedAt
+		assert.Equal(t, info, &ret)
 	}
 }
 
@@ -109,7 +109,7 @@ func getStock(t *testing.T) {
 	var err error
 	info, err = GetStock(context.Background(), info.ID)
 	if assert.Nil(t, err) {
-		assert.Equal(t, info, &appDate)
+		assert.Equal(t, info, &ret)
 	}
 }
 
@@ -123,7 +123,7 @@ func getStocks(t *testing.T) {
 		}, 0, 1)
 	if assert.Nil(t, err) {
 		assert.Equal(t, total, uint32(1))
-		assert.Equal(t, infos[0], &appDate)
+		assert.Equal(t, infos[0], &ret)
 	}
 }
 
@@ -137,7 +137,7 @@ func getStockOnly(t *testing.T) {
 			},
 		})
 	if assert.Nil(t, err) {
-		assert.Equal(t, info, &appDate)
+		assert.Equal(t, info, &ret)
 	}
 }
 
@@ -165,12 +165,12 @@ func existStockConds(t *testing.T) {
 func deleteStock(t *testing.T) {
 	info, err := DeleteStock(context.Background(), info.ID)
 	if assert.Nil(t, err) {
-		appDate.DeletedAt = info.DeletedAt
-		assert.Equal(t, info, &appDate)
+		ret.DeletedAt = info.DeletedAt
+		assert.Equal(t, info, &ret)
 	}
 }
 
-func TestMainOrder(t *testing.T) {
+func TestStock(t *testing.T) {
 	if runByGithubAction, err := strconv.ParseBool(os.Getenv("RUN_BY_GITHUB_ACTION")); err == nil && runByGithubAction {
 		return
 	}

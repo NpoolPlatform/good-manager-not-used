@@ -5,6 +5,9 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/NpoolPlatform/good-manager/pkg/db/ent/stock"
+	"github.com/shopspring/decimal"
+
 	constant "github.com/NpoolPlatform/good-manager/pkg/message/const"
 	commontracer "github.com/NpoolPlatform/good-manager/pkg/tracer"
 	tracer "github.com/NpoolPlatform/good-manager/pkg/tracer/stock"
@@ -13,7 +16,6 @@ import (
 
 	"github.com/NpoolPlatform/good-manager/pkg/db"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent"
-	"github.com/NpoolPlatform/good-manager/pkg/db/ent/stock"
 	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	npool "github.com/NpoolPlatform/message/npool/good/mgr/v1/stock"
 
@@ -28,12 +30,17 @@ func CreateSet(c *ent.StockCreate, in *npool.StockReq) (*ent.StockCreate, error)
 		c.SetGoodID(uuid.MustParse(in.GetGoodID()))
 	}
 	if in.Total != nil {
-		c.SetTotal(in.GetTotal())
+		val, err := decimal.NewFromString(in.GetTotal())
+		if err != nil {
+			return nil, err
+		}
+		c.SetTotal(val)
 	}
-	c.SetLocked(0)
-	c.SetInService(0)
-	c.SetWaitStart(0)
-	c.SetSold(0)
+	v := decimal.NewFromInt(0)
+	c.SetLocked(v)
+	c.SetInService(v)
+	c.SetWaitStart(v)
+	c.SetSold(v)
 	return c, nil
 }
 
@@ -105,7 +112,11 @@ func CreateBulk(ctx context.Context, in []*npool.StockReq) ([]*ent.Stock, error)
 
 func UpdateSet(u *ent.StockUpdateOne, in *npool.StockReq) (*ent.StockUpdateOne, error) {
 	if in.Total != nil {
-		u.SetTotal(in.GetTotal())
+		val, err := decimal.NewFromString(in.GetTotal())
+		if err != nil {
+			return nil, err
+		}
+		u.SetTotal(val)
 	}
 	return u, nil
 }
@@ -132,7 +143,12 @@ func Update(ctx context.Context, in *npool.StockReq) (*ent.Stock, error) {
 			return err
 		}
 
-		if in.GetTotal() < info.Locked+info.InService+info.WaitStart {
+		total, err := decimal.NewFromString(in.GetTotal())
+		if err != nil {
+			return err
+		}
+
+		if total.Cmp(info.Locked.Add(info.InService).Add(info.WaitStart)) < 0 {
 			return fmt.Errorf("stock insufficient")
 		}
 
@@ -151,37 +167,62 @@ func Update(ctx context.Context, in *npool.StockReq) (*ent.Stock, error) {
 	return info, nil
 }
 
+//nolint:gocyclo
 func AddFieldSet(info *ent.Stock, in *npool.StockReq) (*ent.StockUpdateOne, error) {
-	locked := in.GetLocked() + int32(info.Locked)
-	if locked < 0 {
+	locked := info.Locked
+	if in.Locked != nil {
+		val, err := decimal.NewFromString(in.GetLocked())
+		if err != nil {
+			return nil, err
+		}
+		locked = locked.Add(val)
+	}
+	if locked.Cmp(decimal.NewFromInt(0)) < 0 {
 		return nil, fmt.Errorf("locked stock exhausted")
 	}
 
-	inService := in.GetInService() + int32(info.InService)
-	if inService < 0 {
+	inService := info.InService
+	if in.InService != nil {
+		val, err := decimal.NewFromString(in.GetInService())
+		if err != nil {
+			return nil, err
+		}
+		inService = inService.Add(val)
+	}
+	if inService.Cmp(decimal.NewFromInt(0)) < 0 {
 		return nil, fmt.Errorf("in service stock exhausted")
 	}
 
-	waitStart := in.GetWaitStart() + int32(info.WaitStart)
-	if waitStart < 0 {
-		return nil, fmt.Errorf("wait start stock exhausted")
+	waitStart := info.WaitStart
+	if in.WaitStart != nil {
+		val, err := decimal.NewFromString(in.GetWaitStart())
+		if err != nil {
+			return nil, err
+		}
+		waitStart = waitStart.Add(val)
+	}
+	if waitStart.Cmp(decimal.NewFromInt(0)) < 0 {
+		return nil, fmt.Errorf("in service stock exhausted")
 	}
 
-	if int32(info.Total) < locked+inService+waitStart {
+	if info.Total.Cmp(locked.Add(inService).Add(waitStart)) < 0 {
 		return nil, fmt.Errorf("stock exhausted")
 	}
-
 	u := info.Update()
 	if in.Locked != nil {
-		u.SetLocked(uint32(locked))
+		u.SetLocked(locked)
 	}
 	if in.InService != nil {
-		u.SetInService(uint32(inService))
+		u.SetInService(inService)
 	}
 	if in.WaitStart != nil {
-		u.SetWaitStart(uint32(waitStart))
-		if in.GetWaitStart() > 0 {
-			u.AddSold(in.GetWaitStart())
+		u.SetWaitStart(waitStart)
+		waitStart1, err := decimal.NewFromString(in.GetWaitStart())
+		if err != nil {
+			return nil, err
+		}
+		if waitStart1.Cmp(decimal.NewFromInt(0)) > 0 {
+			u.SetSold(info.Sold.Add(waitStart1))
 		}
 	}
 	return u, nil

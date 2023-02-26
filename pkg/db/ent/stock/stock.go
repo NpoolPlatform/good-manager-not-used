@@ -5,6 +5,7 @@ package stock
 import (
 	"entgo.io/ent"
 	"github.com/google/uuid"
+	"github.com/shopspring/decimal"
 )
 
 const (
@@ -31,7 +32,7 @@ const (
 	// FieldSold holds the string denoting the sold field in the database.
 	FieldSold = "sold"
 	// Table holds the table name of the stock in the database.
-	Table = "stocks"
+	Table = "stocks_v1"
 )
 
 // Columns holds all SQL columns for stock fields.
@@ -75,6 +76,16 @@ var (
 	UpdateDefaultUpdatedAt func() uint32
 	// DefaultDeletedAt holds the default value on creation for the "deleted_at" field.
 	DefaultDeletedAt func() uint32
+	// DefaultTotal holds the default value on creation for the "total" field.
+	DefaultTotal decimal.Decimal
+	// DefaultLocked holds the default value on creation for the "locked" field.
+	DefaultLocked decimal.Decimal
+	// DefaultInService holds the default value on creation for the "in_service" field.
+	DefaultInService decimal.Decimal
+	// DefaultWaitStart holds the default value on creation for the "wait_start" field.
+	DefaultWaitStart decimal.Decimal
+	// DefaultSold holds the default value on creation for the "sold" field.
+	DefaultSold decimal.Decimal
 	// DefaultID holds the default value on creation for the "id" field.
 	DefaultID func() uuid.UUID
 )
