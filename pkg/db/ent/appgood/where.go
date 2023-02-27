@@ -220,6 +220,34 @@ func GoodBanner(v string) predicate.AppGood {
 	})
 }
 
+// OpenBuy applies equality check predicate on the "open_buy" field. It's identical to OpenBuyEQ.
+func OpenBuy(v bool) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldOpenBuy), v))
+	})
+}
+
+// IntoProductPage applies equality check predicate on the "into_product_page" field. It's identical to IntoProductPageEQ.
+func IntoProductPage(v bool) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldIntoProductPage), v))
+	})
+}
+
+// CanCancel applies equality check predicate on the "can_cancel" field. It's identical to CanCancelEQ.
+func CanCancel(v bool) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCanCancel), v))
+	})
+}
+
+// LimitUnits applies equality check predicate on the "limit_units" field. It's identical to LimitUnitsEQ.
+func LimitUnits(v decimal.Decimal) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldLimitUnits), v))
+	})
+}
+
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
 func CreatedAtEQ(v uint32) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
@@ -1740,6 +1768,168 @@ func DisplayNamesIsNil() predicate.AppGood {
 func DisplayNamesNotNil() predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
 		s.Where(sql.NotNull(s.C(FieldDisplayNames)))
+	})
+}
+
+// OpenBuyEQ applies the EQ predicate on the "open_buy" field.
+func OpenBuyEQ(v bool) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldOpenBuy), v))
+	})
+}
+
+// OpenBuyNEQ applies the NEQ predicate on the "open_buy" field.
+func OpenBuyNEQ(v bool) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldOpenBuy), v))
+	})
+}
+
+// OpenBuyIsNil applies the IsNil predicate on the "open_buy" field.
+func OpenBuyIsNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldOpenBuy)))
+	})
+}
+
+// OpenBuyNotNil applies the NotNil predicate on the "open_buy" field.
+func OpenBuyNotNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldOpenBuy)))
+	})
+}
+
+// IntoProductPageEQ applies the EQ predicate on the "into_product_page" field.
+func IntoProductPageEQ(v bool) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldIntoProductPage), v))
+	})
+}
+
+// IntoProductPageNEQ applies the NEQ predicate on the "into_product_page" field.
+func IntoProductPageNEQ(v bool) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldIntoProductPage), v))
+	})
+}
+
+// IntoProductPageIsNil applies the IsNil predicate on the "into_product_page" field.
+func IntoProductPageIsNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldIntoProductPage)))
+	})
+}
+
+// IntoProductPageNotNil applies the NotNil predicate on the "into_product_page" field.
+func IntoProductPageNotNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldIntoProductPage)))
+	})
+}
+
+// CanCancelEQ applies the EQ predicate on the "can_cancel" field.
+func CanCancelEQ(v bool) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCanCancel), v))
+	})
+}
+
+// CanCancelNEQ applies the NEQ predicate on the "can_cancel" field.
+func CanCancelNEQ(v bool) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldCanCancel), v))
+	})
+}
+
+// CanCancelIsNil applies the IsNil predicate on the "can_cancel" field.
+func CanCancelIsNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldCanCancel)))
+	})
+}
+
+// CanCancelNotNil applies the NotNil predicate on the "can_cancel" field.
+func CanCancelNotNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldCanCancel)))
+	})
+}
+
+// LimitUnitsEQ applies the EQ predicate on the "limit_units" field.
+func LimitUnitsEQ(v decimal.Decimal) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldLimitUnits), v))
+	})
+}
+
+// LimitUnitsNEQ applies the NEQ predicate on the "limit_units" field.
+func LimitUnitsNEQ(v decimal.Decimal) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldLimitUnits), v))
+	})
+}
+
+// LimitUnitsIn applies the In predicate on the "limit_units" field.
+func LimitUnitsIn(vs ...decimal.Decimal) predicate.AppGood {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.In(s.C(FieldLimitUnits), v...))
+	})
+}
+
+// LimitUnitsNotIn applies the NotIn predicate on the "limit_units" field.
+func LimitUnitsNotIn(vs ...decimal.Decimal) predicate.AppGood {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotIn(s.C(FieldLimitUnits), v...))
+	})
+}
+
+// LimitUnitsGT applies the GT predicate on the "limit_units" field.
+func LimitUnitsGT(v decimal.Decimal) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldLimitUnits), v))
+	})
+}
+
+// LimitUnitsGTE applies the GTE predicate on the "limit_units" field.
+func LimitUnitsGTE(v decimal.Decimal) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldLimitUnits), v))
+	})
+}
+
+// LimitUnitsLT applies the LT predicate on the "limit_units" field.
+func LimitUnitsLT(v decimal.Decimal) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldLimitUnits), v))
+	})
+}
+
+// LimitUnitsLTE applies the LTE predicate on the "limit_units" field.
+func LimitUnitsLTE(v decimal.Decimal) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldLimitUnits), v))
+	})
+}
+
+// LimitUnitsIsNil applies the IsNil predicate on the "limit_units" field.
+func LimitUnitsIsNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldLimitUnits)))
+	})
+}
+
+// LimitUnitsNotNil applies the NotNil predicate on the "limit_units" field.
+func LimitUnitsNotNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldLimitUnits)))
 	})
 }
 

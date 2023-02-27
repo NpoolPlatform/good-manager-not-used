@@ -123,6 +123,18 @@ func init() {
 	appgoodDescDisplayNames := appgoodFields[19].Descriptor()
 	// appgood.DefaultDisplayNames holds the default value on creation for the display_names field.
 	appgood.DefaultDisplayNames = appgoodDescDisplayNames.Default.([]string)
+	// appgoodDescOpenBuy is the schema descriptor for open_buy field.
+	appgoodDescOpenBuy := appgoodFields[20].Descriptor()
+	// appgood.DefaultOpenBuy holds the default value on creation for the open_buy field.
+	appgood.DefaultOpenBuy = appgoodDescOpenBuy.Default.(bool)
+	// appgoodDescIntoProductPage is the schema descriptor for into_product_page field.
+	appgoodDescIntoProductPage := appgoodFields[21].Descriptor()
+	// appgood.DefaultIntoProductPage holds the default value on creation for the into_product_page field.
+	appgood.DefaultIntoProductPage = appgoodDescIntoProductPage.Default.(bool)
+	// appgoodDescCanCancel is the schema descriptor for can_cancel field.
+	appgoodDescCanCancel := appgoodFields[22].Descriptor()
+	// appgood.DefaultCanCancel holds the default value on creation for the can_cancel field.
+	appgood.DefaultCanCancel = appgoodDescCanCancel.Default.(bool)
 	// appgoodDescID is the schema descriptor for id field.
 	appgoodDescID := appgoodFields[0].Descriptor()
 	// appgood.DefaultID holds the default value on creation for the id field.

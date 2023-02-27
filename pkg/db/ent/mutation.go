@@ -85,6 +85,10 @@ type AppGoodMutation struct {
 	descriptions             *[]string
 	good_banner              *string
 	display_names            *[]string
+	open_buy                 *bool
+	into_product_page        *bool
+	can_cancel               *bool
+	limit_units              *decimal.Decimal
 	clearedFields            map[string]struct{}
 	done                     bool
 	oldValue                 func(context.Context) (*AppGood, error)
@@ -1436,6 +1440,202 @@ func (m *AppGoodMutation) ResetDisplayNames() {
 	delete(m.clearedFields, appgood.FieldDisplayNames)
 }
 
+// SetOpenBuy sets the "open_buy" field.
+func (m *AppGoodMutation) SetOpenBuy(b bool) {
+	m.open_buy = &b
+}
+
+// OpenBuy returns the value of the "open_buy" field in the mutation.
+func (m *AppGoodMutation) OpenBuy() (r bool, exists bool) {
+	v := m.open_buy
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldOpenBuy returns the old "open_buy" field's value of the AppGood entity.
+// If the AppGood object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodMutation) OldOpenBuy(ctx context.Context) (v bool, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldOpenBuy is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldOpenBuy requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldOpenBuy: %w", err)
+	}
+	return oldValue.OpenBuy, nil
+}
+
+// ClearOpenBuy clears the value of the "open_buy" field.
+func (m *AppGoodMutation) ClearOpenBuy() {
+	m.open_buy = nil
+	m.clearedFields[appgood.FieldOpenBuy] = struct{}{}
+}
+
+// OpenBuyCleared returns if the "open_buy" field was cleared in this mutation.
+func (m *AppGoodMutation) OpenBuyCleared() bool {
+	_, ok := m.clearedFields[appgood.FieldOpenBuy]
+	return ok
+}
+
+// ResetOpenBuy resets all changes to the "open_buy" field.
+func (m *AppGoodMutation) ResetOpenBuy() {
+	m.open_buy = nil
+	delete(m.clearedFields, appgood.FieldOpenBuy)
+}
+
+// SetIntoProductPage sets the "into_product_page" field.
+func (m *AppGoodMutation) SetIntoProductPage(b bool) {
+	m.into_product_page = &b
+}
+
+// IntoProductPage returns the value of the "into_product_page" field in the mutation.
+func (m *AppGoodMutation) IntoProductPage() (r bool, exists bool) {
+	v := m.into_product_page
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldIntoProductPage returns the old "into_product_page" field's value of the AppGood entity.
+// If the AppGood object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodMutation) OldIntoProductPage(ctx context.Context) (v bool, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldIntoProductPage is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldIntoProductPage requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldIntoProductPage: %w", err)
+	}
+	return oldValue.IntoProductPage, nil
+}
+
+// ClearIntoProductPage clears the value of the "into_product_page" field.
+func (m *AppGoodMutation) ClearIntoProductPage() {
+	m.into_product_page = nil
+	m.clearedFields[appgood.FieldIntoProductPage] = struct{}{}
+}
+
+// IntoProductPageCleared returns if the "into_product_page" field was cleared in this mutation.
+func (m *AppGoodMutation) IntoProductPageCleared() bool {
+	_, ok := m.clearedFields[appgood.FieldIntoProductPage]
+	return ok
+}
+
+// ResetIntoProductPage resets all changes to the "into_product_page" field.
+func (m *AppGoodMutation) ResetIntoProductPage() {
+	m.into_product_page = nil
+	delete(m.clearedFields, appgood.FieldIntoProductPage)
+}
+
+// SetCanCancel sets the "can_cancel" field.
+func (m *AppGoodMutation) SetCanCancel(b bool) {
+	m.can_cancel = &b
+}
+
+// CanCancel returns the value of the "can_cancel" field in the mutation.
+func (m *AppGoodMutation) CanCancel() (r bool, exists bool) {
+	v := m.can_cancel
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCanCancel returns the old "can_cancel" field's value of the AppGood entity.
+// If the AppGood object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodMutation) OldCanCancel(ctx context.Context) (v bool, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCanCancel is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCanCancel requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCanCancel: %w", err)
+	}
+	return oldValue.CanCancel, nil
+}
+
+// ClearCanCancel clears the value of the "can_cancel" field.
+func (m *AppGoodMutation) ClearCanCancel() {
+	m.can_cancel = nil
+	m.clearedFields[appgood.FieldCanCancel] = struct{}{}
+}
+
+// CanCancelCleared returns if the "can_cancel" field was cleared in this mutation.
+func (m *AppGoodMutation) CanCancelCleared() bool {
+	_, ok := m.clearedFields[appgood.FieldCanCancel]
+	return ok
+}
+
+// ResetCanCancel resets all changes to the "can_cancel" field.
+func (m *AppGoodMutation) ResetCanCancel() {
+	m.can_cancel = nil
+	delete(m.clearedFields, appgood.FieldCanCancel)
+}
+
+// SetLimitUnits sets the "limit_units" field.
+func (m *AppGoodMutation) SetLimitUnits(d decimal.Decimal) {
+	m.limit_units = &d
+}
+
+// LimitUnits returns the value of the "limit_units" field in the mutation.
+func (m *AppGoodMutation) LimitUnits() (r decimal.Decimal, exists bool) {
+	v := m.limit_units
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldLimitUnits returns the old "limit_units" field's value of the AppGood entity.
+// If the AppGood object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodMutation) OldLimitUnits(ctx context.Context) (v decimal.Decimal, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldLimitUnits is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldLimitUnits requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldLimitUnits: %w", err)
+	}
+	return oldValue.LimitUnits, nil
+}
+
+// ClearLimitUnits clears the value of the "limit_units" field.
+func (m *AppGoodMutation) ClearLimitUnits() {
+	m.limit_units = nil
+	m.clearedFields[appgood.FieldLimitUnits] = struct{}{}
+}
+
+// LimitUnitsCleared returns if the "limit_units" field was cleared in this mutation.
+func (m *AppGoodMutation) LimitUnitsCleared() bool {
+	_, ok := m.clearedFields[appgood.FieldLimitUnits]
+	return ok
+}
+
+// ResetLimitUnits resets all changes to the "limit_units" field.
+func (m *AppGoodMutation) ResetLimitUnits() {
+	m.limit_units = nil
+	delete(m.clearedFields, appgood.FieldLimitUnits)
+}
+
 // Where appends a list predicates to the AppGoodMutation builder.
 func (m *AppGoodMutation) Where(ps ...predicate.AppGood) {
 	m.predicates = append(m.predicates, ps...)
@@ -1455,7 +1655,7 @@ func (m *AppGoodMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppGoodMutation) Fields() []string {
-	fields := make([]string, 0, 22)
+	fields := make([]string, 0, 26)
 	if m.created_at != nil {
 		fields = append(fields, appgood.FieldCreatedAt)
 	}
@@ -1522,6 +1722,18 @@ func (m *AppGoodMutation) Fields() []string {
 	if m.display_names != nil {
 		fields = append(fields, appgood.FieldDisplayNames)
 	}
+	if m.open_buy != nil {
+		fields = append(fields, appgood.FieldOpenBuy)
+	}
+	if m.into_product_page != nil {
+		fields = append(fields, appgood.FieldIntoProductPage)
+	}
+	if m.can_cancel != nil {
+		fields = append(fields, appgood.FieldCanCancel)
+	}
+	if m.limit_units != nil {
+		fields = append(fields, appgood.FieldLimitUnits)
+	}
 	return fields
 }
 
@@ -1574,6 +1786,14 @@ func (m *AppGoodMutation) Field(name string) (ent.Value, bool) {
 		return m.GoodBanner()
 	case appgood.FieldDisplayNames:
 		return m.DisplayNames()
+	case appgood.FieldOpenBuy:
+		return m.OpenBuy()
+	case appgood.FieldIntoProductPage:
+		return m.IntoProductPage()
+	case appgood.FieldCanCancel:
+		return m.CanCancel()
+	case appgood.FieldLimitUnits:
+		return m.LimitUnits()
 	}
 	return nil, false
 }
@@ -1627,6 +1847,14 @@ func (m *AppGoodMutation) OldField(ctx context.Context, name string) (ent.Value,
 		return m.OldGoodBanner(ctx)
 	case appgood.FieldDisplayNames:
 		return m.OldDisplayNames(ctx)
+	case appgood.FieldOpenBuy:
+		return m.OldOpenBuy(ctx)
+	case appgood.FieldIntoProductPage:
+		return m.OldIntoProductPage(ctx)
+	case appgood.FieldCanCancel:
+		return m.OldCanCancel(ctx)
+	case appgood.FieldLimitUnits:
+		return m.OldLimitUnits(ctx)
 	}
 	return nil, fmt.Errorf("unknown AppGood field %s", name)
 }
@@ -1789,6 +2017,34 @@ func (m *AppGoodMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetDisplayNames(v)
+		return nil
+	case appgood.FieldOpenBuy:
+		v, ok := value.(bool)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetOpenBuy(v)
+		return nil
+	case appgood.FieldIntoProductPage:
+		v, ok := value.(bool)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetIntoProductPage(v)
+		return nil
+	case appgood.FieldCanCancel:
+		v, ok := value.(bool)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCanCancel(v)
+		return nil
+	case appgood.FieldLimitUnits:
+		v, ok := value.(decimal.Decimal)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetLimitUnits(v)
 		return nil
 	}
 	return fmt.Errorf("unknown AppGood field %s", name)
@@ -2006,6 +2262,18 @@ func (m *AppGoodMutation) ClearedFields() []string {
 	if m.FieldCleared(appgood.FieldDisplayNames) {
 		fields = append(fields, appgood.FieldDisplayNames)
 	}
+	if m.FieldCleared(appgood.FieldOpenBuy) {
+		fields = append(fields, appgood.FieldOpenBuy)
+	}
+	if m.FieldCleared(appgood.FieldIntoProductPage) {
+		fields = append(fields, appgood.FieldIntoProductPage)
+	}
+	if m.FieldCleared(appgood.FieldCanCancel) {
+		fields = append(fields, appgood.FieldCanCancel)
+	}
+	if m.FieldCleared(appgood.FieldLimitUnits) {
+		fields = append(fields, appgood.FieldLimitUnits)
+	}
 	return fields
 }
 
@@ -2070,6 +2338,18 @@ func (m *AppGoodMutation) ClearField(name string) error {
 		return nil
 	case appgood.FieldDisplayNames:
 		m.ClearDisplayNames()
+		return nil
+	case appgood.FieldOpenBuy:
+		m.ClearOpenBuy()
+		return nil
+	case appgood.FieldIntoProductPage:
+		m.ClearIntoProductPage()
+		return nil
+	case appgood.FieldCanCancel:
+		m.ClearCanCancel()
+		return nil
+	case appgood.FieldLimitUnits:
+		m.ClearLimitUnits()
 		return nil
 	}
 	return fmt.Errorf("unknown AppGood nullable field %s", name)
@@ -2144,6 +2424,18 @@ func (m *AppGoodMutation) ResetField(name string) error {
 		return nil
 	case appgood.FieldDisplayNames:
 		m.ResetDisplayNames()
+		return nil
+	case appgood.FieldOpenBuy:
+		m.ResetOpenBuy()
+		return nil
+	case appgood.FieldIntoProductPage:
+		m.ResetIntoProductPage()
+		return nil
+	case appgood.FieldCanCancel:
+		m.ResetCanCancel()
+		return nil
+	case appgood.FieldLimitUnits:
+		m.ResetLimitUnits()
 		return nil
 	}
 	return fmt.Errorf("unknown AppGood field %s", name)

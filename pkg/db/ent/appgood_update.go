@@ -477,6 +477,86 @@ func (agu *AppGoodUpdate) ClearDisplayNames() *AppGoodUpdate {
 	return agu
 }
 
+// SetOpenBuy sets the "open_buy" field.
+func (agu *AppGoodUpdate) SetOpenBuy(b bool) *AppGoodUpdate {
+	agu.mutation.SetOpenBuy(b)
+	return agu
+}
+
+// SetNillableOpenBuy sets the "open_buy" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableOpenBuy(b *bool) *AppGoodUpdate {
+	if b != nil {
+		agu.SetOpenBuy(*b)
+	}
+	return agu
+}
+
+// ClearOpenBuy clears the value of the "open_buy" field.
+func (agu *AppGoodUpdate) ClearOpenBuy() *AppGoodUpdate {
+	agu.mutation.ClearOpenBuy()
+	return agu
+}
+
+// SetIntoProductPage sets the "into_product_page" field.
+func (agu *AppGoodUpdate) SetIntoProductPage(b bool) *AppGoodUpdate {
+	agu.mutation.SetIntoProductPage(b)
+	return agu
+}
+
+// SetNillableIntoProductPage sets the "into_product_page" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableIntoProductPage(b *bool) *AppGoodUpdate {
+	if b != nil {
+		agu.SetIntoProductPage(*b)
+	}
+	return agu
+}
+
+// ClearIntoProductPage clears the value of the "into_product_page" field.
+func (agu *AppGoodUpdate) ClearIntoProductPage() *AppGoodUpdate {
+	agu.mutation.ClearIntoProductPage()
+	return agu
+}
+
+// SetCanCancel sets the "can_cancel" field.
+func (agu *AppGoodUpdate) SetCanCancel(b bool) *AppGoodUpdate {
+	agu.mutation.SetCanCancel(b)
+	return agu
+}
+
+// SetNillableCanCancel sets the "can_cancel" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableCanCancel(b *bool) *AppGoodUpdate {
+	if b != nil {
+		agu.SetCanCancel(*b)
+	}
+	return agu
+}
+
+// ClearCanCancel clears the value of the "can_cancel" field.
+func (agu *AppGoodUpdate) ClearCanCancel() *AppGoodUpdate {
+	agu.mutation.ClearCanCancel()
+	return agu
+}
+
+// SetLimitUnits sets the "limit_units" field.
+func (agu *AppGoodUpdate) SetLimitUnits(d decimal.Decimal) *AppGoodUpdate {
+	agu.mutation.SetLimitUnits(d)
+	return agu
+}
+
+// SetNillableLimitUnits sets the "limit_units" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableLimitUnits(d *decimal.Decimal) *AppGoodUpdate {
+	if d != nil {
+		agu.SetLimitUnits(*d)
+	}
+	return agu
+}
+
+// ClearLimitUnits clears the value of the "limit_units" field.
+func (agu *AppGoodUpdate) ClearLimitUnits() *AppGoodUpdate {
+	agu.mutation.ClearLimitUnits()
+	return agu
+}
+
 // Mutation returns the AppGoodMutation object of the builder.
 func (agu *AppGoodUpdate) Mutation() *AppGoodMutation {
 	return agu.mutation
@@ -906,6 +986,58 @@ func (agu *AppGoodUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeJSON,
 			Column: appgood.FieldDisplayNames,
+		})
+	}
+	if value, ok := agu.mutation.OpenBuy(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: appgood.FieldOpenBuy,
+		})
+	}
+	if agu.mutation.OpenBuyCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Column: appgood.FieldOpenBuy,
+		})
+	}
+	if value, ok := agu.mutation.IntoProductPage(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: appgood.FieldIntoProductPage,
+		})
+	}
+	if agu.mutation.IntoProductPageCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Column: appgood.FieldIntoProductPage,
+		})
+	}
+	if value, ok := agu.mutation.CanCancel(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: appgood.FieldCanCancel,
+		})
+	}
+	if agu.mutation.CanCancelCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Column: appgood.FieldCanCancel,
+		})
+	}
+	if value, ok := agu.mutation.LimitUnits(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
+			Value:  value,
+			Column: appgood.FieldLimitUnits,
+		})
+	}
+	if agu.mutation.LimitUnitsCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
+			Column: appgood.FieldLimitUnits,
 		})
 	}
 	_spec.Modifiers = agu.modifiers
@@ -1376,6 +1508,86 @@ func (aguo *AppGoodUpdateOne) ClearDisplayNames() *AppGoodUpdateOne {
 	return aguo
 }
 
+// SetOpenBuy sets the "open_buy" field.
+func (aguo *AppGoodUpdateOne) SetOpenBuy(b bool) *AppGoodUpdateOne {
+	aguo.mutation.SetOpenBuy(b)
+	return aguo
+}
+
+// SetNillableOpenBuy sets the "open_buy" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableOpenBuy(b *bool) *AppGoodUpdateOne {
+	if b != nil {
+		aguo.SetOpenBuy(*b)
+	}
+	return aguo
+}
+
+// ClearOpenBuy clears the value of the "open_buy" field.
+func (aguo *AppGoodUpdateOne) ClearOpenBuy() *AppGoodUpdateOne {
+	aguo.mutation.ClearOpenBuy()
+	return aguo
+}
+
+// SetIntoProductPage sets the "into_product_page" field.
+func (aguo *AppGoodUpdateOne) SetIntoProductPage(b bool) *AppGoodUpdateOne {
+	aguo.mutation.SetIntoProductPage(b)
+	return aguo
+}
+
+// SetNillableIntoProductPage sets the "into_product_page" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableIntoProductPage(b *bool) *AppGoodUpdateOne {
+	if b != nil {
+		aguo.SetIntoProductPage(*b)
+	}
+	return aguo
+}
+
+// ClearIntoProductPage clears the value of the "into_product_page" field.
+func (aguo *AppGoodUpdateOne) ClearIntoProductPage() *AppGoodUpdateOne {
+	aguo.mutation.ClearIntoProductPage()
+	return aguo
+}
+
+// SetCanCancel sets the "can_cancel" field.
+func (aguo *AppGoodUpdateOne) SetCanCancel(b bool) *AppGoodUpdateOne {
+	aguo.mutation.SetCanCancel(b)
+	return aguo
+}
+
+// SetNillableCanCancel sets the "can_cancel" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableCanCancel(b *bool) *AppGoodUpdateOne {
+	if b != nil {
+		aguo.SetCanCancel(*b)
+	}
+	return aguo
+}
+
+// ClearCanCancel clears the value of the "can_cancel" field.
+func (aguo *AppGoodUpdateOne) ClearCanCancel() *AppGoodUpdateOne {
+	aguo.mutation.ClearCanCancel()
+	return aguo
+}
+
+// SetLimitUnits sets the "limit_units" field.
+func (aguo *AppGoodUpdateOne) SetLimitUnits(d decimal.Decimal) *AppGoodUpdateOne {
+	aguo.mutation.SetLimitUnits(d)
+	return aguo
+}
+
+// SetNillableLimitUnits sets the "limit_units" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableLimitUnits(d *decimal.Decimal) *AppGoodUpdateOne {
+	if d != nil {
+		aguo.SetLimitUnits(*d)
+	}
+	return aguo
+}
+
+// ClearLimitUnits clears the value of the "limit_units" field.
+func (aguo *AppGoodUpdateOne) ClearLimitUnits() *AppGoodUpdateOne {
+	aguo.mutation.ClearLimitUnits()
+	return aguo
+}
+
 // Mutation returns the AppGoodMutation object of the builder.
 func (aguo *AppGoodUpdateOne) Mutation() *AppGoodMutation {
 	return aguo.mutation
@@ -1835,6 +2047,58 @@ func (aguo *AppGoodUpdateOne) sqlSave(ctx context.Context) (_node *AppGood, err 
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeJSON,
 			Column: appgood.FieldDisplayNames,
+		})
+	}
+	if value, ok := aguo.mutation.OpenBuy(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: appgood.FieldOpenBuy,
+		})
+	}
+	if aguo.mutation.OpenBuyCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Column: appgood.FieldOpenBuy,
+		})
+	}
+	if value, ok := aguo.mutation.IntoProductPage(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: appgood.FieldIntoProductPage,
+		})
+	}
+	if aguo.mutation.IntoProductPageCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Column: appgood.FieldIntoProductPage,
+		})
+	}
+	if value, ok := aguo.mutation.CanCancel(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: appgood.FieldCanCancel,
+		})
+	}
+	if aguo.mutation.CanCancelCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Column: appgood.FieldCanCancel,
+		})
+	}
+	if value, ok := aguo.mutation.LimitUnits(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
+			Value:  value,
+			Column: appgood.FieldLimitUnits,
+		})
+	}
+	if aguo.mutation.LimitUnitsCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
+			Column: appgood.FieldLimitUnits,
 		})
 	}
 	_spec.Modifiers = aguo.modifiers

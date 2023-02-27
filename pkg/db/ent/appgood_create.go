@@ -300,6 +300,62 @@ func (agc *AppGoodCreate) SetDisplayNames(s []string) *AppGoodCreate {
 	return agc
 }
 
+// SetOpenBuy sets the "open_buy" field.
+func (agc *AppGoodCreate) SetOpenBuy(b bool) *AppGoodCreate {
+	agc.mutation.SetOpenBuy(b)
+	return agc
+}
+
+// SetNillableOpenBuy sets the "open_buy" field if the given value is not nil.
+func (agc *AppGoodCreate) SetNillableOpenBuy(b *bool) *AppGoodCreate {
+	if b != nil {
+		agc.SetOpenBuy(*b)
+	}
+	return agc
+}
+
+// SetIntoProductPage sets the "into_product_page" field.
+func (agc *AppGoodCreate) SetIntoProductPage(b bool) *AppGoodCreate {
+	agc.mutation.SetIntoProductPage(b)
+	return agc
+}
+
+// SetNillableIntoProductPage sets the "into_product_page" field if the given value is not nil.
+func (agc *AppGoodCreate) SetNillableIntoProductPage(b *bool) *AppGoodCreate {
+	if b != nil {
+		agc.SetIntoProductPage(*b)
+	}
+	return agc
+}
+
+// SetCanCancel sets the "can_cancel" field.
+func (agc *AppGoodCreate) SetCanCancel(b bool) *AppGoodCreate {
+	agc.mutation.SetCanCancel(b)
+	return agc
+}
+
+// SetNillableCanCancel sets the "can_cancel" field if the given value is not nil.
+func (agc *AppGoodCreate) SetNillableCanCancel(b *bool) *AppGoodCreate {
+	if b != nil {
+		agc.SetCanCancel(*b)
+	}
+	return agc
+}
+
+// SetLimitUnits sets the "limit_units" field.
+func (agc *AppGoodCreate) SetLimitUnits(d decimal.Decimal) *AppGoodCreate {
+	agc.mutation.SetLimitUnits(d)
+	return agc
+}
+
+// SetNillableLimitUnits sets the "limit_units" field if the given value is not nil.
+func (agc *AppGoodCreate) SetNillableLimitUnits(d *decimal.Decimal) *AppGoodCreate {
+	if d != nil {
+		agc.SetLimitUnits(*d)
+	}
+	return agc
+}
+
 // SetID sets the "id" field.
 func (agc *AppGoodCreate) SetID(u uuid.UUID) *AppGoodCreate {
 	agc.mutation.SetID(u)
@@ -481,6 +537,18 @@ func (agc *AppGoodCreate) defaults() error {
 	if _, ok := agc.mutation.DisplayNames(); !ok {
 		v := appgood.DefaultDisplayNames
 		agc.mutation.SetDisplayNames(v)
+	}
+	if _, ok := agc.mutation.OpenBuy(); !ok {
+		v := appgood.DefaultOpenBuy
+		agc.mutation.SetOpenBuy(v)
+	}
+	if _, ok := agc.mutation.IntoProductPage(); !ok {
+		v := appgood.DefaultIntoProductPage
+		agc.mutation.SetIntoProductPage(v)
+	}
+	if _, ok := agc.mutation.CanCancel(); !ok {
+		v := appgood.DefaultCanCancel
+		agc.mutation.SetCanCancel(v)
 	}
 	if _, ok := agc.mutation.ID(); !ok {
 		if appgood.DefaultID == nil {
@@ -721,6 +789,38 @@ func (agc *AppGoodCreate) createSpec() (*AppGood, *sqlgraph.CreateSpec) {
 			Column: appgood.FieldDisplayNames,
 		})
 		_node.DisplayNames = value
+	}
+	if value, ok := agc.mutation.OpenBuy(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: appgood.FieldOpenBuy,
+		})
+		_node.OpenBuy = value
+	}
+	if value, ok := agc.mutation.IntoProductPage(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: appgood.FieldIntoProductPage,
+		})
+		_node.IntoProductPage = value
+	}
+	if value, ok := agc.mutation.CanCancel(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: appgood.FieldCanCancel,
+		})
+		_node.CanCancel = value
+	}
+	if value, ok := agc.mutation.LimitUnits(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
+			Value:  value,
+			Column: appgood.FieldLimitUnits,
+		})
+		_node.LimitUnits = value
 	}
 	return _node, _spec
 }
@@ -1205,6 +1305,78 @@ func (u *AppGoodUpsert) UpdateDisplayNames() *AppGoodUpsert {
 // ClearDisplayNames clears the value of the "display_names" field.
 func (u *AppGoodUpsert) ClearDisplayNames() *AppGoodUpsert {
 	u.SetNull(appgood.FieldDisplayNames)
+	return u
+}
+
+// SetOpenBuy sets the "open_buy" field.
+func (u *AppGoodUpsert) SetOpenBuy(v bool) *AppGoodUpsert {
+	u.Set(appgood.FieldOpenBuy, v)
+	return u
+}
+
+// UpdateOpenBuy sets the "open_buy" field to the value that was provided on create.
+func (u *AppGoodUpsert) UpdateOpenBuy() *AppGoodUpsert {
+	u.SetExcluded(appgood.FieldOpenBuy)
+	return u
+}
+
+// ClearOpenBuy clears the value of the "open_buy" field.
+func (u *AppGoodUpsert) ClearOpenBuy() *AppGoodUpsert {
+	u.SetNull(appgood.FieldOpenBuy)
+	return u
+}
+
+// SetIntoProductPage sets the "into_product_page" field.
+func (u *AppGoodUpsert) SetIntoProductPage(v bool) *AppGoodUpsert {
+	u.Set(appgood.FieldIntoProductPage, v)
+	return u
+}
+
+// UpdateIntoProductPage sets the "into_product_page" field to the value that was provided on create.
+func (u *AppGoodUpsert) UpdateIntoProductPage() *AppGoodUpsert {
+	u.SetExcluded(appgood.FieldIntoProductPage)
+	return u
+}
+
+// ClearIntoProductPage clears the value of the "into_product_page" field.
+func (u *AppGoodUpsert) ClearIntoProductPage() *AppGoodUpsert {
+	u.SetNull(appgood.FieldIntoProductPage)
+	return u
+}
+
+// SetCanCancel sets the "can_cancel" field.
+func (u *AppGoodUpsert) SetCanCancel(v bool) *AppGoodUpsert {
+	u.Set(appgood.FieldCanCancel, v)
+	return u
+}
+
+// UpdateCanCancel sets the "can_cancel" field to the value that was provided on create.
+func (u *AppGoodUpsert) UpdateCanCancel() *AppGoodUpsert {
+	u.SetExcluded(appgood.FieldCanCancel)
+	return u
+}
+
+// ClearCanCancel clears the value of the "can_cancel" field.
+func (u *AppGoodUpsert) ClearCanCancel() *AppGoodUpsert {
+	u.SetNull(appgood.FieldCanCancel)
+	return u
+}
+
+// SetLimitUnits sets the "limit_units" field.
+func (u *AppGoodUpsert) SetLimitUnits(v decimal.Decimal) *AppGoodUpsert {
+	u.Set(appgood.FieldLimitUnits, v)
+	return u
+}
+
+// UpdateLimitUnits sets the "limit_units" field to the value that was provided on create.
+func (u *AppGoodUpsert) UpdateLimitUnits() *AppGoodUpsert {
+	u.SetExcluded(appgood.FieldLimitUnits)
+	return u
+}
+
+// ClearLimitUnits clears the value of the "limit_units" field.
+func (u *AppGoodUpsert) ClearLimitUnits() *AppGoodUpsert {
+	u.SetNull(appgood.FieldLimitUnits)
 	return u
 }
 
@@ -1759,6 +1931,90 @@ func (u *AppGoodUpsertOne) UpdateDisplayNames() *AppGoodUpsertOne {
 func (u *AppGoodUpsertOne) ClearDisplayNames() *AppGoodUpsertOne {
 	return u.Update(func(s *AppGoodUpsert) {
 		s.ClearDisplayNames()
+	})
+}
+
+// SetOpenBuy sets the "open_buy" field.
+func (u *AppGoodUpsertOne) SetOpenBuy(v bool) *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetOpenBuy(v)
+	})
+}
+
+// UpdateOpenBuy sets the "open_buy" field to the value that was provided on create.
+func (u *AppGoodUpsertOne) UpdateOpenBuy() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateOpenBuy()
+	})
+}
+
+// ClearOpenBuy clears the value of the "open_buy" field.
+func (u *AppGoodUpsertOne) ClearOpenBuy() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearOpenBuy()
+	})
+}
+
+// SetIntoProductPage sets the "into_product_page" field.
+func (u *AppGoodUpsertOne) SetIntoProductPage(v bool) *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetIntoProductPage(v)
+	})
+}
+
+// UpdateIntoProductPage sets the "into_product_page" field to the value that was provided on create.
+func (u *AppGoodUpsertOne) UpdateIntoProductPage() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateIntoProductPage()
+	})
+}
+
+// ClearIntoProductPage clears the value of the "into_product_page" field.
+func (u *AppGoodUpsertOne) ClearIntoProductPage() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearIntoProductPage()
+	})
+}
+
+// SetCanCancel sets the "can_cancel" field.
+func (u *AppGoodUpsertOne) SetCanCancel(v bool) *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetCanCancel(v)
+	})
+}
+
+// UpdateCanCancel sets the "can_cancel" field to the value that was provided on create.
+func (u *AppGoodUpsertOne) UpdateCanCancel() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateCanCancel()
+	})
+}
+
+// ClearCanCancel clears the value of the "can_cancel" field.
+func (u *AppGoodUpsertOne) ClearCanCancel() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearCanCancel()
+	})
+}
+
+// SetLimitUnits sets the "limit_units" field.
+func (u *AppGoodUpsertOne) SetLimitUnits(v decimal.Decimal) *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetLimitUnits(v)
+	})
+}
+
+// UpdateLimitUnits sets the "limit_units" field to the value that was provided on create.
+func (u *AppGoodUpsertOne) UpdateLimitUnits() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateLimitUnits()
+	})
+}
+
+// ClearLimitUnits clears the value of the "limit_units" field.
+func (u *AppGoodUpsertOne) ClearLimitUnits() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearLimitUnits()
 	})
 }
 
@@ -2479,6 +2735,90 @@ func (u *AppGoodUpsertBulk) UpdateDisplayNames() *AppGoodUpsertBulk {
 func (u *AppGoodUpsertBulk) ClearDisplayNames() *AppGoodUpsertBulk {
 	return u.Update(func(s *AppGoodUpsert) {
 		s.ClearDisplayNames()
+	})
+}
+
+// SetOpenBuy sets the "open_buy" field.
+func (u *AppGoodUpsertBulk) SetOpenBuy(v bool) *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetOpenBuy(v)
+	})
+}
+
+// UpdateOpenBuy sets the "open_buy" field to the value that was provided on create.
+func (u *AppGoodUpsertBulk) UpdateOpenBuy() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateOpenBuy()
+	})
+}
+
+// ClearOpenBuy clears the value of the "open_buy" field.
+func (u *AppGoodUpsertBulk) ClearOpenBuy() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearOpenBuy()
+	})
+}
+
+// SetIntoProductPage sets the "into_product_page" field.
+func (u *AppGoodUpsertBulk) SetIntoProductPage(v bool) *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetIntoProductPage(v)
+	})
+}
+
+// UpdateIntoProductPage sets the "into_product_page" field to the value that was provided on create.
+func (u *AppGoodUpsertBulk) UpdateIntoProductPage() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateIntoProductPage()
+	})
+}
+
+// ClearIntoProductPage clears the value of the "into_product_page" field.
+func (u *AppGoodUpsertBulk) ClearIntoProductPage() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearIntoProductPage()
+	})
+}
+
+// SetCanCancel sets the "can_cancel" field.
+func (u *AppGoodUpsertBulk) SetCanCancel(v bool) *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetCanCancel(v)
+	})
+}
+
+// UpdateCanCancel sets the "can_cancel" field to the value that was provided on create.
+func (u *AppGoodUpsertBulk) UpdateCanCancel() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateCanCancel()
+	})
+}
+
+// ClearCanCancel clears the value of the "can_cancel" field.
+func (u *AppGoodUpsertBulk) ClearCanCancel() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearCanCancel()
+	})
+}
+
+// SetLimitUnits sets the "limit_units" field.
+func (u *AppGoodUpsertBulk) SetLimitUnits(v decimal.Decimal) *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetLimitUnits(v)
+	})
+}
+
+// UpdateLimitUnits sets the "limit_units" field to the value that was provided on create.
+func (u *AppGoodUpsertBulk) UpdateLimitUnits() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateLimitUnits()
+	})
+}
+
+// ClearLimitUnits clears the value of the "limit_units" field.
+func (u *AppGoodUpsertBulk) ClearLimitUnits() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearLimitUnits()
 	})
 }
 

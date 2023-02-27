@@ -24,7 +24,7 @@ func (AppGood) Mixin() []ent.Mixin {
 	}
 }
 
-// Fields of the AppGood.
+//nolint:funlen
 func (AppGood) Fields() []ent.Field {
 	lDef := 3000
 	return []ent.Field{
@@ -110,6 +110,24 @@ func (AppGood) Fields() []ent.Field {
 			JSON("display_names", []string{}).
 			Optional().
 			Default([]string{}),
+		field.
+			Bool("open_buy").
+			Optional().
+			Default(true),
+		field.
+			Bool("into_product_page").
+			Optional().
+			Default(true),
+		field.
+			Bool("can_cancel").
+			Optional().
+			Default(false),
+		field.
+			Other("limit_units", decimal.Decimal{}).
+			SchemaType(map[string]string{
+				dialect.MySQL: "decimal(37,18)",
+			}).
+			Optional(),
 	}
 }
 

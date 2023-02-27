@@ -56,6 +56,10 @@ var schemaGraph = func() *sqlgraph.Schema {
 			appgood.FieldDescriptions:         {Type: field.TypeJSON, Column: appgood.FieldDescriptions},
 			appgood.FieldGoodBanner:           {Type: field.TypeString, Column: appgood.FieldGoodBanner},
 			appgood.FieldDisplayNames:         {Type: field.TypeJSON, Column: appgood.FieldDisplayNames},
+			appgood.FieldOpenBuy:              {Type: field.TypeBool, Column: appgood.FieldOpenBuy},
+			appgood.FieldIntoProductPage:      {Type: field.TypeBool, Column: appgood.FieldIntoProductPage},
+			appgood.FieldCanCancel:            {Type: field.TypeBool, Column: appgood.FieldCanCancel},
+			appgood.FieldLimitUnits:           {Type: field.TypeOther, Column: appgood.FieldLimitUnits},
 		},
 	}
 	graph.Nodes[1] = &sqlgraph.Node{
@@ -423,6 +427,26 @@ func (f *AppGoodFilter) WhereGoodBanner(p entql.StringP) {
 // WhereDisplayNames applies the entql json.RawMessage predicate on the display_names field.
 func (f *AppGoodFilter) WhereDisplayNames(p entql.BytesP) {
 	f.Where(p.Field(appgood.FieldDisplayNames))
+}
+
+// WhereOpenBuy applies the entql bool predicate on the open_buy field.
+func (f *AppGoodFilter) WhereOpenBuy(p entql.BoolP) {
+	f.Where(p.Field(appgood.FieldOpenBuy))
+}
+
+// WhereIntoProductPage applies the entql bool predicate on the into_product_page field.
+func (f *AppGoodFilter) WhereIntoProductPage(p entql.BoolP) {
+	f.Where(p.Field(appgood.FieldIntoProductPage))
+}
+
+// WhereCanCancel applies the entql bool predicate on the can_cancel field.
+func (f *AppGoodFilter) WhereCanCancel(p entql.BoolP) {
+	f.Where(p.Field(appgood.FieldCanCancel))
+}
+
+// WhereLimitUnits applies the entql other predicate on the limit_units field.
+func (f *AppGoodFilter) WhereLimitUnits(p entql.OtherP) {
+	f.Where(p.Field(appgood.FieldLimitUnits))
 }
 
 // addPredicate implements the predicateAdder interface.

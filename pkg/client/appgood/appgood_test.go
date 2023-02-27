@@ -7,6 +7,8 @@ import (
 	"strconv"
 	"testing"
 
+	"github.com/shopspring/decimal"
+
 	"google.golang.org/grpc/credentials/insecure"
 
 	"github.com/NpoolPlatform/go-service-framework/pkg/config"
@@ -49,6 +51,10 @@ var appDate = npool.AppGood{
 	CommissionPercent:    102,
 	DailyRewardAmount:    "999",
 	CommissionSettleType: commmgrpb.SettleType_GoodOrderPercent,
+	OpenBuy:              true,
+	IntoProductPage:      true,
+	CanCancel:            true,
+	LimitUnits:           decimal.NewFromInt(100).String(),
 }
 
 var (
@@ -65,6 +71,10 @@ var (
 		CommissionPercent:    &appDate.CommissionPercent,
 		DailyRewardAmount:    &appDate.DailyRewardAmount,
 		CommissionSettleType: &appDate.CommissionSettleType,
+		OpenBuy:              &appDate.OpenBuy,
+		IntoProductPage:      &appDate.IntoProductPage,
+		CanCancel:            &appDate.CanCancel,
+		LimitUnits:           &appDate.LimitUnits,
 	}
 )
 
@@ -96,6 +106,10 @@ func createAppGoods(t *testing.T) {
 			CommissionPercent:    102,
 			DailyRewardAmount:    "999",
 			CommissionSettleType: commmgrpb.SettleType_NoCommission,
+			OpenBuy:              true,
+			IntoProductPage:      true,
+			CanCancel:            true,
+			LimitUnits:           decimal.NewFromInt(100).String(),
 		},
 		{
 			ID:                   uuid.NewString(),
@@ -110,6 +124,10 @@ func createAppGoods(t *testing.T) {
 			CommissionPercent:    102,
 			DailyRewardAmount:    "999",
 			CommissionSettleType: commmgrpb.SettleType_NoCommission,
+			OpenBuy:              true,
+			IntoProductPage:      true,
+			CanCancel:            true,
+			LimitUnits:           decimal.NewFromInt(100).String(),
 		},
 	}
 
@@ -127,6 +145,10 @@ func createAppGoods(t *testing.T) {
 			PurchaseLimit:     &appDates[key].PurchaseLimit,
 			CommissionPercent: &appDates[key].CommissionPercent,
 			DailyRewardAmount: &appDates[key].DailyRewardAmount,
+			OpenBuy:           &appDates[key].OpenBuy,
+			IntoProductPage:   &appDates[key].IntoProductPage,
+			CanCancel:         &appDates[key].CanCancel,
+			LimitUnits:        &appDates[key].LimitUnits,
 		})
 	}
 

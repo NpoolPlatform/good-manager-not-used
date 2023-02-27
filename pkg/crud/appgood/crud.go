@@ -21,7 +21,8 @@ import (
 	"github.com/google/uuid"
 )
 
-func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (*ent.AppGoodCreate, error) { //nolint:gocyclo
+//nolint:funlen,gocyclo
+func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (*ent.AppGoodCreate, error) {
 	if in.ID != nil {
 		c.SetID(uuid.MustParse(in.GetID()))
 	}
@@ -89,6 +90,22 @@ func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (*ent.AppGoodCreate, 
 	}
 	if in.DisplayNames != nil {
 		c.SetDisplayNames(in.GetDisplayNames())
+	}
+	if in.OpenBuy != nil {
+		c.SetOpenBuy(in.GetOpenBuy())
+	}
+	if in.IntoProductPage != nil {
+		c.SetIntoProductPage(in.GetIntoProductPage())
+	}
+	if in.CanCancel != nil {
+		c.SetCanCancel(in.GetCanCancel())
+	}
+	if in.LimitUnits != nil {
+		limitUnits, err := decimal.NewFromString(in.GetLimitUnits())
+		if err != nil {
+			return nil, err
+		}
+		c.SetLimitUnits(limitUnits)
 	}
 
 	return c, nil
@@ -220,6 +237,23 @@ func UpdateSet(u *ent.AppGoodUpdateOne, in *npool.AppGoodReq) (*ent.AppGoodUpdat
 	if len(in.DisplayNames) > 0 {
 		u.SetDisplayNames(in.GetDisplayNames())
 	}
+	if in.OpenBuy != nil {
+		u.SetOpenBuy(in.GetOpenBuy())
+	}
+	if in.IntoProductPage != nil {
+		u.SetIntoProductPage(in.GetIntoProductPage())
+	}
+	if in.CanCancel != nil {
+		u.SetCanCancel(in.GetCanCancel())
+	}
+	if in.LimitUnits != nil {
+		limitUnits, err := decimal.NewFromString(in.GetLimitUnits())
+		if err != nil {
+			return nil, err
+		}
+		u.SetLimitUnits(limitUnits)
+	}
+
 	return u, nil
 }
 

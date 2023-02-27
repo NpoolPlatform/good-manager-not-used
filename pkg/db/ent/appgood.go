@@ -62,6 +62,14 @@ type AppGood struct {
 	GoodBanner string `json:"good_banner,omitempty"`
 	// DisplayNames holds the value of the "display_names" field.
 	DisplayNames []string `json:"display_names,omitempty"`
+	// OpenBuy holds the value of the "open_buy" field.
+	OpenBuy bool `json:"open_buy,omitempty"`
+	// IntoProductPage holds the value of the "into_product_page" field.
+	IntoProductPage bool `json:"into_product_page,omitempty"`
+	// CanCancel holds the value of the "can_cancel" field.
+	CanCancel bool `json:"can_cancel,omitempty"`
+	// LimitUnits holds the value of the "limit_units" field.
+	LimitUnits decimal.Decimal `json:"limit_units,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -71,9 +79,9 @@ func (*AppGood) scanValues(columns []string) ([]interface{}, error) {
 		switch columns[i] {
 		case appgood.FieldDescriptions, appgood.FieldDisplayNames:
 			values[i] = new([]byte)
-		case appgood.FieldPrice, appgood.FieldDailyRewardAmount:
+		case appgood.FieldPrice, appgood.FieldDailyRewardAmount, appgood.FieldLimitUnits:
 			values[i] = new(decimal.Decimal)
-		case appgood.FieldOnline, appgood.FieldVisible:
+		case appgood.FieldOnline, appgood.FieldVisible, appgood.FieldOpenBuy, appgood.FieldIntoProductPage, appgood.FieldCanCancel:
 			values[i] = new(sql.NullBool)
 		case appgood.FieldCreatedAt, appgood.FieldUpdatedAt, appgood.FieldDeletedAt, appgood.FieldDisplayIndex, appgood.FieldPurchaseLimit, appgood.FieldCommissionPercent, appgood.FieldSaleStartAt, appgood.FieldSaleEndAt, appgood.FieldServiceStartAt, appgood.FieldTechnicalFeeRatio, appgood.FieldElectricityFeeRatio:
 			values[i] = new(sql.NullInt64)
@@ -238,6 +246,30 @@ func (ag *AppGood) assignValues(columns []string, values []interface{}) error {
 					return fmt.Errorf("unmarshal field display_names: %w", err)
 				}
 			}
+		case appgood.FieldOpenBuy:
+			if value, ok := values[i].(*sql.NullBool); !ok {
+				return fmt.Errorf("unexpected type %T for field open_buy", values[i])
+			} else if value.Valid {
+				ag.OpenBuy = value.Bool
+			}
+		case appgood.FieldIntoProductPage:
+			if value, ok := values[i].(*sql.NullBool); !ok {
+				return fmt.Errorf("unexpected type %T for field into_product_page", values[i])
+			} else if value.Valid {
+				ag.IntoProductPage = value.Bool
+			}
+		case appgood.FieldCanCancel:
+			if value, ok := values[i].(*sql.NullBool); !ok {
+				return fmt.Errorf("unexpected type %T for field can_cancel", values[i])
+			} else if value.Valid {
+				ag.CanCancel = value.Bool
+			}
+		case appgood.FieldLimitUnits:
+			if value, ok := values[i].(*decimal.Decimal); !ok {
+				return fmt.Errorf("unexpected type %T for field limit_units", values[i])
+			} else if value != nil {
+				ag.LimitUnits = *value
+			}
 		}
 	}
 	return nil
@@ -331,6 +363,18 @@ func (ag *AppGood) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("display_names=")
 	builder.WriteString(fmt.Sprintf("%v", ag.DisplayNames))
+	builder.WriteString(", ")
+	builder.WriteString("open_buy=")
+	builder.WriteString(fmt.Sprintf("%v", ag.OpenBuy))
+	builder.WriteString(", ")
+	builder.WriteString("into_product_page=")
+	builder.WriteString(fmt.Sprintf("%v", ag.IntoProductPage))
+	builder.WriteString(", ")
+	builder.WriteString("can_cancel=")
+	builder.WriteString(fmt.Sprintf("%v", ag.CanCancel))
+	builder.WriteString(", ")
+	builder.WriteString("limit_units=")
+	builder.WriteString(fmt.Sprintf("%v", ag.LimitUnits))
 	builder.WriteByte(')')
 	return builder.String()
 }
