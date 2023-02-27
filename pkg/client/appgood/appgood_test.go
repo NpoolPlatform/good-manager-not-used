@@ -51,10 +51,10 @@ var appDate = npool.AppGood{
 	CommissionPercent:    102,
 	DailyRewardAmount:    "999",
 	CommissionSettleType: commmgrpb.SettleType_GoodOrderPercent,
-	OpenBuy:              true,
+	OpenPurchase:         true,
 	IntoProductPage:      true,
 	CanCancel:            true,
-	LimitUnits:           decimal.NewFromInt(100).String(),
+	UserPurchaseLimit:    decimal.NewFromInt(100).String(),
 }
 
 var (
@@ -71,10 +71,10 @@ var (
 		CommissionPercent:    &appDate.CommissionPercent,
 		DailyRewardAmount:    &appDate.DailyRewardAmount,
 		CommissionSettleType: &appDate.CommissionSettleType,
-		OpenBuy:              &appDate.OpenBuy,
+		OpenPurchase:         &appDate.OpenPurchase,
 		IntoProductPage:      &appDate.IntoProductPage,
 		CanCancel:            &appDate.CanCancel,
-		LimitUnits:           &appDate.LimitUnits,
+		UserPurchaseLimit:    &appDate.UserPurchaseLimit,
 	}
 )
 
@@ -106,10 +106,10 @@ func createAppGoods(t *testing.T) {
 			CommissionPercent:    102,
 			DailyRewardAmount:    "999",
 			CommissionSettleType: commmgrpb.SettleType_NoCommission,
-			OpenBuy:              true,
+			OpenPurchase:         true,
 			IntoProductPage:      true,
 			CanCancel:            true,
-			LimitUnits:           decimal.NewFromInt(100).String(),
+			UserPurchaseLimit:    decimal.NewFromInt(100).String(),
 		},
 		{
 			ID:                   uuid.NewString(),
@@ -124,10 +124,10 @@ func createAppGoods(t *testing.T) {
 			CommissionPercent:    102,
 			DailyRewardAmount:    "999",
 			CommissionSettleType: commmgrpb.SettleType_NoCommission,
-			OpenBuy:              true,
+			OpenPurchase:         true,
 			IntoProductPage:      true,
 			CanCancel:            true,
-			LimitUnits:           decimal.NewFromInt(100).String(),
+			UserPurchaseLimit:    decimal.NewFromInt(100).String(),
 		},
 	}
 
@@ -145,10 +145,10 @@ func createAppGoods(t *testing.T) {
 			PurchaseLimit:     &appDates[key].PurchaseLimit,
 			CommissionPercent: &appDates[key].CommissionPercent,
 			DailyRewardAmount: &appDates[key].DailyRewardAmount,
-			OpenBuy:           &appDates[key].OpenBuy,
+			OpenPurchase:      &appDates[key].OpenPurchase,
 			IntoProductPage:   &appDates[key].IntoProductPage,
 			CanCancel:         &appDates[key].CanCancel,
-			LimitUnits:        &appDates[key].LimitUnits,
+			UserPurchaseLimit: &appDates[key].UserPurchaseLimit,
 		})
 	}
 

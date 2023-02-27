@@ -111,7 +111,7 @@ func (AppGood) Fields() []ent.Field {
 			Optional().
 			Default([]string{}),
 		field.
-			Bool("open_buy").
+			Bool("open_purchase").
 			Optional().
 			Default(true),
 		field.
@@ -123,7 +123,7 @@ func (AppGood) Fields() []ent.Field {
 			Optional().
 			Default(false),
 		field.
-			Other("limit_units", decimal.Decimal{}).
+			Other("user_purchase_limit", decimal.Decimal{}).
 			SchemaType(map[string]string{
 				dialect.MySQL: "decimal(37,18)",
 			}).

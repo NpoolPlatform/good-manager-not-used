@@ -55,15 +55,15 @@ func validate(info *npool.AppGoodReq) error {
 		return status.Error(codes.InvalidArgument, "GetPrice is Less than or equal to 0")
 	}
 
-	limitUnits, err := decimal.NewFromString(info.GetLimitUnits())
+	userPurchaseLimit, err := decimal.NewFromString(info.GetUserPurchaseLimit())
 	if err != nil {
-		logger.Sugar().Errorw("validate", "LimitUnits", info.GetLimitUnits(), "error", err)
-		return status.Error(codes.InvalidArgument, fmt.Sprintf("LimitUnits is invalid: %v", err))
+		logger.Sugar().Errorw("validate", "UserPurchaseLimit", info.GetUserPurchaseLimit(), "error", err)
+		return status.Error(codes.InvalidArgument, fmt.Sprintf("UserPurchaseLimit is invalid: %v", err))
 	}
 
-	if limitUnits.Cmp(decimal.NewFromInt(0)) <= 0 {
-		logger.Sugar().Errorw("validate", "LimitUnits", info.GetLimitUnits(), "error", "less than 0")
-		return status.Error(codes.InvalidArgument, "LimitUnits is Less than or equal to 0")
+	if userPurchaseLimit.Cmp(decimal.NewFromInt(0)) <= 0 {
+		logger.Sugar().Errorw("validate", "UserPurchaseLimit", info.GetUserPurchaseLimit(), "error", "less than 0")
+		return status.Error(codes.InvalidArgument, "UserPurchaseLimit is Less than or equal to 0")
 	}
 
 	return nil

@@ -47,20 +47,20 @@ var appGood = ent.AppGood{
 	Descriptions:         nil,
 	GoodBanner:           "",
 	DisplayNames:         nil,
-	OpenBuy:              true,
+	OpenPurchase:         true,
 	IntoProductPage:      true,
 	CanCancel:            true,
-	LimitUnits:           decimal.NewFromInt(100),
+	UserPurchaseLimit:    decimal.NewFromInt(100),
 }
 
 var (
-	id         = appGood.ID.String()
-	appID      = appGood.AppID.String()
-	goodID     = appGood.GoodID.String()
-	price      = appGood.Price.String()
-	amount     = appGood.DailyRewardAmount.String()
-	limitUnits = appGood.LimitUnits.String()
-	req        = npool.AppGoodReq{
+	id                = appGood.ID.String()
+	appID             = appGood.AppID.String()
+	goodID            = appGood.GoodID.String()
+	price             = appGood.Price.String()
+	amount            = appGood.DailyRewardAmount.String()
+	userPurchaseLimit = appGood.UserPurchaseLimit.String()
+	req               = npool.AppGoodReq{
 		ID:                &id,
 		AppID:             &appID,
 		GoodID:            &goodID,
@@ -72,10 +72,10 @@ var (
 		PurchaseLimit:     &appGood.PurchaseLimit,
 		CommissionPercent: &appGood.CommissionPercent,
 		DailyRewardAmount: &amount,
-		OpenBuy:           &appGood.OpenBuy,
+		OpenPurchase:      &appGood.OpenPurchase,
 		IntoProductPage:   &appGood.IntoProductPage,
 		CanCancel:         &appGood.CanCancel,
-		LimitUnits:        &limitUnits,
+		UserPurchaseLimit: &userPurchaseLimit,
 	}
 )
 
@@ -105,10 +105,10 @@ func createBulk(t *testing.T) {
 			PurchaseLimit:     100,
 			CommissionPercent: 100,
 			DailyRewardAmount: decimal.RequireFromString("9999999999999999999.999999999999999999"),
-			OpenBuy:           true,
+			OpenPurchase:      true,
 			IntoProductPage:   true,
 			CanCancel:         true,
-			LimitUnits:        decimal.NewFromInt(100),
+			UserPurchaseLimit: decimal.NewFromInt(100),
 		},
 		{
 			ID:                uuid.New(),
@@ -122,10 +122,10 @@ func createBulk(t *testing.T) {
 			PurchaseLimit:     100,
 			CommissionPercent: 100,
 			DailyRewardAmount: decimal.RequireFromString("9999999999999999999.999999999999999999"),
-			OpenBuy:           true,
+			OpenPurchase:      true,
 			IntoProductPage:   true,
 			CanCancel:         true,
-			LimitUnits:        decimal.NewFromInt(100),
+			UserPurchaseLimit: decimal.NewFromInt(100),
 		},
 	}
 
@@ -136,7 +136,7 @@ func createBulk(t *testing.T) {
 		_goodID := _appGood.GoodID.String()
 		_price := _appGood.Price.String()
 		_amount := _appGood.DailyRewardAmount.String()
-		_limitUnits := _appGood.LimitUnits.String()
+		_userPurchaseLimit := _appGood.UserPurchaseLimit.String()
 		reqs = append(reqs, &npool.AppGoodReq{
 			ID:                &_id,
 			AppID:             &_appID,
@@ -149,10 +149,10 @@ func createBulk(t *testing.T) {
 			PurchaseLimit:     &_appGood.PurchaseLimit,
 			CommissionPercent: &_appGood.CommissionPercent,
 			DailyRewardAmount: &_amount,
-			OpenBuy:           &_appGood.OpenBuy,
+			OpenPurchase:      &_appGood.OpenPurchase,
 			IntoProductPage:   &_appGood.IntoProductPage,
 			CanCancel:         &_appGood.CanCancel,
-			LimitUnits:        &_limitUnits,
+			UserPurchaseLimit: &_userPurchaseLimit,
 		})
 	}
 	infos, err := CreateBulk(context.Background(), reqs)

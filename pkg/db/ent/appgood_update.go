@@ -477,23 +477,23 @@ func (agu *AppGoodUpdate) ClearDisplayNames() *AppGoodUpdate {
 	return agu
 }
 
-// SetOpenBuy sets the "open_buy" field.
-func (agu *AppGoodUpdate) SetOpenBuy(b bool) *AppGoodUpdate {
-	agu.mutation.SetOpenBuy(b)
+// SetOpenPurchase sets the "open_purchase" field.
+func (agu *AppGoodUpdate) SetOpenPurchase(b bool) *AppGoodUpdate {
+	agu.mutation.SetOpenPurchase(b)
 	return agu
 }
 
-// SetNillableOpenBuy sets the "open_buy" field if the given value is not nil.
-func (agu *AppGoodUpdate) SetNillableOpenBuy(b *bool) *AppGoodUpdate {
+// SetNillableOpenPurchase sets the "open_purchase" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableOpenPurchase(b *bool) *AppGoodUpdate {
 	if b != nil {
-		agu.SetOpenBuy(*b)
+		agu.SetOpenPurchase(*b)
 	}
 	return agu
 }
 
-// ClearOpenBuy clears the value of the "open_buy" field.
-func (agu *AppGoodUpdate) ClearOpenBuy() *AppGoodUpdate {
-	agu.mutation.ClearOpenBuy()
+// ClearOpenPurchase clears the value of the "open_purchase" field.
+func (agu *AppGoodUpdate) ClearOpenPurchase() *AppGoodUpdate {
+	agu.mutation.ClearOpenPurchase()
 	return agu
 }
 
@@ -537,23 +537,23 @@ func (agu *AppGoodUpdate) ClearCanCancel() *AppGoodUpdate {
 	return agu
 }
 
-// SetLimitUnits sets the "limit_units" field.
-func (agu *AppGoodUpdate) SetLimitUnits(d decimal.Decimal) *AppGoodUpdate {
-	agu.mutation.SetLimitUnits(d)
+// SetUserPurchaseLimit sets the "user_purchase_limit" field.
+func (agu *AppGoodUpdate) SetUserPurchaseLimit(d decimal.Decimal) *AppGoodUpdate {
+	agu.mutation.SetUserPurchaseLimit(d)
 	return agu
 }
 
-// SetNillableLimitUnits sets the "limit_units" field if the given value is not nil.
-func (agu *AppGoodUpdate) SetNillableLimitUnits(d *decimal.Decimal) *AppGoodUpdate {
+// SetNillableUserPurchaseLimit sets the "user_purchase_limit" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableUserPurchaseLimit(d *decimal.Decimal) *AppGoodUpdate {
 	if d != nil {
-		agu.SetLimitUnits(*d)
+		agu.SetUserPurchaseLimit(*d)
 	}
 	return agu
 }
 
-// ClearLimitUnits clears the value of the "limit_units" field.
-func (agu *AppGoodUpdate) ClearLimitUnits() *AppGoodUpdate {
-	agu.mutation.ClearLimitUnits()
+// ClearUserPurchaseLimit clears the value of the "user_purchase_limit" field.
+func (agu *AppGoodUpdate) ClearUserPurchaseLimit() *AppGoodUpdate {
+	agu.mutation.ClearUserPurchaseLimit()
 	return agu
 }
 
@@ -988,17 +988,17 @@ func (agu *AppGoodUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: appgood.FieldDisplayNames,
 		})
 	}
-	if value, ok := agu.mutation.OpenBuy(); ok {
+	if value, ok := agu.mutation.OpenPurchase(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeBool,
 			Value:  value,
-			Column: appgood.FieldOpenBuy,
+			Column: appgood.FieldOpenPurchase,
 		})
 	}
-	if agu.mutation.OpenBuyCleared() {
+	if agu.mutation.OpenPurchaseCleared() {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeBool,
-			Column: appgood.FieldOpenBuy,
+			Column: appgood.FieldOpenPurchase,
 		})
 	}
 	if value, ok := agu.mutation.IntoProductPage(); ok {
@@ -1027,17 +1027,17 @@ func (agu *AppGoodUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: appgood.FieldCanCancel,
 		})
 	}
-	if value, ok := agu.mutation.LimitUnits(); ok {
+	if value, ok := agu.mutation.UserPurchaseLimit(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeOther,
 			Value:  value,
-			Column: appgood.FieldLimitUnits,
+			Column: appgood.FieldUserPurchaseLimit,
 		})
 	}
-	if agu.mutation.LimitUnitsCleared() {
+	if agu.mutation.UserPurchaseLimitCleared() {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeOther,
-			Column: appgood.FieldLimitUnits,
+			Column: appgood.FieldUserPurchaseLimit,
 		})
 	}
 	_spec.Modifiers = agu.modifiers
@@ -1508,23 +1508,23 @@ func (aguo *AppGoodUpdateOne) ClearDisplayNames() *AppGoodUpdateOne {
 	return aguo
 }
 
-// SetOpenBuy sets the "open_buy" field.
-func (aguo *AppGoodUpdateOne) SetOpenBuy(b bool) *AppGoodUpdateOne {
-	aguo.mutation.SetOpenBuy(b)
+// SetOpenPurchase sets the "open_purchase" field.
+func (aguo *AppGoodUpdateOne) SetOpenPurchase(b bool) *AppGoodUpdateOne {
+	aguo.mutation.SetOpenPurchase(b)
 	return aguo
 }
 
-// SetNillableOpenBuy sets the "open_buy" field if the given value is not nil.
-func (aguo *AppGoodUpdateOne) SetNillableOpenBuy(b *bool) *AppGoodUpdateOne {
+// SetNillableOpenPurchase sets the "open_purchase" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableOpenPurchase(b *bool) *AppGoodUpdateOne {
 	if b != nil {
-		aguo.SetOpenBuy(*b)
+		aguo.SetOpenPurchase(*b)
 	}
 	return aguo
 }
 
-// ClearOpenBuy clears the value of the "open_buy" field.
-func (aguo *AppGoodUpdateOne) ClearOpenBuy() *AppGoodUpdateOne {
-	aguo.mutation.ClearOpenBuy()
+// ClearOpenPurchase clears the value of the "open_purchase" field.
+func (aguo *AppGoodUpdateOne) ClearOpenPurchase() *AppGoodUpdateOne {
+	aguo.mutation.ClearOpenPurchase()
 	return aguo
 }
 
@@ -1568,23 +1568,23 @@ func (aguo *AppGoodUpdateOne) ClearCanCancel() *AppGoodUpdateOne {
 	return aguo
 }
 
-// SetLimitUnits sets the "limit_units" field.
-func (aguo *AppGoodUpdateOne) SetLimitUnits(d decimal.Decimal) *AppGoodUpdateOne {
-	aguo.mutation.SetLimitUnits(d)
+// SetUserPurchaseLimit sets the "user_purchase_limit" field.
+func (aguo *AppGoodUpdateOne) SetUserPurchaseLimit(d decimal.Decimal) *AppGoodUpdateOne {
+	aguo.mutation.SetUserPurchaseLimit(d)
 	return aguo
 }
 
-// SetNillableLimitUnits sets the "limit_units" field if the given value is not nil.
-func (aguo *AppGoodUpdateOne) SetNillableLimitUnits(d *decimal.Decimal) *AppGoodUpdateOne {
+// SetNillableUserPurchaseLimit sets the "user_purchase_limit" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableUserPurchaseLimit(d *decimal.Decimal) *AppGoodUpdateOne {
 	if d != nil {
-		aguo.SetLimitUnits(*d)
+		aguo.SetUserPurchaseLimit(*d)
 	}
 	return aguo
 }
 
-// ClearLimitUnits clears the value of the "limit_units" field.
-func (aguo *AppGoodUpdateOne) ClearLimitUnits() *AppGoodUpdateOne {
-	aguo.mutation.ClearLimitUnits()
+// ClearUserPurchaseLimit clears the value of the "user_purchase_limit" field.
+func (aguo *AppGoodUpdateOne) ClearUserPurchaseLimit() *AppGoodUpdateOne {
+	aguo.mutation.ClearUserPurchaseLimit()
 	return aguo
 }
 
@@ -2049,17 +2049,17 @@ func (aguo *AppGoodUpdateOne) sqlSave(ctx context.Context) (_node *AppGood, err 
 			Column: appgood.FieldDisplayNames,
 		})
 	}
-	if value, ok := aguo.mutation.OpenBuy(); ok {
+	if value, ok := aguo.mutation.OpenPurchase(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeBool,
 			Value:  value,
-			Column: appgood.FieldOpenBuy,
+			Column: appgood.FieldOpenPurchase,
 		})
 	}
-	if aguo.mutation.OpenBuyCleared() {
+	if aguo.mutation.OpenPurchaseCleared() {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeBool,
-			Column: appgood.FieldOpenBuy,
+			Column: appgood.FieldOpenPurchase,
 		})
 	}
 	if value, ok := aguo.mutation.IntoProductPage(); ok {
@@ -2088,17 +2088,17 @@ func (aguo *AppGoodUpdateOne) sqlSave(ctx context.Context) (_node *AppGood, err 
 			Column: appgood.FieldCanCancel,
 		})
 	}
-	if value, ok := aguo.mutation.LimitUnits(); ok {
+	if value, ok := aguo.mutation.UserPurchaseLimit(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeOther,
 			Value:  value,
-			Column: appgood.FieldLimitUnits,
+			Column: appgood.FieldUserPurchaseLimit,
 		})
 	}
-	if aguo.mutation.LimitUnitsCleared() {
+	if aguo.mutation.UserPurchaseLimitCleared() {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeOther,
-			Column: appgood.FieldLimitUnits,
+			Column: appgood.FieldUserPurchaseLimit,
 		})
 	}
 	_spec.Modifiers = aguo.modifiers

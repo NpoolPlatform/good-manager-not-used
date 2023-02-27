@@ -85,10 +85,10 @@ type AppGoodMutation struct {
 	descriptions             *[]string
 	good_banner              *string
 	display_names            *[]string
-	open_buy                 *bool
+	open_purchase            *bool
 	into_product_page        *bool
 	can_cancel               *bool
-	limit_units              *decimal.Decimal
+	user_purchase_limit      *decimal.Decimal
 	clearedFields            map[string]struct{}
 	done                     bool
 	oldValue                 func(context.Context) (*AppGood, error)
@@ -1440,53 +1440,53 @@ func (m *AppGoodMutation) ResetDisplayNames() {
 	delete(m.clearedFields, appgood.FieldDisplayNames)
 }
 
-// SetOpenBuy sets the "open_buy" field.
-func (m *AppGoodMutation) SetOpenBuy(b bool) {
-	m.open_buy = &b
+// SetOpenPurchase sets the "open_purchase" field.
+func (m *AppGoodMutation) SetOpenPurchase(b bool) {
+	m.open_purchase = &b
 }
 
-// OpenBuy returns the value of the "open_buy" field in the mutation.
-func (m *AppGoodMutation) OpenBuy() (r bool, exists bool) {
-	v := m.open_buy
+// OpenPurchase returns the value of the "open_purchase" field in the mutation.
+func (m *AppGoodMutation) OpenPurchase() (r bool, exists bool) {
+	v := m.open_purchase
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldOpenBuy returns the old "open_buy" field's value of the AppGood entity.
+// OldOpenPurchase returns the old "open_purchase" field's value of the AppGood entity.
 // If the AppGood object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *AppGoodMutation) OldOpenBuy(ctx context.Context) (v bool, err error) {
+func (m *AppGoodMutation) OldOpenPurchase(ctx context.Context) (v bool, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldOpenBuy is only allowed on UpdateOne operations")
+		return v, errors.New("OldOpenPurchase is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldOpenBuy requires an ID field in the mutation")
+		return v, errors.New("OldOpenPurchase requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldOpenBuy: %w", err)
+		return v, fmt.Errorf("querying old value for OldOpenPurchase: %w", err)
 	}
-	return oldValue.OpenBuy, nil
+	return oldValue.OpenPurchase, nil
 }
 
-// ClearOpenBuy clears the value of the "open_buy" field.
-func (m *AppGoodMutation) ClearOpenBuy() {
-	m.open_buy = nil
-	m.clearedFields[appgood.FieldOpenBuy] = struct{}{}
+// ClearOpenPurchase clears the value of the "open_purchase" field.
+func (m *AppGoodMutation) ClearOpenPurchase() {
+	m.open_purchase = nil
+	m.clearedFields[appgood.FieldOpenPurchase] = struct{}{}
 }
 
-// OpenBuyCleared returns if the "open_buy" field was cleared in this mutation.
-func (m *AppGoodMutation) OpenBuyCleared() bool {
-	_, ok := m.clearedFields[appgood.FieldOpenBuy]
+// OpenPurchaseCleared returns if the "open_purchase" field was cleared in this mutation.
+func (m *AppGoodMutation) OpenPurchaseCleared() bool {
+	_, ok := m.clearedFields[appgood.FieldOpenPurchase]
 	return ok
 }
 
-// ResetOpenBuy resets all changes to the "open_buy" field.
-func (m *AppGoodMutation) ResetOpenBuy() {
-	m.open_buy = nil
-	delete(m.clearedFields, appgood.FieldOpenBuy)
+// ResetOpenPurchase resets all changes to the "open_purchase" field.
+func (m *AppGoodMutation) ResetOpenPurchase() {
+	m.open_purchase = nil
+	delete(m.clearedFields, appgood.FieldOpenPurchase)
 }
 
 // SetIntoProductPage sets the "into_product_page" field.
@@ -1587,53 +1587,53 @@ func (m *AppGoodMutation) ResetCanCancel() {
 	delete(m.clearedFields, appgood.FieldCanCancel)
 }
 
-// SetLimitUnits sets the "limit_units" field.
-func (m *AppGoodMutation) SetLimitUnits(d decimal.Decimal) {
-	m.limit_units = &d
+// SetUserPurchaseLimit sets the "user_purchase_limit" field.
+func (m *AppGoodMutation) SetUserPurchaseLimit(d decimal.Decimal) {
+	m.user_purchase_limit = &d
 }
 
-// LimitUnits returns the value of the "limit_units" field in the mutation.
-func (m *AppGoodMutation) LimitUnits() (r decimal.Decimal, exists bool) {
-	v := m.limit_units
+// UserPurchaseLimit returns the value of the "user_purchase_limit" field in the mutation.
+func (m *AppGoodMutation) UserPurchaseLimit() (r decimal.Decimal, exists bool) {
+	v := m.user_purchase_limit
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldLimitUnits returns the old "limit_units" field's value of the AppGood entity.
+// OldUserPurchaseLimit returns the old "user_purchase_limit" field's value of the AppGood entity.
 // If the AppGood object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *AppGoodMutation) OldLimitUnits(ctx context.Context) (v decimal.Decimal, err error) {
+func (m *AppGoodMutation) OldUserPurchaseLimit(ctx context.Context) (v decimal.Decimal, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldLimitUnits is only allowed on UpdateOne operations")
+		return v, errors.New("OldUserPurchaseLimit is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldLimitUnits requires an ID field in the mutation")
+		return v, errors.New("OldUserPurchaseLimit requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldLimitUnits: %w", err)
+		return v, fmt.Errorf("querying old value for OldUserPurchaseLimit: %w", err)
 	}
-	return oldValue.LimitUnits, nil
+	return oldValue.UserPurchaseLimit, nil
 }
 
-// ClearLimitUnits clears the value of the "limit_units" field.
-func (m *AppGoodMutation) ClearLimitUnits() {
-	m.limit_units = nil
-	m.clearedFields[appgood.FieldLimitUnits] = struct{}{}
+// ClearUserPurchaseLimit clears the value of the "user_purchase_limit" field.
+func (m *AppGoodMutation) ClearUserPurchaseLimit() {
+	m.user_purchase_limit = nil
+	m.clearedFields[appgood.FieldUserPurchaseLimit] = struct{}{}
 }
 
-// LimitUnitsCleared returns if the "limit_units" field was cleared in this mutation.
-func (m *AppGoodMutation) LimitUnitsCleared() bool {
-	_, ok := m.clearedFields[appgood.FieldLimitUnits]
+// UserPurchaseLimitCleared returns if the "user_purchase_limit" field was cleared in this mutation.
+func (m *AppGoodMutation) UserPurchaseLimitCleared() bool {
+	_, ok := m.clearedFields[appgood.FieldUserPurchaseLimit]
 	return ok
 }
 
-// ResetLimitUnits resets all changes to the "limit_units" field.
-func (m *AppGoodMutation) ResetLimitUnits() {
-	m.limit_units = nil
-	delete(m.clearedFields, appgood.FieldLimitUnits)
+// ResetUserPurchaseLimit resets all changes to the "user_purchase_limit" field.
+func (m *AppGoodMutation) ResetUserPurchaseLimit() {
+	m.user_purchase_limit = nil
+	delete(m.clearedFields, appgood.FieldUserPurchaseLimit)
 }
 
 // Where appends a list predicates to the AppGoodMutation builder.
@@ -1722,8 +1722,8 @@ func (m *AppGoodMutation) Fields() []string {
 	if m.display_names != nil {
 		fields = append(fields, appgood.FieldDisplayNames)
 	}
-	if m.open_buy != nil {
-		fields = append(fields, appgood.FieldOpenBuy)
+	if m.open_purchase != nil {
+		fields = append(fields, appgood.FieldOpenPurchase)
 	}
 	if m.into_product_page != nil {
 		fields = append(fields, appgood.FieldIntoProductPage)
@@ -1731,8 +1731,8 @@ func (m *AppGoodMutation) Fields() []string {
 	if m.can_cancel != nil {
 		fields = append(fields, appgood.FieldCanCancel)
 	}
-	if m.limit_units != nil {
-		fields = append(fields, appgood.FieldLimitUnits)
+	if m.user_purchase_limit != nil {
+		fields = append(fields, appgood.FieldUserPurchaseLimit)
 	}
 	return fields
 }
@@ -1786,14 +1786,14 @@ func (m *AppGoodMutation) Field(name string) (ent.Value, bool) {
 		return m.GoodBanner()
 	case appgood.FieldDisplayNames:
 		return m.DisplayNames()
-	case appgood.FieldOpenBuy:
-		return m.OpenBuy()
+	case appgood.FieldOpenPurchase:
+		return m.OpenPurchase()
 	case appgood.FieldIntoProductPage:
 		return m.IntoProductPage()
 	case appgood.FieldCanCancel:
 		return m.CanCancel()
-	case appgood.FieldLimitUnits:
-		return m.LimitUnits()
+	case appgood.FieldUserPurchaseLimit:
+		return m.UserPurchaseLimit()
 	}
 	return nil, false
 }
@@ -1847,14 +1847,14 @@ func (m *AppGoodMutation) OldField(ctx context.Context, name string) (ent.Value,
 		return m.OldGoodBanner(ctx)
 	case appgood.FieldDisplayNames:
 		return m.OldDisplayNames(ctx)
-	case appgood.FieldOpenBuy:
-		return m.OldOpenBuy(ctx)
+	case appgood.FieldOpenPurchase:
+		return m.OldOpenPurchase(ctx)
 	case appgood.FieldIntoProductPage:
 		return m.OldIntoProductPage(ctx)
 	case appgood.FieldCanCancel:
 		return m.OldCanCancel(ctx)
-	case appgood.FieldLimitUnits:
-		return m.OldLimitUnits(ctx)
+	case appgood.FieldUserPurchaseLimit:
+		return m.OldUserPurchaseLimit(ctx)
 	}
 	return nil, fmt.Errorf("unknown AppGood field %s", name)
 }
@@ -2018,12 +2018,12 @@ func (m *AppGoodMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetDisplayNames(v)
 		return nil
-	case appgood.FieldOpenBuy:
+	case appgood.FieldOpenPurchase:
 		v, ok := value.(bool)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetOpenBuy(v)
+		m.SetOpenPurchase(v)
 		return nil
 	case appgood.FieldIntoProductPage:
 		v, ok := value.(bool)
@@ -2039,12 +2039,12 @@ func (m *AppGoodMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetCanCancel(v)
 		return nil
-	case appgood.FieldLimitUnits:
+	case appgood.FieldUserPurchaseLimit:
 		v, ok := value.(decimal.Decimal)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetLimitUnits(v)
+		m.SetUserPurchaseLimit(v)
 		return nil
 	}
 	return fmt.Errorf("unknown AppGood field %s", name)
@@ -2262,8 +2262,8 @@ func (m *AppGoodMutation) ClearedFields() []string {
 	if m.FieldCleared(appgood.FieldDisplayNames) {
 		fields = append(fields, appgood.FieldDisplayNames)
 	}
-	if m.FieldCleared(appgood.FieldOpenBuy) {
-		fields = append(fields, appgood.FieldOpenBuy)
+	if m.FieldCleared(appgood.FieldOpenPurchase) {
+		fields = append(fields, appgood.FieldOpenPurchase)
 	}
 	if m.FieldCleared(appgood.FieldIntoProductPage) {
 		fields = append(fields, appgood.FieldIntoProductPage)
@@ -2271,8 +2271,8 @@ func (m *AppGoodMutation) ClearedFields() []string {
 	if m.FieldCleared(appgood.FieldCanCancel) {
 		fields = append(fields, appgood.FieldCanCancel)
 	}
-	if m.FieldCleared(appgood.FieldLimitUnits) {
-		fields = append(fields, appgood.FieldLimitUnits)
+	if m.FieldCleared(appgood.FieldUserPurchaseLimit) {
+		fields = append(fields, appgood.FieldUserPurchaseLimit)
 	}
 	return fields
 }
@@ -2339,8 +2339,8 @@ func (m *AppGoodMutation) ClearField(name string) error {
 	case appgood.FieldDisplayNames:
 		m.ClearDisplayNames()
 		return nil
-	case appgood.FieldOpenBuy:
-		m.ClearOpenBuy()
+	case appgood.FieldOpenPurchase:
+		m.ClearOpenPurchase()
 		return nil
 	case appgood.FieldIntoProductPage:
 		m.ClearIntoProductPage()
@@ -2348,8 +2348,8 @@ func (m *AppGoodMutation) ClearField(name string) error {
 	case appgood.FieldCanCancel:
 		m.ClearCanCancel()
 		return nil
-	case appgood.FieldLimitUnits:
-		m.ClearLimitUnits()
+	case appgood.FieldUserPurchaseLimit:
+		m.ClearUserPurchaseLimit()
 		return nil
 	}
 	return fmt.Errorf("unknown AppGood nullable field %s", name)
@@ -2425,8 +2425,8 @@ func (m *AppGoodMutation) ResetField(name string) error {
 	case appgood.FieldDisplayNames:
 		m.ResetDisplayNames()
 		return nil
-	case appgood.FieldOpenBuy:
-		m.ResetOpenBuy()
+	case appgood.FieldOpenPurchase:
+		m.ResetOpenPurchase()
 		return nil
 	case appgood.FieldIntoProductPage:
 		m.ResetIntoProductPage()
@@ -2434,8 +2434,8 @@ func (m *AppGoodMutation) ResetField(name string) error {
 	case appgood.FieldCanCancel:
 		m.ResetCanCancel()
 		return nil
-	case appgood.FieldLimitUnits:
-		m.ResetLimitUnits()
+	case appgood.FieldUserPurchaseLimit:
+		m.ResetUserPurchaseLimit()
 		return nil
 	}
 	return fmt.Errorf("unknown AppGood field %s", name)

@@ -56,10 +56,10 @@ var schemaGraph = func() *sqlgraph.Schema {
 			appgood.FieldDescriptions:         {Type: field.TypeJSON, Column: appgood.FieldDescriptions},
 			appgood.FieldGoodBanner:           {Type: field.TypeString, Column: appgood.FieldGoodBanner},
 			appgood.FieldDisplayNames:         {Type: field.TypeJSON, Column: appgood.FieldDisplayNames},
-			appgood.FieldOpenBuy:              {Type: field.TypeBool, Column: appgood.FieldOpenBuy},
+			appgood.FieldOpenPurchase:         {Type: field.TypeBool, Column: appgood.FieldOpenPurchase},
 			appgood.FieldIntoProductPage:      {Type: field.TypeBool, Column: appgood.FieldIntoProductPage},
 			appgood.FieldCanCancel:            {Type: field.TypeBool, Column: appgood.FieldCanCancel},
-			appgood.FieldLimitUnits:           {Type: field.TypeOther, Column: appgood.FieldLimitUnits},
+			appgood.FieldUserPurchaseLimit:    {Type: field.TypeOther, Column: appgood.FieldUserPurchaseLimit},
 		},
 	}
 	graph.Nodes[1] = &sqlgraph.Node{
@@ -429,9 +429,9 @@ func (f *AppGoodFilter) WhereDisplayNames(p entql.BytesP) {
 	f.Where(p.Field(appgood.FieldDisplayNames))
 }
 
-// WhereOpenBuy applies the entql bool predicate on the open_buy field.
-func (f *AppGoodFilter) WhereOpenBuy(p entql.BoolP) {
-	f.Where(p.Field(appgood.FieldOpenBuy))
+// WhereOpenPurchase applies the entql bool predicate on the open_purchase field.
+func (f *AppGoodFilter) WhereOpenPurchase(p entql.BoolP) {
+	f.Where(p.Field(appgood.FieldOpenPurchase))
 }
 
 // WhereIntoProductPage applies the entql bool predicate on the into_product_page field.
@@ -444,9 +444,9 @@ func (f *AppGoodFilter) WhereCanCancel(p entql.BoolP) {
 	f.Where(p.Field(appgood.FieldCanCancel))
 }
 
-// WhereLimitUnits applies the entql other predicate on the limit_units field.
-func (f *AppGoodFilter) WhereLimitUnits(p entql.OtherP) {
-	f.Where(p.Field(appgood.FieldLimitUnits))
+// WhereUserPurchaseLimit applies the entql other predicate on the user_purchase_limit field.
+func (f *AppGoodFilter) WhereUserPurchaseLimit(p entql.OtherP) {
+	f.Where(p.Field(appgood.FieldUserPurchaseLimit))
 }
 
 // addPredicate implements the predicateAdder interface.

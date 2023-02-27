@@ -300,16 +300,16 @@ func (agc *AppGoodCreate) SetDisplayNames(s []string) *AppGoodCreate {
 	return agc
 }
 
-// SetOpenBuy sets the "open_buy" field.
-func (agc *AppGoodCreate) SetOpenBuy(b bool) *AppGoodCreate {
-	agc.mutation.SetOpenBuy(b)
+// SetOpenPurchase sets the "open_purchase" field.
+func (agc *AppGoodCreate) SetOpenPurchase(b bool) *AppGoodCreate {
+	agc.mutation.SetOpenPurchase(b)
 	return agc
 }
 
-// SetNillableOpenBuy sets the "open_buy" field if the given value is not nil.
-func (agc *AppGoodCreate) SetNillableOpenBuy(b *bool) *AppGoodCreate {
+// SetNillableOpenPurchase sets the "open_purchase" field if the given value is not nil.
+func (agc *AppGoodCreate) SetNillableOpenPurchase(b *bool) *AppGoodCreate {
 	if b != nil {
-		agc.SetOpenBuy(*b)
+		agc.SetOpenPurchase(*b)
 	}
 	return agc
 }
@@ -342,16 +342,16 @@ func (agc *AppGoodCreate) SetNillableCanCancel(b *bool) *AppGoodCreate {
 	return agc
 }
 
-// SetLimitUnits sets the "limit_units" field.
-func (agc *AppGoodCreate) SetLimitUnits(d decimal.Decimal) *AppGoodCreate {
-	agc.mutation.SetLimitUnits(d)
+// SetUserPurchaseLimit sets the "user_purchase_limit" field.
+func (agc *AppGoodCreate) SetUserPurchaseLimit(d decimal.Decimal) *AppGoodCreate {
+	agc.mutation.SetUserPurchaseLimit(d)
 	return agc
 }
 
-// SetNillableLimitUnits sets the "limit_units" field if the given value is not nil.
-func (agc *AppGoodCreate) SetNillableLimitUnits(d *decimal.Decimal) *AppGoodCreate {
+// SetNillableUserPurchaseLimit sets the "user_purchase_limit" field if the given value is not nil.
+func (agc *AppGoodCreate) SetNillableUserPurchaseLimit(d *decimal.Decimal) *AppGoodCreate {
 	if d != nil {
-		agc.SetLimitUnits(*d)
+		agc.SetUserPurchaseLimit(*d)
 	}
 	return agc
 }
@@ -538,9 +538,9 @@ func (agc *AppGoodCreate) defaults() error {
 		v := appgood.DefaultDisplayNames
 		agc.mutation.SetDisplayNames(v)
 	}
-	if _, ok := agc.mutation.OpenBuy(); !ok {
-		v := appgood.DefaultOpenBuy
-		agc.mutation.SetOpenBuy(v)
+	if _, ok := agc.mutation.OpenPurchase(); !ok {
+		v := appgood.DefaultOpenPurchase
+		agc.mutation.SetOpenPurchase(v)
 	}
 	if _, ok := agc.mutation.IntoProductPage(); !ok {
 		v := appgood.DefaultIntoProductPage
@@ -790,13 +790,13 @@ func (agc *AppGoodCreate) createSpec() (*AppGood, *sqlgraph.CreateSpec) {
 		})
 		_node.DisplayNames = value
 	}
-	if value, ok := agc.mutation.OpenBuy(); ok {
+	if value, ok := agc.mutation.OpenPurchase(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeBool,
 			Value:  value,
-			Column: appgood.FieldOpenBuy,
+			Column: appgood.FieldOpenPurchase,
 		})
-		_node.OpenBuy = value
+		_node.OpenPurchase = value
 	}
 	if value, ok := agc.mutation.IntoProductPage(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -814,13 +814,13 @@ func (agc *AppGoodCreate) createSpec() (*AppGood, *sqlgraph.CreateSpec) {
 		})
 		_node.CanCancel = value
 	}
-	if value, ok := agc.mutation.LimitUnits(); ok {
+	if value, ok := agc.mutation.UserPurchaseLimit(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeOther,
 			Value:  value,
-			Column: appgood.FieldLimitUnits,
+			Column: appgood.FieldUserPurchaseLimit,
 		})
-		_node.LimitUnits = value
+		_node.UserPurchaseLimit = value
 	}
 	return _node, _spec
 }
@@ -1308,21 +1308,21 @@ func (u *AppGoodUpsert) ClearDisplayNames() *AppGoodUpsert {
 	return u
 }
 
-// SetOpenBuy sets the "open_buy" field.
-func (u *AppGoodUpsert) SetOpenBuy(v bool) *AppGoodUpsert {
-	u.Set(appgood.FieldOpenBuy, v)
+// SetOpenPurchase sets the "open_purchase" field.
+func (u *AppGoodUpsert) SetOpenPurchase(v bool) *AppGoodUpsert {
+	u.Set(appgood.FieldOpenPurchase, v)
 	return u
 }
 
-// UpdateOpenBuy sets the "open_buy" field to the value that was provided on create.
-func (u *AppGoodUpsert) UpdateOpenBuy() *AppGoodUpsert {
-	u.SetExcluded(appgood.FieldOpenBuy)
+// UpdateOpenPurchase sets the "open_purchase" field to the value that was provided on create.
+func (u *AppGoodUpsert) UpdateOpenPurchase() *AppGoodUpsert {
+	u.SetExcluded(appgood.FieldOpenPurchase)
 	return u
 }
 
-// ClearOpenBuy clears the value of the "open_buy" field.
-func (u *AppGoodUpsert) ClearOpenBuy() *AppGoodUpsert {
-	u.SetNull(appgood.FieldOpenBuy)
+// ClearOpenPurchase clears the value of the "open_purchase" field.
+func (u *AppGoodUpsert) ClearOpenPurchase() *AppGoodUpsert {
+	u.SetNull(appgood.FieldOpenPurchase)
 	return u
 }
 
@@ -1362,21 +1362,21 @@ func (u *AppGoodUpsert) ClearCanCancel() *AppGoodUpsert {
 	return u
 }
 
-// SetLimitUnits sets the "limit_units" field.
-func (u *AppGoodUpsert) SetLimitUnits(v decimal.Decimal) *AppGoodUpsert {
-	u.Set(appgood.FieldLimitUnits, v)
+// SetUserPurchaseLimit sets the "user_purchase_limit" field.
+func (u *AppGoodUpsert) SetUserPurchaseLimit(v decimal.Decimal) *AppGoodUpsert {
+	u.Set(appgood.FieldUserPurchaseLimit, v)
 	return u
 }
 
-// UpdateLimitUnits sets the "limit_units" field to the value that was provided on create.
-func (u *AppGoodUpsert) UpdateLimitUnits() *AppGoodUpsert {
-	u.SetExcluded(appgood.FieldLimitUnits)
+// UpdateUserPurchaseLimit sets the "user_purchase_limit" field to the value that was provided on create.
+func (u *AppGoodUpsert) UpdateUserPurchaseLimit() *AppGoodUpsert {
+	u.SetExcluded(appgood.FieldUserPurchaseLimit)
 	return u
 }
 
-// ClearLimitUnits clears the value of the "limit_units" field.
-func (u *AppGoodUpsert) ClearLimitUnits() *AppGoodUpsert {
-	u.SetNull(appgood.FieldLimitUnits)
+// ClearUserPurchaseLimit clears the value of the "user_purchase_limit" field.
+func (u *AppGoodUpsert) ClearUserPurchaseLimit() *AppGoodUpsert {
+	u.SetNull(appgood.FieldUserPurchaseLimit)
 	return u
 }
 
@@ -1934,24 +1934,24 @@ func (u *AppGoodUpsertOne) ClearDisplayNames() *AppGoodUpsertOne {
 	})
 }
 
-// SetOpenBuy sets the "open_buy" field.
-func (u *AppGoodUpsertOne) SetOpenBuy(v bool) *AppGoodUpsertOne {
+// SetOpenPurchase sets the "open_purchase" field.
+func (u *AppGoodUpsertOne) SetOpenPurchase(v bool) *AppGoodUpsertOne {
 	return u.Update(func(s *AppGoodUpsert) {
-		s.SetOpenBuy(v)
+		s.SetOpenPurchase(v)
 	})
 }
 
-// UpdateOpenBuy sets the "open_buy" field to the value that was provided on create.
-func (u *AppGoodUpsertOne) UpdateOpenBuy() *AppGoodUpsertOne {
+// UpdateOpenPurchase sets the "open_purchase" field to the value that was provided on create.
+func (u *AppGoodUpsertOne) UpdateOpenPurchase() *AppGoodUpsertOne {
 	return u.Update(func(s *AppGoodUpsert) {
-		s.UpdateOpenBuy()
+		s.UpdateOpenPurchase()
 	})
 }
 
-// ClearOpenBuy clears the value of the "open_buy" field.
-func (u *AppGoodUpsertOne) ClearOpenBuy() *AppGoodUpsertOne {
+// ClearOpenPurchase clears the value of the "open_purchase" field.
+func (u *AppGoodUpsertOne) ClearOpenPurchase() *AppGoodUpsertOne {
 	return u.Update(func(s *AppGoodUpsert) {
-		s.ClearOpenBuy()
+		s.ClearOpenPurchase()
 	})
 }
 
@@ -1997,24 +1997,24 @@ func (u *AppGoodUpsertOne) ClearCanCancel() *AppGoodUpsertOne {
 	})
 }
 
-// SetLimitUnits sets the "limit_units" field.
-func (u *AppGoodUpsertOne) SetLimitUnits(v decimal.Decimal) *AppGoodUpsertOne {
+// SetUserPurchaseLimit sets the "user_purchase_limit" field.
+func (u *AppGoodUpsertOne) SetUserPurchaseLimit(v decimal.Decimal) *AppGoodUpsertOne {
 	return u.Update(func(s *AppGoodUpsert) {
-		s.SetLimitUnits(v)
+		s.SetUserPurchaseLimit(v)
 	})
 }
 
-// UpdateLimitUnits sets the "limit_units" field to the value that was provided on create.
-func (u *AppGoodUpsertOne) UpdateLimitUnits() *AppGoodUpsertOne {
+// UpdateUserPurchaseLimit sets the "user_purchase_limit" field to the value that was provided on create.
+func (u *AppGoodUpsertOne) UpdateUserPurchaseLimit() *AppGoodUpsertOne {
 	return u.Update(func(s *AppGoodUpsert) {
-		s.UpdateLimitUnits()
+		s.UpdateUserPurchaseLimit()
 	})
 }
 
-// ClearLimitUnits clears the value of the "limit_units" field.
-func (u *AppGoodUpsertOne) ClearLimitUnits() *AppGoodUpsertOne {
+// ClearUserPurchaseLimit clears the value of the "user_purchase_limit" field.
+func (u *AppGoodUpsertOne) ClearUserPurchaseLimit() *AppGoodUpsertOne {
 	return u.Update(func(s *AppGoodUpsert) {
-		s.ClearLimitUnits()
+		s.ClearUserPurchaseLimit()
 	})
 }
 
@@ -2738,24 +2738,24 @@ func (u *AppGoodUpsertBulk) ClearDisplayNames() *AppGoodUpsertBulk {
 	})
 }
 
-// SetOpenBuy sets the "open_buy" field.
-func (u *AppGoodUpsertBulk) SetOpenBuy(v bool) *AppGoodUpsertBulk {
+// SetOpenPurchase sets the "open_purchase" field.
+func (u *AppGoodUpsertBulk) SetOpenPurchase(v bool) *AppGoodUpsertBulk {
 	return u.Update(func(s *AppGoodUpsert) {
-		s.SetOpenBuy(v)
+		s.SetOpenPurchase(v)
 	})
 }
 
-// UpdateOpenBuy sets the "open_buy" field to the value that was provided on create.
-func (u *AppGoodUpsertBulk) UpdateOpenBuy() *AppGoodUpsertBulk {
+// UpdateOpenPurchase sets the "open_purchase" field to the value that was provided on create.
+func (u *AppGoodUpsertBulk) UpdateOpenPurchase() *AppGoodUpsertBulk {
 	return u.Update(func(s *AppGoodUpsert) {
-		s.UpdateOpenBuy()
+		s.UpdateOpenPurchase()
 	})
 }
 
-// ClearOpenBuy clears the value of the "open_buy" field.
-func (u *AppGoodUpsertBulk) ClearOpenBuy() *AppGoodUpsertBulk {
+// ClearOpenPurchase clears the value of the "open_purchase" field.
+func (u *AppGoodUpsertBulk) ClearOpenPurchase() *AppGoodUpsertBulk {
 	return u.Update(func(s *AppGoodUpsert) {
-		s.ClearOpenBuy()
+		s.ClearOpenPurchase()
 	})
 }
 
@@ -2801,24 +2801,24 @@ func (u *AppGoodUpsertBulk) ClearCanCancel() *AppGoodUpsertBulk {
 	})
 }
 
-// SetLimitUnits sets the "limit_units" field.
-func (u *AppGoodUpsertBulk) SetLimitUnits(v decimal.Decimal) *AppGoodUpsertBulk {
+// SetUserPurchaseLimit sets the "user_purchase_limit" field.
+func (u *AppGoodUpsertBulk) SetUserPurchaseLimit(v decimal.Decimal) *AppGoodUpsertBulk {
 	return u.Update(func(s *AppGoodUpsert) {
-		s.SetLimitUnits(v)
+		s.SetUserPurchaseLimit(v)
 	})
 }
 
-// UpdateLimitUnits sets the "limit_units" field to the value that was provided on create.
-func (u *AppGoodUpsertBulk) UpdateLimitUnits() *AppGoodUpsertBulk {
+// UpdateUserPurchaseLimit sets the "user_purchase_limit" field to the value that was provided on create.
+func (u *AppGoodUpsertBulk) UpdateUserPurchaseLimit() *AppGoodUpsertBulk {
 	return u.Update(func(s *AppGoodUpsert) {
-		s.UpdateLimitUnits()
+		s.UpdateUserPurchaseLimit()
 	})
 }
 
-// ClearLimitUnits clears the value of the "limit_units" field.
-func (u *AppGoodUpsertBulk) ClearLimitUnits() *AppGoodUpsertBulk {
+// ClearUserPurchaseLimit clears the value of the "user_purchase_limit" field.
+func (u *AppGoodUpsertBulk) ClearUserPurchaseLimit() *AppGoodUpsertBulk {
 	return u.Update(func(s *AppGoodUpsert) {
-		s.ClearLimitUnits()
+		s.ClearUserPurchaseLimit()
 	})
 }
 

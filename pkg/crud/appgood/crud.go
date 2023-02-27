@@ -91,8 +91,8 @@ func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (*ent.AppGoodCreate, 
 	if in.DisplayNames != nil {
 		c.SetDisplayNames(in.GetDisplayNames())
 	}
-	if in.OpenBuy != nil {
-		c.SetOpenBuy(in.GetOpenBuy())
+	if in.OpenPurchase != nil {
+		c.SetOpenPurchase(in.GetOpenPurchase())
 	}
 	if in.IntoProductPage != nil {
 		c.SetIntoProductPage(in.GetIntoProductPage())
@@ -100,12 +100,12 @@ func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (*ent.AppGoodCreate, 
 	if in.CanCancel != nil {
 		c.SetCanCancel(in.GetCanCancel())
 	}
-	if in.LimitUnits != nil {
-		limitUnits, err := decimal.NewFromString(in.GetLimitUnits())
+	if in.UserPurchaseLimit != nil {
+		userPurchaseLimit, err := decimal.NewFromString(in.GetUserPurchaseLimit())
 		if err != nil {
 			return nil, err
 		}
-		c.SetLimitUnits(limitUnits)
+		c.SetUserPurchaseLimit(userPurchaseLimit)
 	}
 
 	return c, nil
@@ -237,8 +237,8 @@ func UpdateSet(u *ent.AppGoodUpdateOne, in *npool.AppGoodReq) (*ent.AppGoodUpdat
 	if len(in.DisplayNames) > 0 {
 		u.SetDisplayNames(in.GetDisplayNames())
 	}
-	if in.OpenBuy != nil {
-		u.SetOpenBuy(in.GetOpenBuy())
+	if in.OpenPurchase != nil {
+		u.SetOpenPurchase(in.GetOpenPurchase())
 	}
 	if in.IntoProductPage != nil {
 		u.SetIntoProductPage(in.GetIntoProductPage())
@@ -246,12 +246,12 @@ func UpdateSet(u *ent.AppGoodUpdateOne, in *npool.AppGoodReq) (*ent.AppGoodUpdat
 	if in.CanCancel != nil {
 		u.SetCanCancel(in.GetCanCancel())
 	}
-	if in.LimitUnits != nil {
-		limitUnits, err := decimal.NewFromString(in.GetLimitUnits())
+	if in.UserPurchaseLimit != nil {
+		userPurchaseLimit, err := decimal.NewFromString(in.GetUserPurchaseLimit())
 		if err != nil {
 			return nil, err
 		}
-		u.SetLimitUnits(limitUnits)
+		u.SetUserPurchaseLimit(userPurchaseLimit)
 	}
 
 	return u, nil

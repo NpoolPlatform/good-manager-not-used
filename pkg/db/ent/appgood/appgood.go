@@ -57,14 +57,14 @@ const (
 	FieldGoodBanner = "good_banner"
 	// FieldDisplayNames holds the string denoting the display_names field in the database.
 	FieldDisplayNames = "display_names"
-	// FieldOpenBuy holds the string denoting the open_buy field in the database.
-	FieldOpenBuy = "open_buy"
+	// FieldOpenPurchase holds the string denoting the open_purchase field in the database.
+	FieldOpenPurchase = "open_purchase"
 	// FieldIntoProductPage holds the string denoting the into_product_page field in the database.
 	FieldIntoProductPage = "into_product_page"
 	// FieldCanCancel holds the string denoting the can_cancel field in the database.
 	FieldCanCancel = "can_cancel"
-	// FieldLimitUnits holds the string denoting the limit_units field in the database.
-	FieldLimitUnits = "limit_units"
+	// FieldUserPurchaseLimit holds the string denoting the user_purchase_limit field in the database.
+	FieldUserPurchaseLimit = "user_purchase_limit"
 	// Table holds the table name of the appgood in the database.
 	Table = "app_goods"
 )
@@ -94,10 +94,10 @@ var Columns = []string{
 	FieldDescriptions,
 	FieldGoodBanner,
 	FieldDisplayNames,
-	FieldOpenBuy,
+	FieldOpenPurchase,
 	FieldIntoProductPage,
 	FieldCanCancel,
-	FieldLimitUnits,
+	FieldUserPurchaseLimit,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -161,8 +161,8 @@ var (
 	DefaultGoodBanner string
 	// DefaultDisplayNames holds the default value on creation for the "display_names" field.
 	DefaultDisplayNames []string
-	// DefaultOpenBuy holds the default value on creation for the "open_buy" field.
-	DefaultOpenBuy bool
+	// DefaultOpenPurchase holds the default value on creation for the "open_purchase" field.
+	DefaultOpenPurchase bool
 	// DefaultIntoProductPage holds the default value on creation for the "into_product_page" field.
 	DefaultIntoProductPage bool
 	// DefaultCanCancel holds the default value on creation for the "can_cancel" field.

@@ -220,10 +220,10 @@ func GoodBanner(v string) predicate.AppGood {
 	})
 }
 
-// OpenBuy applies equality check predicate on the "open_buy" field. It's identical to OpenBuyEQ.
-func OpenBuy(v bool) predicate.AppGood {
+// OpenPurchase applies equality check predicate on the "open_purchase" field. It's identical to OpenPurchaseEQ.
+func OpenPurchase(v bool) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldOpenBuy), v))
+		s.Where(sql.EQ(s.C(FieldOpenPurchase), v))
 	})
 }
 
@@ -241,10 +241,10 @@ func CanCancel(v bool) predicate.AppGood {
 	})
 }
 
-// LimitUnits applies equality check predicate on the "limit_units" field. It's identical to LimitUnitsEQ.
-func LimitUnits(v decimal.Decimal) predicate.AppGood {
+// UserPurchaseLimit applies equality check predicate on the "user_purchase_limit" field. It's identical to UserPurchaseLimitEQ.
+func UserPurchaseLimit(v decimal.Decimal) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldLimitUnits), v))
+		s.Where(sql.EQ(s.C(FieldUserPurchaseLimit), v))
 	})
 }
 
@@ -1771,31 +1771,31 @@ func DisplayNamesNotNil() predicate.AppGood {
 	})
 }
 
-// OpenBuyEQ applies the EQ predicate on the "open_buy" field.
-func OpenBuyEQ(v bool) predicate.AppGood {
+// OpenPurchaseEQ applies the EQ predicate on the "open_purchase" field.
+func OpenPurchaseEQ(v bool) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldOpenBuy), v))
+		s.Where(sql.EQ(s.C(FieldOpenPurchase), v))
 	})
 }
 
-// OpenBuyNEQ applies the NEQ predicate on the "open_buy" field.
-func OpenBuyNEQ(v bool) predicate.AppGood {
+// OpenPurchaseNEQ applies the NEQ predicate on the "open_purchase" field.
+func OpenPurchaseNEQ(v bool) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldOpenBuy), v))
+		s.Where(sql.NEQ(s.C(FieldOpenPurchase), v))
 	})
 }
 
-// OpenBuyIsNil applies the IsNil predicate on the "open_buy" field.
-func OpenBuyIsNil() predicate.AppGood {
+// OpenPurchaseIsNil applies the IsNil predicate on the "open_purchase" field.
+func OpenPurchaseIsNil() predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.IsNull(s.C(FieldOpenBuy)))
+		s.Where(sql.IsNull(s.C(FieldOpenPurchase)))
 	})
 }
 
-// OpenBuyNotNil applies the NotNil predicate on the "open_buy" field.
-func OpenBuyNotNil() predicate.AppGood {
+// OpenPurchaseNotNil applies the NotNil predicate on the "open_purchase" field.
+func OpenPurchaseNotNil() predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.NotNull(s.C(FieldOpenBuy)))
+		s.Where(sql.NotNull(s.C(FieldOpenPurchase)))
 	})
 }
 
@@ -1855,81 +1855,81 @@ func CanCancelNotNil() predicate.AppGood {
 	})
 }
 
-// LimitUnitsEQ applies the EQ predicate on the "limit_units" field.
-func LimitUnitsEQ(v decimal.Decimal) predicate.AppGood {
+// UserPurchaseLimitEQ applies the EQ predicate on the "user_purchase_limit" field.
+func UserPurchaseLimitEQ(v decimal.Decimal) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldLimitUnits), v))
+		s.Where(sql.EQ(s.C(FieldUserPurchaseLimit), v))
 	})
 }
 
-// LimitUnitsNEQ applies the NEQ predicate on the "limit_units" field.
-func LimitUnitsNEQ(v decimal.Decimal) predicate.AppGood {
+// UserPurchaseLimitNEQ applies the NEQ predicate on the "user_purchase_limit" field.
+func UserPurchaseLimitNEQ(v decimal.Decimal) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldLimitUnits), v))
+		s.Where(sql.NEQ(s.C(FieldUserPurchaseLimit), v))
 	})
 }
 
-// LimitUnitsIn applies the In predicate on the "limit_units" field.
-func LimitUnitsIn(vs ...decimal.Decimal) predicate.AppGood {
+// UserPurchaseLimitIn applies the In predicate on the "user_purchase_limit" field.
+func UserPurchaseLimitIn(vs ...decimal.Decimal) predicate.AppGood {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
 	}
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.In(s.C(FieldLimitUnits), v...))
+		s.Where(sql.In(s.C(FieldUserPurchaseLimit), v...))
 	})
 }
 
-// LimitUnitsNotIn applies the NotIn predicate on the "limit_units" field.
-func LimitUnitsNotIn(vs ...decimal.Decimal) predicate.AppGood {
+// UserPurchaseLimitNotIn applies the NotIn predicate on the "user_purchase_limit" field.
+func UserPurchaseLimitNotIn(vs ...decimal.Decimal) predicate.AppGood {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
 	}
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.NotIn(s.C(FieldLimitUnits), v...))
+		s.Where(sql.NotIn(s.C(FieldUserPurchaseLimit), v...))
 	})
 }
 
-// LimitUnitsGT applies the GT predicate on the "limit_units" field.
-func LimitUnitsGT(v decimal.Decimal) predicate.AppGood {
+// UserPurchaseLimitGT applies the GT predicate on the "user_purchase_limit" field.
+func UserPurchaseLimitGT(v decimal.Decimal) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldLimitUnits), v))
+		s.Where(sql.GT(s.C(FieldUserPurchaseLimit), v))
 	})
 }
 
-// LimitUnitsGTE applies the GTE predicate on the "limit_units" field.
-func LimitUnitsGTE(v decimal.Decimal) predicate.AppGood {
+// UserPurchaseLimitGTE applies the GTE predicate on the "user_purchase_limit" field.
+func UserPurchaseLimitGTE(v decimal.Decimal) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldLimitUnits), v))
+		s.Where(sql.GTE(s.C(FieldUserPurchaseLimit), v))
 	})
 }
 
-// LimitUnitsLT applies the LT predicate on the "limit_units" field.
-func LimitUnitsLT(v decimal.Decimal) predicate.AppGood {
+// UserPurchaseLimitLT applies the LT predicate on the "user_purchase_limit" field.
+func UserPurchaseLimitLT(v decimal.Decimal) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldLimitUnits), v))
+		s.Where(sql.LT(s.C(FieldUserPurchaseLimit), v))
 	})
 }
 
-// LimitUnitsLTE applies the LTE predicate on the "limit_units" field.
-func LimitUnitsLTE(v decimal.Decimal) predicate.AppGood {
+// UserPurchaseLimitLTE applies the LTE predicate on the "user_purchase_limit" field.
+func UserPurchaseLimitLTE(v decimal.Decimal) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldLimitUnits), v))
+		s.Where(sql.LTE(s.C(FieldUserPurchaseLimit), v))
 	})
 }
 
-// LimitUnitsIsNil applies the IsNil predicate on the "limit_units" field.
-func LimitUnitsIsNil() predicate.AppGood {
+// UserPurchaseLimitIsNil applies the IsNil predicate on the "user_purchase_limit" field.
+func UserPurchaseLimitIsNil() predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.IsNull(s.C(FieldLimitUnits)))
+		s.Where(sql.IsNull(s.C(FieldUserPurchaseLimit)))
 	})
 }
 
-// LimitUnitsNotNil applies the NotNil predicate on the "limit_units" field.
-func LimitUnitsNotNil() predicate.AppGood {
+// UserPurchaseLimitNotNil applies the NotNil predicate on the "user_purchase_limit" field.
+func UserPurchaseLimitNotNil() predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.NotNull(s.C(FieldLimitUnits)))
+		s.Where(sql.NotNull(s.C(FieldUserPurchaseLimit)))
 	})
 }
 
