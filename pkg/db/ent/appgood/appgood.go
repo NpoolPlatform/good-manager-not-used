@@ -61,8 +61,8 @@ const (
 	FieldOpenPurchase = "open_purchase"
 	// FieldIntoProductPage holds the string denoting the into_product_page field in the database.
 	FieldIntoProductPage = "into_product_page"
-	// FieldCanCancel holds the string denoting the can_cancel field in the database.
-	FieldCanCancel = "can_cancel"
+	// FieldCancelableBefore holds the string denoting the cancelable_before field in the database.
+	FieldCancelableBefore = "cancelable_before"
 	// FieldUserPurchaseLimit holds the string denoting the user_purchase_limit field in the database.
 	FieldUserPurchaseLimit = "user_purchase_limit"
 	// Table holds the table name of the appgood in the database.
@@ -96,7 +96,7 @@ var Columns = []string{
 	FieldDisplayNames,
 	FieldOpenPurchase,
 	FieldIntoProductPage,
-	FieldCanCancel,
+	FieldCancelableBefore,
 	FieldUserPurchaseLimit,
 }
 
@@ -165,8 +165,8 @@ var (
 	DefaultOpenPurchase bool
 	// DefaultIntoProductPage holds the default value on creation for the "into_product_page" field.
 	DefaultIntoProductPage bool
-	// DefaultCanCancel holds the default value on creation for the "can_cancel" field.
-	DefaultCanCancel bool
+	// DefaultCancelableBefore holds the default value on creation for the "cancelable_before" field.
+	DefaultCancelableBefore uint32
 	// DefaultID holds the default value on creation for the "id" field.
 	DefaultID func() uuid.UUID
 )

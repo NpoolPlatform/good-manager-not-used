@@ -119,9 +119,9 @@ func (AppGood) Fields() []ent.Field {
 			Optional().
 			Default(true),
 		field.
-			Bool("can_cancel").
+			Uint32("cancelable_before").
 			Optional().
-			Default(false),
+			Default(0),
 		field.
 			Other("user_purchase_limit", decimal.Decimal{}).
 			SchemaType(map[string]string{

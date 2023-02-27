@@ -97,8 +97,8 @@ func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (*ent.AppGoodCreate, 
 	if in.IntoProductPage != nil {
 		c.SetIntoProductPage(in.GetIntoProductPage())
 	}
-	if in.CanCancel != nil {
-		c.SetCanCancel(in.GetCanCancel())
+	if in.CancelableBefore != nil {
+		c.SetCancelableBefore(in.GetCancelableBefore())
 	}
 	if in.UserPurchaseLimit != nil {
 		userPurchaseLimit, err := decimal.NewFromString(in.GetUserPurchaseLimit())
@@ -243,8 +243,8 @@ func UpdateSet(u *ent.AppGoodUpdateOne, in *npool.AppGoodReq) (*ent.AppGoodUpdat
 	if in.IntoProductPage != nil {
 		u.SetIntoProductPage(in.GetIntoProductPage())
 	}
-	if in.CanCancel != nil {
-		u.SetCanCancel(in.GetCanCancel())
+	if in.CancelableBefore != nil {
+		u.SetCancelableBefore(in.GetCancelableBefore())
 	}
 	if in.UserPurchaseLimit != nil {
 		userPurchaseLimit, err := decimal.NewFromString(in.GetUserPurchaseLimit())

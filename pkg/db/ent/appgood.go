@@ -66,8 +66,8 @@ type AppGood struct {
 	OpenPurchase bool `json:"open_purchase,omitempty"`
 	// IntoProductPage holds the value of the "into_product_page" field.
 	IntoProductPage bool `json:"into_product_page,omitempty"`
-	// CanCancel holds the value of the "can_cancel" field.
-	CanCancel bool `json:"can_cancel,omitempty"`
+	// CancelableBefore holds the value of the "cancelable_before" field.
+	CancelableBefore uint32 `json:"cancelable_before,omitempty"`
 	// UserPurchaseLimit holds the value of the "user_purchase_limit" field.
 	UserPurchaseLimit decimal.Decimal `json:"user_purchase_limit,omitempty"`
 }
@@ -81,9 +81,9 @@ func (*AppGood) scanValues(columns []string) ([]interface{}, error) {
 			values[i] = new([]byte)
 		case appgood.FieldPrice, appgood.FieldDailyRewardAmount, appgood.FieldUserPurchaseLimit:
 			values[i] = new(decimal.Decimal)
-		case appgood.FieldOnline, appgood.FieldVisible, appgood.FieldOpenPurchase, appgood.FieldIntoProductPage, appgood.FieldCanCancel:
+		case appgood.FieldOnline, appgood.FieldVisible, appgood.FieldOpenPurchase, appgood.FieldIntoProductPage:
 			values[i] = new(sql.NullBool)
-		case appgood.FieldCreatedAt, appgood.FieldUpdatedAt, appgood.FieldDeletedAt, appgood.FieldDisplayIndex, appgood.FieldPurchaseLimit, appgood.FieldCommissionPercent, appgood.FieldSaleStartAt, appgood.FieldSaleEndAt, appgood.FieldServiceStartAt, appgood.FieldTechnicalFeeRatio, appgood.FieldElectricityFeeRatio:
+		case appgood.FieldCreatedAt, appgood.FieldUpdatedAt, appgood.FieldDeletedAt, appgood.FieldDisplayIndex, appgood.FieldPurchaseLimit, appgood.FieldCommissionPercent, appgood.FieldSaleStartAt, appgood.FieldSaleEndAt, appgood.FieldServiceStartAt, appgood.FieldTechnicalFeeRatio, appgood.FieldElectricityFeeRatio, appgood.FieldCancelableBefore:
 			values[i] = new(sql.NullInt64)
 		case appgood.FieldGoodName, appgood.FieldCommissionSettleType, appgood.FieldGoodBanner:
 			values[i] = new(sql.NullString)
@@ -258,11 +258,11 @@ func (ag *AppGood) assignValues(columns []string, values []interface{}) error {
 			} else if value.Valid {
 				ag.IntoProductPage = value.Bool
 			}
-		case appgood.FieldCanCancel:
-			if value, ok := values[i].(*sql.NullBool); !ok {
-				return fmt.Errorf("unexpected type %T for field can_cancel", values[i])
+		case appgood.FieldCancelableBefore:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field cancelable_before", values[i])
 			} else if value.Valid {
-				ag.CanCancel = value.Bool
+				ag.CancelableBefore = uint32(value.Int64)
 			}
 		case appgood.FieldUserPurchaseLimit:
 			if value, ok := values[i].(*decimal.Decimal); !ok {
@@ -370,8 +370,8 @@ func (ag *AppGood) String() string {
 	builder.WriteString("into_product_page=")
 	builder.WriteString(fmt.Sprintf("%v", ag.IntoProductPage))
 	builder.WriteString(", ")
-	builder.WriteString("can_cancel=")
-	builder.WriteString(fmt.Sprintf("%v", ag.CanCancel))
+	builder.WriteString("cancelable_before=")
+	builder.WriteString(fmt.Sprintf("%v", ag.CancelableBefore))
 	builder.WriteString(", ")
 	builder.WriteString("user_purchase_limit=")
 	builder.WriteString(fmt.Sprintf("%v", ag.UserPurchaseLimit))

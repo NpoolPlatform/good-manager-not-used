@@ -58,7 +58,7 @@ var schemaGraph = func() *sqlgraph.Schema {
 			appgood.FieldDisplayNames:         {Type: field.TypeJSON, Column: appgood.FieldDisplayNames},
 			appgood.FieldOpenPurchase:         {Type: field.TypeBool, Column: appgood.FieldOpenPurchase},
 			appgood.FieldIntoProductPage:      {Type: field.TypeBool, Column: appgood.FieldIntoProductPage},
-			appgood.FieldCanCancel:            {Type: field.TypeBool, Column: appgood.FieldCanCancel},
+			appgood.FieldCancelableBefore:     {Type: field.TypeUint32, Column: appgood.FieldCancelableBefore},
 			appgood.FieldUserPurchaseLimit:    {Type: field.TypeOther, Column: appgood.FieldUserPurchaseLimit},
 		},
 	}
@@ -439,9 +439,9 @@ func (f *AppGoodFilter) WhereIntoProductPage(p entql.BoolP) {
 	f.Where(p.Field(appgood.FieldIntoProductPage))
 }
 
-// WhereCanCancel applies the entql bool predicate on the can_cancel field.
-func (f *AppGoodFilter) WhereCanCancel(p entql.BoolP) {
-	f.Where(p.Field(appgood.FieldCanCancel))
+// WhereCancelableBefore applies the entql uint32 predicate on the cancelable_before field.
+func (f *AppGoodFilter) WhereCancelableBefore(p entql.Uint32P) {
+	f.Where(p.Field(appgood.FieldCancelableBefore))
 }
 
 // WhereUserPurchaseLimit applies the entql other predicate on the user_purchase_limit field.

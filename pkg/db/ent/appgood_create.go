@@ -328,16 +328,16 @@ func (agc *AppGoodCreate) SetNillableIntoProductPage(b *bool) *AppGoodCreate {
 	return agc
 }
 
-// SetCanCancel sets the "can_cancel" field.
-func (agc *AppGoodCreate) SetCanCancel(b bool) *AppGoodCreate {
-	agc.mutation.SetCanCancel(b)
+// SetCancelableBefore sets the "cancelable_before" field.
+func (agc *AppGoodCreate) SetCancelableBefore(u uint32) *AppGoodCreate {
+	agc.mutation.SetCancelableBefore(u)
 	return agc
 }
 
-// SetNillableCanCancel sets the "can_cancel" field if the given value is not nil.
-func (agc *AppGoodCreate) SetNillableCanCancel(b *bool) *AppGoodCreate {
-	if b != nil {
-		agc.SetCanCancel(*b)
+// SetNillableCancelableBefore sets the "cancelable_before" field if the given value is not nil.
+func (agc *AppGoodCreate) SetNillableCancelableBefore(u *uint32) *AppGoodCreate {
+	if u != nil {
+		agc.SetCancelableBefore(*u)
 	}
 	return agc
 }
@@ -546,9 +546,9 @@ func (agc *AppGoodCreate) defaults() error {
 		v := appgood.DefaultIntoProductPage
 		agc.mutation.SetIntoProductPage(v)
 	}
-	if _, ok := agc.mutation.CanCancel(); !ok {
-		v := appgood.DefaultCanCancel
-		agc.mutation.SetCanCancel(v)
+	if _, ok := agc.mutation.CancelableBefore(); !ok {
+		v := appgood.DefaultCancelableBefore
+		agc.mutation.SetCancelableBefore(v)
 	}
 	if _, ok := agc.mutation.ID(); !ok {
 		if appgood.DefaultID == nil {
@@ -806,13 +806,13 @@ func (agc *AppGoodCreate) createSpec() (*AppGood, *sqlgraph.CreateSpec) {
 		})
 		_node.IntoProductPage = value
 	}
-	if value, ok := agc.mutation.CanCancel(); ok {
+	if value, ok := agc.mutation.CancelableBefore(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeBool,
+			Type:   field.TypeUint32,
 			Value:  value,
-			Column: appgood.FieldCanCancel,
+			Column: appgood.FieldCancelableBefore,
 		})
-		_node.CanCancel = value
+		_node.CancelableBefore = value
 	}
 	if value, ok := agc.mutation.UserPurchaseLimit(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -1344,21 +1344,27 @@ func (u *AppGoodUpsert) ClearIntoProductPage() *AppGoodUpsert {
 	return u
 }
 
-// SetCanCancel sets the "can_cancel" field.
-func (u *AppGoodUpsert) SetCanCancel(v bool) *AppGoodUpsert {
-	u.Set(appgood.FieldCanCancel, v)
+// SetCancelableBefore sets the "cancelable_before" field.
+func (u *AppGoodUpsert) SetCancelableBefore(v uint32) *AppGoodUpsert {
+	u.Set(appgood.FieldCancelableBefore, v)
 	return u
 }
 
-// UpdateCanCancel sets the "can_cancel" field to the value that was provided on create.
-func (u *AppGoodUpsert) UpdateCanCancel() *AppGoodUpsert {
-	u.SetExcluded(appgood.FieldCanCancel)
+// UpdateCancelableBefore sets the "cancelable_before" field to the value that was provided on create.
+func (u *AppGoodUpsert) UpdateCancelableBefore() *AppGoodUpsert {
+	u.SetExcluded(appgood.FieldCancelableBefore)
 	return u
 }
 
-// ClearCanCancel clears the value of the "can_cancel" field.
-func (u *AppGoodUpsert) ClearCanCancel() *AppGoodUpsert {
-	u.SetNull(appgood.FieldCanCancel)
+// AddCancelableBefore adds v to the "cancelable_before" field.
+func (u *AppGoodUpsert) AddCancelableBefore(v uint32) *AppGoodUpsert {
+	u.Add(appgood.FieldCancelableBefore, v)
+	return u
+}
+
+// ClearCancelableBefore clears the value of the "cancelable_before" field.
+func (u *AppGoodUpsert) ClearCancelableBefore() *AppGoodUpsert {
+	u.SetNull(appgood.FieldCancelableBefore)
 	return u
 }
 
@@ -1976,24 +1982,31 @@ func (u *AppGoodUpsertOne) ClearIntoProductPage() *AppGoodUpsertOne {
 	})
 }
 
-// SetCanCancel sets the "can_cancel" field.
-func (u *AppGoodUpsertOne) SetCanCancel(v bool) *AppGoodUpsertOne {
+// SetCancelableBefore sets the "cancelable_before" field.
+func (u *AppGoodUpsertOne) SetCancelableBefore(v uint32) *AppGoodUpsertOne {
 	return u.Update(func(s *AppGoodUpsert) {
-		s.SetCanCancel(v)
+		s.SetCancelableBefore(v)
 	})
 }
 
-// UpdateCanCancel sets the "can_cancel" field to the value that was provided on create.
-func (u *AppGoodUpsertOne) UpdateCanCancel() *AppGoodUpsertOne {
+// AddCancelableBefore adds v to the "cancelable_before" field.
+func (u *AppGoodUpsertOne) AddCancelableBefore(v uint32) *AppGoodUpsertOne {
 	return u.Update(func(s *AppGoodUpsert) {
-		s.UpdateCanCancel()
+		s.AddCancelableBefore(v)
 	})
 }
 
-// ClearCanCancel clears the value of the "can_cancel" field.
-func (u *AppGoodUpsertOne) ClearCanCancel() *AppGoodUpsertOne {
+// UpdateCancelableBefore sets the "cancelable_before" field to the value that was provided on create.
+func (u *AppGoodUpsertOne) UpdateCancelableBefore() *AppGoodUpsertOne {
 	return u.Update(func(s *AppGoodUpsert) {
-		s.ClearCanCancel()
+		s.UpdateCancelableBefore()
+	})
+}
+
+// ClearCancelableBefore clears the value of the "cancelable_before" field.
+func (u *AppGoodUpsertOne) ClearCancelableBefore() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearCancelableBefore()
 	})
 }
 
@@ -2780,24 +2793,31 @@ func (u *AppGoodUpsertBulk) ClearIntoProductPage() *AppGoodUpsertBulk {
 	})
 }
 
-// SetCanCancel sets the "can_cancel" field.
-func (u *AppGoodUpsertBulk) SetCanCancel(v bool) *AppGoodUpsertBulk {
+// SetCancelableBefore sets the "cancelable_before" field.
+func (u *AppGoodUpsertBulk) SetCancelableBefore(v uint32) *AppGoodUpsertBulk {
 	return u.Update(func(s *AppGoodUpsert) {
-		s.SetCanCancel(v)
+		s.SetCancelableBefore(v)
 	})
 }
 
-// UpdateCanCancel sets the "can_cancel" field to the value that was provided on create.
-func (u *AppGoodUpsertBulk) UpdateCanCancel() *AppGoodUpsertBulk {
+// AddCancelableBefore adds v to the "cancelable_before" field.
+func (u *AppGoodUpsertBulk) AddCancelableBefore(v uint32) *AppGoodUpsertBulk {
 	return u.Update(func(s *AppGoodUpsert) {
-		s.UpdateCanCancel()
+		s.AddCancelableBefore(v)
 	})
 }
 
-// ClearCanCancel clears the value of the "can_cancel" field.
-func (u *AppGoodUpsertBulk) ClearCanCancel() *AppGoodUpsertBulk {
+// UpdateCancelableBefore sets the "cancelable_before" field to the value that was provided on create.
+func (u *AppGoodUpsertBulk) UpdateCancelableBefore() *AppGoodUpsertBulk {
 	return u.Update(func(s *AppGoodUpsert) {
-		s.ClearCanCancel()
+		s.UpdateCancelableBefore()
+	})
+}
+
+// ClearCancelableBefore clears the value of the "cancelable_before" field.
+func (u *AppGoodUpsertBulk) ClearCancelableBefore() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearCancelableBefore()
 	})
 }
 

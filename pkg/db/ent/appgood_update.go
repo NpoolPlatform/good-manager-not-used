@@ -517,23 +517,30 @@ func (agu *AppGoodUpdate) ClearIntoProductPage() *AppGoodUpdate {
 	return agu
 }
 
-// SetCanCancel sets the "can_cancel" field.
-func (agu *AppGoodUpdate) SetCanCancel(b bool) *AppGoodUpdate {
-	agu.mutation.SetCanCancel(b)
+// SetCancelableBefore sets the "cancelable_before" field.
+func (agu *AppGoodUpdate) SetCancelableBefore(u uint32) *AppGoodUpdate {
+	agu.mutation.ResetCancelableBefore()
+	agu.mutation.SetCancelableBefore(u)
 	return agu
 }
 
-// SetNillableCanCancel sets the "can_cancel" field if the given value is not nil.
-func (agu *AppGoodUpdate) SetNillableCanCancel(b *bool) *AppGoodUpdate {
-	if b != nil {
-		agu.SetCanCancel(*b)
+// SetNillableCancelableBefore sets the "cancelable_before" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableCancelableBefore(u *uint32) *AppGoodUpdate {
+	if u != nil {
+		agu.SetCancelableBefore(*u)
 	}
 	return agu
 }
 
-// ClearCanCancel clears the value of the "can_cancel" field.
-func (agu *AppGoodUpdate) ClearCanCancel() *AppGoodUpdate {
-	agu.mutation.ClearCanCancel()
+// AddCancelableBefore adds u to the "cancelable_before" field.
+func (agu *AppGoodUpdate) AddCancelableBefore(u int32) *AppGoodUpdate {
+	agu.mutation.AddCancelableBefore(u)
+	return agu
+}
+
+// ClearCancelableBefore clears the value of the "cancelable_before" field.
+func (agu *AppGoodUpdate) ClearCancelableBefore() *AppGoodUpdate {
+	agu.mutation.ClearCancelableBefore()
 	return agu
 }
 
@@ -1014,17 +1021,24 @@ func (agu *AppGoodUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: appgood.FieldIntoProductPage,
 		})
 	}
-	if value, ok := agu.mutation.CanCancel(); ok {
+	if value, ok := agu.mutation.CancelableBefore(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeBool,
+			Type:   field.TypeUint32,
 			Value:  value,
-			Column: appgood.FieldCanCancel,
+			Column: appgood.FieldCancelableBefore,
 		})
 	}
-	if agu.mutation.CanCancelCleared() {
+	if value, ok := agu.mutation.AddedCancelableBefore(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldCancelableBefore,
+		})
+	}
+	if agu.mutation.CancelableBeforeCleared() {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
-			Type:   field.TypeBool,
-			Column: appgood.FieldCanCancel,
+			Type:   field.TypeUint32,
+			Column: appgood.FieldCancelableBefore,
 		})
 	}
 	if value, ok := agu.mutation.UserPurchaseLimit(); ok {
@@ -1548,23 +1562,30 @@ func (aguo *AppGoodUpdateOne) ClearIntoProductPage() *AppGoodUpdateOne {
 	return aguo
 }
 
-// SetCanCancel sets the "can_cancel" field.
-func (aguo *AppGoodUpdateOne) SetCanCancel(b bool) *AppGoodUpdateOne {
-	aguo.mutation.SetCanCancel(b)
+// SetCancelableBefore sets the "cancelable_before" field.
+func (aguo *AppGoodUpdateOne) SetCancelableBefore(u uint32) *AppGoodUpdateOne {
+	aguo.mutation.ResetCancelableBefore()
+	aguo.mutation.SetCancelableBefore(u)
 	return aguo
 }
 
-// SetNillableCanCancel sets the "can_cancel" field if the given value is not nil.
-func (aguo *AppGoodUpdateOne) SetNillableCanCancel(b *bool) *AppGoodUpdateOne {
-	if b != nil {
-		aguo.SetCanCancel(*b)
+// SetNillableCancelableBefore sets the "cancelable_before" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableCancelableBefore(u *uint32) *AppGoodUpdateOne {
+	if u != nil {
+		aguo.SetCancelableBefore(*u)
 	}
 	return aguo
 }
 
-// ClearCanCancel clears the value of the "can_cancel" field.
-func (aguo *AppGoodUpdateOne) ClearCanCancel() *AppGoodUpdateOne {
-	aguo.mutation.ClearCanCancel()
+// AddCancelableBefore adds u to the "cancelable_before" field.
+func (aguo *AppGoodUpdateOne) AddCancelableBefore(u int32) *AppGoodUpdateOne {
+	aguo.mutation.AddCancelableBefore(u)
+	return aguo
+}
+
+// ClearCancelableBefore clears the value of the "cancelable_before" field.
+func (aguo *AppGoodUpdateOne) ClearCancelableBefore() *AppGoodUpdateOne {
+	aguo.mutation.ClearCancelableBefore()
 	return aguo
 }
 
@@ -2075,17 +2096,24 @@ func (aguo *AppGoodUpdateOne) sqlSave(ctx context.Context) (_node *AppGood, err 
 			Column: appgood.FieldIntoProductPage,
 		})
 	}
-	if value, ok := aguo.mutation.CanCancel(); ok {
+	if value, ok := aguo.mutation.CancelableBefore(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeBool,
+			Type:   field.TypeUint32,
 			Value:  value,
-			Column: appgood.FieldCanCancel,
+			Column: appgood.FieldCancelableBefore,
 		})
 	}
-	if aguo.mutation.CanCancelCleared() {
+	if value, ok := aguo.mutation.AddedCancelableBefore(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldCancelableBefore,
+		})
+	}
+	if aguo.mutation.CancelableBeforeCleared() {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
-			Type:   field.TypeBool,
-			Column: appgood.FieldCanCancel,
+			Type:   field.TypeUint32,
+			Column: appgood.FieldCancelableBefore,
 		})
 	}
 	if value, ok := aguo.mutation.UserPurchaseLimit(); ok {

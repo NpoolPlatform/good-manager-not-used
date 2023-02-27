@@ -131,10 +131,10 @@ func init() {
 	appgoodDescIntoProductPage := appgoodFields[21].Descriptor()
 	// appgood.DefaultIntoProductPage holds the default value on creation for the into_product_page field.
 	appgood.DefaultIntoProductPage = appgoodDescIntoProductPage.Default.(bool)
-	// appgoodDescCanCancel is the schema descriptor for can_cancel field.
-	appgoodDescCanCancel := appgoodFields[22].Descriptor()
-	// appgood.DefaultCanCancel holds the default value on creation for the can_cancel field.
-	appgood.DefaultCanCancel = appgoodDescCanCancel.Default.(bool)
+	// appgoodDescCancelableBefore is the schema descriptor for cancelable_before field.
+	appgoodDescCancelableBefore := appgoodFields[22].Descriptor()
+	// appgood.DefaultCancelableBefore holds the default value on creation for the cancelable_before field.
+	appgood.DefaultCancelableBefore = appgoodDescCancelableBefore.Default.(uint32)
 	// appgoodDescID is the schema descriptor for id field.
 	appgoodDescID := appgoodFields[0].Descriptor()
 	// appgood.DefaultID holds the default value on creation for the id field.

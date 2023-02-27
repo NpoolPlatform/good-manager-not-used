@@ -6,6 +6,7 @@ import (
 	"os"
 	"strconv"
 	"testing"
+	"time"
 
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent"
 	"github.com/shopspring/decimal"
@@ -49,7 +50,7 @@ var appGood = ent.AppGood{
 	DisplayNames:         nil,
 	OpenPurchase:         true,
 	IntoProductPage:      true,
-	CanCancel:            true,
+	CancelableBefore:     uint32(time.Now().Unix()),
 	UserPurchaseLimit:    decimal.NewFromInt(100),
 }
 
@@ -74,7 +75,7 @@ var (
 		DailyRewardAmount: &amount,
 		OpenPurchase:      &appGood.OpenPurchase,
 		IntoProductPage:   &appGood.IntoProductPage,
-		CanCancel:         &appGood.CanCancel,
+		CancelableBefore:  &appGood.CancelableBefore,
 		UserPurchaseLimit: &userPurchaseLimit,
 	}
 )
@@ -107,7 +108,7 @@ func createBulk(t *testing.T) {
 			DailyRewardAmount: decimal.RequireFromString("9999999999999999999.999999999999999999"),
 			OpenPurchase:      true,
 			IntoProductPage:   true,
-			CanCancel:         true,
+			CancelableBefore:  uint32(time.Now().Unix()),
 			UserPurchaseLimit: decimal.NewFromInt(100),
 		},
 		{
@@ -124,7 +125,7 @@ func createBulk(t *testing.T) {
 			DailyRewardAmount: decimal.RequireFromString("9999999999999999999.999999999999999999"),
 			OpenPurchase:      true,
 			IntoProductPage:   true,
-			CanCancel:         true,
+			CancelableBefore:  uint32(time.Now().Unix()),
 			UserPurchaseLimit: decimal.NewFromInt(100),
 		},
 	}
@@ -151,7 +152,7 @@ func createBulk(t *testing.T) {
 			DailyRewardAmount: &_amount,
 			OpenPurchase:      &_appGood.OpenPurchase,
 			IntoProductPage:   &_appGood.IntoProductPage,
-			CanCancel:         &_appGood.CanCancel,
+			CancelableBefore:  &_appGood.CancelableBefore,
 			UserPurchaseLimit: &_userPurchaseLimit,
 		})
 	}

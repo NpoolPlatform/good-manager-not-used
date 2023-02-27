@@ -234,10 +234,10 @@ func IntoProductPage(v bool) predicate.AppGood {
 	})
 }
 
-// CanCancel applies equality check predicate on the "can_cancel" field. It's identical to CanCancelEQ.
-func CanCancel(v bool) predicate.AppGood {
+// CancelableBefore applies equality check predicate on the "cancelable_before" field. It's identical to CancelableBeforeEQ.
+func CancelableBefore(v uint32) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldCanCancel), v))
+		s.Where(sql.EQ(s.C(FieldCancelableBefore), v))
 	})
 }
 
@@ -1827,31 +1827,81 @@ func IntoProductPageNotNil() predicate.AppGood {
 	})
 }
 
-// CanCancelEQ applies the EQ predicate on the "can_cancel" field.
-func CanCancelEQ(v bool) predicate.AppGood {
+// CancelableBeforeEQ applies the EQ predicate on the "cancelable_before" field.
+func CancelableBeforeEQ(v uint32) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldCanCancel), v))
+		s.Where(sql.EQ(s.C(FieldCancelableBefore), v))
 	})
 }
 
-// CanCancelNEQ applies the NEQ predicate on the "can_cancel" field.
-func CanCancelNEQ(v bool) predicate.AppGood {
+// CancelableBeforeNEQ applies the NEQ predicate on the "cancelable_before" field.
+func CancelableBeforeNEQ(v uint32) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldCanCancel), v))
+		s.Where(sql.NEQ(s.C(FieldCancelableBefore), v))
 	})
 }
 
-// CanCancelIsNil applies the IsNil predicate on the "can_cancel" field.
-func CanCancelIsNil() predicate.AppGood {
+// CancelableBeforeIn applies the In predicate on the "cancelable_before" field.
+func CancelableBeforeIn(vs ...uint32) predicate.AppGood {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.IsNull(s.C(FieldCanCancel)))
+		s.Where(sql.In(s.C(FieldCancelableBefore), v...))
 	})
 }
 
-// CanCancelNotNil applies the NotNil predicate on the "can_cancel" field.
-func CanCancelNotNil() predicate.AppGood {
+// CancelableBeforeNotIn applies the NotIn predicate on the "cancelable_before" field.
+func CancelableBeforeNotIn(vs ...uint32) predicate.AppGood {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.NotNull(s.C(FieldCanCancel)))
+		s.Where(sql.NotIn(s.C(FieldCancelableBefore), v...))
+	})
+}
+
+// CancelableBeforeGT applies the GT predicate on the "cancelable_before" field.
+func CancelableBeforeGT(v uint32) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldCancelableBefore), v))
+	})
+}
+
+// CancelableBeforeGTE applies the GTE predicate on the "cancelable_before" field.
+func CancelableBeforeGTE(v uint32) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldCancelableBefore), v))
+	})
+}
+
+// CancelableBeforeLT applies the LT predicate on the "cancelable_before" field.
+func CancelableBeforeLT(v uint32) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldCancelableBefore), v))
+	})
+}
+
+// CancelableBeforeLTE applies the LTE predicate on the "cancelable_before" field.
+func CancelableBeforeLTE(v uint32) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldCancelableBefore), v))
+	})
+}
+
+// CancelableBeforeIsNil applies the IsNil predicate on the "cancelable_before" field.
+func CancelableBeforeIsNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldCancelableBefore)))
+	})
+}
+
+// CancelableBeforeNotNil applies the NotNil predicate on the "cancelable_before" field.
+func CancelableBeforeNotNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldCancelableBefore)))
 	})
 }
 

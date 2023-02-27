@@ -6,6 +6,7 @@ import (
 	"os"
 	"strconv"
 	"testing"
+	"time"
 
 	"github.com/shopspring/decimal"
 
@@ -53,7 +54,7 @@ var appDate = npool.AppGood{
 	CommissionSettleType: commmgrpb.SettleType_GoodOrderPercent,
 	OpenPurchase:         true,
 	IntoProductPage:      true,
-	CanCancel:            true,
+	CancelableBefore:     uint32(time.Now().Unix()),
 	UserPurchaseLimit:    decimal.NewFromInt(100).String(),
 }
 
@@ -73,7 +74,7 @@ var (
 		CommissionSettleType: &appDate.CommissionSettleType,
 		OpenPurchase:         &appDate.OpenPurchase,
 		IntoProductPage:      &appDate.IntoProductPage,
-		CanCancel:            &appDate.CanCancel,
+		CancelableBefore:     &appDate.CancelableBefore,
 		UserPurchaseLimit:    &appDate.UserPurchaseLimit,
 	}
 )
@@ -108,7 +109,7 @@ func createAppGoods(t *testing.T) {
 			CommissionSettleType: commmgrpb.SettleType_NoCommission,
 			OpenPurchase:         true,
 			IntoProductPage:      true,
-			CanCancel:            true,
+			CancelableBefore:     uint32(time.Now().Unix()),
 			UserPurchaseLimit:    decimal.NewFromInt(100).String(),
 		},
 		{
@@ -126,7 +127,7 @@ func createAppGoods(t *testing.T) {
 			CommissionSettleType: commmgrpb.SettleType_NoCommission,
 			OpenPurchase:         true,
 			IntoProductPage:      true,
-			CanCancel:            true,
+			CancelableBefore:     uint32(time.Now().Unix()),
 			UserPurchaseLimit:    decimal.NewFromInt(100).String(),
 		},
 	}
@@ -147,7 +148,7 @@ func createAppGoods(t *testing.T) {
 			DailyRewardAmount: &appDates[key].DailyRewardAmount,
 			OpenPurchase:      &appDates[key].OpenPurchase,
 			IntoProductPage:   &appDates[key].IntoProductPage,
-			CanCancel:         &appDates[key].CanCancel,
+			CancelableBefore:  &appDates[key].CancelableBefore,
 			UserPurchaseLimit: &appDates[key].UserPurchaseLimit,
 		})
 	}
