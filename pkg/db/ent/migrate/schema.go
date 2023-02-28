@@ -34,9 +34,9 @@ var (
 		{Name: "descriptions", Type: field.TypeJSON, Nullable: true},
 		{Name: "good_banner", Type: field.TypeString, Nullable: true, Default: ""},
 		{Name: "display_names", Type: field.TypeJSON, Nullable: true},
-		{Name: "open_purchase", Type: field.TypeBool, Nullable: true, Default: true},
-		{Name: "into_product_page", Type: field.TypeBool, Nullable: true, Default: true},
-		{Name: "cancelable_before", Type: field.TypeUint32, Nullable: true, Default: 0},
+		{Name: "enable_purchase", Type: field.TypeBool, Nullable: true, Default: true},
+		{Name: "enable_product_page", Type: field.TypeBool, Nullable: true, Default: true},
+		{Name: "cancel_mode", Type: field.TypeString, Nullable: true, Default: "CancellableBeforeBenefit"},
 		{Name: "user_purchase_limit", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
 	}
 	// AppGoodsTable holds the schema information for the "app_goods" table.

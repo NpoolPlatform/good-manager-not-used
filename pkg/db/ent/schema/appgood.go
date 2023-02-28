@@ -11,6 +11,8 @@ import (
 	"github.com/google/uuid"
 
 	commmgrpb "github.com/NpoolPlatform/message/npool/inspire/mgr/v1/commission"
+
+	npool "github.com/NpoolPlatform/message/npool/good/mgr/v1/appgood"
 )
 
 // AppGood holds the schema definition for the AppGood entity.
@@ -111,17 +113,17 @@ func (AppGood) Fields() []ent.Field {
 			Optional().
 			Default([]string{}),
 		field.
-			Bool("open_purchase").
+			Bool("enable_purchase").
 			Optional().
 			Default(true),
 		field.
-			Bool("into_product_page").
+			Bool("enable_product_page").
 			Optional().
 			Default(true),
 		field.
-			Uint32("cancelable_before").
+			String("cancel_mode").
 			Optional().
-			Default(0),
+			Default(npool.CancelMode_CancellableBeforeBenefit.String()),
 		field.
 			Other("user_purchase_limit", decimal.Decimal{}).
 			SchemaType(map[string]string{

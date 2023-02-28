@@ -36,9 +36,9 @@ func Ent2Grpc(row *ent.AppGood) *npool.AppGood {
 		Descriptions:         row.Descriptions,
 		GoodBanner:           row.GoodBanner,
 		DisplayNames:         row.DisplayNames,
-		OpenPurchase:         row.OpenPurchase,
-		IntoProductPage:      row.IntoProductPage,
-		CancelableBefore:     row.CancelableBefore,
+		EnablePurchase:       row.EnablePurchase,
+		EnableProductPage:    row.EnableProductPage,
+		CancelMode:           npool.CancelMode(npool.CancelMode_value[row.CancelMode]),
 		UserPurchaseLimit:    row.UserPurchaseLimit.String(),
 	}
 }

@@ -220,24 +220,24 @@ func GoodBanner(v string) predicate.AppGood {
 	})
 }
 
-// OpenPurchase applies equality check predicate on the "open_purchase" field. It's identical to OpenPurchaseEQ.
-func OpenPurchase(v bool) predicate.AppGood {
+// EnablePurchase applies equality check predicate on the "enable_purchase" field. It's identical to EnablePurchaseEQ.
+func EnablePurchase(v bool) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldOpenPurchase), v))
+		s.Where(sql.EQ(s.C(FieldEnablePurchase), v))
 	})
 }
 
-// IntoProductPage applies equality check predicate on the "into_product_page" field. It's identical to IntoProductPageEQ.
-func IntoProductPage(v bool) predicate.AppGood {
+// EnableProductPage applies equality check predicate on the "enable_product_page" field. It's identical to EnableProductPageEQ.
+func EnableProductPage(v bool) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldIntoProductPage), v))
+		s.Where(sql.EQ(s.C(FieldEnableProductPage), v))
 	})
 }
 
-// CancelableBefore applies equality check predicate on the "cancelable_before" field. It's identical to CancelableBeforeEQ.
-func CancelableBefore(v uint32) predicate.AppGood {
+// CancelMode applies equality check predicate on the "cancel_mode" field. It's identical to CancelModeEQ.
+func CancelMode(v string) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldCancelableBefore), v))
+		s.Where(sql.EQ(s.C(FieldCancelMode), v))
 	})
 }
 
@@ -1771,137 +1771,172 @@ func DisplayNamesNotNil() predicate.AppGood {
 	})
 }
 
-// OpenPurchaseEQ applies the EQ predicate on the "open_purchase" field.
-func OpenPurchaseEQ(v bool) predicate.AppGood {
+// EnablePurchaseEQ applies the EQ predicate on the "enable_purchase" field.
+func EnablePurchaseEQ(v bool) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldOpenPurchase), v))
+		s.Where(sql.EQ(s.C(FieldEnablePurchase), v))
 	})
 }
 
-// OpenPurchaseNEQ applies the NEQ predicate on the "open_purchase" field.
-func OpenPurchaseNEQ(v bool) predicate.AppGood {
+// EnablePurchaseNEQ applies the NEQ predicate on the "enable_purchase" field.
+func EnablePurchaseNEQ(v bool) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldOpenPurchase), v))
+		s.Where(sql.NEQ(s.C(FieldEnablePurchase), v))
 	})
 }
 
-// OpenPurchaseIsNil applies the IsNil predicate on the "open_purchase" field.
-func OpenPurchaseIsNil() predicate.AppGood {
+// EnablePurchaseIsNil applies the IsNil predicate on the "enable_purchase" field.
+func EnablePurchaseIsNil() predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.IsNull(s.C(FieldOpenPurchase)))
+		s.Where(sql.IsNull(s.C(FieldEnablePurchase)))
 	})
 }
 
-// OpenPurchaseNotNil applies the NotNil predicate on the "open_purchase" field.
-func OpenPurchaseNotNil() predicate.AppGood {
+// EnablePurchaseNotNil applies the NotNil predicate on the "enable_purchase" field.
+func EnablePurchaseNotNil() predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.NotNull(s.C(FieldOpenPurchase)))
+		s.Where(sql.NotNull(s.C(FieldEnablePurchase)))
 	})
 }
 
-// IntoProductPageEQ applies the EQ predicate on the "into_product_page" field.
-func IntoProductPageEQ(v bool) predicate.AppGood {
+// EnableProductPageEQ applies the EQ predicate on the "enable_product_page" field.
+func EnableProductPageEQ(v bool) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldIntoProductPage), v))
+		s.Where(sql.EQ(s.C(FieldEnableProductPage), v))
 	})
 }
 
-// IntoProductPageNEQ applies the NEQ predicate on the "into_product_page" field.
-func IntoProductPageNEQ(v bool) predicate.AppGood {
+// EnableProductPageNEQ applies the NEQ predicate on the "enable_product_page" field.
+func EnableProductPageNEQ(v bool) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldIntoProductPage), v))
+		s.Where(sql.NEQ(s.C(FieldEnableProductPage), v))
 	})
 }
 
-// IntoProductPageIsNil applies the IsNil predicate on the "into_product_page" field.
-func IntoProductPageIsNil() predicate.AppGood {
+// EnableProductPageIsNil applies the IsNil predicate on the "enable_product_page" field.
+func EnableProductPageIsNil() predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.IsNull(s.C(FieldIntoProductPage)))
+		s.Where(sql.IsNull(s.C(FieldEnableProductPage)))
 	})
 }
 
-// IntoProductPageNotNil applies the NotNil predicate on the "into_product_page" field.
-func IntoProductPageNotNil() predicate.AppGood {
+// EnableProductPageNotNil applies the NotNil predicate on the "enable_product_page" field.
+func EnableProductPageNotNil() predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.NotNull(s.C(FieldIntoProductPage)))
+		s.Where(sql.NotNull(s.C(FieldEnableProductPage)))
 	})
 }
 
-// CancelableBeforeEQ applies the EQ predicate on the "cancelable_before" field.
-func CancelableBeforeEQ(v uint32) predicate.AppGood {
+// CancelModeEQ applies the EQ predicate on the "cancel_mode" field.
+func CancelModeEQ(v string) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldCancelableBefore), v))
+		s.Where(sql.EQ(s.C(FieldCancelMode), v))
 	})
 }
 
-// CancelableBeforeNEQ applies the NEQ predicate on the "cancelable_before" field.
-func CancelableBeforeNEQ(v uint32) predicate.AppGood {
+// CancelModeNEQ applies the NEQ predicate on the "cancel_mode" field.
+func CancelModeNEQ(v string) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldCancelableBefore), v))
+		s.Where(sql.NEQ(s.C(FieldCancelMode), v))
 	})
 }
 
-// CancelableBeforeIn applies the In predicate on the "cancelable_before" field.
-func CancelableBeforeIn(vs ...uint32) predicate.AppGood {
+// CancelModeIn applies the In predicate on the "cancel_mode" field.
+func CancelModeIn(vs ...string) predicate.AppGood {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
 	}
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.In(s.C(FieldCancelableBefore), v...))
+		s.Where(sql.In(s.C(FieldCancelMode), v...))
 	})
 }
 
-// CancelableBeforeNotIn applies the NotIn predicate on the "cancelable_before" field.
-func CancelableBeforeNotIn(vs ...uint32) predicate.AppGood {
+// CancelModeNotIn applies the NotIn predicate on the "cancel_mode" field.
+func CancelModeNotIn(vs ...string) predicate.AppGood {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
 	}
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.NotIn(s.C(FieldCancelableBefore), v...))
+		s.Where(sql.NotIn(s.C(FieldCancelMode), v...))
 	})
 }
 
-// CancelableBeforeGT applies the GT predicate on the "cancelable_before" field.
-func CancelableBeforeGT(v uint32) predicate.AppGood {
+// CancelModeGT applies the GT predicate on the "cancel_mode" field.
+func CancelModeGT(v string) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldCancelableBefore), v))
+		s.Where(sql.GT(s.C(FieldCancelMode), v))
 	})
 }
 
-// CancelableBeforeGTE applies the GTE predicate on the "cancelable_before" field.
-func CancelableBeforeGTE(v uint32) predicate.AppGood {
+// CancelModeGTE applies the GTE predicate on the "cancel_mode" field.
+func CancelModeGTE(v string) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldCancelableBefore), v))
+		s.Where(sql.GTE(s.C(FieldCancelMode), v))
 	})
 }
 
-// CancelableBeforeLT applies the LT predicate on the "cancelable_before" field.
-func CancelableBeforeLT(v uint32) predicate.AppGood {
+// CancelModeLT applies the LT predicate on the "cancel_mode" field.
+func CancelModeLT(v string) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldCancelableBefore), v))
+		s.Where(sql.LT(s.C(FieldCancelMode), v))
 	})
 }
 
-// CancelableBeforeLTE applies the LTE predicate on the "cancelable_before" field.
-func CancelableBeforeLTE(v uint32) predicate.AppGood {
+// CancelModeLTE applies the LTE predicate on the "cancel_mode" field.
+func CancelModeLTE(v string) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldCancelableBefore), v))
+		s.Where(sql.LTE(s.C(FieldCancelMode), v))
 	})
 }
 
-// CancelableBeforeIsNil applies the IsNil predicate on the "cancelable_before" field.
-func CancelableBeforeIsNil() predicate.AppGood {
+// CancelModeContains applies the Contains predicate on the "cancel_mode" field.
+func CancelModeContains(v string) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.IsNull(s.C(FieldCancelableBefore)))
+		s.Where(sql.Contains(s.C(FieldCancelMode), v))
 	})
 }
 
-// CancelableBeforeNotNil applies the NotNil predicate on the "cancelable_before" field.
-func CancelableBeforeNotNil() predicate.AppGood {
+// CancelModeHasPrefix applies the HasPrefix predicate on the "cancel_mode" field.
+func CancelModeHasPrefix(v string) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.NotNull(s.C(FieldCancelableBefore)))
+		s.Where(sql.HasPrefix(s.C(FieldCancelMode), v))
+	})
+}
+
+// CancelModeHasSuffix applies the HasSuffix predicate on the "cancel_mode" field.
+func CancelModeHasSuffix(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldCancelMode), v))
+	})
+}
+
+// CancelModeIsNil applies the IsNil predicate on the "cancel_mode" field.
+func CancelModeIsNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldCancelMode)))
+	})
+}
+
+// CancelModeNotNil applies the NotNil predicate on the "cancel_mode" field.
+func CancelModeNotNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldCancelMode)))
+	})
+}
+
+// CancelModeEqualFold applies the EqualFold predicate on the "cancel_mode" field.
+func CancelModeEqualFold(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldCancelMode), v))
+	})
+}
+
+// CancelModeContainsFold applies the ContainsFold predicate on the "cancel_mode" field.
+func CancelModeContainsFold(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldCancelMode), v))
 	})
 }
 

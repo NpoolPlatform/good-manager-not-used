@@ -6,7 +6,6 @@ import (
 	"os"
 	"strconv"
 	"testing"
-	"time"
 
 	"github.com/shopspring/decimal"
 
@@ -52,9 +51,9 @@ var appDate = npool.AppGood{
 	CommissionPercent:    102,
 	DailyRewardAmount:    "999",
 	CommissionSettleType: commmgrpb.SettleType_GoodOrderPercent,
-	OpenPurchase:         true,
-	IntoProductPage:      true,
-	CancelableBefore:     uint32(time.Now().Unix()),
+	EnablePurchase:       true,
+	EnableProductPage:    true,
+	CancelMode:           npool.CancelMode_CancellableBeforeBenefit,
 	UserPurchaseLimit:    decimal.NewFromInt(100).String(),
 }
 
@@ -72,9 +71,9 @@ var (
 		CommissionPercent:    &appDate.CommissionPercent,
 		DailyRewardAmount:    &appDate.DailyRewardAmount,
 		CommissionSettleType: &appDate.CommissionSettleType,
-		OpenPurchase:         &appDate.OpenPurchase,
-		IntoProductPage:      &appDate.IntoProductPage,
-		CancelableBefore:     &appDate.CancelableBefore,
+		EnablePurchase:       &appDate.EnablePurchase,
+		EnableProductPage:    &appDate.EnableProductPage,
+		CancelMode:           &appDate.CancelMode,
 		UserPurchaseLimit:    &appDate.UserPurchaseLimit,
 	}
 )
@@ -107,9 +106,9 @@ func createAppGoods(t *testing.T) {
 			CommissionPercent:    102,
 			DailyRewardAmount:    "999",
 			CommissionSettleType: commmgrpb.SettleType_NoCommission,
-			OpenPurchase:         true,
-			IntoProductPage:      true,
-			CancelableBefore:     uint32(time.Now().Unix()),
+			EnablePurchase:       true,
+			EnableProductPage:    true,
+			CancelMode:           npool.CancelMode_CancellableBeforeBenefit,
 			UserPurchaseLimit:    decimal.NewFromInt(100).String(),
 		},
 		{
@@ -125,9 +124,9 @@ func createAppGoods(t *testing.T) {
 			CommissionPercent:    102,
 			DailyRewardAmount:    "999",
 			CommissionSettleType: commmgrpb.SettleType_NoCommission,
-			OpenPurchase:         true,
-			IntoProductPage:      true,
-			CancelableBefore:     uint32(time.Now().Unix()),
+			EnablePurchase:       true,
+			EnableProductPage:    true,
+			CancelMode:           npool.CancelMode_CancellableBeforeBenefit,
 			UserPurchaseLimit:    decimal.NewFromInt(100).String(),
 		},
 	}
@@ -146,9 +145,9 @@ func createAppGoods(t *testing.T) {
 			PurchaseLimit:     &appDates[key].PurchaseLimit,
 			CommissionPercent: &appDates[key].CommissionPercent,
 			DailyRewardAmount: &appDates[key].DailyRewardAmount,
-			OpenPurchase:      &appDates[key].OpenPurchase,
-			IntoProductPage:   &appDates[key].IntoProductPage,
-			CancelableBefore:  &appDates[key].CancelableBefore,
+			EnablePurchase:    &appDates[key].EnablePurchase,
+			EnableProductPage: &appDates[key].EnableProductPage,
+			CancelMode:        &appDates[key].CancelMode,
 			UserPurchaseLimit: &appDates[key].UserPurchaseLimit,
 		})
 	}

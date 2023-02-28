@@ -6,7 +6,6 @@ import (
 	"os"
 	"strconv"
 	"testing"
-	"time"
 
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent"
 	"github.com/shopspring/decimal"
@@ -32,27 +31,30 @@ func init() {
 	}
 }
 
-var appGood = ent.AppGood{
-	ID:                   uuid.New(),
-	AppID:                uuid.New(),
-	GoodID:               uuid.New(),
-	Online:               true,
-	Visible:              true,
-	GoodName:             uuid.NewString(),
-	Price:                decimal.RequireFromString("9999999999999999999.999999999999999999"),
-	DisplayIndex:         100,
-	PurchaseLimit:        100,
-	CommissionPercent:    100,
-	DailyRewardAmount:    decimal.RequireFromString("9999999999999999999.999999999999999999"),
-	CommissionSettleType: commmgrpb.SettleType_NoCommission.String(),
-	Descriptions:         nil,
-	GoodBanner:           "",
-	DisplayNames:         nil,
-	OpenPurchase:         true,
-	IntoProductPage:      true,
-	CancelableBefore:     uint32(time.Now().Unix()),
-	UserPurchaseLimit:    decimal.NewFromInt(100),
-}
+var (
+	cancelMode = npool.CancelMode_CancellableBeforeBenefit
+	appGood    = ent.AppGood{
+		ID:                   uuid.New(),
+		AppID:                uuid.New(),
+		GoodID:               uuid.New(),
+		Online:               true,
+		Visible:              true,
+		GoodName:             uuid.NewString(),
+		Price:                decimal.RequireFromString("9999999999999999999.999999999999999999"),
+		DisplayIndex:         100,
+		PurchaseLimit:        100,
+		CommissionPercent:    100,
+		DailyRewardAmount:    decimal.RequireFromString("9999999999999999999.999999999999999999"),
+		CommissionSettleType: commmgrpb.SettleType_NoCommission.String(),
+		Descriptions:         nil,
+		GoodBanner:           "",
+		DisplayNames:         nil,
+		EnablePurchase:       true,
+		EnableProductPage:    true,
+		CancelMode:           cancelMode.String(),
+		UserPurchaseLimit:    decimal.NewFromInt(100),
+	}
+)
 
 var (
 	id                = appGood.ID.String()
@@ -73,9 +75,9 @@ var (
 		PurchaseLimit:     &appGood.PurchaseLimit,
 		CommissionPercent: &appGood.CommissionPercent,
 		DailyRewardAmount: &amount,
-		OpenPurchase:      &appGood.OpenPurchase,
-		IntoProductPage:   &appGood.IntoProductPage,
-		CancelableBefore:  &appGood.CancelableBefore,
+		EnablePurchase:    &appGood.EnablePurchase,
+		EnableProductPage: &appGood.EnableProductPage,
+		CancelMode:        &cancelMode,
 		UserPurchaseLimit: &userPurchaseLimit,
 	}
 )
@@ -106,9 +108,9 @@ func createBulk(t *testing.T) {
 			PurchaseLimit:     100,
 			CommissionPercent: 100,
 			DailyRewardAmount: decimal.RequireFromString("9999999999999999999.999999999999999999"),
-			OpenPurchase:      true,
-			IntoProductPage:   true,
-			CancelableBefore:  uint32(time.Now().Unix()),
+			EnablePurchase:    true,
+			EnableProductPage: true,
+			CancelMode:        cancelMode.String(),
 			UserPurchaseLimit: decimal.NewFromInt(100),
 		},
 		{
@@ -123,9 +125,9 @@ func createBulk(t *testing.T) {
 			PurchaseLimit:     100,
 			CommissionPercent: 100,
 			DailyRewardAmount: decimal.RequireFromString("9999999999999999999.999999999999999999"),
-			OpenPurchase:      true,
-			IntoProductPage:   true,
-			CancelableBefore:  uint32(time.Now().Unix()),
+			EnablePurchase:    true,
+			EnableProductPage: true,
+			CancelMode:        cancelMode.String(),
 			UserPurchaseLimit: decimal.NewFromInt(100),
 		},
 	}
@@ -150,9 +152,9 @@ func createBulk(t *testing.T) {
 			PurchaseLimit:     &_appGood.PurchaseLimit,
 			CommissionPercent: &_appGood.CommissionPercent,
 			DailyRewardAmount: &_amount,
-			OpenPurchase:      &_appGood.OpenPurchase,
-			IntoProductPage:   &_appGood.IntoProductPage,
-			CancelableBefore:  &_appGood.CancelableBefore,
+			EnablePurchase:    &_appGood.EnablePurchase,
+			EnableProductPage: &_appGood.EnableProductPage,
+			CancelMode:        &cancelMode,
 			UserPurchaseLimit: &_userPurchaseLimit,
 		})
 	}

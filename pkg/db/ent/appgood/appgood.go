@@ -57,12 +57,12 @@ const (
 	FieldGoodBanner = "good_banner"
 	// FieldDisplayNames holds the string denoting the display_names field in the database.
 	FieldDisplayNames = "display_names"
-	// FieldOpenPurchase holds the string denoting the open_purchase field in the database.
-	FieldOpenPurchase = "open_purchase"
-	// FieldIntoProductPage holds the string denoting the into_product_page field in the database.
-	FieldIntoProductPage = "into_product_page"
-	// FieldCancelableBefore holds the string denoting the cancelable_before field in the database.
-	FieldCancelableBefore = "cancelable_before"
+	// FieldEnablePurchase holds the string denoting the enable_purchase field in the database.
+	FieldEnablePurchase = "enable_purchase"
+	// FieldEnableProductPage holds the string denoting the enable_product_page field in the database.
+	FieldEnableProductPage = "enable_product_page"
+	// FieldCancelMode holds the string denoting the cancel_mode field in the database.
+	FieldCancelMode = "cancel_mode"
 	// FieldUserPurchaseLimit holds the string denoting the user_purchase_limit field in the database.
 	FieldUserPurchaseLimit = "user_purchase_limit"
 	// Table holds the table name of the appgood in the database.
@@ -94,9 +94,9 @@ var Columns = []string{
 	FieldDescriptions,
 	FieldGoodBanner,
 	FieldDisplayNames,
-	FieldOpenPurchase,
-	FieldIntoProductPage,
-	FieldCancelableBefore,
+	FieldEnablePurchase,
+	FieldEnableProductPage,
+	FieldCancelMode,
 	FieldUserPurchaseLimit,
 }
 
@@ -161,12 +161,12 @@ var (
 	DefaultGoodBanner string
 	// DefaultDisplayNames holds the default value on creation for the "display_names" field.
 	DefaultDisplayNames []string
-	// DefaultOpenPurchase holds the default value on creation for the "open_purchase" field.
-	DefaultOpenPurchase bool
-	// DefaultIntoProductPage holds the default value on creation for the "into_product_page" field.
-	DefaultIntoProductPage bool
-	// DefaultCancelableBefore holds the default value on creation for the "cancelable_before" field.
-	DefaultCancelableBefore uint32
+	// DefaultEnablePurchase holds the default value on creation for the "enable_purchase" field.
+	DefaultEnablePurchase bool
+	// DefaultEnableProductPage holds the default value on creation for the "enable_product_page" field.
+	DefaultEnableProductPage bool
+	// DefaultCancelMode holds the default value on creation for the "cancel_mode" field.
+	DefaultCancelMode string
 	// DefaultID holds the default value on creation for the "id" field.
 	DefaultID func() uuid.UUID
 )

@@ -91,14 +91,14 @@ func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (*ent.AppGoodCreate, 
 	if in.DisplayNames != nil {
 		c.SetDisplayNames(in.GetDisplayNames())
 	}
-	if in.OpenPurchase != nil {
-		c.SetOpenPurchase(in.GetOpenPurchase())
+	if in.EnablePurchase != nil {
+		c.SetEnablePurchase(in.GetEnablePurchase())
 	}
-	if in.IntoProductPage != nil {
-		c.SetIntoProductPage(in.GetIntoProductPage())
+	if in.EnableProductPage != nil {
+		c.SetEnableProductPage(in.GetEnableProductPage())
 	}
-	if in.CancelableBefore != nil {
-		c.SetCancelableBefore(in.GetCancelableBefore())
+	if in.CancelMode != nil {
+		c.SetCancelMode(in.GetCancelMode().String())
 	}
 	if in.UserPurchaseLimit != nil {
 		userPurchaseLimit, err := decimal.NewFromString(in.GetUserPurchaseLimit())
@@ -237,14 +237,21 @@ func UpdateSet(u *ent.AppGoodUpdateOne, in *npool.AppGoodReq) (*ent.AppGoodUpdat
 	if len(in.DisplayNames) > 0 {
 		u.SetDisplayNames(in.GetDisplayNames())
 	}
-	if in.OpenPurchase != nil {
-		u.SetOpenPurchase(in.GetOpenPurchase())
+	if in.EnablePurchase != nil {
+		u.SetEnablePurchase(in.GetEnablePurchase())
 	}
-	if in.IntoProductPage != nil {
-		u.SetIntoProductPage(in.GetIntoProductPage())
+	if in.EnableProductPage != nil {
+		u.SetEnableProductPage(in.GetEnableProductPage())
 	}
-	if in.CancelableBefore != nil {
-		u.SetCancelableBefore(in.GetCancelableBefore())
+	if in.CancelMode != nil {
+		u.SetCancelMode(in.GetCancelMode().String())
+	}
+	if in.UserPurchaseLimit != nil {
+		userPurchaseLimit, err := decimal.NewFromString(in.GetUserPurchaseLimit())
+		if err != nil {
+			return nil, err
+		}
+		u.SetUserPurchaseLimit(userPurchaseLimit)
 	}
 	if in.UserPurchaseLimit != nil {
 		userPurchaseLimit, err := decimal.NewFromString(in.GetUserPurchaseLimit())

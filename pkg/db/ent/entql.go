@@ -56,9 +56,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 			appgood.FieldDescriptions:         {Type: field.TypeJSON, Column: appgood.FieldDescriptions},
 			appgood.FieldGoodBanner:           {Type: field.TypeString, Column: appgood.FieldGoodBanner},
 			appgood.FieldDisplayNames:         {Type: field.TypeJSON, Column: appgood.FieldDisplayNames},
-			appgood.FieldOpenPurchase:         {Type: field.TypeBool, Column: appgood.FieldOpenPurchase},
-			appgood.FieldIntoProductPage:      {Type: field.TypeBool, Column: appgood.FieldIntoProductPage},
-			appgood.FieldCancelableBefore:     {Type: field.TypeUint32, Column: appgood.FieldCancelableBefore},
+			appgood.FieldEnablePurchase:       {Type: field.TypeBool, Column: appgood.FieldEnablePurchase},
+			appgood.FieldEnableProductPage:    {Type: field.TypeBool, Column: appgood.FieldEnableProductPage},
+			appgood.FieldCancelMode:           {Type: field.TypeString, Column: appgood.FieldCancelMode},
 			appgood.FieldUserPurchaseLimit:    {Type: field.TypeOther, Column: appgood.FieldUserPurchaseLimit},
 		},
 	}
@@ -429,19 +429,19 @@ func (f *AppGoodFilter) WhereDisplayNames(p entql.BytesP) {
 	f.Where(p.Field(appgood.FieldDisplayNames))
 }
 
-// WhereOpenPurchase applies the entql bool predicate on the open_purchase field.
-func (f *AppGoodFilter) WhereOpenPurchase(p entql.BoolP) {
-	f.Where(p.Field(appgood.FieldOpenPurchase))
+// WhereEnablePurchase applies the entql bool predicate on the enable_purchase field.
+func (f *AppGoodFilter) WhereEnablePurchase(p entql.BoolP) {
+	f.Where(p.Field(appgood.FieldEnablePurchase))
 }
 
-// WhereIntoProductPage applies the entql bool predicate on the into_product_page field.
-func (f *AppGoodFilter) WhereIntoProductPage(p entql.BoolP) {
-	f.Where(p.Field(appgood.FieldIntoProductPage))
+// WhereEnableProductPage applies the entql bool predicate on the enable_product_page field.
+func (f *AppGoodFilter) WhereEnableProductPage(p entql.BoolP) {
+	f.Where(p.Field(appgood.FieldEnableProductPage))
 }
 
-// WhereCancelableBefore applies the entql uint32 predicate on the cancelable_before field.
-func (f *AppGoodFilter) WhereCancelableBefore(p entql.Uint32P) {
-	f.Where(p.Field(appgood.FieldCancelableBefore))
+// WhereCancelMode applies the entql string predicate on the cancel_mode field.
+func (f *AppGoodFilter) WhereCancelMode(p entql.StringP) {
+	f.Where(p.Field(appgood.FieldCancelMode))
 }
 
 // WhereUserPurchaseLimit applies the entql other predicate on the user_purchase_limit field.

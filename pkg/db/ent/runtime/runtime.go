@@ -123,18 +123,18 @@ func init() {
 	appgoodDescDisplayNames := appgoodFields[19].Descriptor()
 	// appgood.DefaultDisplayNames holds the default value on creation for the display_names field.
 	appgood.DefaultDisplayNames = appgoodDescDisplayNames.Default.([]string)
-	// appgoodDescOpenPurchase is the schema descriptor for open_purchase field.
-	appgoodDescOpenPurchase := appgoodFields[20].Descriptor()
-	// appgood.DefaultOpenPurchase holds the default value on creation for the open_purchase field.
-	appgood.DefaultOpenPurchase = appgoodDescOpenPurchase.Default.(bool)
-	// appgoodDescIntoProductPage is the schema descriptor for into_product_page field.
-	appgoodDescIntoProductPage := appgoodFields[21].Descriptor()
-	// appgood.DefaultIntoProductPage holds the default value on creation for the into_product_page field.
-	appgood.DefaultIntoProductPage = appgoodDescIntoProductPage.Default.(bool)
-	// appgoodDescCancelableBefore is the schema descriptor for cancelable_before field.
-	appgoodDescCancelableBefore := appgoodFields[22].Descriptor()
-	// appgood.DefaultCancelableBefore holds the default value on creation for the cancelable_before field.
-	appgood.DefaultCancelableBefore = appgoodDescCancelableBefore.Default.(uint32)
+	// appgoodDescEnablePurchase is the schema descriptor for enable_purchase field.
+	appgoodDescEnablePurchase := appgoodFields[20].Descriptor()
+	// appgood.DefaultEnablePurchase holds the default value on creation for the enable_purchase field.
+	appgood.DefaultEnablePurchase = appgoodDescEnablePurchase.Default.(bool)
+	// appgoodDescEnableProductPage is the schema descriptor for enable_product_page field.
+	appgoodDescEnableProductPage := appgoodFields[21].Descriptor()
+	// appgood.DefaultEnableProductPage holds the default value on creation for the enable_product_page field.
+	appgood.DefaultEnableProductPage = appgoodDescEnableProductPage.Default.(bool)
+	// appgoodDescCancelMode is the schema descriptor for cancel_mode field.
+	appgoodDescCancelMode := appgoodFields[22].Descriptor()
+	// appgood.DefaultCancelMode holds the default value on creation for the cancel_mode field.
+	appgood.DefaultCancelMode = appgoodDescCancelMode.Default.(string)
 	// appgoodDescID is the schema descriptor for id field.
 	appgoodDescID := appgoodFields[0].Descriptor()
 	// appgood.DefaultID holds the default value on creation for the id field.
