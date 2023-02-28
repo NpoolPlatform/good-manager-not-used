@@ -123,7 +123,7 @@ func (AppGood) Fields() []ent.Field {
 		field.
 			String("cancel_mode").
 			Optional().
-			Default(npool.CancelMode_CancellableBeforeBenefit.String()),
+			Default(npool.CancelMode_Uncalcellable.String()),
 		field.
 			Other("user_purchase_limit", decimal.Decimal{}).
 			SchemaType(map[string]string{
