@@ -557,6 +557,53 @@ func (agu *AppGoodUpdate) ClearUserPurchaseLimit() *AppGoodUpdate {
 	return agu
 }
 
+// SetDisplayColors sets the "display_colors" field.
+func (agu *AppGoodUpdate) SetDisplayColors(s string) *AppGoodUpdate {
+	agu.mutation.SetDisplayColors(s)
+	return agu
+}
+
+// SetNillableDisplayColors sets the "display_colors" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableDisplayColors(s *string) *AppGoodUpdate {
+	if s != nil {
+		agu.SetDisplayColors(*s)
+	}
+	return agu
+}
+
+// ClearDisplayColors clears the value of the "display_colors" field.
+func (agu *AppGoodUpdate) ClearDisplayColors() *AppGoodUpdate {
+	agu.mutation.ClearDisplayColors()
+	return agu
+}
+
+// SetCancellableBeforeStart sets the "cancellable_before_start" field.
+func (agu *AppGoodUpdate) SetCancellableBeforeStart(u uint32) *AppGoodUpdate {
+	agu.mutation.ResetCancellableBeforeStart()
+	agu.mutation.SetCancellableBeforeStart(u)
+	return agu
+}
+
+// SetNillableCancellableBeforeStart sets the "cancellable_before_start" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableCancellableBeforeStart(u *uint32) *AppGoodUpdate {
+	if u != nil {
+		agu.SetCancellableBeforeStart(*u)
+	}
+	return agu
+}
+
+// AddCancellableBeforeStart adds u to the "cancellable_before_start" field.
+func (agu *AppGoodUpdate) AddCancellableBeforeStart(u int32) *AppGoodUpdate {
+	agu.mutation.AddCancellableBeforeStart(u)
+	return agu
+}
+
+// ClearCancellableBeforeStart clears the value of the "cancellable_before_start" field.
+func (agu *AppGoodUpdate) ClearCancellableBeforeStart() *AppGoodUpdate {
+	agu.mutation.ClearCancellableBeforeStart()
+	return agu
+}
+
 // Mutation returns the AppGoodMutation object of the builder.
 func (agu *AppGoodUpdate) Mutation() *AppGoodMutation {
 	return agu.mutation
@@ -1038,6 +1085,39 @@ func (agu *AppGoodUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeOther,
 			Column: appgood.FieldUserPurchaseLimit,
+		})
+	}
+	if value, ok := agu.mutation.DisplayColors(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: appgood.FieldDisplayColors,
+		})
+	}
+	if agu.mutation.DisplayColorsCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: appgood.FieldDisplayColors,
+		})
+	}
+	if value, ok := agu.mutation.CancellableBeforeStart(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldCancellableBeforeStart,
+		})
+	}
+	if value, ok := agu.mutation.AddedCancellableBeforeStart(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldCancellableBeforeStart,
+		})
+	}
+	if agu.mutation.CancellableBeforeStartCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Column: appgood.FieldCancellableBeforeStart,
 		})
 	}
 	_spec.Modifiers = agu.modifiers
@@ -1588,6 +1668,53 @@ func (aguo *AppGoodUpdateOne) ClearUserPurchaseLimit() *AppGoodUpdateOne {
 	return aguo
 }
 
+// SetDisplayColors sets the "display_colors" field.
+func (aguo *AppGoodUpdateOne) SetDisplayColors(s string) *AppGoodUpdateOne {
+	aguo.mutation.SetDisplayColors(s)
+	return aguo
+}
+
+// SetNillableDisplayColors sets the "display_colors" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableDisplayColors(s *string) *AppGoodUpdateOne {
+	if s != nil {
+		aguo.SetDisplayColors(*s)
+	}
+	return aguo
+}
+
+// ClearDisplayColors clears the value of the "display_colors" field.
+func (aguo *AppGoodUpdateOne) ClearDisplayColors() *AppGoodUpdateOne {
+	aguo.mutation.ClearDisplayColors()
+	return aguo
+}
+
+// SetCancellableBeforeStart sets the "cancellable_before_start" field.
+func (aguo *AppGoodUpdateOne) SetCancellableBeforeStart(u uint32) *AppGoodUpdateOne {
+	aguo.mutation.ResetCancellableBeforeStart()
+	aguo.mutation.SetCancellableBeforeStart(u)
+	return aguo
+}
+
+// SetNillableCancellableBeforeStart sets the "cancellable_before_start" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableCancellableBeforeStart(u *uint32) *AppGoodUpdateOne {
+	if u != nil {
+		aguo.SetCancellableBeforeStart(*u)
+	}
+	return aguo
+}
+
+// AddCancellableBeforeStart adds u to the "cancellable_before_start" field.
+func (aguo *AppGoodUpdateOne) AddCancellableBeforeStart(u int32) *AppGoodUpdateOne {
+	aguo.mutation.AddCancellableBeforeStart(u)
+	return aguo
+}
+
+// ClearCancellableBeforeStart clears the value of the "cancellable_before_start" field.
+func (aguo *AppGoodUpdateOne) ClearCancellableBeforeStart() *AppGoodUpdateOne {
+	aguo.mutation.ClearCancellableBeforeStart()
+	return aguo
+}
+
 // Mutation returns the AppGoodMutation object of the builder.
 func (aguo *AppGoodUpdateOne) Mutation() *AppGoodMutation {
 	return aguo.mutation
@@ -2099,6 +2226,39 @@ func (aguo *AppGoodUpdateOne) sqlSave(ctx context.Context) (_node *AppGood, err 
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeOther,
 			Column: appgood.FieldUserPurchaseLimit,
+		})
+	}
+	if value, ok := aguo.mutation.DisplayColors(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: appgood.FieldDisplayColors,
+		})
+	}
+	if aguo.mutation.DisplayColorsCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: appgood.FieldDisplayColors,
+		})
+	}
+	if value, ok := aguo.mutation.CancellableBeforeStart(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldCancellableBeforeStart,
+		})
+	}
+	if value, ok := aguo.mutation.AddedCancellableBeforeStart(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldCancellableBeforeStart,
+		})
+	}
+	if aguo.mutation.CancellableBeforeStartCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Column: appgood.FieldCancellableBeforeStart,
 		})
 	}
 	_spec.Modifiers = aguo.modifiers

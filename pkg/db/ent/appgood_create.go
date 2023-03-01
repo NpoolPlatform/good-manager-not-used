@@ -356,6 +356,34 @@ func (agc *AppGoodCreate) SetNillableUserPurchaseLimit(d *decimal.Decimal) *AppG
 	return agc
 }
 
+// SetDisplayColors sets the "display_colors" field.
+func (agc *AppGoodCreate) SetDisplayColors(s string) *AppGoodCreate {
+	agc.mutation.SetDisplayColors(s)
+	return agc
+}
+
+// SetNillableDisplayColors sets the "display_colors" field if the given value is not nil.
+func (agc *AppGoodCreate) SetNillableDisplayColors(s *string) *AppGoodCreate {
+	if s != nil {
+		agc.SetDisplayColors(*s)
+	}
+	return agc
+}
+
+// SetCancellableBeforeStart sets the "cancellable_before_start" field.
+func (agc *AppGoodCreate) SetCancellableBeforeStart(u uint32) *AppGoodCreate {
+	agc.mutation.SetCancellableBeforeStart(u)
+	return agc
+}
+
+// SetNillableCancellableBeforeStart sets the "cancellable_before_start" field if the given value is not nil.
+func (agc *AppGoodCreate) SetNillableCancellableBeforeStart(u *uint32) *AppGoodCreate {
+	if u != nil {
+		agc.SetCancellableBeforeStart(*u)
+	}
+	return agc
+}
+
 // SetID sets the "id" field.
 func (agc *AppGoodCreate) SetID(u uuid.UUID) *AppGoodCreate {
 	agc.mutation.SetID(u)
@@ -549,6 +577,14 @@ func (agc *AppGoodCreate) defaults() error {
 	if _, ok := agc.mutation.CancelMode(); !ok {
 		v := appgood.DefaultCancelMode
 		agc.mutation.SetCancelMode(v)
+	}
+	if _, ok := agc.mutation.DisplayColors(); !ok {
+		v := appgood.DefaultDisplayColors
+		agc.mutation.SetDisplayColors(v)
+	}
+	if _, ok := agc.mutation.CancellableBeforeStart(); !ok {
+		v := appgood.DefaultCancellableBeforeStart
+		agc.mutation.SetCancellableBeforeStart(v)
 	}
 	if _, ok := agc.mutation.ID(); !ok {
 		if appgood.DefaultID == nil {
@@ -821,6 +857,22 @@ func (agc *AppGoodCreate) createSpec() (*AppGood, *sqlgraph.CreateSpec) {
 			Column: appgood.FieldUserPurchaseLimit,
 		})
 		_node.UserPurchaseLimit = value
+	}
+	if value, ok := agc.mutation.DisplayColors(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: appgood.FieldDisplayColors,
+		})
+		_node.DisplayColors = value
+	}
+	if value, ok := agc.mutation.CancellableBeforeStart(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldCancellableBeforeStart,
+		})
+		_node.CancellableBeforeStart = value
 	}
 	return _node, _spec
 }
@@ -1377,6 +1429,48 @@ func (u *AppGoodUpsert) UpdateUserPurchaseLimit() *AppGoodUpsert {
 // ClearUserPurchaseLimit clears the value of the "user_purchase_limit" field.
 func (u *AppGoodUpsert) ClearUserPurchaseLimit() *AppGoodUpsert {
 	u.SetNull(appgood.FieldUserPurchaseLimit)
+	return u
+}
+
+// SetDisplayColors sets the "display_colors" field.
+func (u *AppGoodUpsert) SetDisplayColors(v string) *AppGoodUpsert {
+	u.Set(appgood.FieldDisplayColors, v)
+	return u
+}
+
+// UpdateDisplayColors sets the "display_colors" field to the value that was provided on create.
+func (u *AppGoodUpsert) UpdateDisplayColors() *AppGoodUpsert {
+	u.SetExcluded(appgood.FieldDisplayColors)
+	return u
+}
+
+// ClearDisplayColors clears the value of the "display_colors" field.
+func (u *AppGoodUpsert) ClearDisplayColors() *AppGoodUpsert {
+	u.SetNull(appgood.FieldDisplayColors)
+	return u
+}
+
+// SetCancellableBeforeStart sets the "cancellable_before_start" field.
+func (u *AppGoodUpsert) SetCancellableBeforeStart(v uint32) *AppGoodUpsert {
+	u.Set(appgood.FieldCancellableBeforeStart, v)
+	return u
+}
+
+// UpdateCancellableBeforeStart sets the "cancellable_before_start" field to the value that was provided on create.
+func (u *AppGoodUpsert) UpdateCancellableBeforeStart() *AppGoodUpsert {
+	u.SetExcluded(appgood.FieldCancellableBeforeStart)
+	return u
+}
+
+// AddCancellableBeforeStart adds v to the "cancellable_before_start" field.
+func (u *AppGoodUpsert) AddCancellableBeforeStart(v uint32) *AppGoodUpsert {
+	u.Add(appgood.FieldCancellableBeforeStart, v)
+	return u
+}
+
+// ClearCancellableBeforeStart clears the value of the "cancellable_before_start" field.
+func (u *AppGoodUpsert) ClearCancellableBeforeStart() *AppGoodUpsert {
+	u.SetNull(appgood.FieldCancellableBeforeStart)
 	return u
 }
 
@@ -2015,6 +2109,55 @@ func (u *AppGoodUpsertOne) UpdateUserPurchaseLimit() *AppGoodUpsertOne {
 func (u *AppGoodUpsertOne) ClearUserPurchaseLimit() *AppGoodUpsertOne {
 	return u.Update(func(s *AppGoodUpsert) {
 		s.ClearUserPurchaseLimit()
+	})
+}
+
+// SetDisplayColors sets the "display_colors" field.
+func (u *AppGoodUpsertOne) SetDisplayColors(v string) *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetDisplayColors(v)
+	})
+}
+
+// UpdateDisplayColors sets the "display_colors" field to the value that was provided on create.
+func (u *AppGoodUpsertOne) UpdateDisplayColors() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateDisplayColors()
+	})
+}
+
+// ClearDisplayColors clears the value of the "display_colors" field.
+func (u *AppGoodUpsertOne) ClearDisplayColors() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearDisplayColors()
+	})
+}
+
+// SetCancellableBeforeStart sets the "cancellable_before_start" field.
+func (u *AppGoodUpsertOne) SetCancellableBeforeStart(v uint32) *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetCancellableBeforeStart(v)
+	})
+}
+
+// AddCancellableBeforeStart adds v to the "cancellable_before_start" field.
+func (u *AppGoodUpsertOne) AddCancellableBeforeStart(v uint32) *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.AddCancellableBeforeStart(v)
+	})
+}
+
+// UpdateCancellableBeforeStart sets the "cancellable_before_start" field to the value that was provided on create.
+func (u *AppGoodUpsertOne) UpdateCancellableBeforeStart() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateCancellableBeforeStart()
+	})
+}
+
+// ClearCancellableBeforeStart clears the value of the "cancellable_before_start" field.
+func (u *AppGoodUpsertOne) ClearCancellableBeforeStart() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearCancellableBeforeStart()
 	})
 }
 
@@ -2819,6 +2962,55 @@ func (u *AppGoodUpsertBulk) UpdateUserPurchaseLimit() *AppGoodUpsertBulk {
 func (u *AppGoodUpsertBulk) ClearUserPurchaseLimit() *AppGoodUpsertBulk {
 	return u.Update(func(s *AppGoodUpsert) {
 		s.ClearUserPurchaseLimit()
+	})
+}
+
+// SetDisplayColors sets the "display_colors" field.
+func (u *AppGoodUpsertBulk) SetDisplayColors(v string) *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetDisplayColors(v)
+	})
+}
+
+// UpdateDisplayColors sets the "display_colors" field to the value that was provided on create.
+func (u *AppGoodUpsertBulk) UpdateDisplayColors() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateDisplayColors()
+	})
+}
+
+// ClearDisplayColors clears the value of the "display_colors" field.
+func (u *AppGoodUpsertBulk) ClearDisplayColors() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearDisplayColors()
+	})
+}
+
+// SetCancellableBeforeStart sets the "cancellable_before_start" field.
+func (u *AppGoodUpsertBulk) SetCancellableBeforeStart(v uint32) *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetCancellableBeforeStart(v)
+	})
+}
+
+// AddCancellableBeforeStart adds v to the "cancellable_before_start" field.
+func (u *AppGoodUpsertBulk) AddCancellableBeforeStart(v uint32) *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.AddCancellableBeforeStart(v)
+	})
+}
+
+// UpdateCancellableBeforeStart sets the "cancellable_before_start" field to the value that was provided on create.
+func (u *AppGoodUpsertBulk) UpdateCancellableBeforeStart() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateCancellableBeforeStart()
+	})
+}
+
+// ClearCancellableBeforeStart clears the value of the "cancellable_before_start" field.
+func (u *AppGoodUpsertBulk) ClearCancellableBeforeStart() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearCancellableBeforeStart()
 	})
 }
 

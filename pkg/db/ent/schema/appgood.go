@@ -130,6 +130,14 @@ func (AppGood) Fields() []ent.Field {
 				dialect.MySQL: "decimal(37,18)",
 			}).
 			Optional(),
+		field.
+			String("display_colors").
+			Optional().
+			Default(""),
+		field.
+			Uint32("cancellable_before_start").
+			Optional().
+			Default(0),
 	}
 }
 

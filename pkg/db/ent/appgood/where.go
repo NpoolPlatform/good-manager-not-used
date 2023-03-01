@@ -248,6 +248,20 @@ func UserPurchaseLimit(v decimal.Decimal) predicate.AppGood {
 	})
 }
 
+// DisplayColors applies equality check predicate on the "display_colors" field. It's identical to DisplayColorsEQ.
+func DisplayColors(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldDisplayColors), v))
+	})
+}
+
+// CancellableBeforeStart applies equality check predicate on the "cancellable_before_start" field. It's identical to CancellableBeforeStartEQ.
+func CancellableBeforeStart(v uint32) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCancellableBeforeStart), v))
+	})
+}
+
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
 func CreatedAtEQ(v uint32) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
@@ -2015,6 +2029,197 @@ func UserPurchaseLimitIsNil() predicate.AppGood {
 func UserPurchaseLimitNotNil() predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
 		s.Where(sql.NotNull(s.C(FieldUserPurchaseLimit)))
+	})
+}
+
+// DisplayColorsEQ applies the EQ predicate on the "display_colors" field.
+func DisplayColorsEQ(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldDisplayColors), v))
+	})
+}
+
+// DisplayColorsNEQ applies the NEQ predicate on the "display_colors" field.
+func DisplayColorsNEQ(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldDisplayColors), v))
+	})
+}
+
+// DisplayColorsIn applies the In predicate on the "display_colors" field.
+func DisplayColorsIn(vs ...string) predicate.AppGood {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.In(s.C(FieldDisplayColors), v...))
+	})
+}
+
+// DisplayColorsNotIn applies the NotIn predicate on the "display_colors" field.
+func DisplayColorsNotIn(vs ...string) predicate.AppGood {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotIn(s.C(FieldDisplayColors), v...))
+	})
+}
+
+// DisplayColorsGT applies the GT predicate on the "display_colors" field.
+func DisplayColorsGT(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldDisplayColors), v))
+	})
+}
+
+// DisplayColorsGTE applies the GTE predicate on the "display_colors" field.
+func DisplayColorsGTE(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldDisplayColors), v))
+	})
+}
+
+// DisplayColorsLT applies the LT predicate on the "display_colors" field.
+func DisplayColorsLT(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldDisplayColors), v))
+	})
+}
+
+// DisplayColorsLTE applies the LTE predicate on the "display_colors" field.
+func DisplayColorsLTE(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldDisplayColors), v))
+	})
+}
+
+// DisplayColorsContains applies the Contains predicate on the "display_colors" field.
+func DisplayColorsContains(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldDisplayColors), v))
+	})
+}
+
+// DisplayColorsHasPrefix applies the HasPrefix predicate on the "display_colors" field.
+func DisplayColorsHasPrefix(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldDisplayColors), v))
+	})
+}
+
+// DisplayColorsHasSuffix applies the HasSuffix predicate on the "display_colors" field.
+func DisplayColorsHasSuffix(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldDisplayColors), v))
+	})
+}
+
+// DisplayColorsIsNil applies the IsNil predicate on the "display_colors" field.
+func DisplayColorsIsNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldDisplayColors)))
+	})
+}
+
+// DisplayColorsNotNil applies the NotNil predicate on the "display_colors" field.
+func DisplayColorsNotNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldDisplayColors)))
+	})
+}
+
+// DisplayColorsEqualFold applies the EqualFold predicate on the "display_colors" field.
+func DisplayColorsEqualFold(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldDisplayColors), v))
+	})
+}
+
+// DisplayColorsContainsFold applies the ContainsFold predicate on the "display_colors" field.
+func DisplayColorsContainsFold(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldDisplayColors), v))
+	})
+}
+
+// CancellableBeforeStartEQ applies the EQ predicate on the "cancellable_before_start" field.
+func CancellableBeforeStartEQ(v uint32) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCancellableBeforeStart), v))
+	})
+}
+
+// CancellableBeforeStartNEQ applies the NEQ predicate on the "cancellable_before_start" field.
+func CancellableBeforeStartNEQ(v uint32) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldCancellableBeforeStart), v))
+	})
+}
+
+// CancellableBeforeStartIn applies the In predicate on the "cancellable_before_start" field.
+func CancellableBeforeStartIn(vs ...uint32) predicate.AppGood {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.In(s.C(FieldCancellableBeforeStart), v...))
+	})
+}
+
+// CancellableBeforeStartNotIn applies the NotIn predicate on the "cancellable_before_start" field.
+func CancellableBeforeStartNotIn(vs ...uint32) predicate.AppGood {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotIn(s.C(FieldCancellableBeforeStart), v...))
+	})
+}
+
+// CancellableBeforeStartGT applies the GT predicate on the "cancellable_before_start" field.
+func CancellableBeforeStartGT(v uint32) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldCancellableBeforeStart), v))
+	})
+}
+
+// CancellableBeforeStartGTE applies the GTE predicate on the "cancellable_before_start" field.
+func CancellableBeforeStartGTE(v uint32) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldCancellableBeforeStart), v))
+	})
+}
+
+// CancellableBeforeStartLT applies the LT predicate on the "cancellable_before_start" field.
+func CancellableBeforeStartLT(v uint32) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldCancellableBeforeStart), v))
+	})
+}
+
+// CancellableBeforeStartLTE applies the LTE predicate on the "cancellable_before_start" field.
+func CancellableBeforeStartLTE(v uint32) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldCancellableBeforeStart), v))
+	})
+}
+
+// CancellableBeforeStartIsNil applies the IsNil predicate on the "cancellable_before_start" field.
+func CancellableBeforeStartIsNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldCancellableBeforeStart)))
+	})
+}
+
+// CancellableBeforeStartNotNil applies the NotNil predicate on the "cancellable_before_start" field.
+func CancellableBeforeStartNotNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldCancellableBeforeStart)))
 	})
 }
 

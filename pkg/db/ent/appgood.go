@@ -70,6 +70,10 @@ type AppGood struct {
 	CancelMode string `json:"cancel_mode,omitempty"`
 	// UserPurchaseLimit holds the value of the "user_purchase_limit" field.
 	UserPurchaseLimit decimal.Decimal `json:"user_purchase_limit,omitempty"`
+	// DisplayColors holds the value of the "display_colors" field.
+	DisplayColors string `json:"display_colors,omitempty"`
+	// CancellableBeforeStart holds the value of the "cancellable_before_start" field.
+	CancellableBeforeStart uint32 `json:"cancellable_before_start,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -83,9 +87,9 @@ func (*AppGood) scanValues(columns []string) ([]interface{}, error) {
 			values[i] = new(decimal.Decimal)
 		case appgood.FieldOnline, appgood.FieldVisible, appgood.FieldEnablePurchase, appgood.FieldEnableProductPage:
 			values[i] = new(sql.NullBool)
-		case appgood.FieldCreatedAt, appgood.FieldUpdatedAt, appgood.FieldDeletedAt, appgood.FieldDisplayIndex, appgood.FieldPurchaseLimit, appgood.FieldCommissionPercent, appgood.FieldSaleStartAt, appgood.FieldSaleEndAt, appgood.FieldServiceStartAt, appgood.FieldTechnicalFeeRatio, appgood.FieldElectricityFeeRatio:
+		case appgood.FieldCreatedAt, appgood.FieldUpdatedAt, appgood.FieldDeletedAt, appgood.FieldDisplayIndex, appgood.FieldPurchaseLimit, appgood.FieldCommissionPercent, appgood.FieldSaleStartAt, appgood.FieldSaleEndAt, appgood.FieldServiceStartAt, appgood.FieldTechnicalFeeRatio, appgood.FieldElectricityFeeRatio, appgood.FieldCancellableBeforeStart:
 			values[i] = new(sql.NullInt64)
-		case appgood.FieldGoodName, appgood.FieldCommissionSettleType, appgood.FieldGoodBanner, appgood.FieldCancelMode:
+		case appgood.FieldGoodName, appgood.FieldCommissionSettleType, appgood.FieldGoodBanner, appgood.FieldCancelMode, appgood.FieldDisplayColors:
 			values[i] = new(sql.NullString)
 		case appgood.FieldID, appgood.FieldAppID, appgood.FieldGoodID:
 			values[i] = new(uuid.UUID)
@@ -270,6 +274,18 @@ func (ag *AppGood) assignValues(columns []string, values []interface{}) error {
 			} else if value != nil {
 				ag.UserPurchaseLimit = *value
 			}
+		case appgood.FieldDisplayColors:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field display_colors", values[i])
+			} else if value.Valid {
+				ag.DisplayColors = value.String
+			}
+		case appgood.FieldCancellableBeforeStart:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field cancellable_before_start", values[i])
+			} else if value.Valid {
+				ag.CancellableBeforeStart = uint32(value.Int64)
+			}
 		}
 	}
 	return nil
@@ -375,6 +391,12 @@ func (ag *AppGood) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("user_purchase_limit=")
 	builder.WriteString(fmt.Sprintf("%v", ag.UserPurchaseLimit))
+	builder.WriteString(", ")
+	builder.WriteString("display_colors=")
+	builder.WriteString(ag.DisplayColors)
+	builder.WriteString(", ")
+	builder.WriteString("cancellable_before_start=")
+	builder.WriteString(fmt.Sprintf("%v", ag.CancellableBeforeStart))
 	builder.WriteByte(')')
 	return builder.String()
 }

@@ -38,6 +38,8 @@ var (
 		{Name: "enable_product_page", Type: field.TypeBool, Nullable: true, Default: true},
 		{Name: "cancel_mode", Type: field.TypeString, Nullable: true, Default: "Uncancellable"},
 		{Name: "user_purchase_limit", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
+		{Name: "display_colors", Type: field.TypeString, Nullable: true, Default: ""},
+		{Name: "cancellable_before_start", Type: field.TypeUint32, Nullable: true, Default: 0},
 	}
 	// AppGoodsTable holds the schema information for the "app_goods" table.
 	AppGoodsTable = &schema.Table{

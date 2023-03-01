@@ -107,7 +107,12 @@ func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (*ent.AppGoodCreate, 
 		}
 		c.SetUserPurchaseLimit(userPurchaseLimit)
 	}
-
+	if in.DisplayColors != nil {
+		c.SetDisplayColors(in.GetDisplayColors())
+	}
+	if in.CancellableBeforeStart != nil {
+		c.SetCancellableBeforeStart(in.GetCancellableBeforeStart())
+	}
 	return c, nil
 }
 
@@ -260,7 +265,12 @@ func UpdateSet(u *ent.AppGoodUpdateOne, in *npool.AppGoodReq) (*ent.AppGoodUpdat
 		}
 		u.SetUserPurchaseLimit(userPurchaseLimit)
 	}
-
+	if in.DisplayColors != nil {
+		u.SetDisplayColors(in.GetDisplayColors())
+	}
+	if in.CancellableBeforeStart != nil {
+		u.SetCancellableBeforeStart(in.GetCancellableBeforeStart())
+	}
 	return u, nil
 }
 

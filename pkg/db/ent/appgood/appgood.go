@@ -65,6 +65,10 @@ const (
 	FieldCancelMode = "cancel_mode"
 	// FieldUserPurchaseLimit holds the string denoting the user_purchase_limit field in the database.
 	FieldUserPurchaseLimit = "user_purchase_limit"
+	// FieldDisplayColors holds the string denoting the display_colors field in the database.
+	FieldDisplayColors = "display_colors"
+	// FieldCancellableBeforeStart holds the string denoting the cancellable_before_start field in the database.
+	FieldCancellableBeforeStart = "cancellable_before_start"
 	// Table holds the table name of the appgood in the database.
 	Table = "app_goods"
 )
@@ -98,6 +102,8 @@ var Columns = []string{
 	FieldEnableProductPage,
 	FieldCancelMode,
 	FieldUserPurchaseLimit,
+	FieldDisplayColors,
+	FieldCancellableBeforeStart,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -167,6 +173,10 @@ var (
 	DefaultEnableProductPage bool
 	// DefaultCancelMode holds the default value on creation for the "cancel_mode" field.
 	DefaultCancelMode string
+	// DefaultDisplayColors holds the default value on creation for the "display_colors" field.
+	DefaultDisplayColors string
+	// DefaultCancellableBeforeStart holds the default value on creation for the "cancellable_before_start" field.
+	DefaultCancellableBeforeStart uint32
 	// DefaultID holds the default value on creation for the "id" field.
 	DefaultID func() uuid.UUID
 )
