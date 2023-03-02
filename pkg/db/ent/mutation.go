@@ -1671,22 +1671,9 @@ func (m *AppGoodMutation) OldDisplayColors(ctx context.Context) (v []string, err
 	return oldValue.DisplayColors, nil
 }
 
-// ClearDisplayColors clears the value of the "display_colors" field.
-func (m *AppGoodMutation) ClearDisplayColors() {
-	m.display_colors = nil
-	m.clearedFields[appgood.FieldDisplayColors] = struct{}{}
-}
-
-// DisplayColorsCleared returns if the "display_colors" field was cleared in this mutation.
-func (m *AppGoodMutation) DisplayColorsCleared() bool {
-	_, ok := m.clearedFields[appgood.FieldDisplayColors]
-	return ok
-}
-
 // ResetDisplayColors resets all changes to the "display_colors" field.
 func (m *AppGoodMutation) ResetDisplayColors() {
 	m.display_colors = nil
-	delete(m.clearedFields, appgood.FieldDisplayColors)
 }
 
 // SetCancellableBeforeStart sets the "cancellable_before_start" field.
@@ -2500,9 +2487,6 @@ func (m *AppGoodMutation) ClearedFields() []string {
 	if m.FieldCleared(appgood.FieldUserPurchaseLimit) {
 		fields = append(fields, appgood.FieldUserPurchaseLimit)
 	}
-	if m.FieldCleared(appgood.FieldDisplayColors) {
-		fields = append(fields, appgood.FieldDisplayColors)
-	}
 	if m.FieldCleared(appgood.FieldCancellableBeforeStart) {
 		fields = append(fields, appgood.FieldCancellableBeforeStart)
 	}
@@ -2585,9 +2569,6 @@ func (m *AppGoodMutation) ClearField(name string) error {
 		return nil
 	case appgood.FieldUserPurchaseLimit:
 		m.ClearUserPurchaseLimit()
-		return nil
-	case appgood.FieldDisplayColors:
-		m.ClearDisplayColors()
 		return nil
 	case appgood.FieldCancellableBeforeStart:
 		m.ClearCancellableBeforeStart()

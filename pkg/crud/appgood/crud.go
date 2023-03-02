@@ -22,7 +22,7 @@ import (
 )
 
 //nolint:funlen,gocyclo
-func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (*ent.AppGoodCreate, error) {
+func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (e *ent.AppGoodCreate, err error) {
 	if in.ID != nil {
 		c.SetID(uuid.MustParse(in.GetID()))
 	}
@@ -88,9 +88,11 @@ func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (*ent.AppGoodCreate, 
 	if in.GoodBanner != nil {
 		c.SetGoodBanner(in.GetGoodBanner())
 	}
+	displayNames := []string{}
 	if in.DisplayNames != nil {
-		c.SetDisplayNames(in.GetDisplayNames())
+		displayNames = in.GetDisplayNames()
 	}
+	c.SetDisplayNames(displayNames)
 	if in.EnablePurchase != nil {
 		c.SetEnablePurchase(in.GetEnablePurchase())
 	}
@@ -100,13 +102,19 @@ func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (*ent.AppGoodCreate, 
 	if in.CancelMode != nil {
 		c.SetCancelMode(in.GetCancelMode().String())
 	}
+	userPurchaseLimit := decimal.NewFromInt(0)
 	if in.UserPurchaseLimit != nil {
-		userPurchaseLimit, err := decimal.NewFromString(in.GetUserPurchaseLimit())
+		userPurchaseLimit, err = decimal.NewFromString(in.GetUserPurchaseLimit())
 		if err != nil {
 			return nil, err
 		}
-		c.SetUserPurchaseLimit(userPurchaseLimit)
 	}
+	c.SetUserPurchaseLimit(userPurchaseLimit)
+	displayColors := []string{}
+	if in.DisplayColors != nil {
+		displayColors = in.GetDisplayColors()
+	}
+	c.SetDisplayColors(displayColors)
 	if in.DisplayColors != nil {
 		c.SetDisplayColors(in.GetDisplayColors())
 	}
