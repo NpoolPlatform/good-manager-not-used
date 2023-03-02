@@ -248,17 +248,17 @@ func UserPurchaseLimit(v decimal.Decimal) predicate.AppGood {
 	})
 }
 
-// DisplayColors applies equality check predicate on the "display_colors" field. It's identical to DisplayColorsEQ.
-func DisplayColors(v string) predicate.AppGood {
-	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldDisplayColors), v))
-	})
-}
-
 // CancellableBeforeStart applies equality check predicate on the "cancellable_before_start" field. It's identical to CancellableBeforeStartEQ.
 func CancellableBeforeStart(v uint32) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldCancellableBeforeStart), v))
+	})
+}
+
+// ProductPage applies equality check predicate on the "product_page" field. It's identical to ProductPageEQ.
+func ProductPage(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldProductPage), v))
 	})
 }
 
@@ -2032,91 +2032,6 @@ func UserPurchaseLimitNotNil() predicate.AppGood {
 	})
 }
 
-// DisplayColorsEQ applies the EQ predicate on the "display_colors" field.
-func DisplayColorsEQ(v string) predicate.AppGood {
-	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldDisplayColors), v))
-	})
-}
-
-// DisplayColorsNEQ applies the NEQ predicate on the "display_colors" field.
-func DisplayColorsNEQ(v string) predicate.AppGood {
-	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldDisplayColors), v))
-	})
-}
-
-// DisplayColorsIn applies the In predicate on the "display_colors" field.
-func DisplayColorsIn(vs ...string) predicate.AppGood {
-	v := make([]interface{}, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.In(s.C(FieldDisplayColors), v...))
-	})
-}
-
-// DisplayColorsNotIn applies the NotIn predicate on the "display_colors" field.
-func DisplayColorsNotIn(vs ...string) predicate.AppGood {
-	v := make([]interface{}, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.NotIn(s.C(FieldDisplayColors), v...))
-	})
-}
-
-// DisplayColorsGT applies the GT predicate on the "display_colors" field.
-func DisplayColorsGT(v string) predicate.AppGood {
-	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldDisplayColors), v))
-	})
-}
-
-// DisplayColorsGTE applies the GTE predicate on the "display_colors" field.
-func DisplayColorsGTE(v string) predicate.AppGood {
-	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldDisplayColors), v))
-	})
-}
-
-// DisplayColorsLT applies the LT predicate on the "display_colors" field.
-func DisplayColorsLT(v string) predicate.AppGood {
-	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldDisplayColors), v))
-	})
-}
-
-// DisplayColorsLTE applies the LTE predicate on the "display_colors" field.
-func DisplayColorsLTE(v string) predicate.AppGood {
-	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldDisplayColors), v))
-	})
-}
-
-// DisplayColorsContains applies the Contains predicate on the "display_colors" field.
-func DisplayColorsContains(v string) predicate.AppGood {
-	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.Contains(s.C(FieldDisplayColors), v))
-	})
-}
-
-// DisplayColorsHasPrefix applies the HasPrefix predicate on the "display_colors" field.
-func DisplayColorsHasPrefix(v string) predicate.AppGood {
-	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.HasPrefix(s.C(FieldDisplayColors), v))
-	})
-}
-
-// DisplayColorsHasSuffix applies the HasSuffix predicate on the "display_colors" field.
-func DisplayColorsHasSuffix(v string) predicate.AppGood {
-	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.HasSuffix(s.C(FieldDisplayColors), v))
-	})
-}
-
 // DisplayColorsIsNil applies the IsNil predicate on the "display_colors" field.
 func DisplayColorsIsNil() predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
@@ -2128,20 +2043,6 @@ func DisplayColorsIsNil() predicate.AppGood {
 func DisplayColorsNotNil() predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
 		s.Where(sql.NotNull(s.C(FieldDisplayColors)))
-	})
-}
-
-// DisplayColorsEqualFold applies the EqualFold predicate on the "display_colors" field.
-func DisplayColorsEqualFold(v string) predicate.AppGood {
-	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.EqualFold(s.C(FieldDisplayColors), v))
-	})
-}
-
-// DisplayColorsContainsFold applies the ContainsFold predicate on the "display_colors" field.
-func DisplayColorsContainsFold(v string) predicate.AppGood {
-	return predicate.AppGood(func(s *sql.Selector) {
-		s.Where(sql.ContainsFold(s.C(FieldDisplayColors), v))
 	})
 }
 
@@ -2220,6 +2121,119 @@ func CancellableBeforeStartIsNil() predicate.AppGood {
 func CancellableBeforeStartNotNil() predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
 		s.Where(sql.NotNull(s.C(FieldCancellableBeforeStart)))
+	})
+}
+
+// ProductPageEQ applies the EQ predicate on the "product_page" field.
+func ProductPageEQ(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldProductPage), v))
+	})
+}
+
+// ProductPageNEQ applies the NEQ predicate on the "product_page" field.
+func ProductPageNEQ(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldProductPage), v))
+	})
+}
+
+// ProductPageIn applies the In predicate on the "product_page" field.
+func ProductPageIn(vs ...string) predicate.AppGood {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.In(s.C(FieldProductPage), v...))
+	})
+}
+
+// ProductPageNotIn applies the NotIn predicate on the "product_page" field.
+func ProductPageNotIn(vs ...string) predicate.AppGood {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotIn(s.C(FieldProductPage), v...))
+	})
+}
+
+// ProductPageGT applies the GT predicate on the "product_page" field.
+func ProductPageGT(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldProductPage), v))
+	})
+}
+
+// ProductPageGTE applies the GTE predicate on the "product_page" field.
+func ProductPageGTE(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldProductPage), v))
+	})
+}
+
+// ProductPageLT applies the LT predicate on the "product_page" field.
+func ProductPageLT(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldProductPage), v))
+	})
+}
+
+// ProductPageLTE applies the LTE predicate on the "product_page" field.
+func ProductPageLTE(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldProductPage), v))
+	})
+}
+
+// ProductPageContains applies the Contains predicate on the "product_page" field.
+func ProductPageContains(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldProductPage), v))
+	})
+}
+
+// ProductPageHasPrefix applies the HasPrefix predicate on the "product_page" field.
+func ProductPageHasPrefix(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldProductPage), v))
+	})
+}
+
+// ProductPageHasSuffix applies the HasSuffix predicate on the "product_page" field.
+func ProductPageHasSuffix(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldProductPage), v))
+	})
+}
+
+// ProductPageIsNil applies the IsNil predicate on the "product_page" field.
+func ProductPageIsNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldProductPage)))
+	})
+}
+
+// ProductPageNotNil applies the NotNil predicate on the "product_page" field.
+func ProductPageNotNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldProductPage)))
+	})
+}
+
+// ProductPageEqualFold applies the EqualFold predicate on the "product_page" field.
+func ProductPageEqualFold(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldProductPage), v))
+	})
+}
+
+// ProductPageContainsFold applies the ContainsFold predicate on the "product_page" field.
+func ProductPageContainsFold(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldProductPage), v))
 	})
 }
 

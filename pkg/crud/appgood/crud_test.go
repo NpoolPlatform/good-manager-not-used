@@ -53,8 +53,9 @@ var (
 		EnableProductPage:      true,
 		CancelMode:             cancelMode.String(),
 		UserPurchaseLimit:      decimal.NewFromInt(100),
-		DisplayColors:          uuid.NewString(),
+		DisplayColors:          []string{uuid.NewString()},
 		CancellableBeforeStart: 100,
+		ProductPage:            uuid.NewString(),
 	}
 )
 
@@ -81,8 +82,9 @@ var (
 		EnableProductPage:      &appGood.EnableProductPage,
 		CancelMode:             &cancelMode,
 		UserPurchaseLimit:      &userPurchaseLimit,
-		DisplayColors:          &appGood.DisplayColors,
+		DisplayColors:          appGood.DisplayColors,
 		CancellableBeforeStart: &appGood.CancellableBeforeStart,
+		ProductPage:            &appGood.ProductPage,
 	}
 )
 
@@ -116,8 +118,9 @@ func createBulk(t *testing.T) {
 			EnableProductPage:      true,
 			CancelMode:             cancelMode.String(),
 			UserPurchaseLimit:      decimal.NewFromInt(100),
-			DisplayColors:          uuid.NewString(),
+			DisplayColors:          []string{uuid.NewString()},
 			CancellableBeforeStart: 100,
+			ProductPage:            uuid.NewString(),
 		},
 		{
 			ID:                     uuid.New(),
@@ -135,8 +138,9 @@ func createBulk(t *testing.T) {
 			EnableProductPage:      true,
 			CancelMode:             cancelMode.String(),
 			UserPurchaseLimit:      decimal.NewFromInt(100),
-			DisplayColors:          uuid.NewString(),
+			DisplayColors:          []string{uuid.NewString()},
 			CancellableBeforeStart: 100,
+			ProductPage:            uuid.NewString(),
 		},
 	}
 
@@ -164,8 +168,9 @@ func createBulk(t *testing.T) {
 			EnableProductPage:      &_appGood.EnableProductPage,
 			CancelMode:             &cancelMode,
 			UserPurchaseLimit:      &_userPurchaseLimit,
-			DisplayColors:          &_appGood.DisplayColors,
+			DisplayColors:          _appGood.DisplayColors,
 			CancellableBeforeStart: &_appGood.CancellableBeforeStart,
+			ProductPage:            &_appGood.ProductPage,
 		})
 	}
 	infos, err := CreateBulk(context.Background(), reqs)

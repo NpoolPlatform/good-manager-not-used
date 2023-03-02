@@ -55,6 +55,8 @@ var appDate = npool.AppGood{
 	EnableProductPage:    true,
 	CancelMode:           npool.CancelMode_CancellableBeforeBenefit,
 	UserPurchaseLimit:    decimal.NewFromInt(100).String(),
+	DisplayColors:        []string{uuid.NewString()},
+	ProductPage:          uuid.NewString(),
 }
 
 var (
@@ -75,6 +77,8 @@ var (
 		EnableProductPage:    &appDate.EnableProductPage,
 		CancelMode:           &appDate.CancelMode,
 		UserPurchaseLimit:    &appDate.UserPurchaseLimit,
+		DisplayColors:        appDate.DisplayColors,
+		ProductPage:          &appDate.ProductPage,
 	}
 )
 

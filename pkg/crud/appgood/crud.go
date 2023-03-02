@@ -113,6 +113,9 @@ func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (*ent.AppGoodCreate, 
 	if in.CancellableBeforeStart != nil {
 		c.SetCancellableBeforeStart(in.GetCancellableBeforeStart())
 	}
+	if in.ProductPage != nil {
+		c.SetProductPage(in.GetProductPage())
+	}
 	return c, nil
 }
 
@@ -270,6 +273,9 @@ func UpdateSet(u *ent.AppGoodUpdateOne, in *npool.AppGoodReq) (*ent.AppGoodUpdat
 	}
 	if in.CancellableBeforeStart != nil {
 		u.SetCancellableBeforeStart(in.GetCancellableBeforeStart())
+	}
+	if in.ProductPage != nil {
+		u.SetProductPage(in.GetProductPage())
 	}
 	return u, nil
 }

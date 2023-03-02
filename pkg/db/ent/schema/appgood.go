@@ -131,13 +131,17 @@ func (AppGood) Fields() []ent.Field {
 			}).
 			Optional(),
 		field.
-			String("display_colors").
+			JSON("display_colors", []string{}).
 			Optional().
-			Default(""),
+			Default([]string{}),
 		field.
 			Uint32("cancellable_before_start").
 			Optional().
 			Default(0),
+		field.
+			String("product_page").
+			Optional().
+			Default(""),
 	}
 }
 

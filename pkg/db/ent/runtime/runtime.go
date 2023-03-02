@@ -138,11 +138,15 @@ func init() {
 	// appgoodDescDisplayColors is the schema descriptor for display_colors field.
 	appgoodDescDisplayColors := appgoodFields[24].Descriptor()
 	// appgood.DefaultDisplayColors holds the default value on creation for the display_colors field.
-	appgood.DefaultDisplayColors = appgoodDescDisplayColors.Default.(string)
+	appgood.DefaultDisplayColors = appgoodDescDisplayColors.Default.([]string)
 	// appgoodDescCancellableBeforeStart is the schema descriptor for cancellable_before_start field.
 	appgoodDescCancellableBeforeStart := appgoodFields[25].Descriptor()
 	// appgood.DefaultCancellableBeforeStart holds the default value on creation for the cancellable_before_start field.
 	appgood.DefaultCancellableBeforeStart = appgoodDescCancellableBeforeStart.Default.(uint32)
+	// appgoodDescProductPage is the schema descriptor for product_page field.
+	appgoodDescProductPage := appgoodFields[26].Descriptor()
+	// appgood.DefaultProductPage holds the default value on creation for the product_page field.
+	appgood.DefaultProductPage = appgoodDescProductPage.Default.(string)
 	// appgoodDescID is the schema descriptor for id field.
 	appgoodDescID := appgoodFields[0].Descriptor()
 	// appgood.DefaultID holds the default value on creation for the id field.

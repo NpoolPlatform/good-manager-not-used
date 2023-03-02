@@ -357,16 +357,8 @@ func (agc *AppGoodCreate) SetNillableUserPurchaseLimit(d *decimal.Decimal) *AppG
 }
 
 // SetDisplayColors sets the "display_colors" field.
-func (agc *AppGoodCreate) SetDisplayColors(s string) *AppGoodCreate {
+func (agc *AppGoodCreate) SetDisplayColors(s []string) *AppGoodCreate {
 	agc.mutation.SetDisplayColors(s)
-	return agc
-}
-
-// SetNillableDisplayColors sets the "display_colors" field if the given value is not nil.
-func (agc *AppGoodCreate) SetNillableDisplayColors(s *string) *AppGoodCreate {
-	if s != nil {
-		agc.SetDisplayColors(*s)
-	}
 	return agc
 }
 
@@ -380,6 +372,20 @@ func (agc *AppGoodCreate) SetCancellableBeforeStart(u uint32) *AppGoodCreate {
 func (agc *AppGoodCreate) SetNillableCancellableBeforeStart(u *uint32) *AppGoodCreate {
 	if u != nil {
 		agc.SetCancellableBeforeStart(*u)
+	}
+	return agc
+}
+
+// SetProductPage sets the "product_page" field.
+func (agc *AppGoodCreate) SetProductPage(s string) *AppGoodCreate {
+	agc.mutation.SetProductPage(s)
+	return agc
+}
+
+// SetNillableProductPage sets the "product_page" field if the given value is not nil.
+func (agc *AppGoodCreate) SetNillableProductPage(s *string) *AppGoodCreate {
+	if s != nil {
+		agc.SetProductPage(*s)
 	}
 	return agc
 }
@@ -585,6 +591,10 @@ func (agc *AppGoodCreate) defaults() error {
 	if _, ok := agc.mutation.CancellableBeforeStart(); !ok {
 		v := appgood.DefaultCancellableBeforeStart
 		agc.mutation.SetCancellableBeforeStart(v)
+	}
+	if _, ok := agc.mutation.ProductPage(); !ok {
+		v := appgood.DefaultProductPage
+		agc.mutation.SetProductPage(v)
 	}
 	if _, ok := agc.mutation.ID(); !ok {
 		if appgood.DefaultID == nil {
@@ -860,7 +870,7 @@ func (agc *AppGoodCreate) createSpec() (*AppGood, *sqlgraph.CreateSpec) {
 	}
 	if value, ok := agc.mutation.DisplayColors(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeJSON,
 			Value:  value,
 			Column: appgood.FieldDisplayColors,
 		})
@@ -873,6 +883,14 @@ func (agc *AppGoodCreate) createSpec() (*AppGood, *sqlgraph.CreateSpec) {
 			Column: appgood.FieldCancellableBeforeStart,
 		})
 		_node.CancellableBeforeStart = value
+	}
+	if value, ok := agc.mutation.ProductPage(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: appgood.FieldProductPage,
+		})
+		_node.ProductPage = value
 	}
 	return _node, _spec
 }
@@ -1433,7 +1451,7 @@ func (u *AppGoodUpsert) ClearUserPurchaseLimit() *AppGoodUpsert {
 }
 
 // SetDisplayColors sets the "display_colors" field.
-func (u *AppGoodUpsert) SetDisplayColors(v string) *AppGoodUpsert {
+func (u *AppGoodUpsert) SetDisplayColors(v []string) *AppGoodUpsert {
 	u.Set(appgood.FieldDisplayColors, v)
 	return u
 }
@@ -1471,6 +1489,24 @@ func (u *AppGoodUpsert) AddCancellableBeforeStart(v uint32) *AppGoodUpsert {
 // ClearCancellableBeforeStart clears the value of the "cancellable_before_start" field.
 func (u *AppGoodUpsert) ClearCancellableBeforeStart() *AppGoodUpsert {
 	u.SetNull(appgood.FieldCancellableBeforeStart)
+	return u
+}
+
+// SetProductPage sets the "product_page" field.
+func (u *AppGoodUpsert) SetProductPage(v string) *AppGoodUpsert {
+	u.Set(appgood.FieldProductPage, v)
+	return u
+}
+
+// UpdateProductPage sets the "product_page" field to the value that was provided on create.
+func (u *AppGoodUpsert) UpdateProductPage() *AppGoodUpsert {
+	u.SetExcluded(appgood.FieldProductPage)
+	return u
+}
+
+// ClearProductPage clears the value of the "product_page" field.
+func (u *AppGoodUpsert) ClearProductPage() *AppGoodUpsert {
+	u.SetNull(appgood.FieldProductPage)
 	return u
 }
 
@@ -2113,7 +2149,7 @@ func (u *AppGoodUpsertOne) ClearUserPurchaseLimit() *AppGoodUpsertOne {
 }
 
 // SetDisplayColors sets the "display_colors" field.
-func (u *AppGoodUpsertOne) SetDisplayColors(v string) *AppGoodUpsertOne {
+func (u *AppGoodUpsertOne) SetDisplayColors(v []string) *AppGoodUpsertOne {
 	return u.Update(func(s *AppGoodUpsert) {
 		s.SetDisplayColors(v)
 	})
@@ -2158,6 +2194,27 @@ func (u *AppGoodUpsertOne) UpdateCancellableBeforeStart() *AppGoodUpsertOne {
 func (u *AppGoodUpsertOne) ClearCancellableBeforeStart() *AppGoodUpsertOne {
 	return u.Update(func(s *AppGoodUpsert) {
 		s.ClearCancellableBeforeStart()
+	})
+}
+
+// SetProductPage sets the "product_page" field.
+func (u *AppGoodUpsertOne) SetProductPage(v string) *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetProductPage(v)
+	})
+}
+
+// UpdateProductPage sets the "product_page" field to the value that was provided on create.
+func (u *AppGoodUpsertOne) UpdateProductPage() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateProductPage()
+	})
+}
+
+// ClearProductPage clears the value of the "product_page" field.
+func (u *AppGoodUpsertOne) ClearProductPage() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearProductPage()
 	})
 }
 
@@ -2966,7 +3023,7 @@ func (u *AppGoodUpsertBulk) ClearUserPurchaseLimit() *AppGoodUpsertBulk {
 }
 
 // SetDisplayColors sets the "display_colors" field.
-func (u *AppGoodUpsertBulk) SetDisplayColors(v string) *AppGoodUpsertBulk {
+func (u *AppGoodUpsertBulk) SetDisplayColors(v []string) *AppGoodUpsertBulk {
 	return u.Update(func(s *AppGoodUpsert) {
 		s.SetDisplayColors(v)
 	})
@@ -3011,6 +3068,27 @@ func (u *AppGoodUpsertBulk) UpdateCancellableBeforeStart() *AppGoodUpsertBulk {
 func (u *AppGoodUpsertBulk) ClearCancellableBeforeStart() *AppGoodUpsertBulk {
 	return u.Update(func(s *AppGoodUpsert) {
 		s.ClearCancellableBeforeStart()
+	})
+}
+
+// SetProductPage sets the "product_page" field.
+func (u *AppGoodUpsertBulk) SetProductPage(v string) *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetProductPage(v)
+	})
+}
+
+// UpdateProductPage sets the "product_page" field to the value that was provided on create.
+func (u *AppGoodUpsertBulk) UpdateProductPage() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateProductPage()
+	})
+}
+
+// ClearProductPage clears the value of the "product_page" field.
+func (u *AppGoodUpsertBulk) ClearProductPage() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearProductPage()
 	})
 }
 

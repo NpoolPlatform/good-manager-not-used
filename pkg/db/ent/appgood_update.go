@@ -558,16 +558,8 @@ func (agu *AppGoodUpdate) ClearUserPurchaseLimit() *AppGoodUpdate {
 }
 
 // SetDisplayColors sets the "display_colors" field.
-func (agu *AppGoodUpdate) SetDisplayColors(s string) *AppGoodUpdate {
+func (agu *AppGoodUpdate) SetDisplayColors(s []string) *AppGoodUpdate {
 	agu.mutation.SetDisplayColors(s)
-	return agu
-}
-
-// SetNillableDisplayColors sets the "display_colors" field if the given value is not nil.
-func (agu *AppGoodUpdate) SetNillableDisplayColors(s *string) *AppGoodUpdate {
-	if s != nil {
-		agu.SetDisplayColors(*s)
-	}
 	return agu
 }
 
@@ -601,6 +593,26 @@ func (agu *AppGoodUpdate) AddCancellableBeforeStart(u int32) *AppGoodUpdate {
 // ClearCancellableBeforeStart clears the value of the "cancellable_before_start" field.
 func (agu *AppGoodUpdate) ClearCancellableBeforeStart() *AppGoodUpdate {
 	agu.mutation.ClearCancellableBeforeStart()
+	return agu
+}
+
+// SetProductPage sets the "product_page" field.
+func (agu *AppGoodUpdate) SetProductPage(s string) *AppGoodUpdate {
+	agu.mutation.SetProductPage(s)
+	return agu
+}
+
+// SetNillableProductPage sets the "product_page" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableProductPage(s *string) *AppGoodUpdate {
+	if s != nil {
+		agu.SetProductPage(*s)
+	}
+	return agu
+}
+
+// ClearProductPage clears the value of the "product_page" field.
+func (agu *AppGoodUpdate) ClearProductPage() *AppGoodUpdate {
+	agu.mutation.ClearProductPage()
 	return agu
 }
 
@@ -1089,14 +1101,14 @@ func (agu *AppGoodUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := agu.mutation.DisplayColors(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeJSON,
 			Value:  value,
 			Column: appgood.FieldDisplayColors,
 		})
 	}
 	if agu.mutation.DisplayColorsCleared() {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeJSON,
 			Column: appgood.FieldDisplayColors,
 		})
 	}
@@ -1118,6 +1130,19 @@ func (agu *AppGoodUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeUint32,
 			Column: appgood.FieldCancellableBeforeStart,
+		})
+	}
+	if value, ok := agu.mutation.ProductPage(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: appgood.FieldProductPage,
+		})
+	}
+	if agu.mutation.ProductPageCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: appgood.FieldProductPage,
 		})
 	}
 	_spec.Modifiers = agu.modifiers
@@ -1669,16 +1694,8 @@ func (aguo *AppGoodUpdateOne) ClearUserPurchaseLimit() *AppGoodUpdateOne {
 }
 
 // SetDisplayColors sets the "display_colors" field.
-func (aguo *AppGoodUpdateOne) SetDisplayColors(s string) *AppGoodUpdateOne {
+func (aguo *AppGoodUpdateOne) SetDisplayColors(s []string) *AppGoodUpdateOne {
 	aguo.mutation.SetDisplayColors(s)
-	return aguo
-}
-
-// SetNillableDisplayColors sets the "display_colors" field if the given value is not nil.
-func (aguo *AppGoodUpdateOne) SetNillableDisplayColors(s *string) *AppGoodUpdateOne {
-	if s != nil {
-		aguo.SetDisplayColors(*s)
-	}
 	return aguo
 }
 
@@ -1712,6 +1729,26 @@ func (aguo *AppGoodUpdateOne) AddCancellableBeforeStart(u int32) *AppGoodUpdateO
 // ClearCancellableBeforeStart clears the value of the "cancellable_before_start" field.
 func (aguo *AppGoodUpdateOne) ClearCancellableBeforeStart() *AppGoodUpdateOne {
 	aguo.mutation.ClearCancellableBeforeStart()
+	return aguo
+}
+
+// SetProductPage sets the "product_page" field.
+func (aguo *AppGoodUpdateOne) SetProductPage(s string) *AppGoodUpdateOne {
+	aguo.mutation.SetProductPage(s)
+	return aguo
+}
+
+// SetNillableProductPage sets the "product_page" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableProductPage(s *string) *AppGoodUpdateOne {
+	if s != nil {
+		aguo.SetProductPage(*s)
+	}
+	return aguo
+}
+
+// ClearProductPage clears the value of the "product_page" field.
+func (aguo *AppGoodUpdateOne) ClearProductPage() *AppGoodUpdateOne {
+	aguo.mutation.ClearProductPage()
 	return aguo
 }
 
@@ -2230,14 +2267,14 @@ func (aguo *AppGoodUpdateOne) sqlSave(ctx context.Context) (_node *AppGood, err 
 	}
 	if value, ok := aguo.mutation.DisplayColors(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeJSON,
 			Value:  value,
 			Column: appgood.FieldDisplayColors,
 		})
 	}
 	if aguo.mutation.DisplayColorsCleared() {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeJSON,
 			Column: appgood.FieldDisplayColors,
 		})
 	}
@@ -2259,6 +2296,19 @@ func (aguo *AppGoodUpdateOne) sqlSave(ctx context.Context) (_node *AppGood, err 
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeUint32,
 			Column: appgood.FieldCancellableBeforeStart,
+		})
+	}
+	if value, ok := aguo.mutation.ProductPage(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: appgood.FieldProductPage,
+		})
+	}
+	if aguo.mutation.ProductPageCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: appgood.FieldProductPage,
 		})
 	}
 	_spec.Modifiers = aguo.modifiers

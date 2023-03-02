@@ -42,6 +42,7 @@ func Ent2Grpc(row *ent.AppGood) *npool.AppGood {
 		UserPurchaseLimit:      row.UserPurchaseLimit.String(),
 		DisplayColors:          row.DisplayColors,
 		CancellableBeforeStart: row.CancellableBeforeStart,
+		ProductPage:            row.ProductPage,
 	}
 }
 

@@ -60,8 +60,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 			appgood.FieldEnableProductPage:      {Type: field.TypeBool, Column: appgood.FieldEnableProductPage},
 			appgood.FieldCancelMode:             {Type: field.TypeString, Column: appgood.FieldCancelMode},
 			appgood.FieldUserPurchaseLimit:      {Type: field.TypeOther, Column: appgood.FieldUserPurchaseLimit},
-			appgood.FieldDisplayColors:          {Type: field.TypeString, Column: appgood.FieldDisplayColors},
+			appgood.FieldDisplayColors:          {Type: field.TypeJSON, Column: appgood.FieldDisplayColors},
 			appgood.FieldCancellableBeforeStart: {Type: field.TypeUint32, Column: appgood.FieldCancellableBeforeStart},
+			appgood.FieldProductPage:            {Type: field.TypeString, Column: appgood.FieldProductPage},
 		},
 	}
 	graph.Nodes[1] = &sqlgraph.Node{
@@ -451,14 +452,19 @@ func (f *AppGoodFilter) WhereUserPurchaseLimit(p entql.OtherP) {
 	f.Where(p.Field(appgood.FieldUserPurchaseLimit))
 }
 
-// WhereDisplayColors applies the entql string predicate on the display_colors field.
-func (f *AppGoodFilter) WhereDisplayColors(p entql.StringP) {
+// WhereDisplayColors applies the entql json.RawMessage predicate on the display_colors field.
+func (f *AppGoodFilter) WhereDisplayColors(p entql.BytesP) {
 	f.Where(p.Field(appgood.FieldDisplayColors))
 }
 
 // WhereCancellableBeforeStart applies the entql uint32 predicate on the cancellable_before_start field.
 func (f *AppGoodFilter) WhereCancellableBeforeStart(p entql.Uint32P) {
 	f.Where(p.Field(appgood.FieldCancellableBeforeStart))
+}
+
+// WhereProductPage applies the entql string predicate on the product_page field.
+func (f *AppGoodFilter) WhereProductPage(p entql.StringP) {
+	f.Where(p.Field(appgood.FieldProductPage))
 }
 
 // addPredicate implements the predicateAdder interface.
