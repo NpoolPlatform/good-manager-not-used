@@ -623,9 +623,6 @@ func (agc *AppGoodCreate) check() error {
 	if _, ok := agc.mutation.GoodID(); !ok {
 		return &ValidationError{Name: "good_id", err: errors.New(`ent: missing required field "AppGood.good_id"`)}
 	}
-	if _, ok := agc.mutation.DisplayColors(); !ok {
-		return &ValidationError{Name: "display_colors", err: errors.New(`ent: missing required field "AppGood.display_colors"`)}
-	}
 	return nil
 }
 
@@ -1465,6 +1462,12 @@ func (u *AppGoodUpsert) UpdateDisplayColors() *AppGoodUpsert {
 	return u
 }
 
+// ClearDisplayColors clears the value of the "display_colors" field.
+func (u *AppGoodUpsert) ClearDisplayColors() *AppGoodUpsert {
+	u.SetNull(appgood.FieldDisplayColors)
+	return u
+}
+
 // SetCancellableBeforeStart sets the "cancellable_before_start" field.
 func (u *AppGoodUpsert) SetCancellableBeforeStart(v uint32) *AppGoodUpsert {
 	u.Set(appgood.FieldCancellableBeforeStart, v)
@@ -2156,6 +2159,13 @@ func (u *AppGoodUpsertOne) SetDisplayColors(v []string) *AppGoodUpsertOne {
 func (u *AppGoodUpsertOne) UpdateDisplayColors() *AppGoodUpsertOne {
 	return u.Update(func(s *AppGoodUpsert) {
 		s.UpdateDisplayColors()
+	})
+}
+
+// ClearDisplayColors clears the value of the "display_colors" field.
+func (u *AppGoodUpsertOne) ClearDisplayColors() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearDisplayColors()
 	})
 }
 
@@ -3023,6 +3033,13 @@ func (u *AppGoodUpsertBulk) SetDisplayColors(v []string) *AppGoodUpsertBulk {
 func (u *AppGoodUpsertBulk) UpdateDisplayColors() *AppGoodUpsertBulk {
 	return u.Update(func(s *AppGoodUpsert) {
 		s.UpdateDisplayColors()
+	})
+}
+
+// ClearDisplayColors clears the value of the "display_colors" field.
+func (u *AppGoodUpsertBulk) ClearDisplayColors() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearDisplayColors()
 	})
 }
 

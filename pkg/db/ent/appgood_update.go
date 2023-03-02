@@ -563,6 +563,12 @@ func (agu *AppGoodUpdate) SetDisplayColors(s []string) *AppGoodUpdate {
 	return agu
 }
 
+// ClearDisplayColors clears the value of the "display_colors" field.
+func (agu *AppGoodUpdate) ClearDisplayColors() *AppGoodUpdate {
+	agu.mutation.ClearDisplayColors()
+	return agu
+}
+
 // SetCancellableBeforeStart sets the "cancellable_before_start" field.
 func (agu *AppGoodUpdate) SetCancellableBeforeStart(u uint32) *AppGoodUpdate {
 	agu.mutation.ResetCancellableBeforeStart()
@@ -1097,6 +1103,12 @@ func (agu *AppGoodUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeJSON,
 			Value:  value,
+			Column: appgood.FieldDisplayColors,
+		})
+	}
+	if agu.mutation.DisplayColorsCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeJSON,
 			Column: appgood.FieldDisplayColors,
 		})
 	}
@@ -1687,6 +1699,12 @@ func (aguo *AppGoodUpdateOne) SetDisplayColors(s []string) *AppGoodUpdateOne {
 	return aguo
 }
 
+// ClearDisplayColors clears the value of the "display_colors" field.
+func (aguo *AppGoodUpdateOne) ClearDisplayColors() *AppGoodUpdateOne {
+	aguo.mutation.ClearDisplayColors()
+	return aguo
+}
+
 // SetCancellableBeforeStart sets the "cancellable_before_start" field.
 func (aguo *AppGoodUpdateOne) SetCancellableBeforeStart(u uint32) *AppGoodUpdateOne {
 	aguo.mutation.ResetCancellableBeforeStart()
@@ -2251,6 +2269,12 @@ func (aguo *AppGoodUpdateOne) sqlSave(ctx context.Context) (_node *AppGood, err 
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeJSON,
 			Value:  value,
+			Column: appgood.FieldDisplayColors,
+		})
+	}
+	if aguo.mutation.DisplayColorsCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeJSON,
 			Column: appgood.FieldDisplayColors,
 		})
 	}

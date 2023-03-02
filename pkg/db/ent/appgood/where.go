@@ -2032,6 +2032,20 @@ func UserPurchaseLimitNotNil() predicate.AppGood {
 	})
 }
 
+// DisplayColorsIsNil applies the IsNil predicate on the "display_colors" field.
+func DisplayColorsIsNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldDisplayColors)))
+	})
+}
+
+// DisplayColorsNotNil applies the NotNil predicate on the "display_colors" field.
+func DisplayColorsNotNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldDisplayColors)))
+	})
+}
+
 // CancellableBeforeStartEQ applies the EQ predicate on the "cancellable_before_start" field.
 func CancellableBeforeStartEQ(v uint32) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
