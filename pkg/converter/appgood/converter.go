@@ -43,6 +43,7 @@ func Ent2Grpc(row *ent.AppGood) *npool.AppGood {
 		DisplayColors:          row.DisplayColors,
 		CancellableBeforeStart: row.CancellableBeforeStart,
 		ProductPage:            row.ProductPage,
+		EnableSetCommission:    row.EnableSetCommission,
 	}
 }
 

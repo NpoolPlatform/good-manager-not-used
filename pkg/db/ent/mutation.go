@@ -93,6 +93,7 @@ type AppGoodMutation struct {
 	cancellable_before_start    *uint32
 	addcancellable_before_start *int32
 	product_page                *string
+	enable_set_commission       *bool
 	clearedFields               map[string]struct{}
 	done                        bool
 	oldValue                    func(context.Context) (*AppGood, error)
@@ -1808,6 +1809,55 @@ func (m *AppGoodMutation) ResetProductPage() {
 	delete(m.clearedFields, appgood.FieldProductPage)
 }
 
+// SetEnableSetCommission sets the "enable_set_commission" field.
+func (m *AppGoodMutation) SetEnableSetCommission(b bool) {
+	m.enable_set_commission = &b
+}
+
+// EnableSetCommission returns the value of the "enable_set_commission" field in the mutation.
+func (m *AppGoodMutation) EnableSetCommission() (r bool, exists bool) {
+	v := m.enable_set_commission
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldEnableSetCommission returns the old "enable_set_commission" field's value of the AppGood entity.
+// If the AppGood object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodMutation) OldEnableSetCommission(ctx context.Context) (v bool, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldEnableSetCommission is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldEnableSetCommission requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldEnableSetCommission: %w", err)
+	}
+	return oldValue.EnableSetCommission, nil
+}
+
+// ClearEnableSetCommission clears the value of the "enable_set_commission" field.
+func (m *AppGoodMutation) ClearEnableSetCommission() {
+	m.enable_set_commission = nil
+	m.clearedFields[appgood.FieldEnableSetCommission] = struct{}{}
+}
+
+// EnableSetCommissionCleared returns if the "enable_set_commission" field was cleared in this mutation.
+func (m *AppGoodMutation) EnableSetCommissionCleared() bool {
+	_, ok := m.clearedFields[appgood.FieldEnableSetCommission]
+	return ok
+}
+
+// ResetEnableSetCommission resets all changes to the "enable_set_commission" field.
+func (m *AppGoodMutation) ResetEnableSetCommission() {
+	m.enable_set_commission = nil
+	delete(m.clearedFields, appgood.FieldEnableSetCommission)
+}
+
 // Where appends a list predicates to the AppGoodMutation builder.
 func (m *AppGoodMutation) Where(ps ...predicate.AppGood) {
 	m.predicates = append(m.predicates, ps...)
@@ -1827,7 +1877,7 @@ func (m *AppGoodMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppGoodMutation) Fields() []string {
-	fields := make([]string, 0, 29)
+	fields := make([]string, 0, 30)
 	if m.created_at != nil {
 		fields = append(fields, appgood.FieldCreatedAt)
 	}
@@ -1915,6 +1965,9 @@ func (m *AppGoodMutation) Fields() []string {
 	if m.product_page != nil {
 		fields = append(fields, appgood.FieldProductPage)
 	}
+	if m.enable_set_commission != nil {
+		fields = append(fields, appgood.FieldEnableSetCommission)
+	}
 	return fields
 }
 
@@ -1981,6 +2034,8 @@ func (m *AppGoodMutation) Field(name string) (ent.Value, bool) {
 		return m.CancellableBeforeStart()
 	case appgood.FieldProductPage:
 		return m.ProductPage()
+	case appgood.FieldEnableSetCommission:
+		return m.EnableSetCommission()
 	}
 	return nil, false
 }
@@ -2048,6 +2103,8 @@ func (m *AppGoodMutation) OldField(ctx context.Context, name string) (ent.Value,
 		return m.OldCancellableBeforeStart(ctx)
 	case appgood.FieldProductPage:
 		return m.OldProductPage(ctx)
+	case appgood.FieldEnableSetCommission:
+		return m.OldEnableSetCommission(ctx)
 	}
 	return nil, fmt.Errorf("unknown AppGood field %s", name)
 }
@@ -2259,6 +2316,13 @@ func (m *AppGoodMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetProductPage(v)
+		return nil
+	case appgood.FieldEnableSetCommission:
+		v, ok := value.(bool)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetEnableSetCommission(v)
 		return nil
 	}
 	return fmt.Errorf("unknown AppGood field %s", name)
@@ -2509,6 +2573,9 @@ func (m *AppGoodMutation) ClearedFields() []string {
 	if m.FieldCleared(appgood.FieldProductPage) {
 		fields = append(fields, appgood.FieldProductPage)
 	}
+	if m.FieldCleared(appgood.FieldEnableSetCommission) {
+		fields = append(fields, appgood.FieldEnableSetCommission)
+	}
 	return fields
 }
 
@@ -2594,6 +2661,9 @@ func (m *AppGoodMutation) ClearField(name string) error {
 		return nil
 	case appgood.FieldProductPage:
 		m.ClearProductPage()
+		return nil
+	case appgood.FieldEnableSetCommission:
+		m.ClearEnableSetCommission()
 		return nil
 	}
 	return fmt.Errorf("unknown AppGood nullable field %s", name)
@@ -2689,6 +2759,9 @@ func (m *AppGoodMutation) ResetField(name string) error {
 		return nil
 	case appgood.FieldProductPage:
 		m.ResetProductPage()
+		return nil
+	case appgood.FieldEnableSetCommission:
+		m.ResetEnableSetCommission()
 		return nil
 	}
 	return fmt.Errorf("unknown AppGood field %s", name)

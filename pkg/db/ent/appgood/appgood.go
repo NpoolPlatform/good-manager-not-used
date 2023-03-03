@@ -71,6 +71,8 @@ const (
 	FieldCancellableBeforeStart = "cancellable_before_start"
 	// FieldProductPage holds the string denoting the product_page field in the database.
 	FieldProductPage = "product_page"
+	// FieldEnableSetCommission holds the string denoting the enable_set_commission field in the database.
+	FieldEnableSetCommission = "enable_set_commission"
 	// Table holds the table name of the appgood in the database.
 	Table = "app_goods"
 )
@@ -107,6 +109,7 @@ var Columns = []string{
 	FieldDisplayColors,
 	FieldCancellableBeforeStart,
 	FieldProductPage,
+	FieldEnableSetCommission,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -182,6 +185,8 @@ var (
 	DefaultCancellableBeforeStart uint32
 	// DefaultProductPage holds the default value on creation for the "product_page" field.
 	DefaultProductPage string
+	// DefaultEnableSetCommission holds the default value on creation for the "enable_set_commission" field.
+	DefaultEnableSetCommission bool
 	// DefaultID holds the default value on creation for the "id" field.
 	DefaultID func() uuid.UUID
 )

@@ -124,6 +124,9 @@ func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (e *ent.AppGoodCreate
 	if in.ProductPage != nil {
 		c.SetProductPage(in.GetProductPage())
 	}
+	if in.EnableSetCommission != nil {
+		c.SetEnableSetCommission(in.GetEnableSetCommission())
+	}
 	return c, nil
 }
 
@@ -284,6 +287,9 @@ func UpdateSet(u *ent.AppGoodUpdateOne, in *npool.AppGoodReq) (*ent.AppGoodUpdat
 	}
 	if in.ProductPage != nil {
 		u.SetProductPage(in.GetProductPage())
+	}
+	if in.EnableSetCommission != nil {
+		u.SetEnableSetCommission(in.GetEnableSetCommission())
 	}
 	return u, nil
 }

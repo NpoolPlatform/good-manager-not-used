@@ -147,6 +147,10 @@ func init() {
 	appgoodDescProductPage := appgoodFields[26].Descriptor()
 	// appgood.DefaultProductPage holds the default value on creation for the product_page field.
 	appgood.DefaultProductPage = appgoodDescProductPage.Default.(string)
+	// appgoodDescEnableSetCommission is the schema descriptor for enable_set_commission field.
+	appgoodDescEnableSetCommission := appgoodFields[27].Descriptor()
+	// appgood.DefaultEnableSetCommission holds the default value on creation for the enable_set_commission field.
+	appgood.DefaultEnableSetCommission = appgoodDescEnableSetCommission.Default.(bool)
 	// appgoodDescID is the schema descriptor for id field.
 	appgoodDescID := appgoodFields[0].Descriptor()
 	// appgood.DefaultID holds the default value on creation for the id field.

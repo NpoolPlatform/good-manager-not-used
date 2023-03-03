@@ -616,6 +616,26 @@ func (agu *AppGoodUpdate) ClearProductPage() *AppGoodUpdate {
 	return agu
 }
 
+// SetEnableSetCommission sets the "enable_set_commission" field.
+func (agu *AppGoodUpdate) SetEnableSetCommission(b bool) *AppGoodUpdate {
+	agu.mutation.SetEnableSetCommission(b)
+	return agu
+}
+
+// SetNillableEnableSetCommission sets the "enable_set_commission" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableEnableSetCommission(b *bool) *AppGoodUpdate {
+	if b != nil {
+		agu.SetEnableSetCommission(*b)
+	}
+	return agu
+}
+
+// ClearEnableSetCommission clears the value of the "enable_set_commission" field.
+func (agu *AppGoodUpdate) ClearEnableSetCommission() *AppGoodUpdate {
+	agu.mutation.ClearEnableSetCommission()
+	return agu
+}
+
 // Mutation returns the AppGoodMutation object of the builder.
 func (agu *AppGoodUpdate) Mutation() *AppGoodMutation {
 	return agu.mutation
@@ -1143,6 +1163,19 @@ func (agu *AppGoodUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Column: appgood.FieldProductPage,
+		})
+	}
+	if value, ok := agu.mutation.EnableSetCommission(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: appgood.FieldEnableSetCommission,
+		})
+	}
+	if agu.mutation.EnableSetCommissionCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Column: appgood.FieldEnableSetCommission,
 		})
 	}
 	_spec.Modifiers = agu.modifiers
@@ -1752,6 +1785,26 @@ func (aguo *AppGoodUpdateOne) ClearProductPage() *AppGoodUpdateOne {
 	return aguo
 }
 
+// SetEnableSetCommission sets the "enable_set_commission" field.
+func (aguo *AppGoodUpdateOne) SetEnableSetCommission(b bool) *AppGoodUpdateOne {
+	aguo.mutation.SetEnableSetCommission(b)
+	return aguo
+}
+
+// SetNillableEnableSetCommission sets the "enable_set_commission" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableEnableSetCommission(b *bool) *AppGoodUpdateOne {
+	if b != nil {
+		aguo.SetEnableSetCommission(*b)
+	}
+	return aguo
+}
+
+// ClearEnableSetCommission clears the value of the "enable_set_commission" field.
+func (aguo *AppGoodUpdateOne) ClearEnableSetCommission() *AppGoodUpdateOne {
+	aguo.mutation.ClearEnableSetCommission()
+	return aguo
+}
+
 // Mutation returns the AppGoodMutation object of the builder.
 func (aguo *AppGoodUpdateOne) Mutation() *AppGoodMutation {
 	return aguo.mutation
@@ -2309,6 +2362,19 @@ func (aguo *AppGoodUpdateOne) sqlSave(ctx context.Context) (_node *AppGood, err 
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Column: appgood.FieldProductPage,
+		})
+	}
+	if value, ok := aguo.mutation.EnableSetCommission(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: appgood.FieldEnableSetCommission,
+		})
+	}
+	if aguo.mutation.EnableSetCommissionCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Column: appgood.FieldEnableSetCommission,
 		})
 	}
 	_spec.Modifiers = aguo.modifiers

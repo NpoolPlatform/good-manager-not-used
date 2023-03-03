@@ -76,6 +76,8 @@ type AppGood struct {
 	CancellableBeforeStart uint32 `json:"cancellable_before_start,omitempty"`
 	// ProductPage holds the value of the "product_page" field.
 	ProductPage string `json:"product_page,omitempty"`
+	// EnableSetCommission holds the value of the "enable_set_commission" field.
+	EnableSetCommission bool `json:"enable_set_commission,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -87,7 +89,7 @@ func (*AppGood) scanValues(columns []string) ([]interface{}, error) {
 			values[i] = new([]byte)
 		case appgood.FieldPrice, appgood.FieldDailyRewardAmount, appgood.FieldUserPurchaseLimit:
 			values[i] = new(decimal.Decimal)
-		case appgood.FieldOnline, appgood.FieldVisible, appgood.FieldEnablePurchase, appgood.FieldEnableProductPage:
+		case appgood.FieldOnline, appgood.FieldVisible, appgood.FieldEnablePurchase, appgood.FieldEnableProductPage, appgood.FieldEnableSetCommission:
 			values[i] = new(sql.NullBool)
 		case appgood.FieldCreatedAt, appgood.FieldUpdatedAt, appgood.FieldDeletedAt, appgood.FieldDisplayIndex, appgood.FieldPurchaseLimit, appgood.FieldCommissionPercent, appgood.FieldSaleStartAt, appgood.FieldSaleEndAt, appgood.FieldServiceStartAt, appgood.FieldTechnicalFeeRatio, appgood.FieldElectricityFeeRatio, appgood.FieldCancellableBeforeStart:
 			values[i] = new(sql.NullInt64)
@@ -296,6 +298,12 @@ func (ag *AppGood) assignValues(columns []string, values []interface{}) error {
 			} else if value.Valid {
 				ag.ProductPage = value.String
 			}
+		case appgood.FieldEnableSetCommission:
+			if value, ok := values[i].(*sql.NullBool); !ok {
+				return fmt.Errorf("unexpected type %T for field enable_set_commission", values[i])
+			} else if value.Valid {
+				ag.EnableSetCommission = value.Bool
+			}
 		}
 	}
 	return nil
@@ -410,6 +418,9 @@ func (ag *AppGood) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("product_page=")
 	builder.WriteString(ag.ProductPage)
+	builder.WriteString(", ")
+	builder.WriteString("enable_set_commission=")
+	builder.WriteString(fmt.Sprintf("%v", ag.EnableSetCommission))
 	builder.WriteByte(')')
 	return builder.String()
 }

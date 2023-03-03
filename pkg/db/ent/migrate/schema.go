@@ -41,6 +41,7 @@ var (
 		{Name: "display_colors", Type: field.TypeJSON, Nullable: true},
 		{Name: "cancellable_before_start", Type: field.TypeUint32, Nullable: true, Default: 0},
 		{Name: "product_page", Type: field.TypeString, Nullable: true, Default: ""},
+		{Name: "enable_set_commission", Type: field.TypeBool, Nullable: true, Default: true},
 	}
 	// AppGoodsTable holds the schema information for the "app_goods" table.
 	AppGoodsTable = &schema.Table{

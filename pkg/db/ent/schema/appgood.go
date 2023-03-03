@@ -142,6 +142,10 @@ func (AppGood) Fields() []ent.Field {
 			String("product_page").
 			Optional().
 			Default(""),
+		field.
+			Bool("enable_set_commission").
+			Optional().
+			Default(true),
 	}
 }
 

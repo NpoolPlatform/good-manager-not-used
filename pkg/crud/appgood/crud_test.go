@@ -1,3 +1,4 @@
+//nolint:dupl
 package appgood
 
 import (
@@ -56,6 +57,7 @@ var (
 		DisplayColors:          []string{uuid.NewString()},
 		CancellableBeforeStart: 100,
 		ProductPage:            uuid.NewString(),
+		EnableSetCommission:    false,
 	}
 )
 
@@ -85,6 +87,7 @@ var (
 		DisplayColors:          appGood.DisplayColors,
 		CancellableBeforeStart: &appGood.CancellableBeforeStart,
 		ProductPage:            &appGood.ProductPage,
+		EnableSetCommission:    &appGood.EnableSetCommission,
 	}
 )
 
@@ -121,6 +124,7 @@ func createBulk(t *testing.T) {
 			DisplayColors:          []string{uuid.NewString()},
 			CancellableBeforeStart: 100,
 			ProductPage:            uuid.NewString(),
+			EnableSetCommission:    false,
 		},
 		{
 			ID:                     uuid.New(),
@@ -141,6 +145,7 @@ func createBulk(t *testing.T) {
 			DisplayColors:          []string{uuid.NewString()},
 			CancellableBeforeStart: 100,
 			ProductPage:            uuid.NewString(),
+			EnableSetCommission:    false,
 		},
 	}
 
@@ -171,6 +176,7 @@ func createBulk(t *testing.T) {
 			DisplayColors:          _appGood.DisplayColors,
 			CancellableBeforeStart: &_appGood.CancellableBeforeStart,
 			ProductPage:            &_appGood.ProductPage,
+			EnableSetCommission:    &_appGood.EnableSetCommission,
 		})
 	}
 	infos, err := CreateBulk(context.Background(), reqs)

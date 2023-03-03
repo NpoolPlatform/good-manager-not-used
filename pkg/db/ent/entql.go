@@ -63,6 +63,7 @@ var schemaGraph = func() *sqlgraph.Schema {
 			appgood.FieldDisplayColors:          {Type: field.TypeJSON, Column: appgood.FieldDisplayColors},
 			appgood.FieldCancellableBeforeStart: {Type: field.TypeUint32, Column: appgood.FieldCancellableBeforeStart},
 			appgood.FieldProductPage:            {Type: field.TypeString, Column: appgood.FieldProductPage},
+			appgood.FieldEnableSetCommission:    {Type: field.TypeBool, Column: appgood.FieldEnableSetCommission},
 		},
 	}
 	graph.Nodes[1] = &sqlgraph.Node{
@@ -465,6 +466,11 @@ func (f *AppGoodFilter) WhereCancellableBeforeStart(p entql.Uint32P) {
 // WhereProductPage applies the entql string predicate on the product_page field.
 func (f *AppGoodFilter) WhereProductPage(p entql.StringP) {
 	f.Where(p.Field(appgood.FieldProductPage))
+}
+
+// WhereEnableSetCommission applies the entql bool predicate on the enable_set_commission field.
+func (f *AppGoodFilter) WhereEnableSetCommission(p entql.BoolP) {
+	f.Where(p.Field(appgood.FieldEnableSetCommission))
 }
 
 // addPredicate implements the predicateAdder interface.

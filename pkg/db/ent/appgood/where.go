@@ -262,6 +262,13 @@ func ProductPage(v string) predicate.AppGood {
 	})
 }
 
+// EnableSetCommission applies equality check predicate on the "enable_set_commission" field. It's identical to EnableSetCommissionEQ.
+func EnableSetCommission(v bool) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldEnableSetCommission), v))
+	})
+}
+
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
 func CreatedAtEQ(v uint32) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
@@ -2234,6 +2241,34 @@ func ProductPageEqualFold(v string) predicate.AppGood {
 func ProductPageContainsFold(v string) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
 		s.Where(sql.ContainsFold(s.C(FieldProductPage), v))
+	})
+}
+
+// EnableSetCommissionEQ applies the EQ predicate on the "enable_set_commission" field.
+func EnableSetCommissionEQ(v bool) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldEnableSetCommission), v))
+	})
+}
+
+// EnableSetCommissionNEQ applies the NEQ predicate on the "enable_set_commission" field.
+func EnableSetCommissionNEQ(v bool) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldEnableSetCommission), v))
+	})
+}
+
+// EnableSetCommissionIsNil applies the IsNil predicate on the "enable_set_commission" field.
+func EnableSetCommissionIsNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldEnableSetCommission)))
+	})
+}
+
+// EnableSetCommissionNotNil applies the NotNil predicate on the "enable_set_commission" field.
+func EnableSetCommissionNotNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldEnableSetCommission)))
 	})
 }
 

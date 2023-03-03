@@ -390,6 +390,20 @@ func (agc *AppGoodCreate) SetNillableProductPage(s *string) *AppGoodCreate {
 	return agc
 }
 
+// SetEnableSetCommission sets the "enable_set_commission" field.
+func (agc *AppGoodCreate) SetEnableSetCommission(b bool) *AppGoodCreate {
+	agc.mutation.SetEnableSetCommission(b)
+	return agc
+}
+
+// SetNillableEnableSetCommission sets the "enable_set_commission" field if the given value is not nil.
+func (agc *AppGoodCreate) SetNillableEnableSetCommission(b *bool) *AppGoodCreate {
+	if b != nil {
+		agc.SetEnableSetCommission(*b)
+	}
+	return agc
+}
+
 // SetID sets the "id" field.
 func (agc *AppGoodCreate) SetID(u uuid.UUID) *AppGoodCreate {
 	agc.mutation.SetID(u)
@@ -595,6 +609,10 @@ func (agc *AppGoodCreate) defaults() error {
 	if _, ok := agc.mutation.ProductPage(); !ok {
 		v := appgood.DefaultProductPage
 		agc.mutation.SetProductPage(v)
+	}
+	if _, ok := agc.mutation.EnableSetCommission(); !ok {
+		v := appgood.DefaultEnableSetCommission
+		agc.mutation.SetEnableSetCommission(v)
 	}
 	if _, ok := agc.mutation.ID(); !ok {
 		if appgood.DefaultID == nil {
@@ -891,6 +909,14 @@ func (agc *AppGoodCreate) createSpec() (*AppGood, *sqlgraph.CreateSpec) {
 			Column: appgood.FieldProductPage,
 		})
 		_node.ProductPage = value
+	}
+	if value, ok := agc.mutation.EnableSetCommission(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: appgood.FieldEnableSetCommission,
+		})
+		_node.EnableSetCommission = value
 	}
 	return _node, _spec
 }
@@ -1507,6 +1533,24 @@ func (u *AppGoodUpsert) UpdateProductPage() *AppGoodUpsert {
 // ClearProductPage clears the value of the "product_page" field.
 func (u *AppGoodUpsert) ClearProductPage() *AppGoodUpsert {
 	u.SetNull(appgood.FieldProductPage)
+	return u
+}
+
+// SetEnableSetCommission sets the "enable_set_commission" field.
+func (u *AppGoodUpsert) SetEnableSetCommission(v bool) *AppGoodUpsert {
+	u.Set(appgood.FieldEnableSetCommission, v)
+	return u
+}
+
+// UpdateEnableSetCommission sets the "enable_set_commission" field to the value that was provided on create.
+func (u *AppGoodUpsert) UpdateEnableSetCommission() *AppGoodUpsert {
+	u.SetExcluded(appgood.FieldEnableSetCommission)
+	return u
+}
+
+// ClearEnableSetCommission clears the value of the "enable_set_commission" field.
+func (u *AppGoodUpsert) ClearEnableSetCommission() *AppGoodUpsert {
+	u.SetNull(appgood.FieldEnableSetCommission)
 	return u
 }
 
@@ -2215,6 +2259,27 @@ func (u *AppGoodUpsertOne) UpdateProductPage() *AppGoodUpsertOne {
 func (u *AppGoodUpsertOne) ClearProductPage() *AppGoodUpsertOne {
 	return u.Update(func(s *AppGoodUpsert) {
 		s.ClearProductPage()
+	})
+}
+
+// SetEnableSetCommission sets the "enable_set_commission" field.
+func (u *AppGoodUpsertOne) SetEnableSetCommission(v bool) *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetEnableSetCommission(v)
+	})
+}
+
+// UpdateEnableSetCommission sets the "enable_set_commission" field to the value that was provided on create.
+func (u *AppGoodUpsertOne) UpdateEnableSetCommission() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateEnableSetCommission()
+	})
+}
+
+// ClearEnableSetCommission clears the value of the "enable_set_commission" field.
+func (u *AppGoodUpsertOne) ClearEnableSetCommission() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearEnableSetCommission()
 	})
 }
 
@@ -3089,6 +3154,27 @@ func (u *AppGoodUpsertBulk) UpdateProductPage() *AppGoodUpsertBulk {
 func (u *AppGoodUpsertBulk) ClearProductPage() *AppGoodUpsertBulk {
 	return u.Update(func(s *AppGoodUpsert) {
 		s.ClearProductPage()
+	})
+}
+
+// SetEnableSetCommission sets the "enable_set_commission" field.
+func (u *AppGoodUpsertBulk) SetEnableSetCommission(v bool) *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetEnableSetCommission(v)
+	})
+}
+
+// UpdateEnableSetCommission sets the "enable_set_commission" field to the value that was provided on create.
+func (u *AppGoodUpsertBulk) UpdateEnableSetCommission() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateEnableSetCommission()
+	})
+}
+
+// ClearEnableSetCommission clears the value of the "enable_set_commission" field.
+func (u *AppGoodUpsertBulk) ClearEnableSetCommission() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearEnableSetCommission()
 	})
 }
 
