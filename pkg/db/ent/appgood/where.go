@@ -220,6 +220,55 @@ func GoodBanner(v string) predicate.AppGood {
 	})
 }
 
+// EnablePurchase applies equality check predicate on the "enable_purchase" field. It's identical to EnablePurchaseEQ.
+func EnablePurchase(v bool) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldEnablePurchase), v))
+	})
+}
+
+// EnableProductPage applies equality check predicate on the "enable_product_page" field. It's identical to EnableProductPageEQ.
+func EnableProductPage(v bool) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldEnableProductPage), v))
+	})
+}
+
+// CancelMode applies equality check predicate on the "cancel_mode" field. It's identical to CancelModeEQ.
+func CancelMode(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCancelMode), v))
+	})
+}
+
+// UserPurchaseLimit applies equality check predicate on the "user_purchase_limit" field. It's identical to UserPurchaseLimitEQ.
+func UserPurchaseLimit(v decimal.Decimal) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldUserPurchaseLimit), v))
+	})
+}
+
+// CancellableBeforeStart applies equality check predicate on the "cancellable_before_start" field. It's identical to CancellableBeforeStartEQ.
+func CancellableBeforeStart(v uint32) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCancellableBeforeStart), v))
+	})
+}
+
+// ProductPage applies equality check predicate on the "product_page" field. It's identical to ProductPageEQ.
+func ProductPage(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldProductPage), v))
+	})
+}
+
+// EnableSetCommission applies equality check predicate on the "enable_set_commission" field. It's identical to EnableSetCommissionEQ.
+func EnableSetCommission(v bool) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldEnableSetCommission), v))
+	})
+}
+
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
 func CreatedAtEQ(v uint32) predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
@@ -1740,6 +1789,486 @@ func DisplayNamesIsNil() predicate.AppGood {
 func DisplayNamesNotNil() predicate.AppGood {
 	return predicate.AppGood(func(s *sql.Selector) {
 		s.Where(sql.NotNull(s.C(FieldDisplayNames)))
+	})
+}
+
+// EnablePurchaseEQ applies the EQ predicate on the "enable_purchase" field.
+func EnablePurchaseEQ(v bool) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldEnablePurchase), v))
+	})
+}
+
+// EnablePurchaseNEQ applies the NEQ predicate on the "enable_purchase" field.
+func EnablePurchaseNEQ(v bool) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldEnablePurchase), v))
+	})
+}
+
+// EnablePurchaseIsNil applies the IsNil predicate on the "enable_purchase" field.
+func EnablePurchaseIsNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldEnablePurchase)))
+	})
+}
+
+// EnablePurchaseNotNil applies the NotNil predicate on the "enable_purchase" field.
+func EnablePurchaseNotNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldEnablePurchase)))
+	})
+}
+
+// EnableProductPageEQ applies the EQ predicate on the "enable_product_page" field.
+func EnableProductPageEQ(v bool) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldEnableProductPage), v))
+	})
+}
+
+// EnableProductPageNEQ applies the NEQ predicate on the "enable_product_page" field.
+func EnableProductPageNEQ(v bool) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldEnableProductPage), v))
+	})
+}
+
+// EnableProductPageIsNil applies the IsNil predicate on the "enable_product_page" field.
+func EnableProductPageIsNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldEnableProductPage)))
+	})
+}
+
+// EnableProductPageNotNil applies the NotNil predicate on the "enable_product_page" field.
+func EnableProductPageNotNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldEnableProductPage)))
+	})
+}
+
+// CancelModeEQ applies the EQ predicate on the "cancel_mode" field.
+func CancelModeEQ(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCancelMode), v))
+	})
+}
+
+// CancelModeNEQ applies the NEQ predicate on the "cancel_mode" field.
+func CancelModeNEQ(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldCancelMode), v))
+	})
+}
+
+// CancelModeIn applies the In predicate on the "cancel_mode" field.
+func CancelModeIn(vs ...string) predicate.AppGood {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.In(s.C(FieldCancelMode), v...))
+	})
+}
+
+// CancelModeNotIn applies the NotIn predicate on the "cancel_mode" field.
+func CancelModeNotIn(vs ...string) predicate.AppGood {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotIn(s.C(FieldCancelMode), v...))
+	})
+}
+
+// CancelModeGT applies the GT predicate on the "cancel_mode" field.
+func CancelModeGT(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldCancelMode), v))
+	})
+}
+
+// CancelModeGTE applies the GTE predicate on the "cancel_mode" field.
+func CancelModeGTE(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldCancelMode), v))
+	})
+}
+
+// CancelModeLT applies the LT predicate on the "cancel_mode" field.
+func CancelModeLT(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldCancelMode), v))
+	})
+}
+
+// CancelModeLTE applies the LTE predicate on the "cancel_mode" field.
+func CancelModeLTE(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldCancelMode), v))
+	})
+}
+
+// CancelModeContains applies the Contains predicate on the "cancel_mode" field.
+func CancelModeContains(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldCancelMode), v))
+	})
+}
+
+// CancelModeHasPrefix applies the HasPrefix predicate on the "cancel_mode" field.
+func CancelModeHasPrefix(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldCancelMode), v))
+	})
+}
+
+// CancelModeHasSuffix applies the HasSuffix predicate on the "cancel_mode" field.
+func CancelModeHasSuffix(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldCancelMode), v))
+	})
+}
+
+// CancelModeIsNil applies the IsNil predicate on the "cancel_mode" field.
+func CancelModeIsNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldCancelMode)))
+	})
+}
+
+// CancelModeNotNil applies the NotNil predicate on the "cancel_mode" field.
+func CancelModeNotNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldCancelMode)))
+	})
+}
+
+// CancelModeEqualFold applies the EqualFold predicate on the "cancel_mode" field.
+func CancelModeEqualFold(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldCancelMode), v))
+	})
+}
+
+// CancelModeContainsFold applies the ContainsFold predicate on the "cancel_mode" field.
+func CancelModeContainsFold(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldCancelMode), v))
+	})
+}
+
+// UserPurchaseLimitEQ applies the EQ predicate on the "user_purchase_limit" field.
+func UserPurchaseLimitEQ(v decimal.Decimal) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldUserPurchaseLimit), v))
+	})
+}
+
+// UserPurchaseLimitNEQ applies the NEQ predicate on the "user_purchase_limit" field.
+func UserPurchaseLimitNEQ(v decimal.Decimal) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldUserPurchaseLimit), v))
+	})
+}
+
+// UserPurchaseLimitIn applies the In predicate on the "user_purchase_limit" field.
+func UserPurchaseLimitIn(vs ...decimal.Decimal) predicate.AppGood {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.In(s.C(FieldUserPurchaseLimit), v...))
+	})
+}
+
+// UserPurchaseLimitNotIn applies the NotIn predicate on the "user_purchase_limit" field.
+func UserPurchaseLimitNotIn(vs ...decimal.Decimal) predicate.AppGood {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotIn(s.C(FieldUserPurchaseLimit), v...))
+	})
+}
+
+// UserPurchaseLimitGT applies the GT predicate on the "user_purchase_limit" field.
+func UserPurchaseLimitGT(v decimal.Decimal) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldUserPurchaseLimit), v))
+	})
+}
+
+// UserPurchaseLimitGTE applies the GTE predicate on the "user_purchase_limit" field.
+func UserPurchaseLimitGTE(v decimal.Decimal) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldUserPurchaseLimit), v))
+	})
+}
+
+// UserPurchaseLimitLT applies the LT predicate on the "user_purchase_limit" field.
+func UserPurchaseLimitLT(v decimal.Decimal) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldUserPurchaseLimit), v))
+	})
+}
+
+// UserPurchaseLimitLTE applies the LTE predicate on the "user_purchase_limit" field.
+func UserPurchaseLimitLTE(v decimal.Decimal) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldUserPurchaseLimit), v))
+	})
+}
+
+// UserPurchaseLimitIsNil applies the IsNil predicate on the "user_purchase_limit" field.
+func UserPurchaseLimitIsNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldUserPurchaseLimit)))
+	})
+}
+
+// UserPurchaseLimitNotNil applies the NotNil predicate on the "user_purchase_limit" field.
+func UserPurchaseLimitNotNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldUserPurchaseLimit)))
+	})
+}
+
+// DisplayColorsIsNil applies the IsNil predicate on the "display_colors" field.
+func DisplayColorsIsNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldDisplayColors)))
+	})
+}
+
+// DisplayColorsNotNil applies the NotNil predicate on the "display_colors" field.
+func DisplayColorsNotNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldDisplayColors)))
+	})
+}
+
+// CancellableBeforeStartEQ applies the EQ predicate on the "cancellable_before_start" field.
+func CancellableBeforeStartEQ(v uint32) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCancellableBeforeStart), v))
+	})
+}
+
+// CancellableBeforeStartNEQ applies the NEQ predicate on the "cancellable_before_start" field.
+func CancellableBeforeStartNEQ(v uint32) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldCancellableBeforeStart), v))
+	})
+}
+
+// CancellableBeforeStartIn applies the In predicate on the "cancellable_before_start" field.
+func CancellableBeforeStartIn(vs ...uint32) predicate.AppGood {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.In(s.C(FieldCancellableBeforeStart), v...))
+	})
+}
+
+// CancellableBeforeStartNotIn applies the NotIn predicate on the "cancellable_before_start" field.
+func CancellableBeforeStartNotIn(vs ...uint32) predicate.AppGood {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotIn(s.C(FieldCancellableBeforeStart), v...))
+	})
+}
+
+// CancellableBeforeStartGT applies the GT predicate on the "cancellable_before_start" field.
+func CancellableBeforeStartGT(v uint32) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldCancellableBeforeStart), v))
+	})
+}
+
+// CancellableBeforeStartGTE applies the GTE predicate on the "cancellable_before_start" field.
+func CancellableBeforeStartGTE(v uint32) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldCancellableBeforeStart), v))
+	})
+}
+
+// CancellableBeforeStartLT applies the LT predicate on the "cancellable_before_start" field.
+func CancellableBeforeStartLT(v uint32) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldCancellableBeforeStart), v))
+	})
+}
+
+// CancellableBeforeStartLTE applies the LTE predicate on the "cancellable_before_start" field.
+func CancellableBeforeStartLTE(v uint32) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldCancellableBeforeStart), v))
+	})
+}
+
+// CancellableBeforeStartIsNil applies the IsNil predicate on the "cancellable_before_start" field.
+func CancellableBeforeStartIsNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldCancellableBeforeStart)))
+	})
+}
+
+// CancellableBeforeStartNotNil applies the NotNil predicate on the "cancellable_before_start" field.
+func CancellableBeforeStartNotNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldCancellableBeforeStart)))
+	})
+}
+
+// ProductPageEQ applies the EQ predicate on the "product_page" field.
+func ProductPageEQ(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldProductPage), v))
+	})
+}
+
+// ProductPageNEQ applies the NEQ predicate on the "product_page" field.
+func ProductPageNEQ(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldProductPage), v))
+	})
+}
+
+// ProductPageIn applies the In predicate on the "product_page" field.
+func ProductPageIn(vs ...string) predicate.AppGood {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.In(s.C(FieldProductPage), v...))
+	})
+}
+
+// ProductPageNotIn applies the NotIn predicate on the "product_page" field.
+func ProductPageNotIn(vs ...string) predicate.AppGood {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotIn(s.C(FieldProductPage), v...))
+	})
+}
+
+// ProductPageGT applies the GT predicate on the "product_page" field.
+func ProductPageGT(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldProductPage), v))
+	})
+}
+
+// ProductPageGTE applies the GTE predicate on the "product_page" field.
+func ProductPageGTE(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldProductPage), v))
+	})
+}
+
+// ProductPageLT applies the LT predicate on the "product_page" field.
+func ProductPageLT(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldProductPage), v))
+	})
+}
+
+// ProductPageLTE applies the LTE predicate on the "product_page" field.
+func ProductPageLTE(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldProductPage), v))
+	})
+}
+
+// ProductPageContains applies the Contains predicate on the "product_page" field.
+func ProductPageContains(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldProductPage), v))
+	})
+}
+
+// ProductPageHasPrefix applies the HasPrefix predicate on the "product_page" field.
+func ProductPageHasPrefix(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldProductPage), v))
+	})
+}
+
+// ProductPageHasSuffix applies the HasSuffix predicate on the "product_page" field.
+func ProductPageHasSuffix(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldProductPage), v))
+	})
+}
+
+// ProductPageIsNil applies the IsNil predicate on the "product_page" field.
+func ProductPageIsNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldProductPage)))
+	})
+}
+
+// ProductPageNotNil applies the NotNil predicate on the "product_page" field.
+func ProductPageNotNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldProductPage)))
+	})
+}
+
+// ProductPageEqualFold applies the EqualFold predicate on the "product_page" field.
+func ProductPageEqualFold(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldProductPage), v))
+	})
+}
+
+// ProductPageContainsFold applies the ContainsFold predicate on the "product_page" field.
+func ProductPageContainsFold(v string) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldProductPage), v))
+	})
+}
+
+// EnableSetCommissionEQ applies the EQ predicate on the "enable_set_commission" field.
+func EnableSetCommissionEQ(v bool) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldEnableSetCommission), v))
+	})
+}
+
+// EnableSetCommissionNEQ applies the NEQ predicate on the "enable_set_commission" field.
+func EnableSetCommissionNEQ(v bool) predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldEnableSetCommission), v))
+	})
+}
+
+// EnableSetCommissionIsNil applies the IsNil predicate on the "enable_set_commission" field.
+func EnableSetCommissionIsNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldEnableSetCommission)))
+	})
+}
+
+// EnableSetCommissionNotNil applies the NotNil predicate on the "enable_set_commission" field.
+func EnableSetCommissionNotNil() predicate.AppGood {
+	return predicate.AppGood(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldEnableSetCommission)))
 	})
 }
 

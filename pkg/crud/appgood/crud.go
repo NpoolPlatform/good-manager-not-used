@@ -21,7 +21,8 @@ import (
 	"github.com/google/uuid"
 )
 
-func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (*ent.AppGoodCreate, error) { //nolint:gocyclo
+//nolint:funlen,gocyclo
+func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (e *ent.AppGoodCreate, err error) {
 	if in.ID != nil {
 		c.SetID(uuid.MustParse(in.GetID()))
 	}
@@ -87,10 +88,45 @@ func CreateSet(c *ent.AppGoodCreate, in *npool.AppGoodReq) (*ent.AppGoodCreate, 
 	if in.GoodBanner != nil {
 		c.SetGoodBanner(in.GetGoodBanner())
 	}
+	displayNames := []string{}
 	if in.DisplayNames != nil {
-		c.SetDisplayNames(in.GetDisplayNames())
+		displayNames = in.GetDisplayNames()
 	}
-
+	c.SetDisplayNames(displayNames)
+	if in.EnablePurchase != nil {
+		c.SetEnablePurchase(in.GetEnablePurchase())
+	}
+	if in.EnableProductPage != nil {
+		c.SetEnableProductPage(in.GetEnableProductPage())
+	}
+	if in.CancelMode != nil {
+		c.SetCancelMode(in.GetCancelMode().String())
+	}
+	userPurchaseLimit := decimal.NewFromInt(0)
+	if in.UserPurchaseLimit != nil {
+		userPurchaseLimit, err = decimal.NewFromString(in.GetUserPurchaseLimit())
+		if err != nil {
+			return nil, err
+		}
+	}
+	c.SetUserPurchaseLimit(userPurchaseLimit)
+	displayColors := []string{}
+	if in.DisplayColors != nil {
+		displayColors = in.GetDisplayColors()
+	}
+	c.SetDisplayColors(displayColors)
+	if in.DisplayColors != nil {
+		c.SetDisplayColors(in.GetDisplayColors())
+	}
+	if in.CancellableBeforeStart != nil {
+		c.SetCancellableBeforeStart(in.GetCancellableBeforeStart())
+	}
+	if in.ProductPage != nil {
+		c.SetProductPage(in.GetProductPage())
+	}
+	if in.EnableSetCommission != nil {
+		c.SetEnableSetCommission(in.GetEnableSetCommission())
+	}
 	return c, nil
 }
 
@@ -219,6 +255,41 @@ func UpdateSet(u *ent.AppGoodUpdateOne, in *npool.AppGoodReq) (*ent.AppGoodUpdat
 	}
 	if len(in.DisplayNames) > 0 {
 		u.SetDisplayNames(in.GetDisplayNames())
+	}
+	if in.EnablePurchase != nil {
+		u.SetEnablePurchase(in.GetEnablePurchase())
+	}
+	if in.EnableProductPage != nil {
+		u.SetEnableProductPage(in.GetEnableProductPage())
+	}
+	if in.CancelMode != nil {
+		u.SetCancelMode(in.GetCancelMode().String())
+	}
+	if in.UserPurchaseLimit != nil {
+		userPurchaseLimit, err := decimal.NewFromString(in.GetUserPurchaseLimit())
+		if err != nil {
+			return nil, err
+		}
+		u.SetUserPurchaseLimit(userPurchaseLimit)
+	}
+	if in.UserPurchaseLimit != nil {
+		userPurchaseLimit, err := decimal.NewFromString(in.GetUserPurchaseLimit())
+		if err != nil {
+			return nil, err
+		}
+		u.SetUserPurchaseLimit(userPurchaseLimit)
+	}
+	if in.DisplayColors != nil {
+		u.SetDisplayColors(in.GetDisplayColors())
+	}
+	if in.CancellableBeforeStart != nil {
+		u.SetCancellableBeforeStart(in.GetCancellableBeforeStart())
+	}
+	if in.ProductPage != nil {
+		u.SetProductPage(in.GetProductPage())
+	}
+	if in.EnableSetCommission != nil {
+		u.SetEnableSetCommission(in.GetEnableSetCommission())
 	}
 	return u, nil
 }

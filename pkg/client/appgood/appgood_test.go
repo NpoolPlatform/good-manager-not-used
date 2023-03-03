@@ -7,6 +7,8 @@ import (
 	"strconv"
 	"testing"
 
+	"github.com/shopspring/decimal"
+
 	"google.golang.org/grpc/credentials/insecure"
 
 	"github.com/NpoolPlatform/go-service-framework/pkg/config"
@@ -49,6 +51,13 @@ var appDate = npool.AppGood{
 	CommissionPercent:    102,
 	DailyRewardAmount:    "999",
 	CommissionSettleType: commmgrpb.SettleType_GoodOrderPercent,
+	EnablePurchase:       true,
+	EnableProductPage:    true,
+	CancelMode:           npool.CancelMode_CancellableBeforeBenefit,
+	UserPurchaseLimit:    decimal.NewFromInt(100).String(),
+	DisplayColors:        []string{uuid.NewString()},
+	ProductPage:          uuid.NewString(),
+	EnableSetCommission:  false,
 }
 
 var (
@@ -65,6 +74,13 @@ var (
 		CommissionPercent:    &appDate.CommissionPercent,
 		DailyRewardAmount:    &appDate.DailyRewardAmount,
 		CommissionSettleType: &appDate.CommissionSettleType,
+		EnablePurchase:       &appDate.EnablePurchase,
+		EnableProductPage:    &appDate.EnableProductPage,
+		CancelMode:           &appDate.CancelMode,
+		UserPurchaseLimit:    &appDate.UserPurchaseLimit,
+		DisplayColors:        appDate.DisplayColors,
+		ProductPage:          &appDate.ProductPage,
+		EnableSetCommission:  &appDate.EnableSetCommission,
 	}
 )
 
@@ -96,6 +112,11 @@ func createAppGoods(t *testing.T) {
 			CommissionPercent:    102,
 			DailyRewardAmount:    "999",
 			CommissionSettleType: commmgrpb.SettleType_NoCommission,
+			EnablePurchase:       true,
+			EnableProductPage:    true,
+			CancelMode:           npool.CancelMode_CancellableBeforeBenefit,
+			UserPurchaseLimit:    decimal.NewFromInt(100).String(),
+			EnableSetCommission:  false,
 		},
 		{
 			ID:                   uuid.NewString(),
@@ -110,23 +131,33 @@ func createAppGoods(t *testing.T) {
 			CommissionPercent:    102,
 			DailyRewardAmount:    "999",
 			CommissionSettleType: commmgrpb.SettleType_NoCommission,
+			EnablePurchase:       true,
+			EnableProductPage:    true,
+			CancelMode:           npool.CancelMode_CancellableBeforeBenefit,
+			UserPurchaseLimit:    decimal.NewFromInt(100).String(),
+			EnableSetCommission:  false,
 		},
 	}
 
 	apps := []*npool.AppGoodReq{}
 	for key := range appDates {
 		apps = append(apps, &npool.AppGoodReq{
-			ID:                &appDates[key].ID,
-			AppID:             &appDates[key].AppID,
-			GoodID:            &appDates[key].GoodID,
-			Online:            &appDates[key].Online,
-			Visible:           &appDates[key].Visible,
-			GoodName:          &appDates[key].GoodName,
-			Price:             &appDates[key].Price,
-			DisplayIndex:      &appDates[key].DisplayIndex,
-			PurchaseLimit:     &appDates[key].PurchaseLimit,
-			CommissionPercent: &appDates[key].CommissionPercent,
-			DailyRewardAmount: &appDates[key].DailyRewardAmount,
+			ID:                  &appDates[key].ID,
+			AppID:               &appDates[key].AppID,
+			GoodID:              &appDates[key].GoodID,
+			Online:              &appDates[key].Online,
+			Visible:             &appDates[key].Visible,
+			GoodName:            &appDates[key].GoodName,
+			Price:               &appDates[key].Price,
+			DisplayIndex:        &appDates[key].DisplayIndex,
+			PurchaseLimit:       &appDates[key].PurchaseLimit,
+			CommissionPercent:   &appDates[key].CommissionPercent,
+			DailyRewardAmount:   &appDates[key].DailyRewardAmount,
+			EnablePurchase:      &appDates[key].EnablePurchase,
+			EnableProductPage:   &appDates[key].EnableProductPage,
+			CancelMode:          &appDates[key].CancelMode,
+			UserPurchaseLimit:   &appDates[key].UserPurchaseLimit,
+			EnableSetCommission: &appDates[key].EnableSetCommission,
 		})
 	}
 

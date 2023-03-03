@@ -300,6 +300,110 @@ func (agc *AppGoodCreate) SetDisplayNames(s []string) *AppGoodCreate {
 	return agc
 }
 
+// SetEnablePurchase sets the "enable_purchase" field.
+func (agc *AppGoodCreate) SetEnablePurchase(b bool) *AppGoodCreate {
+	agc.mutation.SetEnablePurchase(b)
+	return agc
+}
+
+// SetNillableEnablePurchase sets the "enable_purchase" field if the given value is not nil.
+func (agc *AppGoodCreate) SetNillableEnablePurchase(b *bool) *AppGoodCreate {
+	if b != nil {
+		agc.SetEnablePurchase(*b)
+	}
+	return agc
+}
+
+// SetEnableProductPage sets the "enable_product_page" field.
+func (agc *AppGoodCreate) SetEnableProductPage(b bool) *AppGoodCreate {
+	agc.mutation.SetEnableProductPage(b)
+	return agc
+}
+
+// SetNillableEnableProductPage sets the "enable_product_page" field if the given value is not nil.
+func (agc *AppGoodCreate) SetNillableEnableProductPage(b *bool) *AppGoodCreate {
+	if b != nil {
+		agc.SetEnableProductPage(*b)
+	}
+	return agc
+}
+
+// SetCancelMode sets the "cancel_mode" field.
+func (agc *AppGoodCreate) SetCancelMode(s string) *AppGoodCreate {
+	agc.mutation.SetCancelMode(s)
+	return agc
+}
+
+// SetNillableCancelMode sets the "cancel_mode" field if the given value is not nil.
+func (agc *AppGoodCreate) SetNillableCancelMode(s *string) *AppGoodCreate {
+	if s != nil {
+		agc.SetCancelMode(*s)
+	}
+	return agc
+}
+
+// SetUserPurchaseLimit sets the "user_purchase_limit" field.
+func (agc *AppGoodCreate) SetUserPurchaseLimit(d decimal.Decimal) *AppGoodCreate {
+	agc.mutation.SetUserPurchaseLimit(d)
+	return agc
+}
+
+// SetNillableUserPurchaseLimit sets the "user_purchase_limit" field if the given value is not nil.
+func (agc *AppGoodCreate) SetNillableUserPurchaseLimit(d *decimal.Decimal) *AppGoodCreate {
+	if d != nil {
+		agc.SetUserPurchaseLimit(*d)
+	}
+	return agc
+}
+
+// SetDisplayColors sets the "display_colors" field.
+func (agc *AppGoodCreate) SetDisplayColors(s []string) *AppGoodCreate {
+	agc.mutation.SetDisplayColors(s)
+	return agc
+}
+
+// SetCancellableBeforeStart sets the "cancellable_before_start" field.
+func (agc *AppGoodCreate) SetCancellableBeforeStart(u uint32) *AppGoodCreate {
+	agc.mutation.SetCancellableBeforeStart(u)
+	return agc
+}
+
+// SetNillableCancellableBeforeStart sets the "cancellable_before_start" field if the given value is not nil.
+func (agc *AppGoodCreate) SetNillableCancellableBeforeStart(u *uint32) *AppGoodCreate {
+	if u != nil {
+		agc.SetCancellableBeforeStart(*u)
+	}
+	return agc
+}
+
+// SetProductPage sets the "product_page" field.
+func (agc *AppGoodCreate) SetProductPage(s string) *AppGoodCreate {
+	agc.mutation.SetProductPage(s)
+	return agc
+}
+
+// SetNillableProductPage sets the "product_page" field if the given value is not nil.
+func (agc *AppGoodCreate) SetNillableProductPage(s *string) *AppGoodCreate {
+	if s != nil {
+		agc.SetProductPage(*s)
+	}
+	return agc
+}
+
+// SetEnableSetCommission sets the "enable_set_commission" field.
+func (agc *AppGoodCreate) SetEnableSetCommission(b bool) *AppGoodCreate {
+	agc.mutation.SetEnableSetCommission(b)
+	return agc
+}
+
+// SetNillableEnableSetCommission sets the "enable_set_commission" field if the given value is not nil.
+func (agc *AppGoodCreate) SetNillableEnableSetCommission(b *bool) *AppGoodCreate {
+	if b != nil {
+		agc.SetEnableSetCommission(*b)
+	}
+	return agc
+}
+
 // SetID sets the "id" field.
 func (agc *AppGoodCreate) SetID(u uuid.UUID) *AppGoodCreate {
 	agc.mutation.SetID(u)
@@ -481,6 +585,34 @@ func (agc *AppGoodCreate) defaults() error {
 	if _, ok := agc.mutation.DisplayNames(); !ok {
 		v := appgood.DefaultDisplayNames
 		agc.mutation.SetDisplayNames(v)
+	}
+	if _, ok := agc.mutation.EnablePurchase(); !ok {
+		v := appgood.DefaultEnablePurchase
+		agc.mutation.SetEnablePurchase(v)
+	}
+	if _, ok := agc.mutation.EnableProductPage(); !ok {
+		v := appgood.DefaultEnableProductPage
+		agc.mutation.SetEnableProductPage(v)
+	}
+	if _, ok := agc.mutation.CancelMode(); !ok {
+		v := appgood.DefaultCancelMode
+		agc.mutation.SetCancelMode(v)
+	}
+	if _, ok := agc.mutation.DisplayColors(); !ok {
+		v := appgood.DefaultDisplayColors
+		agc.mutation.SetDisplayColors(v)
+	}
+	if _, ok := agc.mutation.CancellableBeforeStart(); !ok {
+		v := appgood.DefaultCancellableBeforeStart
+		agc.mutation.SetCancellableBeforeStart(v)
+	}
+	if _, ok := agc.mutation.ProductPage(); !ok {
+		v := appgood.DefaultProductPage
+		agc.mutation.SetProductPage(v)
+	}
+	if _, ok := agc.mutation.EnableSetCommission(); !ok {
+		v := appgood.DefaultEnableSetCommission
+		agc.mutation.SetEnableSetCommission(v)
 	}
 	if _, ok := agc.mutation.ID(); !ok {
 		if appgood.DefaultID == nil {
@@ -721,6 +853,70 @@ func (agc *AppGoodCreate) createSpec() (*AppGood, *sqlgraph.CreateSpec) {
 			Column: appgood.FieldDisplayNames,
 		})
 		_node.DisplayNames = value
+	}
+	if value, ok := agc.mutation.EnablePurchase(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: appgood.FieldEnablePurchase,
+		})
+		_node.EnablePurchase = value
+	}
+	if value, ok := agc.mutation.EnableProductPage(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: appgood.FieldEnableProductPage,
+		})
+		_node.EnableProductPage = value
+	}
+	if value, ok := agc.mutation.CancelMode(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: appgood.FieldCancelMode,
+		})
+		_node.CancelMode = value
+	}
+	if value, ok := agc.mutation.UserPurchaseLimit(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
+			Value:  value,
+			Column: appgood.FieldUserPurchaseLimit,
+		})
+		_node.UserPurchaseLimit = value
+	}
+	if value, ok := agc.mutation.DisplayColors(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeJSON,
+			Value:  value,
+			Column: appgood.FieldDisplayColors,
+		})
+		_node.DisplayColors = value
+	}
+	if value, ok := agc.mutation.CancellableBeforeStart(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldCancellableBeforeStart,
+		})
+		_node.CancellableBeforeStart = value
+	}
+	if value, ok := agc.mutation.ProductPage(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: appgood.FieldProductPage,
+		})
+		_node.ProductPage = value
+	}
+	if value, ok := agc.mutation.EnableSetCommission(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: appgood.FieldEnableSetCommission,
+		})
+		_node.EnableSetCommission = value
 	}
 	return _node, _spec
 }
@@ -1205,6 +1401,156 @@ func (u *AppGoodUpsert) UpdateDisplayNames() *AppGoodUpsert {
 // ClearDisplayNames clears the value of the "display_names" field.
 func (u *AppGoodUpsert) ClearDisplayNames() *AppGoodUpsert {
 	u.SetNull(appgood.FieldDisplayNames)
+	return u
+}
+
+// SetEnablePurchase sets the "enable_purchase" field.
+func (u *AppGoodUpsert) SetEnablePurchase(v bool) *AppGoodUpsert {
+	u.Set(appgood.FieldEnablePurchase, v)
+	return u
+}
+
+// UpdateEnablePurchase sets the "enable_purchase" field to the value that was provided on create.
+func (u *AppGoodUpsert) UpdateEnablePurchase() *AppGoodUpsert {
+	u.SetExcluded(appgood.FieldEnablePurchase)
+	return u
+}
+
+// ClearEnablePurchase clears the value of the "enable_purchase" field.
+func (u *AppGoodUpsert) ClearEnablePurchase() *AppGoodUpsert {
+	u.SetNull(appgood.FieldEnablePurchase)
+	return u
+}
+
+// SetEnableProductPage sets the "enable_product_page" field.
+func (u *AppGoodUpsert) SetEnableProductPage(v bool) *AppGoodUpsert {
+	u.Set(appgood.FieldEnableProductPage, v)
+	return u
+}
+
+// UpdateEnableProductPage sets the "enable_product_page" field to the value that was provided on create.
+func (u *AppGoodUpsert) UpdateEnableProductPage() *AppGoodUpsert {
+	u.SetExcluded(appgood.FieldEnableProductPage)
+	return u
+}
+
+// ClearEnableProductPage clears the value of the "enable_product_page" field.
+func (u *AppGoodUpsert) ClearEnableProductPage() *AppGoodUpsert {
+	u.SetNull(appgood.FieldEnableProductPage)
+	return u
+}
+
+// SetCancelMode sets the "cancel_mode" field.
+func (u *AppGoodUpsert) SetCancelMode(v string) *AppGoodUpsert {
+	u.Set(appgood.FieldCancelMode, v)
+	return u
+}
+
+// UpdateCancelMode sets the "cancel_mode" field to the value that was provided on create.
+func (u *AppGoodUpsert) UpdateCancelMode() *AppGoodUpsert {
+	u.SetExcluded(appgood.FieldCancelMode)
+	return u
+}
+
+// ClearCancelMode clears the value of the "cancel_mode" field.
+func (u *AppGoodUpsert) ClearCancelMode() *AppGoodUpsert {
+	u.SetNull(appgood.FieldCancelMode)
+	return u
+}
+
+// SetUserPurchaseLimit sets the "user_purchase_limit" field.
+func (u *AppGoodUpsert) SetUserPurchaseLimit(v decimal.Decimal) *AppGoodUpsert {
+	u.Set(appgood.FieldUserPurchaseLimit, v)
+	return u
+}
+
+// UpdateUserPurchaseLimit sets the "user_purchase_limit" field to the value that was provided on create.
+func (u *AppGoodUpsert) UpdateUserPurchaseLimit() *AppGoodUpsert {
+	u.SetExcluded(appgood.FieldUserPurchaseLimit)
+	return u
+}
+
+// ClearUserPurchaseLimit clears the value of the "user_purchase_limit" field.
+func (u *AppGoodUpsert) ClearUserPurchaseLimit() *AppGoodUpsert {
+	u.SetNull(appgood.FieldUserPurchaseLimit)
+	return u
+}
+
+// SetDisplayColors sets the "display_colors" field.
+func (u *AppGoodUpsert) SetDisplayColors(v []string) *AppGoodUpsert {
+	u.Set(appgood.FieldDisplayColors, v)
+	return u
+}
+
+// UpdateDisplayColors sets the "display_colors" field to the value that was provided on create.
+func (u *AppGoodUpsert) UpdateDisplayColors() *AppGoodUpsert {
+	u.SetExcluded(appgood.FieldDisplayColors)
+	return u
+}
+
+// ClearDisplayColors clears the value of the "display_colors" field.
+func (u *AppGoodUpsert) ClearDisplayColors() *AppGoodUpsert {
+	u.SetNull(appgood.FieldDisplayColors)
+	return u
+}
+
+// SetCancellableBeforeStart sets the "cancellable_before_start" field.
+func (u *AppGoodUpsert) SetCancellableBeforeStart(v uint32) *AppGoodUpsert {
+	u.Set(appgood.FieldCancellableBeforeStart, v)
+	return u
+}
+
+// UpdateCancellableBeforeStart sets the "cancellable_before_start" field to the value that was provided on create.
+func (u *AppGoodUpsert) UpdateCancellableBeforeStart() *AppGoodUpsert {
+	u.SetExcluded(appgood.FieldCancellableBeforeStart)
+	return u
+}
+
+// AddCancellableBeforeStart adds v to the "cancellable_before_start" field.
+func (u *AppGoodUpsert) AddCancellableBeforeStart(v uint32) *AppGoodUpsert {
+	u.Add(appgood.FieldCancellableBeforeStart, v)
+	return u
+}
+
+// ClearCancellableBeforeStart clears the value of the "cancellable_before_start" field.
+func (u *AppGoodUpsert) ClearCancellableBeforeStart() *AppGoodUpsert {
+	u.SetNull(appgood.FieldCancellableBeforeStart)
+	return u
+}
+
+// SetProductPage sets the "product_page" field.
+func (u *AppGoodUpsert) SetProductPage(v string) *AppGoodUpsert {
+	u.Set(appgood.FieldProductPage, v)
+	return u
+}
+
+// UpdateProductPage sets the "product_page" field to the value that was provided on create.
+func (u *AppGoodUpsert) UpdateProductPage() *AppGoodUpsert {
+	u.SetExcluded(appgood.FieldProductPage)
+	return u
+}
+
+// ClearProductPage clears the value of the "product_page" field.
+func (u *AppGoodUpsert) ClearProductPage() *AppGoodUpsert {
+	u.SetNull(appgood.FieldProductPage)
+	return u
+}
+
+// SetEnableSetCommission sets the "enable_set_commission" field.
+func (u *AppGoodUpsert) SetEnableSetCommission(v bool) *AppGoodUpsert {
+	u.Set(appgood.FieldEnableSetCommission, v)
+	return u
+}
+
+// UpdateEnableSetCommission sets the "enable_set_commission" field to the value that was provided on create.
+func (u *AppGoodUpsert) UpdateEnableSetCommission() *AppGoodUpsert {
+	u.SetExcluded(appgood.FieldEnableSetCommission)
+	return u
+}
+
+// ClearEnableSetCommission clears the value of the "enable_set_commission" field.
+func (u *AppGoodUpsert) ClearEnableSetCommission() *AppGoodUpsert {
+	u.SetNull(appgood.FieldEnableSetCommission)
 	return u
 }
 
@@ -1759,6 +2105,181 @@ func (u *AppGoodUpsertOne) UpdateDisplayNames() *AppGoodUpsertOne {
 func (u *AppGoodUpsertOne) ClearDisplayNames() *AppGoodUpsertOne {
 	return u.Update(func(s *AppGoodUpsert) {
 		s.ClearDisplayNames()
+	})
+}
+
+// SetEnablePurchase sets the "enable_purchase" field.
+func (u *AppGoodUpsertOne) SetEnablePurchase(v bool) *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetEnablePurchase(v)
+	})
+}
+
+// UpdateEnablePurchase sets the "enable_purchase" field to the value that was provided on create.
+func (u *AppGoodUpsertOne) UpdateEnablePurchase() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateEnablePurchase()
+	})
+}
+
+// ClearEnablePurchase clears the value of the "enable_purchase" field.
+func (u *AppGoodUpsertOne) ClearEnablePurchase() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearEnablePurchase()
+	})
+}
+
+// SetEnableProductPage sets the "enable_product_page" field.
+func (u *AppGoodUpsertOne) SetEnableProductPage(v bool) *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetEnableProductPage(v)
+	})
+}
+
+// UpdateEnableProductPage sets the "enable_product_page" field to the value that was provided on create.
+func (u *AppGoodUpsertOne) UpdateEnableProductPage() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateEnableProductPage()
+	})
+}
+
+// ClearEnableProductPage clears the value of the "enable_product_page" field.
+func (u *AppGoodUpsertOne) ClearEnableProductPage() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearEnableProductPage()
+	})
+}
+
+// SetCancelMode sets the "cancel_mode" field.
+func (u *AppGoodUpsertOne) SetCancelMode(v string) *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetCancelMode(v)
+	})
+}
+
+// UpdateCancelMode sets the "cancel_mode" field to the value that was provided on create.
+func (u *AppGoodUpsertOne) UpdateCancelMode() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateCancelMode()
+	})
+}
+
+// ClearCancelMode clears the value of the "cancel_mode" field.
+func (u *AppGoodUpsertOne) ClearCancelMode() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearCancelMode()
+	})
+}
+
+// SetUserPurchaseLimit sets the "user_purchase_limit" field.
+func (u *AppGoodUpsertOne) SetUserPurchaseLimit(v decimal.Decimal) *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetUserPurchaseLimit(v)
+	})
+}
+
+// UpdateUserPurchaseLimit sets the "user_purchase_limit" field to the value that was provided on create.
+func (u *AppGoodUpsertOne) UpdateUserPurchaseLimit() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateUserPurchaseLimit()
+	})
+}
+
+// ClearUserPurchaseLimit clears the value of the "user_purchase_limit" field.
+func (u *AppGoodUpsertOne) ClearUserPurchaseLimit() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearUserPurchaseLimit()
+	})
+}
+
+// SetDisplayColors sets the "display_colors" field.
+func (u *AppGoodUpsertOne) SetDisplayColors(v []string) *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetDisplayColors(v)
+	})
+}
+
+// UpdateDisplayColors sets the "display_colors" field to the value that was provided on create.
+func (u *AppGoodUpsertOne) UpdateDisplayColors() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateDisplayColors()
+	})
+}
+
+// ClearDisplayColors clears the value of the "display_colors" field.
+func (u *AppGoodUpsertOne) ClearDisplayColors() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearDisplayColors()
+	})
+}
+
+// SetCancellableBeforeStart sets the "cancellable_before_start" field.
+func (u *AppGoodUpsertOne) SetCancellableBeforeStart(v uint32) *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetCancellableBeforeStart(v)
+	})
+}
+
+// AddCancellableBeforeStart adds v to the "cancellable_before_start" field.
+func (u *AppGoodUpsertOne) AddCancellableBeforeStart(v uint32) *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.AddCancellableBeforeStart(v)
+	})
+}
+
+// UpdateCancellableBeforeStart sets the "cancellable_before_start" field to the value that was provided on create.
+func (u *AppGoodUpsertOne) UpdateCancellableBeforeStart() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateCancellableBeforeStart()
+	})
+}
+
+// ClearCancellableBeforeStart clears the value of the "cancellable_before_start" field.
+func (u *AppGoodUpsertOne) ClearCancellableBeforeStart() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearCancellableBeforeStart()
+	})
+}
+
+// SetProductPage sets the "product_page" field.
+func (u *AppGoodUpsertOne) SetProductPage(v string) *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetProductPage(v)
+	})
+}
+
+// UpdateProductPage sets the "product_page" field to the value that was provided on create.
+func (u *AppGoodUpsertOne) UpdateProductPage() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateProductPage()
+	})
+}
+
+// ClearProductPage clears the value of the "product_page" field.
+func (u *AppGoodUpsertOne) ClearProductPage() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearProductPage()
+	})
+}
+
+// SetEnableSetCommission sets the "enable_set_commission" field.
+func (u *AppGoodUpsertOne) SetEnableSetCommission(v bool) *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetEnableSetCommission(v)
+	})
+}
+
+// UpdateEnableSetCommission sets the "enable_set_commission" field to the value that was provided on create.
+func (u *AppGoodUpsertOne) UpdateEnableSetCommission() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateEnableSetCommission()
+	})
+}
+
+// ClearEnableSetCommission clears the value of the "enable_set_commission" field.
+func (u *AppGoodUpsertOne) ClearEnableSetCommission() *AppGoodUpsertOne {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearEnableSetCommission()
 	})
 }
 
@@ -2479,6 +3000,181 @@ func (u *AppGoodUpsertBulk) UpdateDisplayNames() *AppGoodUpsertBulk {
 func (u *AppGoodUpsertBulk) ClearDisplayNames() *AppGoodUpsertBulk {
 	return u.Update(func(s *AppGoodUpsert) {
 		s.ClearDisplayNames()
+	})
+}
+
+// SetEnablePurchase sets the "enable_purchase" field.
+func (u *AppGoodUpsertBulk) SetEnablePurchase(v bool) *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetEnablePurchase(v)
+	})
+}
+
+// UpdateEnablePurchase sets the "enable_purchase" field to the value that was provided on create.
+func (u *AppGoodUpsertBulk) UpdateEnablePurchase() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateEnablePurchase()
+	})
+}
+
+// ClearEnablePurchase clears the value of the "enable_purchase" field.
+func (u *AppGoodUpsertBulk) ClearEnablePurchase() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearEnablePurchase()
+	})
+}
+
+// SetEnableProductPage sets the "enable_product_page" field.
+func (u *AppGoodUpsertBulk) SetEnableProductPage(v bool) *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetEnableProductPage(v)
+	})
+}
+
+// UpdateEnableProductPage sets the "enable_product_page" field to the value that was provided on create.
+func (u *AppGoodUpsertBulk) UpdateEnableProductPage() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateEnableProductPage()
+	})
+}
+
+// ClearEnableProductPage clears the value of the "enable_product_page" field.
+func (u *AppGoodUpsertBulk) ClearEnableProductPage() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearEnableProductPage()
+	})
+}
+
+// SetCancelMode sets the "cancel_mode" field.
+func (u *AppGoodUpsertBulk) SetCancelMode(v string) *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetCancelMode(v)
+	})
+}
+
+// UpdateCancelMode sets the "cancel_mode" field to the value that was provided on create.
+func (u *AppGoodUpsertBulk) UpdateCancelMode() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateCancelMode()
+	})
+}
+
+// ClearCancelMode clears the value of the "cancel_mode" field.
+func (u *AppGoodUpsertBulk) ClearCancelMode() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearCancelMode()
+	})
+}
+
+// SetUserPurchaseLimit sets the "user_purchase_limit" field.
+func (u *AppGoodUpsertBulk) SetUserPurchaseLimit(v decimal.Decimal) *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetUserPurchaseLimit(v)
+	})
+}
+
+// UpdateUserPurchaseLimit sets the "user_purchase_limit" field to the value that was provided on create.
+func (u *AppGoodUpsertBulk) UpdateUserPurchaseLimit() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateUserPurchaseLimit()
+	})
+}
+
+// ClearUserPurchaseLimit clears the value of the "user_purchase_limit" field.
+func (u *AppGoodUpsertBulk) ClearUserPurchaseLimit() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearUserPurchaseLimit()
+	})
+}
+
+// SetDisplayColors sets the "display_colors" field.
+func (u *AppGoodUpsertBulk) SetDisplayColors(v []string) *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetDisplayColors(v)
+	})
+}
+
+// UpdateDisplayColors sets the "display_colors" field to the value that was provided on create.
+func (u *AppGoodUpsertBulk) UpdateDisplayColors() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateDisplayColors()
+	})
+}
+
+// ClearDisplayColors clears the value of the "display_colors" field.
+func (u *AppGoodUpsertBulk) ClearDisplayColors() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearDisplayColors()
+	})
+}
+
+// SetCancellableBeforeStart sets the "cancellable_before_start" field.
+func (u *AppGoodUpsertBulk) SetCancellableBeforeStart(v uint32) *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetCancellableBeforeStart(v)
+	})
+}
+
+// AddCancellableBeforeStart adds v to the "cancellable_before_start" field.
+func (u *AppGoodUpsertBulk) AddCancellableBeforeStart(v uint32) *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.AddCancellableBeforeStart(v)
+	})
+}
+
+// UpdateCancellableBeforeStart sets the "cancellable_before_start" field to the value that was provided on create.
+func (u *AppGoodUpsertBulk) UpdateCancellableBeforeStart() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateCancellableBeforeStart()
+	})
+}
+
+// ClearCancellableBeforeStart clears the value of the "cancellable_before_start" field.
+func (u *AppGoodUpsertBulk) ClearCancellableBeforeStart() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearCancellableBeforeStart()
+	})
+}
+
+// SetProductPage sets the "product_page" field.
+func (u *AppGoodUpsertBulk) SetProductPage(v string) *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetProductPage(v)
+	})
+}
+
+// UpdateProductPage sets the "product_page" field to the value that was provided on create.
+func (u *AppGoodUpsertBulk) UpdateProductPage() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateProductPage()
+	})
+}
+
+// ClearProductPage clears the value of the "product_page" field.
+func (u *AppGoodUpsertBulk) ClearProductPage() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearProductPage()
+	})
+}
+
+// SetEnableSetCommission sets the "enable_set_commission" field.
+func (u *AppGoodUpsertBulk) SetEnableSetCommission(v bool) *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.SetEnableSetCommission(v)
+	})
+}
+
+// UpdateEnableSetCommission sets the "enable_set_commission" field to the value that was provided on create.
+func (u *AppGoodUpsertBulk) UpdateEnableSetCommission() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.UpdateEnableSetCommission()
+	})
+}
+
+// ClearEnableSetCommission clears the value of the "enable_set_commission" field.
+func (u *AppGoodUpsertBulk) ClearEnableSetCommission() *AppGoodUpsertBulk {
+	return u.Update(func(s *AppGoodUpsert) {
+		s.ClearEnableSetCommission()
 	})
 }
 

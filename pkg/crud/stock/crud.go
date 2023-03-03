@@ -202,7 +202,7 @@ func AddFieldSet(info *ent.Stock, in *npool.StockReq) (*ent.StockUpdateOne, erro
 		waitStart = waitStart.Add(val)
 	}
 	if waitStart.Cmp(decimal.NewFromInt(0)) < 0 {
-		return nil, fmt.Errorf("in service stock exhausted")
+		return nil, fmt.Errorf("wait start stock exhausted")
 	}
 
 	if info.Total.Cmp(locked.Add(inService).Add(waitStart)) < 0 {

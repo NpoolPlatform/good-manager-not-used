@@ -57,6 +57,22 @@ const (
 	FieldGoodBanner = "good_banner"
 	// FieldDisplayNames holds the string denoting the display_names field in the database.
 	FieldDisplayNames = "display_names"
+	// FieldEnablePurchase holds the string denoting the enable_purchase field in the database.
+	FieldEnablePurchase = "enable_purchase"
+	// FieldEnableProductPage holds the string denoting the enable_product_page field in the database.
+	FieldEnableProductPage = "enable_product_page"
+	// FieldCancelMode holds the string denoting the cancel_mode field in the database.
+	FieldCancelMode = "cancel_mode"
+	// FieldUserPurchaseLimit holds the string denoting the user_purchase_limit field in the database.
+	FieldUserPurchaseLimit = "user_purchase_limit"
+	// FieldDisplayColors holds the string denoting the display_colors field in the database.
+	FieldDisplayColors = "display_colors"
+	// FieldCancellableBeforeStart holds the string denoting the cancellable_before_start field in the database.
+	FieldCancellableBeforeStart = "cancellable_before_start"
+	// FieldProductPage holds the string denoting the product_page field in the database.
+	FieldProductPage = "product_page"
+	// FieldEnableSetCommission holds the string denoting the enable_set_commission field in the database.
+	FieldEnableSetCommission = "enable_set_commission"
 	// Table holds the table name of the appgood in the database.
 	Table = "app_goods"
 )
@@ -86,6 +102,14 @@ var Columns = []string{
 	FieldDescriptions,
 	FieldGoodBanner,
 	FieldDisplayNames,
+	FieldEnablePurchase,
+	FieldEnableProductPage,
+	FieldCancelMode,
+	FieldUserPurchaseLimit,
+	FieldDisplayColors,
+	FieldCancellableBeforeStart,
+	FieldProductPage,
+	FieldEnableSetCommission,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -149,6 +173,20 @@ var (
 	DefaultGoodBanner string
 	// DefaultDisplayNames holds the default value on creation for the "display_names" field.
 	DefaultDisplayNames []string
+	// DefaultEnablePurchase holds the default value on creation for the "enable_purchase" field.
+	DefaultEnablePurchase bool
+	// DefaultEnableProductPage holds the default value on creation for the "enable_product_page" field.
+	DefaultEnableProductPage bool
+	// DefaultCancelMode holds the default value on creation for the "cancel_mode" field.
+	DefaultCancelMode string
+	// DefaultDisplayColors holds the default value on creation for the "display_colors" field.
+	DefaultDisplayColors []string
+	// DefaultCancellableBeforeStart holds the default value on creation for the "cancellable_before_start" field.
+	DefaultCancellableBeforeStart uint32
+	// DefaultProductPage holds the default value on creation for the "product_page" field.
+	DefaultProductPage string
+	// DefaultEnableSetCommission holds the default value on creation for the "enable_set_commission" field.
+	DefaultEnableSetCommission bool
 	// DefaultID holds the default value on creation for the "id" field.
 	DefaultID func() uuid.UUID
 )

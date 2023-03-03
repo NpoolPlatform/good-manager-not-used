@@ -1,3 +1,4 @@
+//nolint:dupl
 package appgood
 
 import (
@@ -31,39 +32,62 @@ func init() {
 	}
 }
 
-var appGood = ent.AppGood{
-	ID:                   uuid.New(),
-	AppID:                uuid.New(),
-	GoodID:               uuid.New(),
-	Online:               true,
-	Visible:              true,
-	GoodName:             uuid.NewString(),
-	Price:                decimal.RequireFromString("9999999999999999999.999999999999999999"),
-	DisplayIndex:         100,
-	PurchaseLimit:        100,
-	CommissionPercent:    100,
-	DailyRewardAmount:    decimal.RequireFromString("9999999999999999999.999999999999999999"),
-	CommissionSettleType: commmgrpb.SettleType_NoCommission.String(),
-}
+var (
+	cancelMode = npool.CancelMode_CancellableBeforeBenefit
+	appGood    = ent.AppGood{
+		ID:                     uuid.New(),
+		AppID:                  uuid.New(),
+		GoodID:                 uuid.New(),
+		Online:                 true,
+		Visible:                true,
+		GoodName:               uuid.NewString(),
+		Price:                  decimal.RequireFromString("9999999999999999999.999999999999999999"),
+		DisplayIndex:           100,
+		PurchaseLimit:          100,
+		CommissionPercent:      100,
+		DailyRewardAmount:      decimal.RequireFromString("9999999999999999999.999999999999999999"),
+		CommissionSettleType:   commmgrpb.SettleType_NoCommission.String(),
+		Descriptions:           nil,
+		GoodBanner:             "",
+		DisplayNames:           nil,
+		EnablePurchase:         true,
+		EnableProductPage:      true,
+		CancelMode:             cancelMode.String(),
+		UserPurchaseLimit:      decimal.NewFromInt(100),
+		DisplayColors:          []string{uuid.NewString()},
+		CancellableBeforeStart: 100,
+		ProductPage:            uuid.NewString(),
+		EnableSetCommission:    false,
+	}
+)
 
 var (
-	id     = appGood.ID.String()
-	appID  = appGood.AppID.String()
-	goodID = appGood.GoodID.String()
-	price  = appGood.Price.String()
-	amount = appGood.DailyRewardAmount.String()
-	req    = npool.AppGoodReq{
-		ID:                &id,
-		AppID:             &appID,
-		GoodID:            &goodID,
-		Online:            &appGood.Online,
-		Visible:           &appGood.Visible,
-		GoodName:          &appGood.GoodName,
-		Price:             &price,
-		DisplayIndex:      &appGood.DisplayIndex,
-		PurchaseLimit:     &appGood.PurchaseLimit,
-		CommissionPercent: &appGood.CommissionPercent,
-		DailyRewardAmount: &amount,
+	id                = appGood.ID.String()
+	appID             = appGood.AppID.String()
+	goodID            = appGood.GoodID.String()
+	price             = appGood.Price.String()
+	amount            = appGood.DailyRewardAmount.String()
+	userPurchaseLimit = appGood.UserPurchaseLimit.String()
+	req               = npool.AppGoodReq{
+		ID:                     &id,
+		AppID:                  &appID,
+		GoodID:                 &goodID,
+		Online:                 &appGood.Online,
+		Visible:                &appGood.Visible,
+		GoodName:               &appGood.GoodName,
+		Price:                  &price,
+		DisplayIndex:           &appGood.DisplayIndex,
+		PurchaseLimit:          &appGood.PurchaseLimit,
+		CommissionPercent:      &appGood.CommissionPercent,
+		DailyRewardAmount:      &amount,
+		EnablePurchase:         &appGood.EnablePurchase,
+		EnableProductPage:      &appGood.EnableProductPage,
+		CancelMode:             &cancelMode,
+		UserPurchaseLimit:      &userPurchaseLimit,
+		DisplayColors:          appGood.DisplayColors,
+		CancellableBeforeStart: &appGood.CancellableBeforeStart,
+		ProductPage:            &appGood.ProductPage,
+		EnableSetCommission:    &appGood.EnableSetCommission,
 	}
 )
 
@@ -82,30 +106,46 @@ func create(t *testing.T) {
 func createBulk(t *testing.T) {
 	entities := []*ent.AppGood{
 		{
-			ID:                uuid.New(),
-			AppID:             uuid.New(),
-			GoodID:            uuid.New(),
-			Online:            true,
-			Visible:           true,
-			GoodName:          uuid.NewString(),
-			Price:             decimal.RequireFromString("9999999999999999999.999999999999999999"),
-			DisplayIndex:      100,
-			PurchaseLimit:     100,
-			CommissionPercent: 100,
-			DailyRewardAmount: decimal.RequireFromString("9999999999999999999.999999999999999999"),
+			ID:                     uuid.New(),
+			AppID:                  uuid.New(),
+			GoodID:                 uuid.New(),
+			Online:                 true,
+			Visible:                true,
+			GoodName:               uuid.NewString(),
+			Price:                  decimal.RequireFromString("9999999999999999999.999999999999999999"),
+			DisplayIndex:           100,
+			PurchaseLimit:          100,
+			CommissionPercent:      100,
+			DailyRewardAmount:      decimal.RequireFromString("9999999999999999999.999999999999999999"),
+			EnablePurchase:         true,
+			EnableProductPage:      true,
+			CancelMode:             cancelMode.String(),
+			UserPurchaseLimit:      decimal.NewFromInt(100),
+			DisplayColors:          []string{uuid.NewString()},
+			CancellableBeforeStart: 100,
+			ProductPage:            uuid.NewString(),
+			EnableSetCommission:    false,
 		},
 		{
-			ID:                uuid.New(),
-			AppID:             uuid.New(),
-			GoodID:            uuid.New(),
-			Online:            true,
-			Visible:           true,
-			GoodName:          uuid.NewString(),
-			Price:             decimal.RequireFromString("9999999999999999999.999999999999999999"),
-			DisplayIndex:      100,
-			PurchaseLimit:     100,
-			CommissionPercent: 100,
-			DailyRewardAmount: decimal.RequireFromString("9999999999999999999.999999999999999999"),
+			ID:                     uuid.New(),
+			AppID:                  uuid.New(),
+			GoodID:                 uuid.New(),
+			Online:                 true,
+			Visible:                true,
+			GoodName:               uuid.NewString(),
+			Price:                  decimal.RequireFromString("9999999999999999999.999999999999999999"),
+			DisplayIndex:           100,
+			PurchaseLimit:          100,
+			CommissionPercent:      100,
+			DailyRewardAmount:      decimal.RequireFromString("9999999999999999999.999999999999999999"),
+			EnablePurchase:         true,
+			EnableProductPage:      true,
+			CancelMode:             cancelMode.String(),
+			UserPurchaseLimit:      decimal.NewFromInt(100),
+			DisplayColors:          []string{uuid.NewString()},
+			CancellableBeforeStart: 100,
+			ProductPage:            uuid.NewString(),
+			EnableSetCommission:    false,
 		},
 	}
 
@@ -116,18 +156,27 @@ func createBulk(t *testing.T) {
 		_goodID := _appGood.GoodID.String()
 		_price := _appGood.Price.String()
 		_amount := _appGood.DailyRewardAmount.String()
+		_userPurchaseLimit := _appGood.UserPurchaseLimit.String()
 		reqs = append(reqs, &npool.AppGoodReq{
-			ID:                &_id,
-			AppID:             &_appID,
-			GoodID:            &_goodID,
-			Online:            &_appGood.Online,
-			Visible:           &_appGood.Visible,
-			GoodName:          &_appGood.GoodName,
-			Price:             &_price,
-			DisplayIndex:      &_appGood.DisplayIndex,
-			PurchaseLimit:     &_appGood.PurchaseLimit,
-			CommissionPercent: &_appGood.CommissionPercent,
-			DailyRewardAmount: &_amount,
+			ID:                     &_id,
+			AppID:                  &_appID,
+			GoodID:                 &_goodID,
+			Online:                 &_appGood.Online,
+			Visible:                &_appGood.Visible,
+			GoodName:               &_appGood.GoodName,
+			Price:                  &_price,
+			DisplayIndex:           &_appGood.DisplayIndex,
+			PurchaseLimit:          &_appGood.PurchaseLimit,
+			CommissionPercent:      &_appGood.CommissionPercent,
+			DailyRewardAmount:      &_amount,
+			EnablePurchase:         &_appGood.EnablePurchase,
+			EnableProductPage:      &_appGood.EnableProductPage,
+			CancelMode:             &cancelMode,
+			UserPurchaseLimit:      &_userPurchaseLimit,
+			DisplayColors:          _appGood.DisplayColors,
+			CancellableBeforeStart: &_appGood.CancellableBeforeStart,
+			ProductPage:            &_appGood.ProductPage,
+			EnableSetCommission:    &_appGood.EnableSetCommission,
 		})
 	}
 	infos, err := CreateBulk(context.Background(), reqs)

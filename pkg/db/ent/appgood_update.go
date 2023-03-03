@@ -477,6 +477,165 @@ func (agu *AppGoodUpdate) ClearDisplayNames() *AppGoodUpdate {
 	return agu
 }
 
+// SetEnablePurchase sets the "enable_purchase" field.
+func (agu *AppGoodUpdate) SetEnablePurchase(b bool) *AppGoodUpdate {
+	agu.mutation.SetEnablePurchase(b)
+	return agu
+}
+
+// SetNillableEnablePurchase sets the "enable_purchase" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableEnablePurchase(b *bool) *AppGoodUpdate {
+	if b != nil {
+		agu.SetEnablePurchase(*b)
+	}
+	return agu
+}
+
+// ClearEnablePurchase clears the value of the "enable_purchase" field.
+func (agu *AppGoodUpdate) ClearEnablePurchase() *AppGoodUpdate {
+	agu.mutation.ClearEnablePurchase()
+	return agu
+}
+
+// SetEnableProductPage sets the "enable_product_page" field.
+func (agu *AppGoodUpdate) SetEnableProductPage(b bool) *AppGoodUpdate {
+	agu.mutation.SetEnableProductPage(b)
+	return agu
+}
+
+// SetNillableEnableProductPage sets the "enable_product_page" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableEnableProductPage(b *bool) *AppGoodUpdate {
+	if b != nil {
+		agu.SetEnableProductPage(*b)
+	}
+	return agu
+}
+
+// ClearEnableProductPage clears the value of the "enable_product_page" field.
+func (agu *AppGoodUpdate) ClearEnableProductPage() *AppGoodUpdate {
+	agu.mutation.ClearEnableProductPage()
+	return agu
+}
+
+// SetCancelMode sets the "cancel_mode" field.
+func (agu *AppGoodUpdate) SetCancelMode(s string) *AppGoodUpdate {
+	agu.mutation.SetCancelMode(s)
+	return agu
+}
+
+// SetNillableCancelMode sets the "cancel_mode" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableCancelMode(s *string) *AppGoodUpdate {
+	if s != nil {
+		agu.SetCancelMode(*s)
+	}
+	return agu
+}
+
+// ClearCancelMode clears the value of the "cancel_mode" field.
+func (agu *AppGoodUpdate) ClearCancelMode() *AppGoodUpdate {
+	agu.mutation.ClearCancelMode()
+	return agu
+}
+
+// SetUserPurchaseLimit sets the "user_purchase_limit" field.
+func (agu *AppGoodUpdate) SetUserPurchaseLimit(d decimal.Decimal) *AppGoodUpdate {
+	agu.mutation.SetUserPurchaseLimit(d)
+	return agu
+}
+
+// SetNillableUserPurchaseLimit sets the "user_purchase_limit" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableUserPurchaseLimit(d *decimal.Decimal) *AppGoodUpdate {
+	if d != nil {
+		agu.SetUserPurchaseLimit(*d)
+	}
+	return agu
+}
+
+// ClearUserPurchaseLimit clears the value of the "user_purchase_limit" field.
+func (agu *AppGoodUpdate) ClearUserPurchaseLimit() *AppGoodUpdate {
+	agu.mutation.ClearUserPurchaseLimit()
+	return agu
+}
+
+// SetDisplayColors sets the "display_colors" field.
+func (agu *AppGoodUpdate) SetDisplayColors(s []string) *AppGoodUpdate {
+	agu.mutation.SetDisplayColors(s)
+	return agu
+}
+
+// ClearDisplayColors clears the value of the "display_colors" field.
+func (agu *AppGoodUpdate) ClearDisplayColors() *AppGoodUpdate {
+	agu.mutation.ClearDisplayColors()
+	return agu
+}
+
+// SetCancellableBeforeStart sets the "cancellable_before_start" field.
+func (agu *AppGoodUpdate) SetCancellableBeforeStart(u uint32) *AppGoodUpdate {
+	agu.mutation.ResetCancellableBeforeStart()
+	agu.mutation.SetCancellableBeforeStart(u)
+	return agu
+}
+
+// SetNillableCancellableBeforeStart sets the "cancellable_before_start" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableCancellableBeforeStart(u *uint32) *AppGoodUpdate {
+	if u != nil {
+		agu.SetCancellableBeforeStart(*u)
+	}
+	return agu
+}
+
+// AddCancellableBeforeStart adds u to the "cancellable_before_start" field.
+func (agu *AppGoodUpdate) AddCancellableBeforeStart(u int32) *AppGoodUpdate {
+	agu.mutation.AddCancellableBeforeStart(u)
+	return agu
+}
+
+// ClearCancellableBeforeStart clears the value of the "cancellable_before_start" field.
+func (agu *AppGoodUpdate) ClearCancellableBeforeStart() *AppGoodUpdate {
+	agu.mutation.ClearCancellableBeforeStart()
+	return agu
+}
+
+// SetProductPage sets the "product_page" field.
+func (agu *AppGoodUpdate) SetProductPage(s string) *AppGoodUpdate {
+	agu.mutation.SetProductPage(s)
+	return agu
+}
+
+// SetNillableProductPage sets the "product_page" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableProductPage(s *string) *AppGoodUpdate {
+	if s != nil {
+		agu.SetProductPage(*s)
+	}
+	return agu
+}
+
+// ClearProductPage clears the value of the "product_page" field.
+func (agu *AppGoodUpdate) ClearProductPage() *AppGoodUpdate {
+	agu.mutation.ClearProductPage()
+	return agu
+}
+
+// SetEnableSetCommission sets the "enable_set_commission" field.
+func (agu *AppGoodUpdate) SetEnableSetCommission(b bool) *AppGoodUpdate {
+	agu.mutation.SetEnableSetCommission(b)
+	return agu
+}
+
+// SetNillableEnableSetCommission sets the "enable_set_commission" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableEnableSetCommission(b *bool) *AppGoodUpdate {
+	if b != nil {
+		agu.SetEnableSetCommission(*b)
+	}
+	return agu
+}
+
+// ClearEnableSetCommission clears the value of the "enable_set_commission" field.
+func (agu *AppGoodUpdate) ClearEnableSetCommission() *AppGoodUpdate {
+	agu.mutation.ClearEnableSetCommission()
+	return agu
+}
+
 // Mutation returns the AppGoodMutation object of the builder.
 func (agu *AppGoodUpdate) Mutation() *AppGoodMutation {
 	return agu.mutation
@@ -906,6 +1065,117 @@ func (agu *AppGoodUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeJSON,
 			Column: appgood.FieldDisplayNames,
+		})
+	}
+	if value, ok := agu.mutation.EnablePurchase(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: appgood.FieldEnablePurchase,
+		})
+	}
+	if agu.mutation.EnablePurchaseCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Column: appgood.FieldEnablePurchase,
+		})
+	}
+	if value, ok := agu.mutation.EnableProductPage(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: appgood.FieldEnableProductPage,
+		})
+	}
+	if agu.mutation.EnableProductPageCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Column: appgood.FieldEnableProductPage,
+		})
+	}
+	if value, ok := agu.mutation.CancelMode(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: appgood.FieldCancelMode,
+		})
+	}
+	if agu.mutation.CancelModeCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: appgood.FieldCancelMode,
+		})
+	}
+	if value, ok := agu.mutation.UserPurchaseLimit(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
+			Value:  value,
+			Column: appgood.FieldUserPurchaseLimit,
+		})
+	}
+	if agu.mutation.UserPurchaseLimitCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
+			Column: appgood.FieldUserPurchaseLimit,
+		})
+	}
+	if value, ok := agu.mutation.DisplayColors(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeJSON,
+			Value:  value,
+			Column: appgood.FieldDisplayColors,
+		})
+	}
+	if agu.mutation.DisplayColorsCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeJSON,
+			Column: appgood.FieldDisplayColors,
+		})
+	}
+	if value, ok := agu.mutation.CancellableBeforeStart(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldCancellableBeforeStart,
+		})
+	}
+	if value, ok := agu.mutation.AddedCancellableBeforeStart(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldCancellableBeforeStart,
+		})
+	}
+	if agu.mutation.CancellableBeforeStartCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Column: appgood.FieldCancellableBeforeStart,
+		})
+	}
+	if value, ok := agu.mutation.ProductPage(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: appgood.FieldProductPage,
+		})
+	}
+	if agu.mutation.ProductPageCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: appgood.FieldProductPage,
+		})
+	}
+	if value, ok := agu.mutation.EnableSetCommission(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: appgood.FieldEnableSetCommission,
+		})
+	}
+	if agu.mutation.EnableSetCommissionCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Column: appgood.FieldEnableSetCommission,
 		})
 	}
 	_spec.Modifiers = agu.modifiers
@@ -1376,6 +1646,165 @@ func (aguo *AppGoodUpdateOne) ClearDisplayNames() *AppGoodUpdateOne {
 	return aguo
 }
 
+// SetEnablePurchase sets the "enable_purchase" field.
+func (aguo *AppGoodUpdateOne) SetEnablePurchase(b bool) *AppGoodUpdateOne {
+	aguo.mutation.SetEnablePurchase(b)
+	return aguo
+}
+
+// SetNillableEnablePurchase sets the "enable_purchase" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableEnablePurchase(b *bool) *AppGoodUpdateOne {
+	if b != nil {
+		aguo.SetEnablePurchase(*b)
+	}
+	return aguo
+}
+
+// ClearEnablePurchase clears the value of the "enable_purchase" field.
+func (aguo *AppGoodUpdateOne) ClearEnablePurchase() *AppGoodUpdateOne {
+	aguo.mutation.ClearEnablePurchase()
+	return aguo
+}
+
+// SetEnableProductPage sets the "enable_product_page" field.
+func (aguo *AppGoodUpdateOne) SetEnableProductPage(b bool) *AppGoodUpdateOne {
+	aguo.mutation.SetEnableProductPage(b)
+	return aguo
+}
+
+// SetNillableEnableProductPage sets the "enable_product_page" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableEnableProductPage(b *bool) *AppGoodUpdateOne {
+	if b != nil {
+		aguo.SetEnableProductPage(*b)
+	}
+	return aguo
+}
+
+// ClearEnableProductPage clears the value of the "enable_product_page" field.
+func (aguo *AppGoodUpdateOne) ClearEnableProductPage() *AppGoodUpdateOne {
+	aguo.mutation.ClearEnableProductPage()
+	return aguo
+}
+
+// SetCancelMode sets the "cancel_mode" field.
+func (aguo *AppGoodUpdateOne) SetCancelMode(s string) *AppGoodUpdateOne {
+	aguo.mutation.SetCancelMode(s)
+	return aguo
+}
+
+// SetNillableCancelMode sets the "cancel_mode" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableCancelMode(s *string) *AppGoodUpdateOne {
+	if s != nil {
+		aguo.SetCancelMode(*s)
+	}
+	return aguo
+}
+
+// ClearCancelMode clears the value of the "cancel_mode" field.
+func (aguo *AppGoodUpdateOne) ClearCancelMode() *AppGoodUpdateOne {
+	aguo.mutation.ClearCancelMode()
+	return aguo
+}
+
+// SetUserPurchaseLimit sets the "user_purchase_limit" field.
+func (aguo *AppGoodUpdateOne) SetUserPurchaseLimit(d decimal.Decimal) *AppGoodUpdateOne {
+	aguo.mutation.SetUserPurchaseLimit(d)
+	return aguo
+}
+
+// SetNillableUserPurchaseLimit sets the "user_purchase_limit" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableUserPurchaseLimit(d *decimal.Decimal) *AppGoodUpdateOne {
+	if d != nil {
+		aguo.SetUserPurchaseLimit(*d)
+	}
+	return aguo
+}
+
+// ClearUserPurchaseLimit clears the value of the "user_purchase_limit" field.
+func (aguo *AppGoodUpdateOne) ClearUserPurchaseLimit() *AppGoodUpdateOne {
+	aguo.mutation.ClearUserPurchaseLimit()
+	return aguo
+}
+
+// SetDisplayColors sets the "display_colors" field.
+func (aguo *AppGoodUpdateOne) SetDisplayColors(s []string) *AppGoodUpdateOne {
+	aguo.mutation.SetDisplayColors(s)
+	return aguo
+}
+
+// ClearDisplayColors clears the value of the "display_colors" field.
+func (aguo *AppGoodUpdateOne) ClearDisplayColors() *AppGoodUpdateOne {
+	aguo.mutation.ClearDisplayColors()
+	return aguo
+}
+
+// SetCancellableBeforeStart sets the "cancellable_before_start" field.
+func (aguo *AppGoodUpdateOne) SetCancellableBeforeStart(u uint32) *AppGoodUpdateOne {
+	aguo.mutation.ResetCancellableBeforeStart()
+	aguo.mutation.SetCancellableBeforeStart(u)
+	return aguo
+}
+
+// SetNillableCancellableBeforeStart sets the "cancellable_before_start" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableCancellableBeforeStart(u *uint32) *AppGoodUpdateOne {
+	if u != nil {
+		aguo.SetCancellableBeforeStart(*u)
+	}
+	return aguo
+}
+
+// AddCancellableBeforeStart adds u to the "cancellable_before_start" field.
+func (aguo *AppGoodUpdateOne) AddCancellableBeforeStart(u int32) *AppGoodUpdateOne {
+	aguo.mutation.AddCancellableBeforeStart(u)
+	return aguo
+}
+
+// ClearCancellableBeforeStart clears the value of the "cancellable_before_start" field.
+func (aguo *AppGoodUpdateOne) ClearCancellableBeforeStart() *AppGoodUpdateOne {
+	aguo.mutation.ClearCancellableBeforeStart()
+	return aguo
+}
+
+// SetProductPage sets the "product_page" field.
+func (aguo *AppGoodUpdateOne) SetProductPage(s string) *AppGoodUpdateOne {
+	aguo.mutation.SetProductPage(s)
+	return aguo
+}
+
+// SetNillableProductPage sets the "product_page" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableProductPage(s *string) *AppGoodUpdateOne {
+	if s != nil {
+		aguo.SetProductPage(*s)
+	}
+	return aguo
+}
+
+// ClearProductPage clears the value of the "product_page" field.
+func (aguo *AppGoodUpdateOne) ClearProductPage() *AppGoodUpdateOne {
+	aguo.mutation.ClearProductPage()
+	return aguo
+}
+
+// SetEnableSetCommission sets the "enable_set_commission" field.
+func (aguo *AppGoodUpdateOne) SetEnableSetCommission(b bool) *AppGoodUpdateOne {
+	aguo.mutation.SetEnableSetCommission(b)
+	return aguo
+}
+
+// SetNillableEnableSetCommission sets the "enable_set_commission" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableEnableSetCommission(b *bool) *AppGoodUpdateOne {
+	if b != nil {
+		aguo.SetEnableSetCommission(*b)
+	}
+	return aguo
+}
+
+// ClearEnableSetCommission clears the value of the "enable_set_commission" field.
+func (aguo *AppGoodUpdateOne) ClearEnableSetCommission() *AppGoodUpdateOne {
+	aguo.mutation.ClearEnableSetCommission()
+	return aguo
+}
+
 // Mutation returns the AppGoodMutation object of the builder.
 func (aguo *AppGoodUpdateOne) Mutation() *AppGoodMutation {
 	return aguo.mutation
@@ -1835,6 +2264,117 @@ func (aguo *AppGoodUpdateOne) sqlSave(ctx context.Context) (_node *AppGood, err 
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeJSON,
 			Column: appgood.FieldDisplayNames,
+		})
+	}
+	if value, ok := aguo.mutation.EnablePurchase(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: appgood.FieldEnablePurchase,
+		})
+	}
+	if aguo.mutation.EnablePurchaseCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Column: appgood.FieldEnablePurchase,
+		})
+	}
+	if value, ok := aguo.mutation.EnableProductPage(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: appgood.FieldEnableProductPage,
+		})
+	}
+	if aguo.mutation.EnableProductPageCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Column: appgood.FieldEnableProductPage,
+		})
+	}
+	if value, ok := aguo.mutation.CancelMode(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: appgood.FieldCancelMode,
+		})
+	}
+	if aguo.mutation.CancelModeCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: appgood.FieldCancelMode,
+		})
+	}
+	if value, ok := aguo.mutation.UserPurchaseLimit(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
+			Value:  value,
+			Column: appgood.FieldUserPurchaseLimit,
+		})
+	}
+	if aguo.mutation.UserPurchaseLimitCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeOther,
+			Column: appgood.FieldUserPurchaseLimit,
+		})
+	}
+	if value, ok := aguo.mutation.DisplayColors(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeJSON,
+			Value:  value,
+			Column: appgood.FieldDisplayColors,
+		})
+	}
+	if aguo.mutation.DisplayColorsCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeJSON,
+			Column: appgood.FieldDisplayColors,
+		})
+	}
+	if value, ok := aguo.mutation.CancellableBeforeStart(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldCancellableBeforeStart,
+		})
+	}
+	if value, ok := aguo.mutation.AddedCancellableBeforeStart(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: appgood.FieldCancellableBeforeStart,
+		})
+	}
+	if aguo.mutation.CancellableBeforeStartCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Column: appgood.FieldCancellableBeforeStart,
+		})
+	}
+	if value, ok := aguo.mutation.ProductPage(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: appgood.FieldProductPage,
+		})
+	}
+	if aguo.mutation.ProductPageCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: appgood.FieldProductPage,
+		})
+	}
+	if value, ok := aguo.mutation.EnableSetCommission(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: appgood.FieldEnableSetCommission,
+		})
+	}
+	if aguo.mutation.EnableSetCommissionCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Column: appgood.FieldEnableSetCommission,
 		})
 	}
 	_spec.Modifiers = aguo.modifiers

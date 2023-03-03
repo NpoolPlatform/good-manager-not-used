@@ -11,6 +11,8 @@ import (
 	"github.com/google/uuid"
 
 	commmgrpb "github.com/NpoolPlatform/message/npool/inspire/mgr/v1/commission"
+
+	npool "github.com/NpoolPlatform/message/npool/good/mgr/v1/appgood"
 )
 
 // AppGood holds the schema definition for the AppGood entity.
@@ -24,7 +26,7 @@ func (AppGood) Mixin() []ent.Mixin {
 	}
 }
 
-// Fields of the AppGood.
+//nolint:funlen
 func (AppGood) Fields() []ent.Field {
 	lDef := 3000
 	return []ent.Field{
@@ -110,6 +112,40 @@ func (AppGood) Fields() []ent.Field {
 			JSON("display_names", []string{}).
 			Optional().
 			Default([]string{}),
+		field.
+			Bool("enable_purchase").
+			Optional().
+			Default(true),
+		field.
+			Bool("enable_product_page").
+			Optional().
+			Default(true),
+		field.
+			String("cancel_mode").
+			Optional().
+			Default(npool.CancelMode_Uncancellable.String()),
+		field.
+			Other("user_purchase_limit", decimal.Decimal{}).
+			SchemaType(map[string]string{
+				dialect.MySQL: "decimal(37,18)",
+			}).
+			Optional(),
+		field.
+			JSON("display_colors", []string{}).
+			Optional().
+			Default([]string{}),
+		field.
+			Uint32("cancellable_before_start").
+			Optional().
+			Default(0),
+		field.
+			String("product_page").
+			Optional().
+			Default(""),
+		field.
+			Bool("enable_set_commission").
+			Optional().
+			Default(true),
 	}
 }
 

@@ -62,6 +62,22 @@ type AppGood struct {
 	GoodBanner string `json:"good_banner,omitempty"`
 	// DisplayNames holds the value of the "display_names" field.
 	DisplayNames []string `json:"display_names,omitempty"`
+	// EnablePurchase holds the value of the "enable_purchase" field.
+	EnablePurchase bool `json:"enable_purchase,omitempty"`
+	// EnableProductPage holds the value of the "enable_product_page" field.
+	EnableProductPage bool `json:"enable_product_page,omitempty"`
+	// CancelMode holds the value of the "cancel_mode" field.
+	CancelMode string `json:"cancel_mode,omitempty"`
+	// UserPurchaseLimit holds the value of the "user_purchase_limit" field.
+	UserPurchaseLimit decimal.Decimal `json:"user_purchase_limit,omitempty"`
+	// DisplayColors holds the value of the "display_colors" field.
+	DisplayColors []string `json:"display_colors,omitempty"`
+	// CancellableBeforeStart holds the value of the "cancellable_before_start" field.
+	CancellableBeforeStart uint32 `json:"cancellable_before_start,omitempty"`
+	// ProductPage holds the value of the "product_page" field.
+	ProductPage string `json:"product_page,omitempty"`
+	// EnableSetCommission holds the value of the "enable_set_commission" field.
+	EnableSetCommission bool `json:"enable_set_commission,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -69,15 +85,15 @@ func (*AppGood) scanValues(columns []string) ([]interface{}, error) {
 	values := make([]interface{}, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case appgood.FieldDescriptions, appgood.FieldDisplayNames:
+		case appgood.FieldDescriptions, appgood.FieldDisplayNames, appgood.FieldDisplayColors:
 			values[i] = new([]byte)
-		case appgood.FieldPrice, appgood.FieldDailyRewardAmount:
+		case appgood.FieldPrice, appgood.FieldDailyRewardAmount, appgood.FieldUserPurchaseLimit:
 			values[i] = new(decimal.Decimal)
-		case appgood.FieldOnline, appgood.FieldVisible:
+		case appgood.FieldOnline, appgood.FieldVisible, appgood.FieldEnablePurchase, appgood.FieldEnableProductPage, appgood.FieldEnableSetCommission:
 			values[i] = new(sql.NullBool)
-		case appgood.FieldCreatedAt, appgood.FieldUpdatedAt, appgood.FieldDeletedAt, appgood.FieldDisplayIndex, appgood.FieldPurchaseLimit, appgood.FieldCommissionPercent, appgood.FieldSaleStartAt, appgood.FieldSaleEndAt, appgood.FieldServiceStartAt, appgood.FieldTechnicalFeeRatio, appgood.FieldElectricityFeeRatio:
+		case appgood.FieldCreatedAt, appgood.FieldUpdatedAt, appgood.FieldDeletedAt, appgood.FieldDisplayIndex, appgood.FieldPurchaseLimit, appgood.FieldCommissionPercent, appgood.FieldSaleStartAt, appgood.FieldSaleEndAt, appgood.FieldServiceStartAt, appgood.FieldTechnicalFeeRatio, appgood.FieldElectricityFeeRatio, appgood.FieldCancellableBeforeStart:
 			values[i] = new(sql.NullInt64)
-		case appgood.FieldGoodName, appgood.FieldCommissionSettleType, appgood.FieldGoodBanner:
+		case appgood.FieldGoodName, appgood.FieldCommissionSettleType, appgood.FieldGoodBanner, appgood.FieldCancelMode, appgood.FieldProductPage:
 			values[i] = new(sql.NullString)
 		case appgood.FieldID, appgood.FieldAppID, appgood.FieldGoodID:
 			values[i] = new(uuid.UUID)
@@ -238,6 +254,56 @@ func (ag *AppGood) assignValues(columns []string, values []interface{}) error {
 					return fmt.Errorf("unmarshal field display_names: %w", err)
 				}
 			}
+		case appgood.FieldEnablePurchase:
+			if value, ok := values[i].(*sql.NullBool); !ok {
+				return fmt.Errorf("unexpected type %T for field enable_purchase", values[i])
+			} else if value.Valid {
+				ag.EnablePurchase = value.Bool
+			}
+		case appgood.FieldEnableProductPage:
+			if value, ok := values[i].(*sql.NullBool); !ok {
+				return fmt.Errorf("unexpected type %T for field enable_product_page", values[i])
+			} else if value.Valid {
+				ag.EnableProductPage = value.Bool
+			}
+		case appgood.FieldCancelMode:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field cancel_mode", values[i])
+			} else if value.Valid {
+				ag.CancelMode = value.String
+			}
+		case appgood.FieldUserPurchaseLimit:
+			if value, ok := values[i].(*decimal.Decimal); !ok {
+				return fmt.Errorf("unexpected type %T for field user_purchase_limit", values[i])
+			} else if value != nil {
+				ag.UserPurchaseLimit = *value
+			}
+		case appgood.FieldDisplayColors:
+			if value, ok := values[i].(*[]byte); !ok {
+				return fmt.Errorf("unexpected type %T for field display_colors", values[i])
+			} else if value != nil && len(*value) > 0 {
+				if err := json.Unmarshal(*value, &ag.DisplayColors); err != nil {
+					return fmt.Errorf("unmarshal field display_colors: %w", err)
+				}
+			}
+		case appgood.FieldCancellableBeforeStart:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field cancellable_before_start", values[i])
+			} else if value.Valid {
+				ag.CancellableBeforeStart = uint32(value.Int64)
+			}
+		case appgood.FieldProductPage:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field product_page", values[i])
+			} else if value.Valid {
+				ag.ProductPage = value.String
+			}
+		case appgood.FieldEnableSetCommission:
+			if value, ok := values[i].(*sql.NullBool); !ok {
+				return fmt.Errorf("unexpected type %T for field enable_set_commission", values[i])
+			} else if value.Valid {
+				ag.EnableSetCommission = value.Bool
+			}
 		}
 	}
 	return nil
@@ -331,6 +397,30 @@ func (ag *AppGood) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("display_names=")
 	builder.WriteString(fmt.Sprintf("%v", ag.DisplayNames))
+	builder.WriteString(", ")
+	builder.WriteString("enable_purchase=")
+	builder.WriteString(fmt.Sprintf("%v", ag.EnablePurchase))
+	builder.WriteString(", ")
+	builder.WriteString("enable_product_page=")
+	builder.WriteString(fmt.Sprintf("%v", ag.EnableProductPage))
+	builder.WriteString(", ")
+	builder.WriteString("cancel_mode=")
+	builder.WriteString(ag.CancelMode)
+	builder.WriteString(", ")
+	builder.WriteString("user_purchase_limit=")
+	builder.WriteString(fmt.Sprintf("%v", ag.UserPurchaseLimit))
+	builder.WriteString(", ")
+	builder.WriteString("display_colors=")
+	builder.WriteString(fmt.Sprintf("%v", ag.DisplayColors))
+	builder.WriteString(", ")
+	builder.WriteString("cancellable_before_start=")
+	builder.WriteString(fmt.Sprintf("%v", ag.CancellableBeforeStart))
+	builder.WriteString(", ")
+	builder.WriteString("product_page=")
+	builder.WriteString(ag.ProductPage)
+	builder.WriteString(", ")
+	builder.WriteString("enable_set_commission=")
+	builder.WriteString(fmt.Sprintf("%v", ag.EnableSetCommission))
 	builder.WriteByte(')')
 	return builder.String()
 }
