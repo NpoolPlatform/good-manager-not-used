@@ -3,6 +3,8 @@ package api
 import (
 	"context"
 
+	"github.com/NpoolPlatform/good-manager/api/appdefaultgood"
+
 	"github.com/NpoolPlatform/good-manager/api/appgood"
 	"github.com/NpoolPlatform/good-manager/api/comment"
 	"github.com/NpoolPlatform/good-manager/api/deviceinfo"
@@ -35,6 +37,7 @@ func Register(server grpc.ServiceRegistrar) {
 	stock.Register(server)
 	subgood.Register(server)
 	vendorlocation.Register(server)
+	appdefaultgood.Register(server)
 }
 
 func RegisterGateway(mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) error {

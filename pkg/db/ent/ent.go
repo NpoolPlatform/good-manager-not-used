@@ -10,6 +10,7 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
+	"github.com/NpoolPlatform/good-manager/pkg/db/ent/appdefaultgood"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/appgood"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/comment"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/deviceinfo"
@@ -40,6 +41,7 @@ type OrderFunc func(*sql.Selector)
 // columnChecker returns a function indicates if the column exists in the given column.
 func columnChecker(table string) func(string) error {
 	checks := map[string]func(string) bool{
+		appdefaultgood.Table: appdefaultgood.ValidColumn,
 		appgood.Table:        appgood.ValidColumn,
 		comment.Table:        comment.ValidColumn,
 		deviceinfo.Table:     deviceinfo.ValidColumn,
