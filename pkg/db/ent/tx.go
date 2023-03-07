@@ -14,6 +14,8 @@ import (
 // Tx is a transactional client that is created by calling Client.Tx().
 type Tx struct {
 	config
+	// AppDefaultGood is the client for interacting with the AppDefaultGood builders.
+	AppDefaultGood *AppDefaultGoodClient
 	// AppGood is the client for interacting with the AppGood builders.
 	AppGood *AppGoodClient
 	// Comment is the client for interacting with the Comment builders.
@@ -169,6 +171,7 @@ func (tx *Tx) Client() *Client {
 }
 
 func (tx *Tx) init() {
+	tx.AppDefaultGood = NewAppDefaultGoodClient(tx.config)
 	tx.AppGood = NewAppGoodClient(tx.config)
 	tx.Comment = NewCommentClient(tx.config)
 	tx.DeviceInfo = NewDeviceInfoClient(tx.config)
@@ -188,7 +191,7 @@ func (tx *Tx) init() {
 // of them in order to commit or rollback the transaction.
 //
 // If a closed transaction is embedded in one of the generated entities, and the entity
-// applies a query, for example: AppGood.QueryXXX(), the query will be executed
+// applies a query, for example: AppDefaultGood.QueryXXX(), the query will be executed
 // through the driver which created this transaction.
 //
 // Note that txDriver is not goroutine safe.
