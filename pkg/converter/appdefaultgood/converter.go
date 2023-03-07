@@ -15,8 +15,6 @@ func Ent2Grpc(row *ent.AppDefaultGood) *npool.AppDefaultGood {
 		AppID:      row.AppID.String(),
 		GoodID:     row.GoodID.String(),
 		CoinTypeID: row.CoinTypeID.String(),
-		CreatedAt:  row.CreatedAt,
-		UpdatedAt:  row.UpdatedAt,
 	}
 }
 
