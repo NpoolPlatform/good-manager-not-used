@@ -105,6 +105,9 @@ func CreateBulk(ctx context.Context, in []*npool.AppDefaultGoodReq) ([]*ent.AppD
 }
 
 func UpdateSet(u *ent.AppDefaultGoodUpdateOne, in *npool.AppDefaultGoodReq) (*ent.AppDefaultGoodUpdateOne, error) {
+	if in.GoodID != nil {
+		u.SetGoodID(uuid.MustParse(in.GetGoodID()))
+	}
 	return u, nil
 }
 
