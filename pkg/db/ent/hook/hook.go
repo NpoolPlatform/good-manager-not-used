@@ -9,6 +9,19 @@ import (
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent"
 )
 
+// The AppDefaultGoodFunc type is an adapter to allow the use of ordinary
+// function as AppDefaultGood mutator.
+type AppDefaultGoodFunc func(context.Context, *ent.AppDefaultGoodMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f AppDefaultGoodFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.AppDefaultGoodMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.AppDefaultGoodMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The AppGoodFunc type is an adapter to allow the use of ordinary
 // function as AppGood mutator.
 type AppGoodFunc func(context.Context, *ent.AppGoodMutation) (ent.Value, error)

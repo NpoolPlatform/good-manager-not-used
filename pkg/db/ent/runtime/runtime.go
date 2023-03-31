@@ -5,6 +5,7 @@ package runtime
 import (
 	"context"
 
+	"github.com/NpoolPlatform/good-manager/pkg/db/ent/appdefaultgood"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/appgood"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/comment"
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent/deviceinfo"
@@ -27,6 +28,38 @@ import (
 // (default values, validators, hooks and policies) and stitches it
 // to their package variables.
 func init() {
+	appdefaultgoodMixin := schema.AppDefaultGood{}.Mixin()
+	appdefaultgood.Policy = privacy.NewPolicies(appdefaultgoodMixin[0], schema.AppDefaultGood{})
+	appdefaultgood.Hooks[0] = func(next ent.Mutator) ent.Mutator {
+		return ent.MutateFunc(func(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+			if err := appdefaultgood.Policy.EvalMutation(ctx, m); err != nil {
+				return nil, err
+			}
+			return next.Mutate(ctx, m)
+		})
+	}
+	appdefaultgoodMixinFields0 := appdefaultgoodMixin[0].Fields()
+	_ = appdefaultgoodMixinFields0
+	appdefaultgoodFields := schema.AppDefaultGood{}.Fields()
+	_ = appdefaultgoodFields
+	// appdefaultgoodDescCreatedAt is the schema descriptor for created_at field.
+	appdefaultgoodDescCreatedAt := appdefaultgoodMixinFields0[0].Descriptor()
+	// appdefaultgood.DefaultCreatedAt holds the default value on creation for the created_at field.
+	appdefaultgood.DefaultCreatedAt = appdefaultgoodDescCreatedAt.Default.(func() uint32)
+	// appdefaultgoodDescUpdatedAt is the schema descriptor for updated_at field.
+	appdefaultgoodDescUpdatedAt := appdefaultgoodMixinFields0[1].Descriptor()
+	// appdefaultgood.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	appdefaultgood.DefaultUpdatedAt = appdefaultgoodDescUpdatedAt.Default.(func() uint32)
+	// appdefaultgood.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	appdefaultgood.UpdateDefaultUpdatedAt = appdefaultgoodDescUpdatedAt.UpdateDefault.(func() uint32)
+	// appdefaultgoodDescDeletedAt is the schema descriptor for deleted_at field.
+	appdefaultgoodDescDeletedAt := appdefaultgoodMixinFields0[2].Descriptor()
+	// appdefaultgood.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	appdefaultgood.DefaultDeletedAt = appdefaultgoodDescDeletedAt.Default.(func() uint32)
+	// appdefaultgoodDescID is the schema descriptor for id field.
+	appdefaultgoodDescID := appdefaultgoodFields[0].Descriptor()
+	// appdefaultgood.DefaultID holds the default value on creation for the id field.
+	appdefaultgood.DefaultID = appdefaultgoodDescID.Default.(func() uuid.UUID)
 	appgoodMixin := schema.AppGood{}.Mixin()
 	appgood.Policy = privacy.NewPolicies(appgoodMixin[0], schema.AppGood{})
 	appgood.Hooks[0] = func(next ent.Mutator) ent.Mutator {
