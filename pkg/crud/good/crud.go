@@ -266,13 +266,13 @@ func UpdateSet(info *ent.Good, in *npool.GoodReq) (*ent.GoodUpdateOne, error) {
 			}
 		}
 	}
+	ids := []uuid.UUID{}
 	if len(in.GetBenefitTIDs()) > 0 {
-		ids := []uuid.UUID{}
 		for _, id := range in.GetBenefitTIDs() {
 			ids = append(ids, uuid.MustParse(id))
 		}
-		u.SetBenefitTids(ids)
 	}
+	u.SetBenefitTids(ids)
 	if in.NextBenefitStartAmount != nil {
 		amount, err := decimal.NewFromString(in.GetNextBenefitStartAmount())
 		if err != nil {
