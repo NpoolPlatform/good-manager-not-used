@@ -247,8 +247,12 @@ func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.PromotionQuery, er
 	}
 	if conds.StartAt != nil {
 		switch conds.GetStartAt().GetOp() {
+		case cruder.LT:
+			stm.Where(promotion.StartAtLT(conds.GetStartAt().GetValue()))
 		case cruder.LTE:
 			stm.Where(promotion.StartAtLTE(conds.GetStartAt().GetValue()))
+		case cruder.GT:
+			stm.Where(promotion.StartAtGT(conds.GetStartAt().GetValue()))
 		case cruder.GTE:
 			stm.Where(promotion.StartAtGTE(conds.GetStartAt().GetValue()))
 		default:
@@ -257,8 +261,12 @@ func setQueryConds(conds *npool.Conds, cli *ent.Client) (*ent.PromotionQuery, er
 	}
 	if conds.EndAt != nil {
 		switch conds.GetEndAt().GetOp() {
+		case cruder.LT:
+			stm.Where(promotion.EndAtLT(conds.GetEndAt().GetValue()))
 		case cruder.LTE:
 			stm.Where(promotion.EndAtLTE(conds.GetEndAt().GetValue()))
+		case cruder.GT:
+			stm.Where(promotion.EndAtGT(conds.GetEndAt().GetValue()))
 		case cruder.GTE:
 			stm.Where(promotion.EndAtGTE(conds.GetEndAt().GetValue()))
 		default:
