@@ -10,8 +10,7 @@ import (
 
 	"github.com/google/uuid"
 
-	commmgrpb "github.com/NpoolPlatform/message/npool/inspire/mgr/v1/commission"
-
+	inspiretypes "github.com/NpoolPlatform/message/npool/basetypes/inspire/v1"
 	npool "github.com/NpoolPlatform/message/npool/good/mgr/v1/appgood"
 )
 
@@ -99,7 +98,7 @@ func (AppGood) Fields() []ent.Field {
 		field.
 			String("commission_settle_type").
 			Optional().
-			Default(commmgrpb.SettleType_NoCommission.String()),
+			Default(inspiretypes.SettleType_NoCommission.String()),
 		field.
 			JSON("descriptions", []string{}).
 			Optional().
