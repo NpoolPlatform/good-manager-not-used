@@ -1,8 +1,8 @@
 package appgood
 
 import (
+	inspiretypes "github.com/NpoolPlatform/message/npool/basetypes/inspire/v1"
 	npool "github.com/NpoolPlatform/message/npool/good/mgr/v1/appgood"
-	commmgrpb "github.com/NpoolPlatform/message/npool/inspire/mgr/v1/commission"
 
 	"github.com/NpoolPlatform/good-manager/pkg/db/ent"
 )
@@ -32,7 +32,7 @@ func Ent2Grpc(row *ent.AppGood) *npool.AppGood {
 		TechnicalFeeRatio:      row.TechnicalFeeRatio,
 		ElectricityFeeRatio:    row.ElectricityFeeRatio,
 		DailyRewardAmount:      row.DailyRewardAmount.String(),
-		CommissionSettleType:   commmgrpb.SettleType(commmgrpb.SettleType_value[row.CommissionSettleType]),
+		CommissionSettleType:   inspiretypes.SettleType(inspiretypes.SettleType_value[row.CommissionSettleType]),
 		Descriptions:           row.Descriptions,
 		GoodBanner:             row.GoodBanner,
 		DisplayNames:           row.DisplayNames,
