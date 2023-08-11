@@ -68,6 +68,7 @@ var (
 	price             = appGood.Price.String()
 	amount            = appGood.DailyRewardAmount.String()
 	userPurchaseLimit = appGood.UserPurchaseLimit.String()
+	settleType        = inspiretypes.SettleType_GoodOrderPayment
 	req               = npool.AppGoodReq{
 		ID:                     &id,
 		AppID:                  &appID,
@@ -79,6 +80,7 @@ var (
 		DisplayIndex:           &appGood.DisplayIndex,
 		PurchaseLimit:          &appGood.PurchaseLimit,
 		CommissionPercent:      &appGood.CommissionPercent,
+		CommissionSettleType:   &settleType,
 		DailyRewardAmount:      &amount,
 		EnablePurchase:         &appGood.EnablePurchase,
 		EnableProductPage:      &appGood.EnableProductPage,

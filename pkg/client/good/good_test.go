@@ -242,6 +242,7 @@ func deleteGood(t *testing.T) {
 	info, err := DeleteGood(context.Background(), info.ID)
 	if assert.Nil(t, err) {
 		ret.DeletedAt = info.DeletedAt
+		ret.UpdatedAt = info.UpdatedAt
 		assert.Equal(t, info, &ret)
 	}
 }
