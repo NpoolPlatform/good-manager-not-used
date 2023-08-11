@@ -46,7 +46,7 @@ var (
 		PurchaseLimit:          100,
 		CommissionPercent:      100,
 		DailyRewardAmount:      decimal.RequireFromString("9999999999999999999.999999999999999999"),
-		CommissionSettleType:   inspiretypes.SettleType_NoCommission.String(),
+		CommissionSettleType:   inspiretypes.SettleType_GoodOrderPayment.String(),
 		Descriptions:           nil,
 		GoodBanner:             "",
 		DisplayNames:           nil,

@@ -98,7 +98,7 @@ func (AppGood) Fields() []ent.Field {
 		field.
 			String("commission_settle_type").
 			Optional().
-			Default(inspiretypes.SettleType_NoCommission.String()),
+			Default(inspiretypes.SettleType_DefaultSettleType.String()),
 		field.
 			JSON("descriptions", []string{}).
 			Optional().
