@@ -14,8 +14,8 @@ import (
 	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 
 	valuedef "github.com/NpoolPlatform/message/npool"
+	inspiretypes "github.com/NpoolPlatform/message/npool/basetypes/inspire/v1"
 	npool "github.com/NpoolPlatform/message/npool/good/mgr/v1/appgood"
-	commmgrpb "github.com/NpoolPlatform/message/npool/inspire/mgr/v1/commission"
 
 	testinit "github.com/NpoolPlatform/good-manager/pkg/testinit"
 	"github.com/google/uuid"
@@ -46,7 +46,7 @@ var (
 		PurchaseLimit:          100,
 		CommissionPercent:      100,
 		DailyRewardAmount:      decimal.RequireFromString("9999999999999999999.999999999999999999"),
-		CommissionSettleType:   commmgrpb.SettleType_NoCommission.String(),
+		CommissionSettleType:   inspiretypes.SettleType_GoodOrderPayment.String(),
 		Descriptions:           nil,
 		GoodBanner:             "",
 		DisplayNames:           nil,
